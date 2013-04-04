@@ -202,7 +202,8 @@ public class Moves
      * @param desk
      * @return
      */
-    public boolean isTurnValid(Turn turn, Desk desk){
+    public boolean isTurnValid(Turn turn, Desk desk)
+    {
 
     }
 
@@ -214,12 +215,14 @@ public class Moves
      * @param desk
      * @return
      */
-    public boolean canTake(Position position, Desk desk){
+    public boolean canTake(Position position, Desk desk)
+    {
 
     }
 
 
-    public boolean canMove(Position position, Desk desk){
+    public boolean canMove(Position position, Desk desk)
+    {
 
     }
 
