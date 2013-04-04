@@ -32,10 +32,13 @@ public final class Check {
         for (row=0; row<Desk.BOARD_SIZE; row++)
             for (col=0; col<Desk.BOARD_SIZE; col++)
                 if (this_board[col][row]!=null)
-                {
+                    if (this_board[col][row].type==turnOf)
+                    {
 
-
-                }
+                        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                        //                    DODELAT
+                        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                    }
 
         return priznak_brani;
     }
