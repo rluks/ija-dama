@@ -83,65 +83,62 @@ public class Moves
         }
     }
 
-
-    //
-    public boolean Take(Desk desk, Position origin, Position dest)
+    // kontroluje jestli je tah vyhozeni validni; pokud je validni, vraci pozici vyhazovane figury, jinak vraci null --------------------------------------------------------
+    public Position isTakeValid(Desk desk, Position origin, Position dest)
     {
         Figure[][] this_board=desk.getState();
         Figure fig=this_board[origin.col][origin.row];
 
-        //kontrola, jestli je pozice dest volna a jestli je na pozici origin nějaka figurka
-        if ( (this_board[dest.col][dest.row]!=null) || (fig==null) ) return false;
+        Position pos=null;
 
+        //kontrola rozsahu pozic
+        if ((origin.col>7) || (origin.col<0)) return null;
+        if ((origin.row>7) || (origin.row<0)) return null;
+        if ((dest.col>7) || (dest.col<0)) return null;
+        if ((dest.row>7) || (dest.row<0)) return null;
+        //kontrola, jestli je pozice na kterou tahne, je volna
+        if (this_board[dest.col][dest.row]!=null) return null;
         //bily pesak
         if ( (fig.type=='P') && (fig.color=='W') )
         {
             //kontrola, jestli je dest o dva radky nize
-            if (origin.row+2!=dest.row) return false;
+            if (origin.row+2!=dest.row) return null;
             //kontrola jestli je dest o dva sloupce doprava a je mezi dest a origin cerna figurka
             Figure fig2=this_board[origin.col+1][origin.row+1];
             if ( (origin.col+2==dest.col) && (fig2!=null) && (fig2.type=='B') )
             {
-                this_board[origin.col+1][origin.row+1]=null;    //odstraneni vyhozene figurky
-                this_board[origin.col][origin.row]=null;        //presun figurky
-                this_board[dest.col][dest.row]=fig;
-                return true;
+                pos=new Position(origin.row+1, origin.col+1);
+                return pos;
             }
             //kontrola jestli je dest o dva sloupce doleva a je mezi dest a origin cerna figurka
             fig2=this_board[origin.col-1][origin.row+1];
             if ( (origin.col-2==dest.col) && (fig2!=null) && (fig2.type=='B') )
             {
-                this_board[origin.col-1][origin.row+1]=null;    //odstraneni vyhozene figurky
-                this_board[origin.col][origin.row]=null;        //presun figurky
-                this_board[dest.col][dest.row]=fig;
-                return true;
+                pos=new Position(origin.row+1, origin.col-1);
+                return pos;
             }
-            return false;
+            return null;
         }
         //cerny pesak
         if ( (fig.type=='P') && (fig.color=='B') )
         {
             //kontrola, jestli je dest o dva radky vyse
-            if (origin.row-2!=dest.row) return false;
+            if (origin.row-2!=dest.row) return null;
             //kontrola jestli je dest o dva sloupce doprava a je mezi dest a origin cerna figurka
             Figure fig2=this_board[origin.col+1][origin.row-1];
             if ( (origin.col+2==dest.col) && (fig2!=null) && (fig2.type=='W') )
             {
-                this_board[origin.col+1][origin.row-1]=null;    //odstraneni vyhozene figurky
-                this_board[origin.col][origin.row]=null;        //presun figurky
-                this_board[dest.col][dest.row]=fig;
-                return true;
+                pos=new Position(origin.row-1, origin.col+1);
+                return pos;
             }
             //kontrola jestli je dest o dva sloupce doleva a je mezi dest a origin cerna figurka
             fig2=this_board[origin.col-1][origin.row-1];
             if ( (origin.col-2==dest.col) && (fig2!=null) && (fig2.type=='W') )
             {
-                this_board[origin.col-1][origin.row-1]=null;    //odstraneni vyhozene figurky
-                this_board[origin.col][origin.row]=null;        //presun figurky
-                this_board[dest.col][dest.row]=fig;
-                return true;
+                pos=new Position(origin.row-1, origin.col-1);
+                return pos;
             }
-            return false;
+            return null;
         }
         //dama
         if (fig.type=='D')
@@ -149,21 +146,18 @@ public class Moves
             //rozdil radku a sloupcu
             int d_col=dest.col-origin.col;
             int d_row=dest.row-origin.row;
-
             //dama se pohybuje libovolne po uhlopricce - je treba zkontolovat jestli se posunula o stejny pocet sloupcu jako radku
-            if ( (Math.abs(d_row))!=(Math.abs(d_col)) ) return false;
-
-            int i_col;    //prirustky
+            if ( (Math.abs(d_row))!=(Math.abs(d_col)) ) return null;
+            //prirustky
+            int i_col;
             int i_row;
             if (d_col<0) i_col=(-1);    //nastaveni prirustku
             else i_col=(+1);
             if (d_row<0) i_row=(-1);
             else i_row=(+1);
-
+            //ciatce vlastnich a oponentovych figur na draze damy
             int vlastnich=0;
             int oponentovych=0;
-            Position vyhazovana = null;
-
             while(origin.row!=dest.row)
             {    //posuneme se na dalsi pozici
                 origin.row=origin.row+i_row;
@@ -174,18 +168,32 @@ public class Moves
                     else
                     {
                         oponentovych++;
-                        vyhazovana=new Position(origin.row, origin.col);    //ulozim si pozici vyhazovane figurky
+                        pos=new Position(origin.row, origin.col);    //ulozim si pozici vyhazovane figurky
                     }
             }
-            if (vlastnich>0) return false;        //pri vyhazovani skace pres vlastni figurky
-            if (oponentovych!=1) return false;    //pri vyhazovani skace pres vice nez jednu cernou nebo taky pres zadnou cernou
+            if (vlastnich>0) return null;        //pri vyhazovani skace pres vlastni figurky
+            if (oponentovych!=1) return null;    //pri vyhazovani skace pres vice nez jednu cernou nebo taky pres zadnou cernou
+            return pos;
+        }
+        return null;
+    }
 
+
+
+    public boolean Take(Desk desk, Position origin, Position dest)
+    {
+        Figure[][] this_board=desk.getState();
+        Figure fig=this_board[origin.col][origin.row];
+        //zavola se fce na vyhodnoceni spravnosti brani
+        Position vyhazovana=isTakeValid(desk, origin, dest);
+        if (vyhazovana==null) return false;
+        else
+        {   //pokud je brani validni, presune se braci figurka a brana figurka je odstranena
             this_board[origin.col][origin.row]=null;
             this_board[vyhazovana.col][vyhazovana.row]=null;
             this_board[dest.col][dest.row]=fig;
             return true;
         }
-        return false;
     }
 
     /**
