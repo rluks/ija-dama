@@ -7,6 +7,7 @@ public class Turn {
     public Position origin;
     public Position destination;
 
+    //TODO doplnit konstruktory
     public Turn(char playerColor, Position origin, Position destination){
 
     }

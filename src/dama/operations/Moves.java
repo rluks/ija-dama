@@ -9,7 +9,6 @@ import dama.io.Turn;
 public class Moves
 {
     //TODO col<->row
-    //TODO orientace sachovnice
 
     //kontroluje, jestli je tento pohyb figurkou mozny--------------------------------------------------------------------------------------------------------------------
     public static boolean isMoveValid(Desk desk, Turn turn)
@@ -275,7 +274,7 @@ public class Moves
 
 
     public boolean canMove(Position pos0, Desk desk)
-    {
+    {//barva pos0 muze poslat jen hrac stejne barvy
         Figure[][] this_board=desk.getState();
         Figure fig = desk.getFigureAtPosition(pos0);
 
