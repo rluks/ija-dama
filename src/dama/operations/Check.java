@@ -7,6 +7,8 @@ import dama.operations.Moves;
 
 public final class Check {
 
+    private Check(){}
+
     //v pripade ze je pocet figurek nektere barvy nulovy, vraci se true, znacici vitezstvi------------------------------------------------------------------------------------
     public static boolean isVictory(Desk desk)
     {
