@@ -16,47 +16,48 @@ public class Desk {
     public Desk()
     {
         this.board = new Figure[BOARD_SIZE][BOARD_SIZE];
-        int col,row;
+        int col, row;
+
+        //this.board[0][0] = Figure.FigureWhitePiece("Franta");
+        //this.board[0][1] = Figure.FigureWhitePiece("Pepa");
+
+        //TODO orientace sachovnice
         for (row=0; row<BOARD_SIZE; row++)
+        {
             for (col=0; col<BOARD_SIZE; col++)
             {
                 //bile figurky na sude radky a sude sloupce (sude vzhledem k indexu do pole)
                 if ( ((row==0) || (row==2)) && (col%2==0) )
-                    this.board[col][row]=Figure.FigureWhitePiece("Pepa");
+                    this.board[row][col]=Figure.FigureWhitePiece("Pepa");
 
                 //bile figurky na lichy radek a liche sloupce (liche vzhledem k indexu do pole)
                 else if ( (row==1) && (col%2==1) )
-                    this.board[col][row]=Figure.FigureWhitePiece("Pepa");
+                    this.board[row][col]=Figure.FigureWhitePiece("Pepa");
 
                 //cerne figurky na lichych radcich a lichych sloupcich (liche vzhledem k indexu do pole)
                 else if ( ((row==5) || (row==7)) && (col%2==1) )
-                    this.board[col][row]=Figure.FigureBlackPiece("Darth Pepa");
+                    this.board[row][col]=Figure.FigureBlackPiece("Darth Pepa");
 
                 //cerne figurky na sudem radku a sudych sloupcich (sude vzhledem k indexu do pole)
                 else if ( (row==6) && (col%2==0) )
-                    this.board[col][row]=Figure.FigureBlackPiece("Darth Pepa");
+                    this.board[row][col]=Figure.FigureBlackPiece("Darth Pepa");
 
                 //vsecha ostatni pole jsou prazdna (null)
-                else this.board[col][row]=null;
+                else this.board[row][col]=null;
             }
+        }
     }
 
     //vraci ukazatel na hraci plochu (board)-----------------------------------------------------------------------------------------------------------------------------
     public Figure[][] getState()
     {
-        return board;
+        return this.board;
     }
 
     //zmeni stav hraci plochy podle parametru----------------------------------------------------------------------------------------------------------------------------
-    public void setState(Figure[][] figure)
+    public void setState(Figure[][] board)
     {
-        this.board=figure;
-    }
-
-    //vraci rozmer hraci plochy------------------------------------------------------------------------------------------------------------------------------------------
-    public int getBoardSize()
-    {
-        return BOARD_SIZE;
+        this.board=board;
     }
 
     //odstrani flag mustTake u vsech figur na hraci plose----------------------------------------------------------------------------------------------------------------
@@ -65,18 +66,16 @@ public class Desk {
         int col,row;
         for (row=0; row<BOARD_SIZE; row++)
             for (col=0; col<BOARD_SIZE; col++)
-                if (this.board[col][row]!=null) this.board[col][row].mustTakeFlag=false;
+                if (this.board[row][col]!=null) this.board[row][col].mustTakeFlag=false;
+    }
+
+  //TODO public void printBoard()
+
+    public Figure getFigureAtPosition(Position position){
+        if((position.row < 0) || (position.row > 7) || (position.col < 0) || (position.col > 7)){return null;}
+        return this.board[position.row][position.col];
     }
 }
-
-
-
-
-
-
-
-
-
 
 
 

@@ -7,7 +7,7 @@ public class Turn {
     public Position origin;
     public Position destination;
 
-    private Turn(char playerColor, Position origin, Position destination){
+    public Turn(char playerColor, Position origin, Position destination){
 
     }
 
