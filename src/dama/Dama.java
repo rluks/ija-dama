@@ -1,5 +1,7 @@
 package dama;
 
+import dama.state.Desk;
+
 /**
  * Hra Dáma v Javě
  * @author Roman Lukš
@@ -18,6 +20,12 @@ public class Dama {
 
         // projekt:
         // TODO javadoc
+
+        Desk d = new Desk();
+        System.out.println("Velka sachovnice:");
+        d.printBoard();
+        System.out.println("Mala sachovnice:");
+        d.printSimpleBoard();
 
     }
 

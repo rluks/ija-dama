@@ -15,8 +15,15 @@ public class Desk {
     //konstruktor---------------------------------------------------------------------------------------------------------------------------------------------------------
     public Desk()
     {
-        this.board = new Figure[BOARD_SIZE][BOARD_SIZE];
+        this.board = new Figure[BOARD_SIZE][BOARD_SIZE];//co je implicitne za hodnoty? null?
         int col, row;
+
+        //pro jistotu
+        for (row = 0; row < BOARD_SIZE; row++){
+            for (col = 0; col < BOARD_SIZE; col++){
+                this.board[row][col] = null;
+            }
+        }
 
         this.board[0][0] = Figure.FigureWhitePiece("Stan");
         this.board[0][2] = Figure.FigureWhitePiece("Randy");
@@ -33,16 +40,16 @@ public class Desk {
 
         this.board[5][1] = Figure.FigureBlackPiece("Eric");
         this.board[5][3] = Figure.FigureBlackPiece("Mysterion");
-        this.board[5][5] = Figure.FigureBlackPiece("Mr. Black");
-        this.board[5][7] = Figure.FigureBlackPiece("Mrs. Black");
+        this.board[5][5] = Figure.FigureBlackPiece("Mr._Black");
+        this.board[5][7] = Figure.FigureBlackPiece("Mrs._Black");
         this.board[6][0] = Figure.FigureBlackPiece("Chef");
-        this.board[6][2] = Figure.FigureBlackPiece("Mr. Slave");
+        this.board[6][2] = Figure.FigureBlackPiece("Mr._Slave");
         this.board[6][4] = Figure.FigureBlackPiece("Manbearpig");
-        this.board[6][6] = Figure.FigureBlackPiece("Darth Chef");
+        this.board[6][6] = Figure.FigureBlackPiece("Darth_Chef");
         this.board[7][1] = Figure.FigureBlackPiece("Token");
-        this.board[7][3] = Figure.FigureBlackPiece("Mr. Kitty");
+        this.board[7][3] = Figure.FigureBlackPiece("Mr._Kitty");
         this.board[7][5] = Figure.FigureBlackPiece("Willzyx");
-        this.board[7][7] = Figure.FigureBlackPiece("Professor Chaos");
+        this.board[7][7] = Figure.FigureBlackPiece("Professor_Chaos");
 
 //        for (row=0; row<BOARD_SIZE; row++)
 //        {
@@ -70,13 +77,11 @@ public class Desk {
 //        }
     }
 
-    //vraci ukazatel na hraci plochu (board)-----------------------------------------------------------------------------------------------------------------------------
     public Figure[][] getState()
     {
         return this.board;
     }
 
-    //zmeni stav hraci plochy podle parametru----------------------------------------------------------------------------------------------------------------------------
     public void setState(Figure[][] board)
     {
         this.board=board;
@@ -91,11 +96,119 @@ public class Desk {
                 if (this.board[row][col]!=null) this.board[row][col].mustTakeFlag=false;
     }
 
-  //TODO public void printBoard()
+    public void printBoard(){
+        String longName = new String("BP_Professor_Chaos");
+        int maxLength = longName.length();
+        int numOfSpaces = 0;
+
+        //legenda
+        System.out.print("           ");
+        for(int i = 0; i < 8; i++){
+            System.out.print("         " + (char)(i + 'A') + "         ");
+        }
+
+        //hrana
+        System.out.println();
+        System.out.print("           ");
+        for(int i = 0; i < 152; i++){
+            System.out.print("_");
+        }
+        System.out.println();
+
+        //obsah
+        for(int row = 7; row >= 0; row--){
+            System.out.print("(pamet:" + (char)(row + '0') + ") ");
+            System.out.print((char)(row + '1'));
+            System.out.print("|");
+            for(int col = 0; col < 8; col++){
+
+                if(this.board[row][col] == null){
+                    numOfSpaces = maxLength;
+                }else{
+                    String pom;
+                    pom = this.board[row][col].color + "" + this.board[row][col].type + "_" + this.board[row][col].name;
+                    numOfSpaces = maxLength - pom.length();
+                    System.out.print(pom);
+                }
+
+              //zarovnani prazdneho mista
+                String spaces = new String();
+                for(int i = 0; i < numOfSpaces; i++){
+                    spaces += "_";
+                }
+                System.out.print(spaces + "|");
+            }
+            System.out.println((char)(row + '1'));
+        }
+
+        //legenda
+        System.out.print("           ");
+        for(int i = 0; i < 8; i++){
+            System.out.print("         " + (char)(i + 'A') + "         ");
+        }
+        System.out.println();
+    }
+
+    public void printSimpleBoard(){
+        String longName = new String("BP");
+        int maxLength = longName.length();
+        int numOfSpaces = 0;
+
+        //legenda
+        System.out.print("           ");
+        for(int i = 0; i < 8; i++){
+            System.out.print("  " + (char)(i + 'A'));
+        }
+        System.out.println();
+
+        //hrana
+        System.out.print("           ");
+        for(int i = 0; i < 24; i++){
+            System.out.print("_");
+        }
+        System.out.println();
+
+        //obsah
+        for(int row = 7; row >= 0; row--){
+            System.out.print("(pamet:" + (char)(row + '0') + ") ");
+            System.out.print((char)(row + '1'));
+            System.out.print("|");
+            for(int col = 0; col < 8; col++){
+
+                if(this.board[row][col] == null){
+                    numOfSpaces = maxLength;
+                }else{
+                    String pom;
+                    pom = this.board[row][col].color + "" + this.board[row][col].type;
+                    numOfSpaces = maxLength - pom.length();
+                    System.out.print(pom);
+                }
+
+                //zarovnani prazdneho mista
+                String spaces = new String();
+                for(int i = 0; i < numOfSpaces; i++){
+                    spaces += "_";
+                }
+                System.out.print(spaces + "|");
+            }
+            System.out.println((char)(row + '1'));
+        }
+
+        //legenda
+        System.out.print("           ");
+        for(int i = 0; i < 8; i++){
+            System.out.print("  " + (char)(i + 'A'));
+        }
+        System.out.println();
+    }
 
     public Figure getFigureAtPosition(Position position){
-        if((position.row < 0) || (position.row > 7) || (position.col < 0) || (position.col > 7)){return null;}
-        return this.board[position.row][position.col];
+
+        if((position.row < 0) || (position.row > 7) || (position.col < 0) || (position.col > 7)){
+            return null;
+        }else{
+            return this.board[position.row][position.col];
+        }
     }
 }
 
