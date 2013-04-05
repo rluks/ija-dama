@@ -18,8 +18,31 @@ public class Desk {
         this.board = new Figure[BOARD_SIZE][BOARD_SIZE];
         int col, row;
 
-        //this.board[0][0] = Figure.FigureWhitePiece("Franta");
-        //this.board[0][1] = Figure.FigureWhitePiece("Pepa");
+        this.board[0][0] = Figure.FigureWhitePiece("Stan");
+        this.board[0][2] = Figure.FigureWhitePiece("Randy");
+        this.board[0][4] = Figure.FigureWhitePiece("Sharon");
+        this.board[0][6] = Figure.FigureWhitePiece("Shelley");
+        this.board[1][1] = Figure.FigureWhitePiece("Kyle");
+        this.board[1][3] = Figure.FigureWhitePiece("Gerald");
+        this.board[1][5] = Figure.FigureWhitePiece("Sheila");
+        this.board[1][7] = Figure.FigureWhitePiece("Ike");
+        this.board[2][0] = Figure.FigureWhitePiece("Kenny");
+        this.board[2][2] = Figure.FigureWhitePiece("Jesus");
+        this.board[2][4] = Figure.FigureWhitePiece("Ned");
+        this.board[2][6] = Figure.FigureWhitePiece("Butters");
+
+        this.board[5][1] = Figure.FigureBlackPiece("Eric");
+        this.board[5][3] = Figure.FigureBlackPiece("Mysterion");
+        this.board[5][5] = Figure.FigureBlackPiece("Mr. Black");
+        this.board[5][7] = Figure.FigureBlackPiece("Mrs. Black");
+        this.board[6][0] = Figure.FigureBlackPiece("Chef");
+        this.board[6][2] = Figure.FigureBlackPiece("Mr. Slave");
+        this.board[6][4] = Figure.FigureBlackPiece("Manbearpig");
+        this.board[6][6] = Figure.FigureBlackPiece("Darth Chef");
+        this.board[7][1] = Figure.FigureBlackPiece("Token");
+        this.board[7][3] = Figure.FigureBlackPiece("Mr. Kitty");
+        this.board[7][5] = Figure.FigureBlackPiece("Willzyx");
+        this.board[7][7] = Figure.FigureBlackPiece("Professor Chaos");
 
 //        for (row=0; row<BOARD_SIZE; row++)
 //        {
