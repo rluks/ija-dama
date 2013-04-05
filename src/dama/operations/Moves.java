@@ -3,6 +3,7 @@ package dama.operations;
 import dama.state.Desk;
 import dama.state.Figure;
 import dama.state.Position;
+import dama.io.Turn;
 
 
 public class Moves
@@ -84,7 +85,7 @@ public class Moves
     }
 
     // kontroluje jestli je tah vyhozeni validni; pokud je validni, vraci pozici vyhazovane figury, jinak vraci null --------------------------------------------------------
-    public Position isTakeValid(Desk desk, Position origin, Position dest)
+    public static Position isTakeValid(Desk desk, Position origin, Position dest)
     {
         Figure[][] this_board=desk.getState();
         Figure fig=this_board[origin.col][origin.row];
@@ -204,7 +205,7 @@ public class Moves
      */
     public boolean isTurnValid(Turn turn, Desk desk)
     {
-
+        //return false;
     }
 
 
@@ -217,13 +218,13 @@ public class Moves
      */
     public boolean canTake(Position position, Desk desk)
     {
-
+        //return false;
     }
 
 
     public boolean canMove(Position position, Desk desk)
     {
-
+        //return false;
     }
 
 

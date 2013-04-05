@@ -2,10 +2,12 @@ package dama.operations;
 
 import dama.state.Desk;
 import dama.state.Figure;
+import dama.state.Position;
+import dama.operations.Moves;
 
 public final class Check {
 
-    //v pripade ze je pocet figurek nektere barvy nulovy, vraci se true, znacici vitezstvi
+    //v pripade ze je pocet figurek nektere barvy nulovy, vraci se true, znacici vitezstvi------------------------------------------------------------------------------------
     public static boolean isVictory(Desk desk)
     {
         Figure[][] this_board=desk.getState();
@@ -23,27 +25,42 @@ public final class Check {
         else return false;
     }
 
-    //kontrola jestli hrac ktery je na tahu (turnOf) musi vyhazovat nebo muze normalne jet
+    //kontrola jestli hrac ktery je na tahu (turnOf) musi vyhazovat nebo muze normalne jet------------------------------------------------------------------------------------
     public static boolean isMustTake(Desk desk, char turnOf)
     {
         Figure[][] this_board=desk.getState();
         int col,row;
-        Boolean priznak_brani=false;
+        //Boolean priznak_brani=false;
         for (row=0; row<Desk.BOARD_SIZE; row++)
             for (col=0; col<Desk.BOARD_SIZE; col++)
-                if (this_board[col][row]!=null)
-                    if (this_board[col][row].type==turnOf)
+                if ( (this_board[col][row]!=null) )
+                {    //najde figurku hrace, ktery je na tahu
+                    if (this_board[col][row].color==turnOf)
                     {
+                        Position pos0 = new Position(row, col);
+                        int i;
+                        for (i=2; i<8; i++)
+                        {    //po obou uhloprickach jede v obouch smerech a kontroluje jestli muze figurka skocit na danou pozici pohybem vyhozeni
+                            Position pos1 = new Position(row+i, col+i);
+                            if (Moves.isTakeValid(desk, pos0, pos1)!=null) return true;
+                            pos1 = new Position(row+i, col-i);
+                            if (Moves.isTakeValid(desk, pos0, pos1)!=null) return true;
+                            pos1 = new Position(row-i, col+i);
+                            if (Moves.isTakeValid(desk, pos0, pos1)!=null) return true;
+                            pos1 = new Position(row-i, col-i);
+                            if (Moves.isTakeValid(desk, pos0, pos1)!=null) return true;
 
-                        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                        //                    DODELAT
-                        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                            //pokud je figurka pesak, tak se nemusi kontrolovat cela uhlopricka
+                            if (this_board[col][row].type=='P') break;
+                        }
                     }
 
-        return priznak_brani;
+                }
+
+        return false;
     }
 
-    //kontroluj a rovnou men na damy (neni to ale spravny OOP ]:->) (to Roman: na to ti seru)
+    //kontroluj a rovnou men na damy (neni to ale spravny OOP ]:->) (to Roman: na to ti seru)----------------------------------------------------------------------------------
     public static boolean isPieceToDame(Desk desk)
     {
         Figure[][] this_board=desk.getState();
