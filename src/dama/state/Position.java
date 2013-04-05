@@ -4,11 +4,14 @@ public class Position {
     public int row;
     public int col;
 
-    public Position(int row, int col){
-
+    //konstruktor----------------------------------------------------------------------------------------------------------------------------------------------------------
+    public Position(int row, int col)
+    {
+        this.row=row;
+        this.col=col;
     }
 
-    //static metoda tridy rovnou vytvori po konverzi z retezce novou instanci pozice
+    //static metoda tridy rovnou vytvori po konverzi z retezce novou instanci pozice---------------------------------------------------------------------------------------
     public static Position positionStrToPosition(String positionStr)
     {
         //kontrola delky
@@ -27,7 +30,7 @@ public class Position {
         return pos;
     }
 
-    //pozice bude umet vracet svuj retezec
+    //pozice bude umet vracet svuj retezec----------------------------------------------------------------------------------------------------------------------------------
     public String getStr()
     {
         char pom1= (char) ( this.col + 65 );

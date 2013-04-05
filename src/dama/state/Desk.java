@@ -12,6 +12,7 @@ public class Desk {
     protected Figure[][] board;
     public static final int BOARD_SIZE = 8;
 
+    //konstruktor---------------------------------------------------------------------------------------------------------------------------------------------------------
     public Desk()
     {
         this.board = new Figure[BOARD_SIZE][BOARD_SIZE];
@@ -40,30 +41,31 @@ public class Desk {
             }
     }
 
+    //vraci ukazatel na hraci plochu (board)-----------------------------------------------------------------------------------------------------------------------------
     public Figure[][] getState()
     {
         return board;
     }
 
+    //zmeni stav hraci plochy podle parametru----------------------------------------------------------------------------------------------------------------------------
     public void setState(Figure[][] figure)
     {
         this.board=figure;
     }
 
+    //vraci rozmer hraci plochy------------------------------------------------------------------------------------------------------------------------------------------
     public int getBoardSize()
     {
         return BOARD_SIZE;
     }
 
+    //odstrani flag mustTake u vsech figur na hraci plose----------------------------------------------------------------------------------------------------------------
     public void clearMustTakeFlag()
     {
         int col,row;
         for (row=0; row<BOARD_SIZE; row++)
             for (col=0; col<BOARD_SIZE; col++)
-            {
-                if (this.board[col][row]!=null)
-                    this.board[col][row].mustTakeFlag=false;
-            }
+                if (this.board[col][row]!=null) this.board[col][row].mustTakeFlag=false;
     }
 }
 

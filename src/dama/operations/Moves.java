@@ -10,7 +10,7 @@ public class Moves
 {
 
     //kontroluje, jestli je tento pohyb figurkou mozny--------------------------------------------------------------------------------------------------------------------
-    public boolean isMoveValid(Desk desk, Position origin, Position dest)
+    public static boolean isMoveValid(Desk desk, Position origin, Position dest)
     {
         Figure[][] this_board=desk.getState();
         Figure fig=this_board[origin.col][origin.row];
@@ -180,7 +180,7 @@ public class Moves
     }
 
 
-
+    //brani----------------------------------------------------------------------------------------------------------------------------------------------------------------
     public boolean Take(Desk desk, Position origin, Position dest)
     {
         Figure[][] this_board=desk.getState();
@@ -197,6 +197,7 @@ public class Moves
         }
     }
 
+    //---------------------------------------------------------------------------------------------------------------------------------------------------------------------
     /**
      * Je tento tah proveditelný?
      * @param turn
@@ -216,15 +217,47 @@ public class Moves
      * @param desk
      * @return
      */
-    public boolean canTake(Position position, Desk desk)
+    public boolean canTake(Position pos0, Desk desk)
     {
-        //return false;
+        Figure[][] this_board=desk.getState();
+        int i;
+        for (i=2; i<8; i++)
+        {   //po obou uhloprickach jede v obouch smerech a kontroluje jestli muze figurka skocit na danou pozici pohybem vyhozeni
+            Position pos1 = new Position(pos0.row+i, pos0.col+i);
+            if (Moves.isTakeValid(desk, pos0, pos1)!=null) return true;
+            pos1 = new Position(pos0.row+i, pos0.col-i);
+            if (Moves.isTakeValid(desk, pos0, pos1)!=null) return true;
+            pos1 = new Position(pos0.row-i, pos0.col+i);
+            if (Moves.isTakeValid(desk, pos0, pos1)!=null) return true;
+            pos1 = new Position(pos0.row-i, pos0.col-i);
+            if (Moves.isTakeValid(desk, pos0, pos1)!=null) return true;
+
+            //pokud je figurka pesak, tak se nemusi kontrolovat cela uhlopricka
+            if (this_board[pos0.col][pos0.row].type=='P') break;
+        }
+        return false;
     }
 
 
-    public boolean canMove(Position position, Desk desk)
+    public boolean canMove(Position pos0, Desk desk)
     {
-        //return false;
+        Figure[][] this_board=desk.getState();
+        int i;
+        for (i=1; i<8; i++)
+        {   //po obou uhloprickach jede v obouch smerech a kontroluje jestli muze figurka skocit na danou pozici
+            Position pos1 = new Position(pos0.row+i, pos0.col+i);
+            if (isMoveValid(desk, pos0, pos1)!=true) return true;
+            pos1 = new Position(pos0.row+i, pos0.col-i);
+            if (isMoveValid(desk, pos0, pos1)!=true) return true;
+            pos1 = new Position(pos0.row-i, pos0.col+i);
+            if (isMoveValid(desk, pos0, pos1)!=true) return true;
+            pos1 = new Position(pos0.row-i, pos0.col-i);
+            if (isMoveValid(desk, pos0, pos1)!=true) return true;
+
+            //pokud je figurka pesak, tak se nemusi kontrolovat cela uhlopricka
+            if (this_board[pos0.col][pos0.row].type=='P') break;
+        }
+        return false;
     }
 
 
