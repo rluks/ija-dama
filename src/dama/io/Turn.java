@@ -7,16 +7,17 @@ public class Turn {
     public Position origin;
     public Position destination;
 
-    //TODO doplnit konstruktory
     public Turn(char playerColor, Position origin, Position destination){
-
+        this.playerColor = playerColor;
+        this.origin = origin;
+        this.destination = destination;
     }
 
-    public Turn TurnBlack(Position origin, Position destination){
-
+    public static Turn TurnBlack(Position origin, Position destination){
+        return new Turn('B', origin, destination);
     }
 
-    public Turn TurnWhite(Position origin, Position destination){
-
+    public static Turn TurnWhite(Position origin, Position destination){
+        return new Turn('W', origin, destination);
     }
 }
