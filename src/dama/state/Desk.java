@@ -97,14 +97,14 @@ public class Desk {
     }
 
     public void printBoard(){
-        String longName = new String("BP_Professor_Chaos");
+        String longName = new String("BP_Professor_Chaos");//TODO musttakeflag
         int maxLength = longName.length();
         int numOfSpaces = 0;
 
         //legenda
         System.out.print("           ");
         for(int i = 0; i < 8; i++){
-            System.out.print("         " + (char)(i + 'A') + "         ");
+            System.out.print("      (" + i + ")" + (char)(i + 'A') + "         ");
         }
 
         //hrana
@@ -144,8 +144,9 @@ public class Desk {
         //legenda
         System.out.print("           ");
         for(int i = 0; i < 8; i++){
-            System.out.print("         " + (char)(i + 'A') + "         ");
+            System.out.print("      (" + i + ")" + (char)(i + 'A') + "         ");
         }
+        System.out.println();
         System.out.println();
     }
 
@@ -153,6 +154,13 @@ public class Desk {
         String longName = new String("BP");
         int maxLength = longName.length();
         int numOfSpaces = 0;
+
+        //legenda
+        System.out.print("           ");
+        for(int i = 0; i < 8; i++){
+            System.out.print("  " + i);
+        }
+        System.out.println();
 
         //legenda
         System.out.print("           ");
@@ -198,6 +206,13 @@ public class Desk {
         System.out.print("           ");
         for(int i = 0; i < 8; i++){
             System.out.print("  " + (char)(i + 'A'));
+        }
+        System.out.println();
+
+        //legenda
+        System.out.print("           ");
+        for(int i = 0; i < 8; i++){
+            System.out.print("  " + i);
         }
         System.out.println();
     }
