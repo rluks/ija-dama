@@ -12,6 +12,7 @@ public class Figure {
         this.color = color;
         this.type = type;
         this.name = name;
+        this.mustTakeFlag = false;
     }
 
     public static Figure FigureBlackPiece(String name){
