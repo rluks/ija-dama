@@ -24,8 +24,8 @@ public class Moves
         if ((dest.col>7) || (dest.col<0)) return false;
         if ((dest.row>7) || (dest.row<0)) return false;
 
-        //kontrola, jestli je pozice na a z ktere tahne, je volna
-        if ( (this_board[dest.row][dest.col]!=null) || (this_board[origin.row][origin.col]!=null) ) return false;
+        //kontrola, jestli je pozice na a z ktere tahne, je volna a jestli je s cim tahnout
+        if ( (this_board[dest.row][dest.col]!=null) || (this_board[origin.row][origin.col]==null) ) return false;
 
         //kontrola jestli barva figurky se kterou tahneme odpovida barve hrace na tahu
         if (fig.color!=turn.playerColor) return false;
@@ -75,7 +75,7 @@ public class Moves
         return false;
     }
 
-    public boolean Move(Desk desk, Turn turn)
+    public static boolean Move(Desk desk, Turn turn)
     {
         Position origin = turn.origin;
         Position dest = turn.destination;
@@ -84,7 +84,11 @@ public class Moves
         Figure fig=this_board[origin.row][origin.col];
 
         //zavola fci na kontrolu validnosti pohybu
-        if (!isMoveValid(desk, turn)) return false;
+        if (!isMoveValid(desk, turn))
+        {
+            //System.out.println("Invalid move");
+            return false;
+        }
         else
         {    //kdyz je tah validni, presune figurku
             this_board[origin.row][origin.col]=null;
@@ -105,39 +109,39 @@ public class Moves
         Position pos=null;
 
         //kontrola rozsahu pozic
-        if ((origin.col>7) || (origin.col<0)) return null;
-        if ((origin.row>7) || (origin.row<0)) return null;
-        if ((dest.col>7) || (dest.col<0)) return null;
-        if ((dest.row>7) || (dest.row<0)) return null;
-
-        //kontrola, jestli je pozice na kterou tahne, je volna
-        if (this_board[dest.row][dest.col]!=null) return null;
-        if (this_board[origin.row][origin.col]!=null) return null;
+        if ( ((origin.col>7) || (origin.col<0)) || ((origin.row>7) || (origin.row<0)) )return null;
+        if (((dest.col>7) || (dest.col<0))||((dest.row>7) || (dest.row<0)))return null;
 
         //kontrola, jestli je pozice na a z ktere tahne, je volna
-        if ( (this_board[dest.row][dest.col]!=null) || (this_board[origin.row][origin.col]!=null) ) return null;
+        if ( (this_board[dest.row][dest.col]!=null) || (this_board[origin.row][origin.col]==null) ) return null;
 
         //kontrola jestli barva figurky se kterou tahneme odpovida barve hrace na tahu
-        if (fig.color!=turn.playerColor) return null;
+        if (fig.color!=turn.playerColor)return null;
 
         //bily pesak
         if ( (fig.type=='P') && (fig.color=='W') )
         {
             //kontrola, jestli je dest o dva radky nize
             if (origin.row+2!=dest.row) return null;
-            //kontrola jestli je dest o dva sloupce doprava a je mezi dest a origin cerna figurka
-            Figure fig2=this_board[origin.row+1][origin.col+1];
-            if ( (origin.col+2==dest.col) && (fig2!=null) && (fig2.type=='B') )
+            if ((origin.row+1<8)&&(origin.col+1<8))
             {
-                pos=new Position(origin.row+1, origin.col+1);
-                return pos;
+                //kontrola jestli je dest o dva sloupce doprava a je mezi dest a origin cerna figurka
+                Figure fig2=this_board[origin.row+1][origin.col+1];
+                if ( (origin.col+2==dest.col) && (fig2!=null) && (fig2.color=='B') )
+                {
+                    pos=new Position(origin.row+1, origin.col+1);
+                    return pos;
+                }
             }
-            //kontrola jestli je dest o dva sloupce doleva a je mezi dest a origin cerna figurka
-            fig2=this_board[origin.row+1][origin.col-1];
-            if ( (origin.col-2==dest.col) && (fig2!=null) && (fig2.type=='B') )
+            if ((origin.row+1<8)&&(origin.col-1>=0))
             {
-                pos=new Position(origin.row+1, origin.col-1);
-                return pos;
+                //kontrola jestli je dest o dva sloupce doleva a je mezi dest a origin cerna figurka
+                Figure fig2=this_board[origin.row+1][origin.col-1];
+                if ( (origin.col-2==dest.col) && (fig2!=null) && (fig2.color=='B') )
+                {
+                    pos=new Position(origin.row+1, origin.col-1);
+                    return pos;
+                }
             }
             return null;
         }
@@ -147,19 +151,36 @@ public class Moves
         {
             //kontrola, jestli je dest o dva radky vyse
             if (origin.row-2!=dest.row) return null;
-            //kontrola jestli je dest o dva sloupce doprava a je mezi dest a origin cerna figurka
-            Figure fig2=this_board[origin.row-1][origin.col+1];
-            if ( (origin.col+2==dest.col) && (fig2!=null) && (fig2.type=='W') )
+            if ((origin.row-1>=0)&&(origin.col+1<8))
             {
-                pos=new Position(origin.row-1, origin.col+1);
-                return pos;
+                //kontrola jestli je dest o dva sloupce doprava a je mezi dest a origin bila figurka
+                Figure fig2=this_board[origin.row-1][origin.col+1];
+                if ( ((origin.col+2)==(dest.col)) )
+                {
+                    if  (fig2!=null)
+                    {
+                        if (fig2.color=='W')
+                        {
+                            pos=new Position(origin.row-1, origin.col+1);
+                            return pos;
+                        }
+
+                    }
+
+                }
+
             }
-            //kontrola jestli je dest o dva sloupce doleva a je mezi dest a origin cerna figurka
-            fig2=this_board[origin.row-1][origin.col-1];
-            if ( (origin.col-2==dest.col) && (fig2!=null) && (fig2.type=='W') )
+            if ((origin.row-1>=0)&&(origin.col-1>=0))
             {
-                pos=new Position(origin.row-1, origin.col-1);
-                return pos;
+
+                //kontrola jestli je dest o dva sloupce doleva a je mezi dest a origin cerna figurka
+                Figure fig2=this_board[origin.row-1][origin.col-1];
+                if ( (origin.col-2==dest.col) && (fig2!=null) && (fig2.color=='W') )
+                {
+
+                    pos=new Position(origin.row-1, origin.col-1);
+                    return pos;
+                }
             }
             return null;
         }
@@ -205,7 +226,7 @@ public class Moves
 
 
     //brani----------------------------------------------------------------------------------------------------------------------------------------------------------------
-    public boolean Take(Desk desk, Turn turn)
+    public static boolean Take(Desk desk, Turn turn)
     {
         Position origin = turn.origin;
         Position dest = turn.destination;

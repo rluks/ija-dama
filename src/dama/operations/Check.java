@@ -22,7 +22,7 @@ public final class Check {
                 if (this_board[row][col]!=null)
                 {
                     if  (this_board[row][col].color=='B') black_count++;
-                    else white_count++;
+                    if  (this_board[row][col].color=='W') white_count++;
                 }
         if ((white_count==0)  || (black_count==0) ) return true;
         else return false;
@@ -74,8 +74,10 @@ public final class Check {
                             turn = new Turn(this_board[row][col].color, pos0, pos1);
                             if (Moves.isTakeValid(desk, turn)!=null) return true;
 
+                            //System.out.println("for");
+
                             //pokud je figurka pesak, tak se nemusi kontrolovat cela uhlopricka
-                            if (this_board[pos0.col][pos0.row].type=='P') break;
+                            if (this_board[pos0.row][pos0.col].type=='P') break;
                         }
                     }
 
