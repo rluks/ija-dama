@@ -1,6 +1,6 @@
 package dama.state;
 
-import dama.state.Figure;;
+import dama.state.Figure;
 
 /**
  * Třída Desk uchovává stav hry na šachovnici
@@ -12,10 +12,9 @@ public class Desk {
     protected Figure[][] board;
     public static final int BOARD_SIZE = 8;
 
-    //konstruktor---------------------------------------------------------------------------------------------------------------------------------------------------------
     public Desk()
     {
-        this.board = new Figure[BOARD_SIZE][BOARD_SIZE];//co je implicitne za hodnoty? null?
+        this.board = new Figure[BOARD_SIZE][BOARD_SIZE];
         int col, row;
 
         //pro jistotu
@@ -77,6 +76,31 @@ public class Desk {
 //        }
     }
 
+    @Override
+    public boolean equals(Object p){
+
+        if(p == this){return true;}
+
+        if(p == null || p.getClass() != this.getClass()){
+            return false;
+        }
+
+        Desk d = (Desk)p;
+
+        boolean OK = true;
+        for (int row = 0; row < BOARD_SIZE; row++){
+            for (int col = 0; col < BOARD_SIZE; col++){
+
+                if(this.board[row][col] != null && d.board[row][col] != null){
+                    OK = this.board[row][col].equals(d.board[row][col]);
+                    if(!OK){return false;}
+                }
+            }
+        }
+
+        return OK;
+    }
+
     public Figure[][] getState()
     {
         return this.board;
@@ -84,7 +108,7 @@ public class Desk {
 
     public void setState(Figure[][] board)
     {
-        this.board=board;
+        this.board = board;
     }
 
     //odstrani flag mustTake u vsech figur na hraci plose----------------------------------------------------------------------------------------------------------------
@@ -97,7 +121,7 @@ public class Desk {
     }
 
     public void printBoard(){
-        String longName = new String("BP_Professor_Chaos_0");//TODO musttakeflag
+        String longName = new String("BP_Professor_Chaos_0");
         int maxLength = longName.length();
         int numOfSpaces = 0;
 
