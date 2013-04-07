@@ -15,14 +15,6 @@ public class Desk {
     public Desk()
     {
         this.board = new Figure[BOARD_SIZE][BOARD_SIZE];
-        int col, row;
-
-        //pro jistotu
-        for (row = 0; row < BOARD_SIZE; row++){
-            for (col = 0; col < BOARD_SIZE; col++){
-                this.board[row][col] = null;
-            }
-        }
 
         this.board[0][0] = Figure.FigureWhitePiece("Stan");
         this.board[0][2] = Figure.FigureWhitePiece("Randy");
@@ -50,9 +42,9 @@ public class Desk {
         this.board[7][5] = Figure.FigureBlackPiece("Willzyx");
         this.board[7][7] = Figure.FigureBlackPiece("Professor_Chaos");
 
-//        for (row=0; row<BOARD_SIZE; row++)
+//        for (int row=0; row<BOARD_SIZE; row++)
 //        {
-//            for (col=0; col<BOARD_SIZE; col++)
+//            for (int col=0; col<BOARD_SIZE; col++)
 //            {
 //                //bile figurky na sude radky a sude sloupce (sude vzhledem k indexu do pole)
 //                if ( ((row==0) || (row==2)) && (col%2==0) )

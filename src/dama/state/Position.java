@@ -4,11 +4,10 @@ public class Position {
     public int row;
     public int col;
 
-    //konstruktor----------------------------------------------------------------------------------------------------------------------------------------------------------
     public Position(int row, int col)
     {
-        this.row=row;
-        this.col=col;
+        this.row = row;
+        this.col = col;
     }
 
     //static metoda tridy rovnou vytvori po konverzi z retezce novou instanci pozice---------------------------------------------------------------------------------------

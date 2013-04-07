@@ -17,6 +17,8 @@ public class Dama {
         // ukol3:
         // TODO junit testy
         // TODO ant
+        // TODO svn
+        // TODO dorobit architekturu.pdf
 
         // projekt:
         // TODO javadoc
