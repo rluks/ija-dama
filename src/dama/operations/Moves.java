@@ -210,7 +210,7 @@ public class Moves
                 origin.col=origin.row+i_col;
                 //kontroluju, jestli je v ceste figurka
                 if (this_board[origin.row][origin.col]!=null)
-                    if (this_board[origin.row][origin.col].type==fig.type) vlastnich++;
+                    if (this_board[origin.row][origin.col].color==fig.color) vlastnich++;
                     else
                     {
                         oponentovych++;
