@@ -1,15 +1,17 @@
 package dama;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
+//import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+//import static org.junit.Assert.assertTrue;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import dama.state.Desk;
+import dama.state.Figure;
+import dama.state.Position;
 
 public class TestRoman {
 
@@ -23,17 +25,35 @@ public class TestRoman {
 
     }
 
+    /** Test tridy Desk */
     @Test
-    public void test01() {
+    public void testClearMustTakeFlag() {
+
+        Desk bezeZmen = new Desk();
+        Desk budemVolatClear = new Desk();
+
+        budemVolatClear.clearMustTakeFlag();
+        assertEquals("clearMustTakeFlag volane na prave inicializovanou desku je bez efektu", bezeZmen, budemVolatClear);
+
+    }
+
+    /** Test tridy Desk */
+    @Test
+    public void testGetFigureAtPosition() {
 
         Desk d = new Desk();
 
-        Position p0 = new Position(2, 0);
-        Position p1 = new Position(3, 1);
-        Turn t = new TurnWhite();
+        Position p9i = new Position(8 ,8);//Position(row, col)
+        assertNull("Pozice p9i neexistuje.", d.getFigureAtPosition(p9i));
 
+        Position p8a = new Position(7, 0);//Position(row, col)
+        assertNull("Na pozici p8a nikdo neni", d.getFigureAtPosition(p8a));
 
-        Position p1 = d1.getPositionAt('h', 5);
+        Position p8b = new Position(7, 1);//Position(row, col)
+        Figure token = Figure.FigureBlackPiece("Token");
+        assertEquals("Na pozici 8B je Token", token, d.getFigureAtPosition(p8b));
+
+        /*        Position p1 = d1.getPositionAt('h', 5);
         Position p2 = p1.nextPosition(-1, 2);
         Position p3 = d1.getPositionAt('g', 7);
         assertEquals("Posun z pozice h5 o (-1,2) = pozice g7", p2, p3);
@@ -43,13 +63,8 @@ public class TestRoman {
         assertNull("Pozice h5 je prazda (bez figurky).", p10.getFigure());
 
         Position p11 = d1.getPositionAt('h', 12);
-        assertNull("Pozice h12 neexistuje.", p11);
-    }
-
-    /** Test tridy Desk a navazanych trid Figure (vcetne odvozenych) a Position */
-    @Test
-    public void test03() {
-        Desk d1 = new Desk(8);
+        assertNull("Pozice h12 neexistuje.", p11);*/
+ /*       Desk d1 = new Desk(8);
 
         Figure f1 = new Rook(d1.getPositionAt('d', 2));
 
@@ -73,7 +88,7 @@ public class TestRoman {
 
         Position p2 = d1.getPositionAt('g', 5);
         assertFalse("Vez se nemuze presunout z d3 na g5.", f2.canMove(p2));
-        assertFalse("Pokus o presun veze z d3 na g5 je neuspesny.", f2.move(p2));
+        assertFalse("Pokus o presun veze z d3 na g5 je neuspesny.", f2.move(p2));*/
     }
 
 }
