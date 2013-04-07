@@ -1,6 +1,6 @@
 package dama.state;
 
-import dama.state.Figure;;
+import dama.state.Figure;
 
 /**
  * Třída Desk uchovává stav hry na šachovnici
@@ -12,18 +12,9 @@ public class Desk {
     protected Figure[][] board;
     public static final int BOARD_SIZE = 8;
 
-    //konstruktor---------------------------------------------------------------------------------------------------------------------------------------------------------
     public Desk()
     {
-        this.board = new Figure[BOARD_SIZE][BOARD_SIZE];//co je implicitne za hodnoty? null?
-        int col, row;
-
-        //pro jistotu
-        for (row = 0; row < BOARD_SIZE; row++){
-            for (col = 0; col < BOARD_SIZE; col++){
-                this.board[row][col] = null;
-            }
-        }
+        this.board = new Figure[BOARD_SIZE][BOARD_SIZE];
 
         this.board[0][0] = Figure.FigureWhitePiece("Stan");
         this.board[0][2] = Figure.FigureWhitePiece("Randy");
@@ -51,9 +42,9 @@ public class Desk {
         this.board[7][5] = Figure.FigureBlackPiece("Willzyx");
         this.board[7][7] = Figure.FigureBlackPiece("Professor_Chaos");
 
-//        for (row=0; row<BOARD_SIZE; row++)
+//        for (int row=0; row<BOARD_SIZE; row++)
 //        {
-//            for (col=0; col<BOARD_SIZE; col++)
+//            for (int col=0; col<BOARD_SIZE; col++)
 //            {
 //                //bile figurky na sude radky a sude sloupce (sude vzhledem k indexu do pole)
 //                if ( ((row==0) || (row==2)) && (col%2==0) )
@@ -77,6 +68,31 @@ public class Desk {
 //        }
     }
 
+    @Override
+    public boolean equals(Object p){
+
+        if(p == this){return true;}
+
+        if(p == null || p.getClass() != this.getClass()){
+            return false;
+        }
+
+        Desk d = (Desk)p;
+
+        boolean OK = true;
+        for (int row = 0; row < BOARD_SIZE; row++){
+            for (int col = 0; col < BOARD_SIZE; col++){
+
+                if(this.board[row][col] != null && d.board[row][col] != null){
+                    OK = this.board[row][col].equals(d.board[row][col]);
+                    if(!OK){return false;}
+                }
+            }
+        }
+
+        return OK;
+    }
+
     public Figure[][] getState()
     {
         return this.board;
@@ -84,7 +100,7 @@ public class Desk {
 
     public void setState(Figure[][] board)
     {
-        this.board=board;
+        this.board = board;
     }
 
     //odstrani flag mustTake u vsech figur na hraci plose----------------------------------------------------------------------------------------------------------------
@@ -97,20 +113,20 @@ public class Desk {
     }
 
     public void printBoard(){
-        String longName = new String("BP_Professor_Chaos");//TODO musttakeflag
+        String longName = new String("BP_Professor_Chaos_0");
         int maxLength = longName.length();
         int numOfSpaces = 0;
 
         //legenda
         System.out.print("           ");
         for(int i = 0; i < 8; i++){
-            System.out.print("      (" + i + ")" + (char)(i + 'A') + "         ");
+            System.out.print("       (" + i + ")" + (char)(i + 'A') + "          ");
         }
 
         //hrana
         System.out.println();
         System.out.print("           ");
-        for(int i = 0; i < 152; i++){
+        for(int i = 0; i < 168; i++){
             System.out.print("_");
         }
         System.out.println();
@@ -126,7 +142,8 @@ public class Desk {
                     numOfSpaces = maxLength;
                 }else{
                     String pom;
-                    pom = this.board[row][col].color + "" + this.board[row][col].type + "_" + this.board[row][col].name;
+                    String flag = (this.board[row][col].mustTakeFlag == false) ? "0" : "1";
+                    pom = this.board[row][col].color + "" + this.board[row][col].type + "_" + this.board[row][col].name + "_" + flag;
                     numOfSpaces = maxLength - pom.length();
                     System.out.print(pom);
                 }
@@ -144,34 +161,34 @@ public class Desk {
         //legenda
         System.out.print("           ");
         for(int i = 0; i < 8; i++){
-            System.out.print("      (" + i + ")" + (char)(i + 'A') + "         ");
+            System.out.print("       (" + i + ")" + (char)(i + 'A') + "          ");
         }
         System.out.println();
         System.out.println();
     }
 
     public void printSimpleBoard(){
-        String longName = new String("BP");
+        String longName = new String("BP0");
         int maxLength = longName.length();
         int numOfSpaces = 0;
 
         //legenda
-        System.out.print("           ");
+        System.out.print("          ");
         for(int i = 0; i < 8; i++){
-            System.out.print("  " + i);
+            System.out.print("   " + i);
         }
         System.out.println();
 
         //legenda
-        System.out.print("           ");
+        System.out.print("          ");
         for(int i = 0; i < 8; i++){
-            System.out.print("  " + (char)(i + 'A'));
+            System.out.print("   " + (char)(i + 'A'));
         }
         System.out.println();
 
         //hrana
         System.out.print("           ");
-        for(int i = 0; i < 24; i++){
+        for(int i = 0; i < 32; i++){
             System.out.print("_");
         }
         System.out.println();
@@ -187,7 +204,8 @@ public class Desk {
                     numOfSpaces = maxLength;
                 }else{
                     String pom;
-                    pom = this.board[row][col].color + "" + this.board[row][col].type;
+                    String flag = (this.board[row][col].mustTakeFlag == false) ? "0" : "1";
+                    pom = this.board[row][col].color + "" + this.board[row][col].type + "" + flag;
                     numOfSpaces = maxLength - pom.length();
                     System.out.print(pom);
                 }
@@ -203,16 +221,16 @@ public class Desk {
         }
 
         //legenda
-        System.out.print("           ");
+        System.out.print("          ");
         for(int i = 0; i < 8; i++){
-            System.out.print("  " + (char)(i + 'A'));
+            System.out.print("   " + (char)(i + 'A'));
         }
         System.out.println();
 
         //legenda
-        System.out.print("           ");
+        System.out.print("          ");
         for(int i = 0; i < 8; i++){
-            System.out.print("  " + i);
+            System.out.print("   " + i);
         }
         System.out.println();
     }

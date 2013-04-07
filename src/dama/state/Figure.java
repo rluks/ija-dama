@@ -12,6 +12,7 @@ public class Figure {
         this.color = color;
         this.type = type;
         this.name = name;
+        this.mustTakeFlag = false;
     }
 
     public static Figure FigureBlackPiece(String name){
@@ -20,5 +21,24 @@ public class Figure {
 
     public static Figure FigureWhitePiece(String name){
         return new Figure('W', 'P', name);
+    }
+
+    @Override
+    public boolean equals(Object p){
+
+        if(p == this){return true;}
+
+        if(p == null || p.getClass() != this.getClass()){
+            return false;
+        }
+
+        Figure f = (Figure)p;
+
+        if((this.color != f.color) || (this.type != f.type) || (this.name != f.name) || (this.mustTakeFlag != f.mustTakeFlag)){
+            return false;
+        }else{
+            return true;
+        }
+
     }
 }
