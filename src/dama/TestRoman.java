@@ -10,6 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import dama.state.Desk;
+import dama.state.Position;
 
 public class TestRoman {
 

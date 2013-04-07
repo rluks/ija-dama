@@ -42,4 +42,12 @@ public class Position {
         String pom3= pom1 + "" + pom2;
         return pom3;
     }
+
+    public boolean equals(Position pos)
+    {
+        if (this==pos) return true;    //stejne reference
+        else if ( (this.row==pos.row) && (this.col==pos.col) ) return true;
+        else return false;
+    }
+
 }

@@ -9,9 +9,11 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import dama.state.Desk;
+import dama.state.*;
+import dama.operations.*;
+import dama.io.Turn;
 
-public class TestRoman {
+public class TestPavel {
 
     @Before
     public void setUp() {
@@ -24,56 +26,105 @@ public class TestRoman {
     }
 
     @Test
-    public void test01() {
+    public void test01()
+    {
+        //Test tridy Dama.State.Position
 
-        Desk d = new Desk();
+        // 0,0 = A1
+        Position p0 = new Position(0, 0);
+        String pos0=p0.getStr();
+        System.out.print("Fce pro prevod pozice \"0,0\" na \"A1\": ");
+        assertEquals("CHYBA", pos0, "A1");
+        System.out.println("OK");
+        // 0,7 = H1
+        p0 = new Position(0, 7);
+        pos0=p0.getStr();
+        System.out.print("Fce pro prevod pozice \"0,7\" na \"H1\": ");
+        assertEquals("CHYBA", pos0, "H1");
+        System.out.println("OK");
+        // 7,0 = A8
+        p0 = new Position(7, 0);
+        pos0=p0.getStr();
+        System.out.print("Fce pro prevod pozice \"7,0\" na \"A8\": ");
+        assertEquals("CHYBA", pos0, "A8");
+        System.out.println("OK");
+        // 7,7 = H8
+        p0 = new Position(7, 7);
+        pos0=p0.getStr();
+        System.out.print("Fce pro prevod pozice \"7,7\" na \"H8\": ");
+        assertEquals("CHYBA", pos0, "H8");
+        System.out.println("OK");
+        // 4,2 = C5
+        p0 = new Position(4, 2);
+        pos0=p0.getStr();
+        System.out.print("Fce pro prevod pozice \"4,2\" na \"C5\": ");
+        assertEquals("CHYBA", pos0, "C5");
+        System.out.println("OK");
+        // 3,6 = G4
+        p0 = new Position(3, 6);
+        pos0=p0.getStr();
+        System.out.print("Fce pro prevod pozice \"3,6\" na \"G4\": ");
+        assertEquals("CHYBA", pos0, "G4");
+        System.out.println("OK");
 
-        Position p0 = new Position(2, 0);
-        Position p1 = new Position(3, 1);
-        Turn t = new TurnWhite();
 
+        // A1 = 0,0
+        pos0="A1";
+        p0=Position.positionStrToPosition(pos0);
+        Position p1=new Position(0, 0);
+        System.out.print("Fce pro prevod retezce \"A1\" na pozici \"0,0\": ");
+        assertTrue("CHYBA", p0.equals(p1));
+        System.out.println("OK");
 
-        Position p1 = d1.getPositionAt('h', 5);
-        Position p2 = p1.nextPosition(-1, 2);
-        Position p3 = d1.getPositionAt('g', 7);
-        assertEquals("Posun z pozice h5 o (-1,2) = pozice g7", p2, p3);
+        pos0="A8";
+        p0=Position.positionStrToPosition(pos0);
+        p1=new Position(7, 0);
+        System.out.print("Fce pro prevod retezce \"A8\" na pozici \"7,0\": ");
+        assertTrue("CHYBA", p0.equals(p1));
+        System.out.println("OK");
 
-        Position p10 = d1.getPositionAt('h', 5);
-        assertEquals("Spravna pozice h5", p10, p1);
-        assertNull("Pozice h5 je prazda (bez figurky).", p10.getFigure());
+        pos0="H1";
+        p0=Position.positionStrToPosition(pos0);
+        p1=new Position(0, 7);
+        System.out.print("Fce pro prevod retezce \"H1\" na pozici \"0,7\": ");
+        assertTrue("CHYBA", p0.equals(p1));
+        System.out.println("OK");
 
-        Position p11 = d1.getPositionAt('h', 12);
-        assertNull("Pozice h12 neexistuje.", p11);
+        pos0="H8";
+        p0=Position.positionStrToPosition(pos0);
+        p1=new Position(7, 7);
+        System.out.print("Fce pro prevod retezce \"H8\" na pozici \"7,7\": ");
+        assertTrue("CHYBA", p0.equals(p1));
+        System.out.println("OK");
+
+        pos0="C5";
+        p0=Position.positionStrToPosition(pos0);
+        p1=new Position(4, 2);
+        System.out.print("Fce pro prevod retezce \"C5\" na pozici \"4,2\": ");
+        assertTrue("CHYBA", p0.equals(p1));
+        System.out.println("OK");
+
+        pos0="G4";
+        p0=Position.positionStrToPosition(pos0);
+        p1=new Position(3, 6);
+        System.out.print("Fce pro prevod retezce \"G4\" na pozici \"3,6\": ");
+        assertTrue("CHYBA", p0.equals(p1));
+        System.out.println("OK");
+
+        //nesmyslna pozice
+        pos0="I4";
+        p0=Position.positionStrToPosition(pos0);
+        System.out.print("Fce pro prevod retezce \"I4\" na null: ");
+        assertNull("CHYBA", p0);
+        System.out.println("OK");
+
     }
 
-    /** Test tridy Desk a navazanych trid Figure (vcetne odvozenych) a Position */
     @Test
-    public void test03() {
-        Desk d1 = new Desk(8);
-
-        Figure f1 = new Rook(d1.getPositionAt('d', 2));
-
-        Figure f2 = d1.getPositionAt('d', 2).getFigure();
-        assertEquals("Na pozici d2 je vez.", f2, f1);
-
-        Figure f21 = d1.getFigureAt('d', 2);
-        assertEquals("Na pozici d2 je vez", f21, f1);
-        Figure f22 = d1.getFigureAt('d', 5);
-        assertNull("Pozice d5 je prazda (bez figurky).", f22);
+    public void test02()
+    {
 
 
-        Position p1 = d1.getPositionAt('d', 3);
-        assertTrue("Vez se muze presunout z d2 na d3.", f2.canMove(p1));
-        assertTrue("Vez se presune z d2 na d3.", f2.move(p1));
-        assertTrue("Pozice d2 je prazdna", d1.getPositionAt('d', 2).getFigure() == null);
-
-        Figure f3 = d1.getPositionAt('d', 3).getFigure();
-        assertEquals("Na pozici d3 je vez.", f3, f1);
-        assertEquals("Vez je na pozici d3.", f3.getPosition(), p1);
-
-        Position p2 = d1.getPositionAt('g', 5);
-        assertFalse("Vez se nemuze presunout z d3 na g5.", f2.canMove(p2));
-        assertFalse("Pokus o presun veze z d3 na g5 je neuspesny.", f2.move(p2));
     }
 
 }
