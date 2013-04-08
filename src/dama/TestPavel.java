@@ -165,6 +165,42 @@ public class TestPavel {
         d.printSimpleBoard();
         assertTrue("Bily hrac MA koho brat", Check.isMustTake(d, 'W'));
 
+        origin=new Position(2, 4);
+        dest=new Position(4, 2);
+        t = Turn.TurnWhite(origin, dest);
+        assertTrue("Bily hrac MA koho brat", Check.isMustTake(d, 'W'));
+        assertTrue("Brani E3->x->C5", Moves.Take(d, t));
+        d.printSimpleBoard();
+
+
+        //hratky s damami
+        for (int row=0;row<8;row++)
+            for (int col=0;col<8;col++)
+            {
+                if ((col==1) && (row==7)) continue;
+                else if ((col==3) && (row==7)) this_board[row][col].color='W';
+                else if ((col==2) && (row==0)) continue;
+                else if ((col==4) && (row==0)) this_board[row][col].color='B';
+                else this_board[row][col]=null;
+            }
+        d.printSimpleBoard();
+
+        assertTrue("zmena pesaku na damy", Check.isPieceToDame(d));
+        d.printSimpleBoard();
+        assertEquals("Na D8 je dama", 'D', this_board[7][3].type);
+        assertEquals("Na E1 je dama", 'D', this_board[0][4].type);
+
+        this_board[1][3]= Figure.FigureWhitePiece("random victim");
+        d.printSimpleBoard();
+
+        origin=new Position(0, 4);
+        dest=new Position(4, 0);
+        t = Turn.TurnBlack(origin, dest);
+        assertTrue("Cerny hrac MA koho brat", Check.isMustTake(d, 'B'));
+        assertTrue("Brani E3->x->C5", Moves.Take(d, t));
+        d.printSimpleBoard();
+
+
 
 
 

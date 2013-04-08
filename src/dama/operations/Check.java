@@ -40,49 +40,44 @@ public final class Check {
                 {    //najde figurku hrace, ktery je na tahu
                     if (this_board[row][col].color==turnOf)
                     {
+                        //System.out.println("row: " + row + "; col: " +  col);
+
                         Position pos0 = new Position(row, col);
+                        Position pos0_zaloha = new Position(row, col);
                         int i;
                         for (i=2; i<8; i++)
                         {    //po obou uhloprickach jede v obouch smerech a kontroluje jestli muze figurka skocit na danou pozici pohybem vyhozeni
-                            /*
+                             //System.out.println("\t" + i + ".");
+
+                            System.out.println("for!!!!!!!!!!!!!!!!!!!!");
+
                             Position pos1 = new Position(row+i, col+i);
-                            if (Moves.isTakeValid(desk, pos0, pos1)!=null) return true;
-                            pos1 = new Position(row+i, col-i);
-                            if (Moves.isTakeValid(desk, pos0, pos1)!=null) return true;
-                            pos1 = new Position(row-i, col+i);
-                            if (Moves.isTakeValid(desk, pos0, pos1)!=null) return true;
-                            pos1 = new Position(row-i, col-i);
-                            if (Moves.isTakeValid(desk, pos0, pos1)!=null) return true;
-
-                            //pokud je figurka pesak, tak se nemusi kontrolovat cela uhlopricka
-                            if (this_board[row][col].type=='P') break;
-                            */
-
-                            Position pos1 = new Position(pos0.row+i, pos0.col+i);
                             Turn turn = new Turn(this_board[row][col].color, pos0, pos1);
                             if (Moves.isTakeValid(desk, turn)!=null) return true;
 
-                            pos1 = new Position(pos0.row+i, pos0.col-i);
+                            pos0 = new Position(pos0_zaloha.row, pos0_zaloha.col);
+                            pos1 = new Position(row+i, col-i);
                             turn = new Turn(this_board[row][col].color, pos0, pos1);
                             if (Moves.isTakeValid(desk, turn)!=null) return true;
 
-                            pos1 = new Position(pos0.row-i, pos0.col+i);
+                            pos1 = new Position(row-i, col+i);
                             turn = new Turn(this_board[row][col].color, pos0, pos1);
                             if (Moves.isTakeValid(desk, turn)!=null) return true;
 
-                            pos1 = new Position(pos0.row-i, pos0.col-i);
+                            pos1 = new Position(row-i, col-i);
                             turn = new Turn(this_board[row][col].color, pos0, pos1);
                             if (Moves.isTakeValid(desk, turn)!=null) return true;
 
-                            //System.out.println("for");
+
 
                             //pokud je figurka pesak, tak se nemusi kontrolovat cela uhlopricka
-                            if (this_board[pos0.row][pos0.col].type=='P') break;
+
+                            if (this_board[row][col].type=='P') break;
                         }
                     }
 
                 }
-
+        System.out.println("false");
         return false;
     }
 
@@ -95,13 +90,13 @@ public final class Check {
         for (col=0; col<Desk.BOARD_SIZE; col++)
         {
             //bile zacinaji v radach 0-2, damou se stavaji v rade 7
-            if (this_board[7][col].color=='W')
+            if ( (this_board[7][col]!=null) && (this_board[7][col].color=='W') )
             {
                 this_board[7][col].type='D';
                 priznak_zmeny=true;
             }
             //cerni zacinaji v radach 5-7, damou se stavaji v rade 0
-            if (this_board[0][col].color=='B')
+            if ((this_board[0][col]!=null) && (this_board[0][col].color=='B'))
             {
                 this_board[0][col].type='D';
                 priznak_zmeny=true;

@@ -100,8 +100,14 @@ public class Moves
     // kontroluje jestli je tah vyhozeni validni; pokud je validni, vraci pozici vyhazovane figury, jinak vraci null --------------------------------------------------------
     public static Position isTakeValid(Desk desk, Turn turn)
     {
+
         Position origin = turn.origin;
         Position dest = turn.destination;
+
+        System.out.println("----------------");
+
+        System.out.println("\torigin:\t" + origin.row + "," + origin.col);
+        System.out.println("\tdest:\t" + dest.row + "," + dest.col);
 
         Figure[][] this_board=desk.getState();
         Figure fig=this_board[origin.row][origin.col];
@@ -118,9 +124,14 @@ public class Moves
         //kontrola jestli barva figurky se kterou tahneme odpovida barve hrace na tahu
         if (fig.color!=turn.playerColor)return null;
 
+        System.out.println("itw po kontrolach");
+        //System.out.println("\torigin:\t" + origin.row + "," + origin.col);
+        //System.out.println("\tdest:\t" + dest.row + "," + dest.col);
+
         //bily pesak
         if ( (fig.type=='P') && (fig.color=='W') )
         {
+            System.out.println("\tbily pesak");
             //kontrola, jestli je dest o dva radky nize
             if (origin.row+2!=dest.row) return null;
             if ((origin.row+1<8)&&(origin.col+1<8))
@@ -149,6 +160,7 @@ public class Moves
         //cerny pesak
         if ( (fig.type=='P') && (fig.color=='B') )
         {
+            System.out.println("\tcerny pesak");
             //kontrola, jestli je dest o dva radky vyse
             if (origin.row-2!=dest.row) return null;
             if ((origin.row-1>=0)&&(origin.col+1<8))
@@ -188,11 +200,14 @@ public class Moves
         //dama
         if (fig.type=='D')
         {
+            System.out.println("\tDama");
+
             //rozdil radku a sloupcu
             int d_col=dest.col-origin.col;
             int d_row=dest.row-origin.row;
             //dama se pohybuje libovolne po uhlopricce - je treba zkontolovat jestli se posunula o stejny pocet sloupcu jako radku
             if ( (Math.abs(d_row))!=(Math.abs(d_col)) ) return null;
+
 
             //prirustky
             int i_col;
@@ -204,18 +219,33 @@ public class Moves
             //ciatce vlastnich a oponentovych figur na draze damy
             int vlastnich=0;
             int oponentovych=0;
+
             while(origin.row!=dest.row)
             {    //posuneme se na dalsi pozici
+                //System.out.println("\torigin:\t" + origin.row + "," + origin.col);
                 origin.row=origin.row+i_row;
-                origin.col=origin.row+i_col;
+                //System.out.println("\torigin:\t" + origin.row + "," + origin.col);
+                origin.col=origin.col+i_col;
+                //System.out.println("\torigin:\t" + origin.row + "," + origin.col);
+                //System.out.println("***************");
+                //System.out.println("\tdest:\t" + dest.row + "," + dest.col);
+
                 //kontroluju, jestli je v ceste figurka
+                //System.out.println("Dama2.5");
+                //System.out.println("r: " + origin.row + "; c: " + origin.col );
                 if (this_board[origin.row][origin.col]!=null)
-                    if (this_board[origin.row][origin.col].color==fig.color) vlastnich++;
+                {
+                    //System.out.println("r: " + origin.row + "; c: " + origin.col );
+                    if (this_board[origin.row][origin.col].color==fig.color)
+                    {
+                        vlastnich++;
+                    }
                     else
                     {
                         oponentovych++;
                         pos=new Position(origin.row, origin.col);    //ulozim si pozici vyhazovane figurky
                     }
+                }
             }
             if (vlastnich>0) return null;        //pri vyhazovani skace pres vlastni figurky
             if (oponentovych!=1) return null;    //pri vyhazovani skace pres vice nez jednu cernou nebo taky pres zadnou cernou
@@ -236,7 +266,11 @@ public class Moves
 
         //zavola se fce na vyhodnoceni spravnosti brani
         Position vyhazovana=isTakeValid(desk, turn);
-        if (vyhazovana==null) return false;
+        if (vyhazovana==null)
+        {
+            //System.out.println("Vyhazovana=null");
+            return false;
+        }
         else
         {   //pokud je brani validni, presune se braci figurka a brana figurka je odstranena
             this_board[origin.row][origin.col]=null;
