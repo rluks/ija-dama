@@ -33,7 +33,7 @@ public final class Check {
     {
         Figure[][] this_board=desk.getState();
         int col,row;
-        //Boolean priznak_brani=false;
+        Boolean priznak_brani=false;
         for (row=0; row<Desk.BOARD_SIZE; row++)
             for (col=0; col<Desk.BOARD_SIZE; col++)
                 if ( (this_board[row][col]!=null) )
@@ -53,23 +53,33 @@ public final class Check {
 
                             Position pos1 = new Position(row+i, col+i);
                             Turn turn = new Turn(this_board[row][col].color, pos0, pos1);
-                            if (Moves.isTakeValid(desk, turn)!=null) return true;
-
+                            if (Moves.isTakeValid(desk, turn)!=null)
+                            {
+                                this_board[row][col].mustTakeFlag=true;
+                                priznak_brani = true;
+                            }
                             pos0 = new Position(pos0_zaloha.row, pos0_zaloha.col);
                             pos1 = new Position(row+i, col-i);
                             turn = new Turn(this_board[row][col].color, pos0, pos1);
-                            if (Moves.isTakeValid(desk, turn)!=null) return true;
-
+                            if (Moves.isTakeValid(desk, turn)!=null)
+                            {
+                                this_board[row][col].mustTakeFlag=true;
+                                priznak_brani = true;
+                            }
                             pos1 = new Position(row-i, col+i);
                             turn = new Turn(this_board[row][col].color, pos0, pos1);
-                            if (Moves.isTakeValid(desk, turn)!=null) return true;
-
+                            if (Moves.isTakeValid(desk, turn)!=null)
+                            {
+                                this_board[row][col].mustTakeFlag=true;
+                                priznak_brani = true;
+                            }
                             pos1 = new Position(row-i, col-i);
                             turn = new Turn(this_board[row][col].color, pos0, pos1);
-                            if (Moves.isTakeValid(desk, turn)!=null) return true;
-
-
-
+                            if (Moves.isTakeValid(desk, turn)!=null)
+                            {
+                                this_board[row][col].mustTakeFlag=true;
+                                priznak_brani = true;
+                            }
                             //pokud je figurka pesak, tak se nemusi kontrolovat cela uhlopricka
 
                             if (this_board[row][col].type=='P') break;
@@ -78,7 +88,7 @@ public final class Check {
 
                 }
         //System.out.println("false");
-        return false;
+        return priznak_brani;
     }
 
     //kontroluj a rovnou men na damy (neni to ale spravny OOP ]:->) (to Roman: na to ti seru)----------------------------------------------------------------------------------
