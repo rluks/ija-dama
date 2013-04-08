@@ -197,13 +197,45 @@ public class TestPavel {
         dest=new Position(4, 0);
         t = Turn.TurnBlack(origin, dest);
         assertTrue("Cerny hrac MA koho brat", Check.isMustTake(d, 'B'));
-        assertTrue("Brani E3->x->C5", Moves.Take(d, t));
+        assertTrue("Brani E1->x->A5", Moves.Take(d, t));
+        d.printSimpleBoard();
+
+        this_board[3][1]= Figure.FigureWhitePiece("random victim");
+        this_board[2][2]= Figure.FigureBlackPiece("random victim");
+
+        origin=new Position(4, 0);
+        dest=new Position(0, 4);
+        assertFalse("Cerny hrac nema koho brat", Check.isMustTake(d, 'B'));
+        assertFalse("Pohyb A5->E1(pres dve figurky)", Moves.Move(d, t));
+        assertFalse("Brani A5->x->E1(pres dve figurky)", Moves.Take(d, t));
         d.printSimpleBoard();
 
 
 
 
 
+        //canTake a canMove
+
+        assertTrue("Dama na A5 se ma kam pohnout", Moves.canMove(origin, d));
+        assertFalse("Dama na A5 nema co vyhodit", Moves.canTake(origin, d));
+        this_board[2][2]= null;
+        assertTrue("Dama na A5 MA co vyhodit", Moves.canTake(origin, d));
+        d.printSimpleBoard();
+        origin=new Position(0, 2);
+        assertTrue("Pesak na C1 se ma kam pohnout", Moves.canMove(origin, d));
+        assertFalse("Pesak na C1 nema co vyhodit", Moves.canTake(origin, d));
+
+        d = new Desk();
+        d.printSimpleBoard();
+
+        assertTrue("Pesak na C1 se nema kam pohnout", Moves.canMove(origin, d));
+        assertFalse("Pesak na C1 nema co vyhodit", Moves.canTake(origin, d));
+
+        this_board[0][2].type='D';
+        d.printSimpleBoard();
+
+        assertTrue("Dama na C1 se nema kam pohnout", Moves.canMove(origin, d));
+        assertFalse("Dama na C1 nema co vyhodit", Moves.canTake(origin, d));
 
 
 
