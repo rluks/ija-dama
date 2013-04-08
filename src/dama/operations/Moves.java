@@ -47,6 +47,11 @@ public class Moves
         //dama
         if (fig.type=='D')
         {
+            /*System.out.println("Dama");
+            System.out.println("origin:\t" + origin.row + "," + origin.col);
+            System.out.println("dest:\t" + dest.row + "," + dest.col);
+            */
+
             //rozdil radku a sloupcu
             int d_col= dest.col-origin.col;
             int d_row= dest.row-origin.row;
@@ -66,7 +71,7 @@ public class Moves
             while(origin.row!=dest.row)
             {    //posuneme se na dalsi pozici
                 origin.row=origin.row+i_row;
-                origin.col=origin.row+i_col;
+                origin.col=origin.col+i_col;
                 //kontroluju, jestli je v ceste figurka
                 if (this_board[origin.row][origin.col]!=null) jeToDobry=false;
             }
@@ -358,29 +363,43 @@ public class Moves
 
         for (int i=1; i<8; i++)
         {   //po obou uhloprickach jede v obouch smerech a kontroluje jestli muze figurka skocit na danou pozici
+            //System.out.println("Pesak 1");
+
+            pos0=new Position(pos0_zaloha.row, pos0_zaloha.col);
             Position pos1 = new Position(pos0.row+i, pos0.col+i);
-            pos0=new Position(pos0_zaloha.row, pos0_zaloha.col);
             Turn turn = new Turn(fig.color, pos0, pos1);
-            if (isMoveValid(desk, turn)!=true) return true;
+            if (isMoveValid(desk, turn)==true) return true;
 
+            //System.out.println("Pesak 2");
+
+            pos0=new Position(pos0_zaloha.row, pos0_zaloha.col);
             pos1 = new Position(pos0.row+i, pos0.col-i);
-            pos0=new Position(pos0_zaloha.row, pos0_zaloha.col);
             turn = new Turn(fig.color, pos0, pos1);
-            if (isMoveValid(desk, turn)!=true) return true;
+            if (isMoveValid(desk, turn)==true) return true;
 
+            //System.out.println("Pesak 3");
+
+            pos0=new Position(pos0_zaloha.row, pos0_zaloha.col);
             pos1 = new Position(pos0.row-i, pos0.col+i);
-            pos0=new Position(pos0_zaloha.row, pos0_zaloha.col);
             turn = new Turn(fig.color, pos0, pos1);
-            if (isMoveValid(desk, turn)!=true) return true;
+            if (isMoveValid(desk, turn)==true) return true;
 
-            pos1 = new Position(pos0.row-i, pos0.col-i);
+            //System.out.println("Pesak 4");
+
             pos0=new Position(pos0_zaloha.row, pos0_zaloha.col);
+            pos1 = new Position(pos0.row-i, pos0.col-i);
             turn = new Turn(fig.color, pos0, pos1);
-            if (isMoveValid(desk, turn)!=true) return true;
+            if (isMoveValid(desk, turn)==true) return true;
+
+            //System.out.println("Pesak 5");
 
             pos0=new Position(pos0_zaloha.row, pos0_zaloha.col);
             //pokud je figurka pesak, tak se nemusi kontrolovat cela uhlopricka
-            if (this_board[pos0.row][pos0.col].type=='P') break;
+            if (this_board[pos0.row][pos0.col].type=='P')
+            {
+                //System.out.println("Pesak end");
+                break;
+            }
         }
         return false;
     }

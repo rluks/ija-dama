@@ -226,18 +226,29 @@ public class TestPavel {
         assertFalse("Pesak na C1 nema co vyhodit", Moves.canTake(origin, d));
 
         d = new Desk();
+        this_board=d.getState();
         d.printSimpleBoard();
+        origin=new Position(0, 2);
 
-        assertTrue("Pesak na C1 se nema kam pohnout", Moves.canMove(origin, d));
+        assertFalse("Pesak na C1 se nema kam pohnout", Moves.canMove(origin, d));
         assertFalse("Pesak na C1 nema co vyhodit", Moves.canTake(origin, d));
+        d.printSimpleBoard();
 
         this_board[0][2].type='D';
-        d.printSimpleBoard();
 
-        assertTrue("Dama na C1 se nema kam pohnout", Moves.canMove(origin, d));
+
+        System.out.println("!!!!!!!!!!!");
+        d.printSimpleBoard();
+        assertFalse("Dama na C1 se nema kam pohnout", Moves.canMove(origin, d));
         assertFalse("Dama na C1 nema co vyhodit", Moves.canTake(origin, d));
 
+        this_board[3][3]=Figure.FigureBlackPiece("random");
+        d.printSimpleBoard();
 
+        origin=new Position(2, 2);
+        assertTrue("Pesak na C3 MA co vyhodit", Moves.canTake(origin, d));
+        origin=new Position(2, 4);
+        assertTrue("Pesak na E3 MA co vyhodit", Moves.canTake(origin, d));
 
 
     }
