@@ -15,10 +15,9 @@ public class Dama {
      */
     public static void main(String[] args) {
         // ukol3:
-        // TODO junit testy
         // TODO ant
-        // TODO svn
         // TODO dorobit architekturu.pdf
+        // TODO svn
 
         // projekt:
         // TODO javadoc
