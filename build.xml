@@ -22,6 +22,19 @@
             classpath="${lib}/junit-4.10.jar:${src}" />
 	</target>
 	
+	<target name="run" depends="clean, compile">
+        <junit fork="yes" printsummary="on" showoutput="true" enableTestListenerEvents="true">
+            <jvmarg value="-ea"/>
+            <classpath>
+                <pathelement path="${build}"/>
+                <pathelement location="lib/junit-4.10.jar"/>
+            </classpath>
+            <!--<formatter type="plain"/>-->
+            <test name="dama.TestDama"/> <!--outfile="testout"-->
+        </junit>
+    </target>
+	
+	<!--
 	<target name="jar" depends="clean,compile">
             <mkdir dir="${dest}"/>
             <jar destfile="${dest}/dama.jar" basedir="${build}">
@@ -36,24 +49,10 @@
 		
 		
 		
-	<target name="run" depends="jar">
+	<target name="test" depends="jar">
         <java jar="${dest}/dama.jar" dir="${dest}" fork="true"/>
 	</target>
-    
-    <target name="test" depends="clean, compile">
-        <junit fork="yes" printsummary="on" showoutput="true" enableTestListenerEvents="true">
-            <jvmarg value="-ea"/>
-            <classpath>
-                <pathelement path="${build}"/>
-                <pathelement location="lib/junit-4.10.jar"/>
-            </classpath>
-            <formatter type="plain"/>
-            <test name="dama.TestDama" outfile="testout"/>
-        </junit>
-    </target>
-	
-	
-    
+    -->
     
 </project>
  
