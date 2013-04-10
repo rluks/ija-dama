@@ -2,7 +2,7 @@
 <project name="IJA-projekt" default="compile" basedir=".">
     
 	<property name="src" location="./src/dama" />
-    <property name="build" location="./build/dama" />
+    <property name="build" location="./build" />
 	<property name="lib" location="./lib" />
     <property name="dest" location="./dest" />
 
@@ -39,6 +39,18 @@
 	<target name="run" depends="jar">
         <java jar="${dest}/dama.jar" dir="${dest}" fork="true"/>
 	</target>
+    
+    <target name="test" depends="clean, compile">
+        <junit fork="yes" printsummary="on" showoutput="true" enableTestListenerEvents="true">
+            <jvmarg value="-ea"/>
+            <classpath>
+                <pathelement path="${build}"/>
+                <pathelement location="lib/junit-4.10.jar"/>
+            </classpath>
+            <formatter type="plain"/>
+            <test name="dama.TestDama" outfile="testout"/>
+        </junit>
+    </target>
 	
 	
     
