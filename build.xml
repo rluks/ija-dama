@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="IJA-projekt" default="compile" basedir=".">
-    
-	<property name="src" location="./src/dama" />
+
+    <property name="src" location="./src/dama" />
     <property name="build" location="./build" />
-	<property name="lib" location="./lib" />
+    <property name="lib" location="./lib" />
     <property name="dest" location="./dest" />
 
-	   
+
     <target name="clean">
-        <delete dir="${build}"/>	
-        <delete dir="${dest}"/>	        
-    </target> 
- 
-    <target name="compile" depends="clean">        
-		<mkdir dir="${build}"/>		
-		<javac 
+        <delete dir="${build}"/>
+        <delete dir="${dest}"/>
+    </target>
+
+    <target name="compile" depends="clean">
+        <mkdir dir="${build}"/>
+        <javac
             includeantruntime="false"
-			srcdir="${src}"
+            srcdir="${src}"
             destdir="${build}"
-			encoding="UTF-8"
+            encoding="UTF-8"
             classpath="${lib}/junit-4.10.jar:${src}" />
-	</target>
-	
-	<target name="run" depends="clean, compile">
+    </target>
+
+    <target name="run" depends="clean, compile">
         <junit fork="yes" printsummary="on" showoutput="true" enableTestListenerEvents="true">
             <jvmarg value="-ea"/>
             <classpath>
@@ -33,11 +33,11 @@
             <test name="dama.TestDama"/> <!--outfile="testout"-->
         </junit>
     </target>
-	
-	<!--
-	<target name="jar" depends="clean,compile">
+
+    <!--
+    <target name="jar" depends="clean,compile">
             <mkdir dir="${dest}"/>
-            <jar destfile="${dest}/dama.jar" basedir="${build}">
+            <jar destfile="${dest}/ija2013.jar" basedir="${build}">
                 <manifest>
                     <attribute name="Main-Class" value="dama.Dama"/>
                     <attribute name="Class-Path" value="lib/junit-4.10.jar"/>
@@ -45,16 +45,14 @@
             </jar>
             <mkdir dir="${dest}/lib"/>
             <copy file="${lib}/junit-4.10.jar" todir="${dest}/lib"/>
-	</target>
-		
-		
-		
-	<target name="test" depends="jar">
-        <java jar="${dest}/dama.jar" dir="${dest}" fork="true"/>
-	</target>
+    </target>
+
+    <target name="test" depends="jar">
+        <java jar="${dest}/ija2013.jar" dir="${dest}" fork="true"/>
+    </target>
     -->
-    
+
+
 </project>
- 
- 
- 
+
+
