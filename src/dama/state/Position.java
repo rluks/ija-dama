@@ -1,5 +1,13 @@
 package dama.state;
 
+/**
+ * Position je třída uchovávající souřadnice šachovnice. Každá pozice umí vracet svůj řetězec
+ * v zápisu „A1“. Také lze vytvořit novou instanci pozice pomocí zaslání řetězc v tomto formátu
+ * metodě positionStrToPosition().
+ * @author Roman Lukš
+ * @author Pavel Hála
+ *
+ */
 public class Position {
     public int row;
     public int col;

@@ -1,5 +1,12 @@
 package dama.state;
 
+/**
+ * Instance třídy Figure je abstrakcí fyzické figurky na šachovnici. Známe tedy barvu a typ.
+ * V našem projektu jsme také každé figurce přiřadili jméno.
+ * @author Roman Lukš
+ * @author Pavel Hála
+ *
+ */
 public class Figure {
     public char color;
     public char type;

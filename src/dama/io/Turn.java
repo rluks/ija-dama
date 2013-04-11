@@ -2,6 +2,13 @@ package dama.io;
 
 import dama.state.Position;
 
+/**
+ * Instance této třídy pro nás představují jednotný prostředek pro předávání informací o tazích
+ * v rámci naší aplikace.
+ * @author Roman Lukš
+ * @author Pavel Hála
+ *
+ */
 public class Turn {
     public char playerColor;
     public Position origin;

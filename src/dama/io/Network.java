@@ -1,6 +1,11 @@
 package dama.io;
-//vlastni odesilani a cteni dat z netu
 
+/**
+ * Třída Network zapouzdřuje síťovou komunikaci. 
+ * @author Roman Lukš
+ * @author Pavel Hála
+ *
+ */
 public class Network {
 
 }

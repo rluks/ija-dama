@@ -6,6 +6,13 @@ import dama.state.Position;
 import dama.io.Turn;
 import dama.operations.Moves;
 
+/**
+ * Třída Třída obsahuje statické metody ke kontrole stavu hry po každém tahu (vítězství, nutnost
+ * braní soupeřova kamene a změnu pěšce na dámu).
+ * @author Roman Lukš
+ * @author Pavel Hála
+ *
+ */
 public final class Check {
 
     private Check(){}

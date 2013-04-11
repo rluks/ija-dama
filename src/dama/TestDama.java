@@ -13,6 +13,12 @@ import dama.state.*;
 import dama.operations.*;
 import dama.io.Turn;
 
+/**
+ * Testovaci trida JUnit
+ * @author Roman Lukš
+ * @author Pavel Hála
+ *
+ */
 public class TestDama {
 
     @Before

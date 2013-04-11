@@ -1,7 +1,11 @@
 package dama.state;
 
+
 /**
- * Instance teto tridy bude udrzovat nastaveni probihajici hry (sitova, proti AI, barvy hracu, apod.)
+ * Instance této třidy udržuje nastavení probíhající hry (síťová, proti AI, barvy hráčů, apod.)
+ * @author Roman Lukš
+ * @author Pavel Hála
+ *
  */
 public class Settings {
 
