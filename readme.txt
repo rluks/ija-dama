@@ -2,7 +2,7 @@
 
 Projekt do předmětu IJA 2013
 
-Tým "Roman č#!?@"
+Tým grp128
 Členové
     Hála Pavel
     Lukš Roman
