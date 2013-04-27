@@ -61,6 +61,7 @@ public class InternalFrameDemo extends JFrame
     protected JLabel lblNehraju;
     protected NewGameSettings newGameSett;
     JLabel picture;
+    JButton btnNewButton;
 
     public InternalFrameDemo() {
         super("InternalFrameDemo");
@@ -88,7 +89,7 @@ public class InternalFrameDemo extends JFrame
 
         desktop.add(lblNehraju);
 
-        JButton btnNewButton = new JButton("New button");
+        btnNewButton = new JButton("New button");
         btnNewButton.setContentAreaFilled(false);
         btnNewButton.setBorderPainted(false);
 
@@ -96,10 +97,11 @@ public class InternalFrameDemo extends JFrame
         btnNewButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 System.out.println("SUP");
+                btnNewButton.setIcon(new ImageIcon(InternalFrameDemo.class.getResource("/components/images/Bird.gif")));
             }
         });
         btnNewButton.setOpaque(false);
-        btnNewButton.setBounds(562, 281, 159, 145);
+        btnNewButton.setBounds(633, 261, 159, 145);
         desktop.add(btnNewButton);
 
     }
