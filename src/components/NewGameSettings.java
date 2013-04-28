@@ -42,19 +42,26 @@ import javax.swing.JButton;
 import javax.swing.JRadioButton;
 import javax.swing.JLabel;
 
+import dama.state.Settings;
+
 /* Used by InternalFrameDemo.java. */
 public class NewGameSettings extends JInternalFrame {
+    /**
+     *
+     */
+    private static final long serialVersionUID = -4326238455841218297L;//kvuli warningu
+
     static int openFrameCount = 0;
     static final int xOffset = 30, yOffset = 30;
-    JRadioButton rdbtnHumanVsHuman;
-    ButtonGroup group;
+    ButtonGroup white;
+    ButtonGroup black;
 
     public NewGameSettings() {
         super("New Game Settings #" + (++openFrameCount),
               true, //resizable
               true, //closable
-              true, //maximizable
-              true);//iconifiable
+              false, //maximizable
+              false);//iconifiable
 
         //...Create the GUI and put it in the window...
 
@@ -65,28 +72,37 @@ public class NewGameSettings extends JInternalFrame {
         setLocation(xOffset*openFrameCount, yOffset*openFrameCount);
         getContentPane().setLayout(new GridLayout(0, 1, 0, 0));
 
-        this.rdbtnHumanVsHuman = new JRadioButton("Human vs Human");
-        getContentPane().add(this.rdbtnHumanVsHuman);
+        //white
+        JLabel lblWhitePlayer = new JLabel("White Player");
+        getContentPane().add(lblWhitePlayer);
 
-        JRadioButton rdbtnHumanVsAi = new JRadioButton("Human (white) vs AI (black)");
-        getContentPane().add(rdbtnHumanVsAi);
+        JRadioButton rdbtnWhiteHuman = new JRadioButton("Human");
+        getContentPane().add(rdbtnWhiteHuman);
 
-        JRadioButton rdbtnAiVsHuman = new JRadioButton("AI (white) vs Human (black)");
-        getContentPane().add(rdbtnAiVsHuman);
+        JRadioButton rdbtnWhiteAI = new JRadioButton("AI");
+        getContentPane().add(rdbtnWhiteAI);
 
-        JRadioButton rdbtnPp = new JRadioButton("P2P");
-        getContentPane().add(rdbtnPp);
+        this.white = new ButtonGroup();
+        this.white.add(rdbtnWhiteHuman);
+        this.white.add(rdbtnWhiteAI);
 
-        //Group the radio buttons.
-        this.group = new ButtonGroup();
-        group.add(rdbtnHumanVsHuman);
-        group.add(rdbtnHumanVsAi);
-        group.add(rdbtnAiVsHuman);
-        group.add(rdbtnPp);
+        //black
+        JLabel lblBlackPlayer = new JLabel("Black Player");
+        getContentPane().add(lblBlackPlayer);
+
+        JRadioButton rdbtnBlackHuman = new JRadioButton("Human");
+        getContentPane().add(rdbtnBlackHuman);
+
+        JRadioButton rdbtnBlackAI = new JRadioButton("AI");
+        getContentPane().add(rdbtnBlackAI);
+
+        this.black = new ButtonGroup();
+        this.black.add(rdbtnBlackHuman);
+        this.black.add(rdbtnBlackAI);
+
     }
 
-    public JRadioButton getSelection() {
-        ButtonGroup group = this.group;
+    public JRadioButton getSelection(ButtonGroup group) {
         for (Enumeration e = group.getElements(); e.hasMoreElements();) {
           JRadioButton b = (JRadioButton) e.nextElement();
           if (b.getModel() == group.getSelection()) {
@@ -94,5 +110,18 @@ public class NewGameSettings extends JInternalFrame {
           }
         }
         return null;
+    }
+
+    public Settings getSettings(){
+
+        JRadioButton white = getSelection(this.white);
+        JRadioButton black = getSelection(this.black);
+        if(white == null || black == null){return null;}
+
+        String whiteStr = white.getText();
+        String blackStr = black.getText();
+
+        Settings sett = new Settings(whiteStr, blackStr);
+        return sett;
     }
 }
