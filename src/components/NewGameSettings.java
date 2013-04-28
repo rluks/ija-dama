@@ -73,7 +73,7 @@ public class NewGameSettings extends JInternalFrame {
         getContentPane().setLayout(new GridLayout(0, 1, 0, 0));
 
         //white
-        JLabel lblWhitePlayer = new JLabel("White Player");
+        JLabel lblWhitePlayer = new JLabel("White Player:");
         getContentPane().add(lblWhitePlayer);
 
         JRadioButton rdbtnWhiteHuman = new JRadioButton("Human");
@@ -87,7 +87,7 @@ public class NewGameSettings extends JInternalFrame {
         this.white.add(rdbtnWhiteAI);
 
         //black
-        JLabel lblBlackPlayer = new JLabel("Black Player");
+        JLabel lblBlackPlayer = new JLabel("Black Player:");
         getContentPane().add(lblBlackPlayer);
 
         JRadioButton rdbtnBlackHuman = new JRadioButton("Human");
@@ -121,7 +121,7 @@ public class NewGameSettings extends JInternalFrame {
         String whiteStr = white.getText();
         String blackStr = black.getText();
 
-        Settings sett = new Settings(whiteStr, blackStr);
+        Settings sett = new Settings(whiteStr, blackStr, null, null, 0);
         return sett;
     }
 }

@@ -66,6 +66,7 @@ public class InternalFrameDemo extends JFrame
     JDesktopPane desktop;
     protected JLabel lblNehraju;
     protected NewGameSettings newGameSett;
+    protected NewP2PGameSettings newP2PGameSett;
     JLabel picture;
     JButton btnNewButton;
     protected Settings settings;
@@ -84,7 +85,7 @@ public class InternalFrameDemo extends JFrame
 
         //Set up the GUI.
         desktop = new JDesktopPane(); //a specialized layered pane
-        createFrame(); //create first "window"
+        //createFrame(); //create first "window"
         setContentPane(desktop);
         setJMenuBar(createMenuBar());
 
@@ -139,6 +140,15 @@ public class InternalFrameDemo extends JFrame
         menuItem.addActionListener(this);
         menu.add(menuItem);
 
+        //sitova hra
+        menuItem = new JMenuItem("New P2P game");
+        menuItem.setMnemonic(KeyEvent.VK_W);
+        menuItem.setAccelerator(KeyStroke.getKeyStroke(
+                KeyEvent.VK_W, ActionEvent.ALT_MASK));
+        menuItem.setActionCommand("newP2P");
+        menuItem.addActionListener(this);
+        menu.add(menuItem);
+
         //nacteni ulozene hry
         menuItem = new JMenuItem("Load game");
         menuItem.setMnemonic(KeyEvent.VK_L);
@@ -189,11 +199,15 @@ public class InternalFrameDemo extends JFrame
 
     //React to menu selections.
     public void actionPerformed(ActionEvent e) {
-        if ("new".equals(e.getActionCommand())) { //new
-            createFrame();
+        if ("new".equals(e.getActionCommand())) {
+            createNewGameSettingsFrame();
+        }else if ("newP2P".equals(e.getActionCommand())){
+            createNewP2PGameSettingsFrame();
         }else if ("startgame".equals(e.getActionCommand())){
             startgame();
-        } else { //quit
+        }else if ("startP2Pgame".equals(e.getActionCommand())){
+            startP2Pgame();
+        }else{
             //quit();
         }
     }
@@ -204,7 +218,7 @@ public class InternalFrameDemo extends JFrame
     }
 
     //Create a new internal frame.
-    protected void createFrame() {
+    protected void createNewGameSettingsFrame() {
         this.newGameSett = new NewGameSettings();
         desktop.setLayer(newGameSett, 1);
         newGameSett.setLocation(33, 11);
@@ -226,6 +240,25 @@ public class InternalFrameDemo extends JFrame
         } catch (java.beans.PropertyVetoException e) {}
     }
 
+    //Create a new internal frame.
+    protected void createNewP2PGameSettingsFrame() {
+        this.newP2PGameSett = new NewP2PGameSettings();
+        desktop.setLayer(newP2PGameSett, 1);
+        newP2PGameSett.setLocation(33, 11);
+        newP2PGameSett.setVisible(true);
+
+        JButton btnStartP2Pgame = new JButton("StartP2PGame");
+        newP2PGameSett.getContentPane().add(btnStartP2Pgame);
+
+        btnStartP2Pgame.setActionCommand("startP2Pgame");
+        btnStartP2Pgame.addActionListener(this);
+
+        desktop.add(newP2PGameSett);
+        try {
+            newP2PGameSett.setSelected(true);
+        } catch (java.beans.PropertyVetoException e) {}
+    }
+
 
 
     protected void startgame(){
@@ -238,8 +271,23 @@ public class InternalFrameDemo extends JFrame
             this.newGameSett.setVisible(false);
             this.newGameSett.dispose();
         }else{
-            System.out.println("Choose both players");
-            this.lblNehraju.setText("Choose both players");
+            System.out.println("Configure settings!");
+            this.lblNehraju.setText("Configure settings!");
+        }
+    }
+
+    protected void startP2Pgame(){
+
+        this.settings = this.newP2PGameSett.getSettings();
+
+        if(this.settings != null){
+            System.out.println("Starting the game...");
+            this.lblNehraju.setText(this.settings.getSettingsString());
+            this.newP2PGameSett.setVisible(false);
+            this.newP2PGameSett.dispose();
+        }else{
+            System.out.println("Configure settings!");
+            this.lblNehraju.setText("Configure settings!");
         }
     }
 
@@ -270,16 +318,3 @@ public class InternalFrameDemo extends JFrame
         });
     }
 }
-
-/*
-class InternalFrameIconifyListener extends InternalFrameAdapter {
-      public void internalFrameIconified(InternalFrameEvent internalFrameEvent) {
-        JInternalFrame source = (JInternalFrame) internalFrameEvent.getSource();
-        System.out.println("Iconified: " + source.getTitle());
-      }
-
-      public void internalFrameDeiconified(InternalFrameEvent internalFrameEvent) {
-        JInternalFrame source = (JInternalFrame) internalFrameEvent.getSource();
-        System.out.println("Deiconified: " + source.getTitle());
-      }
-}*/
