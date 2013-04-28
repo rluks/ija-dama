@@ -57,6 +57,7 @@ import javax.swing.ImageIcon;
 
 import dama.state.Settings;
 import javax.swing.JTextField;
+import javax.swing.JTextPane;
 
 /*
  * InternalFrameDemo.java requires:
@@ -145,14 +146,28 @@ public class InternalFrameDemo extends JFrame
         desktop.add(LNapoveda);
 
         Label LXosaPopisNahore = new Label("    A       B      C      D      E      F      G      H");
-        LXosaPopisNahore.setFont(new Font("Tahoma", Font.BOLD, 20));
+        LXosaPopisNahore.setFont(new Font("Tahoma", Font.PLAIN, 20));
         LXosaPopisNahore.setBounds(40, 58, 420, 20);
         desktop.add(LXosaPopisNahore);
 
         Label LXosaPopisDole = new Label("    A       B      C      D      E      F      G      H");
-        LXosaPopisDole.setFont(new Font("Tahoma", Font.BOLD, 20));
+        LXosaPopisDole.setFont(new Font("Tahoma", Font.PLAIN, 20));
         LXosaPopisDole.setBounds(40, 505, 420, 20);
         desktop.add(LXosaPopisDole);
+
+        JTextPane TPYosaLeva = new JTextPane();
+        TPYosaLeva.setBackground(Color.LIGHT_GRAY);
+        TPYosaLeva.setFont(TPYosaLeva.getFont().deriveFont(20f));
+        TPYosaLeva.setText("8\r\n\r\n7\r\n\r\n6\r\n\r\n5\r\n\r\n4\r\n\r\n3\r\n\r\n2\r\n\r\n1");
+        TPYosaLeva.setBounds(17, 95, 17, 402);
+        desktop.add(TPYosaLeva);
+
+        JTextPane textPane = new JTextPane();
+        textPane.setText("8\r\n\r\n7\r\n\r\n6\r\n\r\n5\r\n\r\n4\r\n\r\n3\r\n\r\n2\r\n\r\n1");
+        textPane.setFont(textPane.getFont().deriveFont(20f));
+        textPane.setBackground(Color.LIGHT_GRAY);
+        textPane.setBounds(465, 95, 17, 402);
+        desktop.add(textPane);
 
 
 
@@ -243,7 +258,7 @@ public class InternalFrameDemo extends JFrame
     protected void createFrame() {
         this.newGameSett = new NewGameSettings();
         desktop.setLayer(newGameSett, 1);
-        newGameSett.setLocation(115, 52);
+        newGameSett.setLocation(512, 91);
         newGameSett.setVisible(true);
 
         //InternalFrameListener internalFrameListener = new InternalFrameIconifyListener();
