@@ -56,6 +56,8 @@ import javax.swing.event.InternalFrameEvent;
 import javax.swing.ImageIcon;
 
 import dama.state.Settings;
+import javax.swing.JTextField;
+import javax.swing.JTextPane;
 
 /*
  * InternalFrameDemo.java requires:
@@ -70,6 +72,7 @@ public class InternalFrameDemo extends JFrame
     JLabel picture;
     JButton btnNewButton;
     protected Settings settings;
+    private JTextField TFPrikaz;
 
     public InternalFrameDemo() {
         super("InternalFrameDemo");
@@ -85,6 +88,7 @@ public class InternalFrameDemo extends JFrame
 
         //Set up the GUI.
         desktop = new JDesktopPane(); //a specialized layered pane
+        desktop.setBackground(Color.LIGHT_GRAY);
         //createFrame(); //create first "window"
         setContentPane(desktop);
         setJMenuBar(createMenuBar());
@@ -94,7 +98,7 @@ public class InternalFrameDemo extends JFrame
 
         lblNehraju = new JLabel("Not playing.");
         desktop.setLayer(lblNehraju, 1);
-        lblNehraju.setBounds(562, 77, 230, 41);
+        lblNehraju.setBounds(469, 9, 161, 32);
 
         desktop.add(lblNehraju);
 
@@ -111,13 +115,60 @@ public class InternalFrameDemo extends JFrame
             }
         });
         btnNewButton.setOpaque(false);
-        btnNewButton.setBounds(633, 261, 159, 145);
+        btnNewButton.setBounds(589, 9, 104, 62);
         desktop.add(btnNewButton);
 
-        JLabel label = new JLabel("");
-        label.setIcon(new ImageIcon(InternalFrameDemo.class.getResource("/components/images/deska.png")));
-        label.setBounds(10, 11, 782, 520);
-        desktop.add(label);
+        JLabel BGSachovnice = new JLabel("");
+        desktop.setLayer(BGSachovnice, -1);
+        BGSachovnice.setFocusable(false);
+        BGSachovnice.setIcon(new ImageIcon(InternalFrameDemo.class.getResource("/components/images/sachovnice_300px.png")));
+        BGSachovnice.setBounds(40, 80, 420, 420);
+        desktop.add(BGSachovnice);
+
+        JButton BNapoveda = new JButton("Help!");
+        BNapoveda.setBounds(386, 15, 70, 20);
+        desktop.add(BNapoveda);
+
+        TextArea TAVypisNotace = new TextArea();
+        TAVypisNotace.setBounds(535, 80, 200, 350);
+        desktop.add(TAVypisNotace);
+
+        Button BSubmitCommand = new Button("OK");
+        BSubmitCommand.setBounds(672, 436, 65, 20);
+        desktop.add(BSubmitCommand);
+
+        TFPrikaz = new JTextField();
+        TFPrikaz.setBounds(535, 436, 131, 20);
+        desktop.add(TFPrikaz);
+        TFPrikaz.setColumns(10);
+
+        JLabel LNapoveda = new JLabel("Napoveda, whatever, huleni, chalst, drogy");
+        LNapoveda.setBounds(40, 15, 336, 20);
+        desktop.add(LNapoveda);
+
+        Label LXosaPopisNahore = new Label("    A       B      C      D      E      F      G      H");
+        LXosaPopisNahore.setFont(new Font("Tahoma", Font.PLAIN, 20));
+        LXosaPopisNahore.setBounds(40, 58, 420, 20);
+        desktop.add(LXosaPopisNahore);
+
+        Label LXosaPopisDole = new Label("    A       B      C      D      E      F      G      H");
+        LXosaPopisDole.setFont(new Font("Tahoma", Font.PLAIN, 20));
+        LXosaPopisDole.setBounds(40, 505, 420, 20);
+        desktop.add(LXosaPopisDole);
+
+        JTextPane TPYosaLeva = new JTextPane();
+        TPYosaLeva.setBackground(Color.LIGHT_GRAY);
+        TPYosaLeva.setFont(TPYosaLeva.getFont().deriveFont(20f));
+        TPYosaLeva.setText("8\r\n\r\n7\r\n\r\n6\r\n\r\n5\r\n\r\n4\r\n\r\n3\r\n\r\n2\r\n\r\n1");
+        TPYosaLeva.setBounds(17, 95, 17, 402);
+        desktop.add(TPYosaLeva);
+
+        JTextPane textPane = new JTextPane();
+        textPane.setText("8\r\n\r\n7\r\n\r\n6\r\n\r\n5\r\n\r\n4\r\n\r\n3\r\n\r\n2\r\n\r\n1");
+        textPane.setFont(textPane.getFont().deriveFont(20f));
+        textPane.setBackground(Color.LIGHT_GRAY);
+        textPane.setBounds(465, 95, 17, 402);
+        desktop.add(textPane);
 
 
 
@@ -221,7 +272,7 @@ public class InternalFrameDemo extends JFrame
     protected void createNewGameSettingsFrame() {
         this.newGameSett = new NewGameSettings();
         desktop.setLayer(newGameSett, 1);
-        newGameSett.setLocation(33, 11);
+        newGameSett.setLocation(512, 91);
         newGameSett.setVisible(true);
 
         //InternalFrameListener internalFrameListener = new InternalFrameIconifyListener();
