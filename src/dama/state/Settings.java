@@ -12,13 +12,28 @@ public class Settings {
     String white;
     String black;
 
-    public Settings(String white, String black){
+    String local;
+    String remoteIP;
+    int remotePort;
+
+    public Settings(String white, String black, String local, String remoteIP, int remotePort){
+
         this.white = white;
         this.black = black;
+
+        this.local = local;
+        this.remoteIP = remoteIP;
+        this.remotePort = remotePort;
     }
 
     public String getSettingsString(){
-        return "White Player: " + this.white + "| Black Player: " + this.black;
+        if(this.local != null && this.remoteIP != null && this.remotePort != 0){
+            System.out.println("White Player: " + this.white + "| Black Player: " + this.black + " (LocalPlayer: " + this.local + ", RemotePlayer: " + this.remoteIP + ":" + this.remotePort + ")");
+            return "White Player: " + this.white + "| Black Player: " + this.black + " (LocalPlayer: " + this.local + ", RemotePlayer: " + this.remoteIP + ":" + this.remotePort + ")";
+        }else{
+            System.out.println("White Player: " + this.white + "| Black Player: " + this.black);
+            return "White Player: " + this.white + "| Black Player: " + this.black;
+        }
     }
 
 }
