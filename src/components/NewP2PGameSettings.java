@@ -93,13 +93,16 @@ public class NewP2PGameSettings extends JInternalFrame {
         getContentPane().add(lblRemoteMachine);
 
         txtRemoteip = new JTextField();
+        txtRemoteip.setText("localhost");
         getContentPane().add(txtRemoteip);
         txtRemoteip.setColumns(10);
 
         JLabel lblRemoteMachinePort = new JLabel("Remote Machine Port:");
         getContentPane().add(lblRemoteMachinePort);
 
+
         txtRemotePort = new JTextField();
+        txtRemotePort.setText("55555");//49152 – 65535: Dynamic and/or Private Ports
         getContentPane().add(txtRemotePort);
         txtRemotePort.setColumns(10);
     }

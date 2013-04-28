@@ -260,11 +260,11 @@ public class InternalFrameDemo extends JFrame
 
     //React to menu selections.
     public void actionPerformed(ActionEvent e) {
-        if ("new".equals(e.getActionCommand())) {
+        if ("new".equals(e.getActionCommand())) {//menu
             createNewGameSettingsFrame();
         }else if ("newP2P".equals(e.getActionCommand())){
             createNewP2PGameSettingsFrame();
-        }else if ("startgame".equals(e.getActionCommand())){
+        }else if ("startgame".equals(e.getActionCommand())){//tlacitka
             startgame();
         }else if ("startP2Pgame".equals(e.getActionCommand())){
             startP2Pgame();
@@ -320,8 +320,6 @@ public class InternalFrameDemo extends JFrame
         } catch (java.beans.PropertyVetoException e) {}
     }
 
-
-
     protected void startgame(){
 
         this.settings = this.newGameSett.getSettings();
@@ -329,6 +327,7 @@ public class InternalFrameDemo extends JFrame
         if(this.settings != null){
             System.out.println("Starting the game...");
             this.lblNehraju.setText(this.settings.getSettingsString());
+            System.out.print(this.settings.getXML());
             this.newGameSett.setVisible(false);
             this.newGameSett.dispose();
         }else{
@@ -344,8 +343,10 @@ public class InternalFrameDemo extends JFrame
         if(this.settings != null){
             System.out.println("Starting the game...");
             this.lblNehraju.setText(this.settings.getSettingsString());
+            System.out.print(this.settings.getXML());
             this.newP2PGameSett.setVisible(false);
             this.newP2PGameSett.dispose();
+
         }else{
             System.out.println("Configure settings!");
             this.lblNehraju.setText("Configure settings!");

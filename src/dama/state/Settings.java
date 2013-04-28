@@ -16,6 +16,8 @@ public class Settings {
     String remoteIP;
     int remotePort;
 
+    protected String xml;
+
     public Settings(String white, String black, String local, String remoteIP, int remotePort){
 
         this.white = white;
@@ -34,6 +36,24 @@ public class Settings {
             System.out.println("White Player: " + this.white + "| Black Player: " + this.black);
             return "White Player: " + this.white + "| Black Player: " + this.black;
         }
+    }
+
+    public String getXML(){
+        this.xml = new String();
+        xml += "<settings>\n";
+            xml += "\t<white>";
+                xml += this.white;
+            xml += "</white>\n";
+            xml += "\t<black>";
+                xml += this.black;
+            xml += "</black>\n";
+            xml += "\t<P2P enabled=\""; xml += (this.local != null)? "yes" : "no"; xml += "\">\n";
+                xml += "\t\t<local>"; xml += (this.local != null)? this.local : ""; xml += "</local>\n";
+                xml += "\t\t<remoteIP>"; xml += (this.remoteIP != null)? this.remoteIP : ""; xml += "</remoteIP>\n";
+                xml += "\t\t<remotePort>"; xml += (this.remotePort != 0)? this.remotePort : ""; xml += "</remotePort>\n";
+            xml += "\t</P2P>\n";
+        xml += "</settings>";
+        return this.xml;
     }
 
 }
