@@ -46,6 +46,7 @@ import java.awt.event.*;
 import java.awt.*;
 import java.io.*;
 
+
 import javax.imageio.*;
 
 import javax.swing.JLabel;
@@ -58,13 +59,15 @@ import javax.swing.ImageIcon;
 import dama.state.Settings;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 /*
  * InternalFrameDemo.java requires:
  *   MyInternalFrame.java
  */
 public class InternalFrameDemo extends JFrame
-                               implements ActionListener {
+                               implements ActionListener, MouseListener {
     JDesktopPane desktop;
     protected JLabel lblNehraju;
     protected NewGameSettings newGameSett;
@@ -88,9 +91,14 @@ public class InternalFrameDemo extends JFrame
         //Set up the GUI.
         desktop = new JDesktopPane(); //a specialized layered pane
         desktop.setBackground(Color.LIGHT_GRAY);
-        createFrame(); //create first "window"
+        //createFrame(); //create first "window"
         setContentPane(desktop);
         setJMenuBar(createMenuBar());
+
+
+        desktop.addMouseListener(this);
+        addMouseListener(this);
+
 
         //Make dragging a little faster but perhaps uglier.
         desktop.setDragMode(JDesktopPane.OUTLINE_DRAG_MODE);
@@ -156,18 +164,20 @@ public class InternalFrameDemo extends JFrame
         desktop.add(LXosaPopisDole);
 
         JTextPane TPYosaLeva = new JTextPane();
+        TPYosaLeva.setEditable(false);
         TPYosaLeva.setBackground(Color.LIGHT_GRAY);
         TPYosaLeva.setFont(TPYosaLeva.getFont().deriveFont(20f));
         TPYosaLeva.setText("8\r\n\r\n7\r\n\r\n6\r\n\r\n5\r\n\r\n4\r\n\r\n3\r\n\r\n2\r\n\r\n1");
         TPYosaLeva.setBounds(17, 95, 17, 402);
         desktop.add(TPYosaLeva);
 
-        JTextPane textPane = new JTextPane();
-        textPane.setText("8\r\n\r\n7\r\n\r\n6\r\n\r\n5\r\n\r\n4\r\n\r\n3\r\n\r\n2\r\n\r\n1");
-        textPane.setFont(textPane.getFont().deriveFont(20f));
-        textPane.setBackground(Color.LIGHT_GRAY);
-        textPane.setBounds(465, 95, 17, 402);
-        desktop.add(textPane);
+        JTextPane TPYosaPrava = new JTextPane();
+        TPYosaPrava.setEditable(false);
+        TPYosaPrava.setText("8\r\n\r\n7\r\n\r\n6\r\n\r\n5\r\n\r\n4\r\n\r\n3\r\n\r\n2\r\n\r\n1");
+        TPYosaPrava.setFont(TPYosaPrava.getFont().deriveFont(20f));
+        TPYosaPrava.setBackground(Color.LIGHT_GRAY);
+        TPYosaPrava.setBounds(465, 95, 17, 402);
+        desktop.add(TPYosaPrava);
 
 
 
@@ -311,6 +321,13 @@ public class InternalFrameDemo extends JFrame
         frame.setVisible(true);
     }
 
+    public void mouseClicked(MouseEvent e)
+    {
+        System.out.println("Mouse clicked (# of clicks: "
+                     + e.getClickCount() + ")");
+    }
+
+
     public static void main(String[] args) {
         //Schedule a job for the event-dispatching thread:
         //creating and showing this application's GUI.
@@ -320,6 +337,35 @@ public class InternalFrameDemo extends JFrame
             }
         });
     }
+
+
+    @Override
+    public void mouseEntered(MouseEvent arg0) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent arg0) {
+        // TODO Auto-generated method stub
+
+    }
+    @Override
+    public void mouseReleased(MouseEvent arg0) {
+        // TODO Auto-generated method stub
+
+    }
+
+
+    @Override
+    public void mousePressed(MouseEvent arg0)
+    {
+        // TODO Auto-generated method stub
+        System.out.println("Zmacklo se tlacitko!");
+
+    }
+
+
 }
 
 /*
