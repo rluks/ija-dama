@@ -55,6 +55,8 @@ import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
 import javax.swing.ImageIcon;
 
+import dama.state.Settings;
+
 /*
  * InternalFrameDemo.java requires:
  *   MyInternalFrame.java
@@ -66,6 +68,7 @@ public class InternalFrameDemo extends JFrame
     protected NewGameSettings newGameSett;
     JLabel picture;
     JButton btnNewButton;
+    protected Settings settings;
 
     public InternalFrameDemo() {
         super("InternalFrameDemo");
@@ -88,7 +91,7 @@ public class InternalFrameDemo extends JFrame
         //Make dragging a little faster but perhaps uglier.
         desktop.setDragMode(JDesktopPane.OUTLINE_DRAG_MODE);
 
-        lblNehraju = new JLabel("Nehraju");
+        lblNehraju = new JLabel("Not playing.");
         desktop.setLayer(lblNehraju, 1);
         lblNehraju.setBounds(562, 77, 230, 41);
 
@@ -226,11 +229,18 @@ public class InternalFrameDemo extends JFrame
 
 
     protected void startgame(){
-        System.out.println("Zacinam hru");
-        System.out.println(this.newGameSett.getSelection().getText());
-        this.lblNehraju.setText(this.newGameSett.getSelection().getText());
-        this.newGameSett.setVisible(false);
-        this.newGameSett.dispose();
+
+        this.settings = this.newGameSett.getSettings();
+
+        if(this.settings != null){
+            System.out.println("Starting the game...");
+            this.lblNehraju.setText(this.settings.getSettingsString());
+            this.newGameSett.setVisible(false);
+            this.newGameSett.dispose();
+        }else{
+            System.out.println("Choose both players");
+            this.lblNehraju.setText("Choose both players");
+        }
     }
 
     /**

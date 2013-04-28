@@ -9,4 +9,16 @@ package dama.state;
  */
 public class Settings {
 
+    String white;
+    String black;
+
+    public Settings(String white, String black){
+        this.white = white;
+        this.black = black;
+    }
+
+    public String getSettingsString(){
+        return "White Player: " + this.white + "| Black Player: " + this.black;
+    }
+
 }
