@@ -31,6 +31,7 @@
 
 package components;
 
+import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JInternalFrame;
 import javax.swing.JDesktopPane;
@@ -43,6 +44,9 @@ import javax.swing.KeyStroke;
 
 import java.awt.event.*;
 import java.awt.*;
+import java.io.*;
+
+import javax.imageio.*;
 
 import javax.swing.JLabel;
 import javax.swing.event.InternalFrameListener;
@@ -71,8 +75,8 @@ public class InternalFrameDemo extends JFrame
         int inset = 50;
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         setBounds(inset, inset,
-                 screenSize.width-screenSize.width/2,
-                  screenSize.height-screenSize.height/2);
+                 802,
+                  590);
 
 
         //Set up the GUI.
@@ -85,11 +89,13 @@ public class InternalFrameDemo extends JFrame
         desktop.setDragMode(JDesktopPane.OUTLINE_DRAG_MODE);
 
         lblNehraju = new JLabel("Nehraju");
+        desktop.setLayer(lblNehraju, 1);
         lblNehraju.setBounds(562, 77, 230, 41);
 
         desktop.add(lblNehraju);
 
         btnNewButton = new JButton("New button");
+        desktop.setLayer(btnNewButton, 1);
         btnNewButton.setContentAreaFilled(false);
         btnNewButton.setBorderPainted(false);
 
@@ -103,6 +109,13 @@ public class InternalFrameDemo extends JFrame
         btnNewButton.setOpaque(false);
         btnNewButton.setBounds(633, 261, 159, 145);
         desktop.add(btnNewButton);
+
+        JLabel label = new JLabel("");
+        label.setIcon(new ImageIcon(InternalFrameDemo.class.getResource("/components/images/deska.png")));
+        label.setBounds(10, 11, 782, 520);
+        desktop.add(label);
+
+
 
     }
 
@@ -190,7 +203,8 @@ public class InternalFrameDemo extends JFrame
     //Create a new internal frame.
     protected void createFrame() {
         this.newGameSett = new NewGameSettings();
-        newGameSett.setLocation(48, 77);
+        desktop.setLayer(newGameSett, 1);
+        newGameSett.setLocation(33, 11);
         newGameSett.setVisible(true);
 
         //InternalFrameListener internalFrameListener = new InternalFrameIconifyListener();
