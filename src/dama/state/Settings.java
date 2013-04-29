@@ -9,16 +9,27 @@ package dama.state;
  */
 public class Settings {
 
-    String white;
-    String black;
+    public String white;
+    public String black;
 
-    String local;
-    String remoteIP;
-    int remotePort;
+    public String local;
+    public String remoteIP;
+    public int remotePort;
 
     protected String xml;
 
-    public Settings(String white, String black, String local, String remoteIP, int remotePort){
+    public Settings(){
+
+    }
+
+    /**
+     * @param white Human nebo AI
+     * @param black Human nebo AI
+     * @param local barva hrace na tomto pocitaci: White nebo Black nesitova hra? null
+     * @param remoteIP nesitova hra? null
+     * @param remotePort nesitova hra? 0
+     */
+    public void setSettings(String white, String black, String local, String remoteIP, int remotePort){
 
         this.white = white;
         this.black = black;
