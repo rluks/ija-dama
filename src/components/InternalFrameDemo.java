@@ -134,7 +134,7 @@ public class InternalFrameDemo extends JFrame
         JLabel BGSachovnice = new JLabel("");
         desktop.setLayer(BGSachovnice, -1);
         BGSachovnice.setFocusable(false);
-        BGSachovnice.setIcon(new ImageIcon(InternalFrameDemo.class.getResource("/components/images/sachovnice_300px.png")));
+        BGSachovnice.setIcon(new ImageIcon(InternalFrameDemo.class.getResource("/components/images/sachovnice_420px_yellow.png")));
         BGSachovnice.setBounds(x_sachovnice, y_sachovnice, 420, 420);
         desktop.add(BGSachovnice);
         BGSachovnice.addMouseListener(this);
@@ -187,6 +187,25 @@ public class InternalFrameDemo extends JFrame
         TPYosaPrava.setBackground(Color.LIGHT_GRAY);
         TPYosaPrava.setBounds(465, 95, 17, 402);
         desktop.add(TPYosaPrava);
+
+        JLabel LFigurkaPokus1 = new JLabel("");
+        LFigurkaPokus1.setBounds(50, 440, 50, 50);
+        desktop.add(LFigurkaPokus1);
+        LFigurkaPokus1.setIcon(new ImageIcon(InternalFrameDemo.class.getResource("/components/images/figurky/bily_pesak.png")));
+
+        JLabel LFigurkaPokus2 = new JLabel("");
+        LFigurkaPokus2.setBounds(100, 391, 50, 50);
+        desktop.add(LFigurkaPokus2);
+        LFigurkaPokus2.setIcon(new ImageIcon(InternalFrameDemo.class.getResource("/components/images/figurky/cerny_pesak.png")));
+        JLabel LFigurkaPokus3 = new JLabel("");
+        LFigurkaPokus3.setBounds(150, 440, 50, 50);
+        desktop.add(LFigurkaPokus3);
+        LFigurkaPokus3.setIcon(new ImageIcon(InternalFrameDemo.class.getResource("/components/images/figurky/bila_dama.png")));
+
+        JLabel LFigurkaPokus4 = new JLabel("");
+        LFigurkaPokus4.setBounds(200, 391, 50, 50);
+        desktop.add(LFigurkaPokus4);
+        LFigurkaPokus4.setIcon(new ImageIcon(InternalFrameDemo.class.getResource("/components/images/figurky/cerna_dama.png")));
 
 
 
@@ -430,9 +449,4 @@ public class InternalFrameDemo extends JFrame
             }
         });
     }
-
-
-
-
-
 }
