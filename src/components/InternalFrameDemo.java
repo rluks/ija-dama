@@ -358,7 +358,7 @@ public class InternalFrameDemo extends JFrame
      * this method should be invoked from the
      * event-dispatching thread.
      */
-    private static void createAndShowGUI() {
+    public static void createAndShowGUI() {
         //Make sure we have nice window decorations.
         JFrame.setDefaultLookAndFeelDecorated(true);
 
@@ -376,7 +376,7 @@ public class InternalFrameDemo extends JFrame
                      + e.getClickCount() + ")");
     }
 
-
+/*
     public static void main(String[] args) {
         //Schedule a job for the event-dispatching thread:
         //creating and showing this application's GUI.
@@ -386,6 +386,7 @@ public class InternalFrameDemo extends JFrame
             }
         });
     }
+    */
 
 
     @Override

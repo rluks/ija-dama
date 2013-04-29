@@ -1,6 +1,7 @@
 package dama;
 
 import dama.state.Desk;
+import components.InternalFrameDemo;;
 
 /**
  * Hra Dáma v Javě
@@ -14,13 +15,15 @@ public class Dama {
      * @param args
      */
     public static void main(String[] args) {
-        // ukol3:
-        // TODO ant
-        // TODO dorobit architekturu.pdf
-        // TODO svn
 
         // projekt:
         // TODO javadoc
+
+        javax.swing.SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                InternalFrameDemo.createAndShowGUI();
+            }
+        });
 
         Desk d = new Desk();
         System.out.println("Velka sachovnice:");
