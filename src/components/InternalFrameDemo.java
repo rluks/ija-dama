@@ -419,7 +419,7 @@ public class InternalFrameDemo extends JFrame
             //System.out.println("\tKliknul si na sachovnici");
         }
     }
-    */
+
 
     @Override
     public void mouseEntered(MouseEvent arg0) {

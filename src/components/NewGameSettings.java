@@ -121,7 +121,7 @@ public class NewGameSettings extends JInternalFrame {
         String whiteStr = white.getText();
         String blackStr = black.getText();
 
-        Settings sett = new Settings(whiteStr, blackStr, null, null, 0);
+        Settings sett = new Settings(/*whiteStr, blackStr, null, null, 0*/);
         return sett;
     }
 }
