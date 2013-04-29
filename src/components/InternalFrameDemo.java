@@ -77,6 +77,11 @@ public class InternalFrameDemo extends JFrame
     protected Settings settings;
     private JTextField TFPrikaz;
 
+    public int x_sachovnice=40;
+    public int x_offset=5;
+    public int y_sachovnice=80;
+    public int y_offset=50;
+
     public InternalFrameDemo() {
         super("InternalFrameDemo");
 
@@ -97,8 +102,8 @@ public class InternalFrameDemo extends JFrame
         setJMenuBar(createMenuBar());
 
 
-        desktop.addMouseListener(this);
-        addMouseListener(this);
+        //desktop.addMouseListener(this);
+        //addMouseListener(this);
 
 
         //Make dragging a little faster but perhaps uglier.
@@ -129,9 +134,12 @@ public class InternalFrameDemo extends JFrame
         JLabel BGSachovnice = new JLabel("");
         desktop.setLayer(BGSachovnice, -1);
         BGSachovnice.setFocusable(false);
-        BGSachovnice.setIcon(new ImageIcon(InternalFrameDemo.class.getResource("/components/images/sachovnice_300px.png")));
-        BGSachovnice.setBounds(40, 80, 420, 420);
+        BGSachovnice.setIcon(new ImageIcon(InternalFrameDemo.class.getResource("/components/images/sachovnice_420px_yellow.png")));
+        BGSachovnice.setBounds(x_sachovnice, y_sachovnice, 420, 420);
         desktop.add(BGSachovnice);
+        BGSachovnice.addMouseListener(this);
+        addMouseListener(this);
+
 
         JButton BNapoveda = new JButton("Help!");
         BNapoveda.setBounds(386, 15, 70, 20);
@@ -179,6 +187,25 @@ public class InternalFrameDemo extends JFrame
         TPYosaPrava.setBackground(Color.LIGHT_GRAY);
         TPYosaPrava.setBounds(465, 95, 17, 402);
         desktop.add(TPYosaPrava);
+
+        JLabel LFigurkaPokus1 = new JLabel("");
+        LFigurkaPokus1.setBounds(50, 440, 50, 50);
+        desktop.add(LFigurkaPokus1);
+        LFigurkaPokus1.setIcon(new ImageIcon(InternalFrameDemo.class.getResource("/components/images/figurky/bily_pesak.png")));
+
+        JLabel LFigurkaPokus2 = new JLabel("");
+        LFigurkaPokus2.setBounds(100, 391, 50, 50);
+        desktop.add(LFigurkaPokus2);
+        LFigurkaPokus2.setIcon(new ImageIcon(InternalFrameDemo.class.getResource("/components/images/figurky/cerny_pesak.png")));
+        JLabel LFigurkaPokus3 = new JLabel("");
+        LFigurkaPokus3.setBounds(150, 440, 50, 50);
+        desktop.add(LFigurkaPokus3);
+        LFigurkaPokus3.setIcon(new ImageIcon(InternalFrameDemo.class.getResource("/components/images/figurky/bila_dama.png")));
+
+        JLabel LFigurkaPokus4 = new JLabel("");
+        LFigurkaPokus4.setBounds(200, 391, 50, 50);
+        desktop.add(LFigurkaPokus4);
+        LFigurkaPokus4.setIcon(new ImageIcon(InternalFrameDemo.class.getResource("/components/images/figurky/cerna_dama.png")));
 
 
 
@@ -372,11 +399,47 @@ public class InternalFrameDemo extends JFrame
 
     public void mouseClicked(MouseEvent e)
     {
-        System.out.println("Mouse clicked (# of clicks: "
-                     + e.getClickCount() + ")");
+        //System.out.println("Mouse clicked (# of clicks: " + e.getClickCount() + ")");
+
+        Point p=getLocationOnScreen();
+
+        PointerInfo a = MouseInfo.getPointerInfo();
+        Point b = a.getLocation();
+        int x = (int) b.getX() - p.x - x_offset;
+        int y = (int) b.getY() - p.y - y_offset;
+        if ( (x>=(x_sachovnice+10)) && (y>=y_sachovnice+11) && (x<=(x_sachovnice+409)) && (y<=(y_sachovnice+410)) )
+        {
+            //System.out.println(x + ":" + y);
+            int sx = (x - 10 - x_sachovnice);
+            int sy = y - 11 - y_sachovnice;
+            //System.out.println(sx + ":" + sy);
+            sx=sx/50;
+            sy=7 - sy/50;
+            System.out.println(sx + ":" + sy);
+            //System.out.println("\tKliknul si na sachovnici");
+        }
+    }
+    */
+
+    @Override
+    public void mouseEntered(MouseEvent arg0) {
+        // TODO Auto-generated method stub
+    }
+    @Override
+    public void mouseExited(MouseEvent arg0) {
+        // TODO Auto-generated method stub
+    }
+    @Override
+    public void mouseReleased(MouseEvent arg0) {
+        // TODO Auto-generated method stub
+    }
+    @Override
+    public void mousePressed(MouseEvent arg0)
+    {
+        // TODO Auto-generated method stub
     }
 
-/*
+
     public static void main(String[] args) {
         //Schedule a job for the event-dispatching thread:
         //creating and showing this application's GUI.
@@ -386,34 +449,4 @@ public class InternalFrameDemo extends JFrame
             }
         });
     }
-    */
-
-
-    @Override
-    public void mouseEntered(MouseEvent arg0) {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void mouseExited(MouseEvent arg0) {
-        // TODO Auto-generated method stub
-
-    }
-    @Override
-    public void mouseReleased(MouseEvent arg0) {
-        // TODO Auto-generated method stub
-
-    }
-
-
-    @Override
-    public void mousePressed(MouseEvent arg0)
-    {
-        // TODO Auto-generated method stub
-        System.out.println("Zmacklo se tlacitko!");
-
-    }
-
-
 }
