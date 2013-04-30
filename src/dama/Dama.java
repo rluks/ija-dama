@@ -3,8 +3,9 @@ package dama;
 import java.awt.event.MouseEvent;
 
 import dama.state.Desk;
+import components.InternalFrameDemo;
+import dama.operations.*;
 import dama.state.Settings;
-import components.InternalFrameDemo;;
 
 /**
  * Hra Dáma v Javě
@@ -92,7 +93,37 @@ public class Dama extends Thread{
         //d.printBoard();
         System.out.println("Mala sachovnice:");
         d.printSimpleBoard();
-    }
+
+        int i=0;
+        int j=0;
+        while(!Check.isVictory(d))
+        {
+            boolean pom;
+            if (i==0) pom=AI.AIMove(d, 'W');
+            else pom=AI.AIMove(d, 'B');
+
+            System.out.println(j + ": Stav booleanu: " + pom + "; i = " + i);
+
+            /*
+            if (pom==false)
+            {
+                System.out.println("Neco se posralo!!!!!");
+                break;
+            }
+            */
+            Check.isPieceToDame(d);
+            d.clearMustTakeFlag();
+
+            d.printSimpleBoard();
+
+            i++;
+            i=i%2;
+
+            j++;
+            //if (j==800) break;
+        }
+
+
 
     public static void startingGameThread(/*Settings settings*/){
 
