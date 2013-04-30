@@ -18,10 +18,6 @@ public class Settings {
 
     protected String xml;
 
-    public Settings(){
-
-    }
-
     /**
      * @param white Human nebo AI
      * @param black Human nebo AI
@@ -29,7 +25,7 @@ public class Settings {
      * @param remoteIP nesitova hra? null
      * @param remotePort nesitova hra? 0
      */
-    public void setSettings(String white, String black, String local, String remoteIP, int remotePort){
+    public Settings(String white, String black, String local, String remoteIP, int remotePort){
 
         this.white = white;
         this.black = black;

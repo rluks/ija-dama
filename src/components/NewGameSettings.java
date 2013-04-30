@@ -42,6 +42,7 @@ import javax.swing.JButton;
 import javax.swing.JRadioButton;
 import javax.swing.JLabel;
 
+import dama.Dama;
 import dama.state.Settings;
 
 /* Used by InternalFrameDemo.java. */
@@ -121,7 +122,7 @@ public class NewGameSettings extends JInternalFrame {
         String whiteStr = white.getText();
         String blackStr = black.getText();
 
-        Settings sett = new Settings(/*whiteStr, blackStr, null, null, 0*/);
+        Settings sett = new Settings(whiteStr, blackStr, null, null, 0);
         return sett;
     }
 }

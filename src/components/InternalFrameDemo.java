@@ -56,6 +56,7 @@ import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
 import javax.swing.ImageIcon;
 
+import dama.Dama;
 import dama.state.Settings;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
@@ -70,8 +71,8 @@ public class InternalFrameDemo extends JFrame
                                implements ActionListener, MouseListener {
     JDesktopPane desktop;
     protected JLabel lblNehraju;
-    protected NewGameSettings newGameSett;
-    protected NewP2PGameSettings newP2PGameSett;
+    protected NewGameSettings inFrNewGameSett;
+    protected NewP2PGameSettings inFrNewP2PGameSett;
     JLabel picture;
     JButton btnNewButton;
     protected Settings settings;
@@ -307,56 +308,55 @@ public class InternalFrameDemo extends JFrame
 
     //Create a new internal frame.
     protected void createNewGameSettingsFrame() {
-        this.newGameSett = new NewGameSettings();
-        desktop.setLayer(newGameSett, 1);
-        newGameSett.setLocation(512, 91);
-        newGameSett.setVisible(true);
 
-        //InternalFrameListener internalFrameListener = new InternalFrameIconifyListener();
-
-        //newGameSett.addInternalFrameListener(internalFrameListener);
+        this.inFrNewGameSett = new NewGameSettings();
+        desktop.setLayer(inFrNewGameSett, 1);
+        inFrNewGameSett.setLocation(512, 91);
+        inFrNewGameSett.setVisible(true);
 
         JButton btnStartgame = new JButton("StartGame");
-        newGameSett.getContentPane().add(btnStartgame);
-
+        inFrNewGameSett.getContentPane().add(btnStartgame);
         btnStartgame.setActionCommand("startgame");
         btnStartgame.addActionListener(this);
 
-        desktop.add(newGameSett);
+        desktop.add(inFrNewGameSett);
         try {
-            newGameSett.setSelected(true);
+            inFrNewGameSett.setSelected(true);
         } catch (java.beans.PropertyVetoException e) {}
     }
 
     //Create a new internal frame.
     protected void createNewP2PGameSettingsFrame() {
-        this.newP2PGameSett = new NewP2PGameSettings();
-        desktop.setLayer(newP2PGameSett, 1);
-        newP2PGameSett.setLocation(33, 11);
-        newP2PGameSett.setVisible(true);
+
+        this.inFrNewP2PGameSett = new NewP2PGameSettings();
+        desktop.setLayer(inFrNewP2PGameSett, 1);
+        inFrNewP2PGameSett.setLocation(33, 11);
+        inFrNewP2PGameSett.setVisible(true);
 
         JButton btnStartP2Pgame = new JButton("StartP2PGame");
-        newP2PGameSett.getContentPane().add(btnStartP2Pgame);
-
+        inFrNewP2PGameSett.getContentPane().add(btnStartP2Pgame);
         btnStartP2Pgame.setActionCommand("startP2Pgame");
         btnStartP2Pgame.addActionListener(this);
 
-        desktop.add(newP2PGameSett);
+        desktop.add(inFrNewP2PGameSett);
         try {
-            newP2PGameSett.setSelected(true);
+            inFrNewP2PGameSett.setSelected(true);
         } catch (java.beans.PropertyVetoException e) {}
     }
 
+
     protected void startgame(){
 
-        this.settings = this.newGameSett.getSettings();
+        this.settings = this.inFrNewGameSett.getSettings();
 
         if(this.settings != null){
-            System.out.println("Starting the game...");
+            System.out.println("GUI:Starting the game...");
             this.lblNehraju.setText(this.settings.getSettingsString());
-            System.out.print(this.settings.getXML());
-            this.newGameSett.setVisible(false);
-            this.newGameSett.dispose();
+
+            Dama.startingGameThread(this.settings);
+
+            this.inFrNewGameSett.setVisible(false);
+            this.inFrNewGameSett.dispose();
         }else{
             System.out.println("Configure settings!");
             this.lblNehraju.setText("Configure settings!");
@@ -365,14 +365,16 @@ public class InternalFrameDemo extends JFrame
 
     protected void startP2Pgame(){
 
-        this.settings = this.newP2PGameSett.getSettings();
+        this.settings = this.inFrNewP2PGameSett.getSettings();
 
         if(this.settings != null){
-            System.out.println("Starting the game...");
+            System.out.println("GUI:Starting the game...");
             this.lblNehraju.setText(this.settings.getSettingsString());
-            System.out.print(this.settings.getXML());
-            this.newP2PGameSett.setVisible(false);
-            this.newP2PGameSett.dispose();
+
+            Dama.startingGameThread(this.settings);
+
+            this.inFrNewP2PGameSett.setVisible(false);
+            this.inFrNewP2PGameSett.dispose();
 
         }else{
             System.out.println("Configure settings!");
@@ -437,16 +439,5 @@ public class InternalFrameDemo extends JFrame
     public void mousePressed(MouseEvent arg0)
     {
         // TODO Auto-generated method stub
-    }
-
-
-    public static void main(String[] args) {
-        //Schedule a job for the event-dispatching thread:
-        //creating and showing this application's GUI.
-        javax.swing.SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                createAndShowGUI();
-            }
-        });
     }
 }
