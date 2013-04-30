@@ -20,8 +20,11 @@ public class Dama extends Thread{
 
     //vlakno
     public Settings settings;
+    public Desk desk;
     public boolean allDone = false; //ukonceni behu
     public boolean pleaseWait = false; //pozastaveni behu
+
+    public boolean gameSetAndRuning = false; //hra byla nastavena a uz se provadi tahy, atd.
 
     Dama(String name/*, Settings s*/){
         super(name);
@@ -46,14 +49,10 @@ public class Dama extends Thread{
                 e.printStackTrace();
             }
 
-
-            if(allDone){System.out.println("Dama terminated, allDone!!");return;}
-            if(!gui.isVisible()){Dama.stopGameThread();System.exit(0);}
-
             synchronized(this){
                 while(pleaseWait){
                     try{
-                        System.out.println("waiting...");
+                        System.out.println("sleeping...");
                         wait();
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -61,10 +60,42 @@ public class Dama extends Thread{
                 }
             }
 
-            System.out.println("Running da run()");
+            //vypinaci cast
+            if(allDone){System.out.println("Dama terminated, allDone!!");return;}
+            if(!gui.isVisible()){
+                System.out.println("GUI zavreno - vypinam program.");
+                System.exit(0);
+            }
+            //vypinaci cast - konec
+
             gui.setLabelHelp("Baník pYčo");
-            System.out.println(this.settings.getSettingsString());
             System.out.println(this.settings.getXML());
+
+            this.desk = new Desk();
+
+            while(true){
+                gameSetAndRuning = true;
+                System.out.println("Hra nastavena, beziii hra.... bezii uz beziiii");
+                System.out.println(this.settings.getSettingsString());
+
+                gui.updateDesk(this.desk);
+
+                //vypinaci cast
+                if(allDone){System.out.println("Dama terminated, allDone!!");return;}
+                if(!gui.isVisible()){
+                    System.out.println("GUI zavreno - vypinam program.");
+                    System.exit(0);
+                }
+                //vypinaci cast - konec
+
+
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            }
         }
     }
 
@@ -139,7 +170,7 @@ public class Dama extends Thread{
     }
 
     public static boolean sleepGameThread(){
-        System.out.println("uspavam");
+        System.out.println("sleepGameThread: pokousim se uspat hru...");
 
         if(dama != null){
             synchronized (dama){
@@ -147,13 +178,13 @@ public class Dama extends Thread{
             }
             return true;
         }else{
-            System.out.println("hra neexistuje");
+            System.out.println("sleepGameThread: hra neexistuje!");
             return false;
         }
     }
 
     public static boolean wakeUpGameThread(){
-        System.out.println("probouzim");
+        System.out.println("wakeUpGameThread: probouzim hru...");
 
         if(dama != null){
             synchronized (dama){
@@ -162,33 +193,62 @@ public class Dama extends Thread{
             }
             return true;
         }else{
-            System.out.println("hra neexistuje");
+            System.out.println("wakeUpGameThread: hra neexistuje!");
             return false;
         }
     }
 
-    public static void stopGameThread(){
-        System.out.println("zastavuji vlakno hry");
+    public static boolean stopGameThread(){
+        System.out.println("stopGameThread: zastavuji vlakno hry...");
 
         if(dama != null){
             if(dama.isAlive()){
                 dama.allDone = true;
             }
             while(dama.isAlive()){}
+            return true;
         }else{
-            System.out.println("hra neexistuje");
+            System.out.println("stopGameThread: hra neexistuje!");
+            return false;
+        }
+    }
+
+    public static boolean isGameThreadRunning(){
+        if(dama != null){
+            if(dama.isAlive()){
+                return true;
+            }else{
+                return false;
+            }
+        }else{
+            return false;
+        }
+    }
+
+    //do hry bylo ulozeno nastaveni a uz se hraje
+    public static boolean isGameSetAndRunning(){
+
+        if(Dama.isGameThreadRunning()){
+            synchronized (dama){
+                if(dama.gameSetAndRuning){
+                    return true;
+                }else{
+                    return false;
+                }
+            }
+        }else{
+            return false;
         }
     }
 
     public static void mouseInput(MouseEvent e){
-        //if(wakeUpGameThread())
-        {
+        if(wakeUpGameThread()){
             System.out.println("myska me vzbudila");
         }
     }
 
     public static boolean setSettings(Settings s){
-        System.out.println("ukladam nastaveni");
+        System.out.println("setSettings: ukladam nastaveni...");
 
         if(dama != null){
             synchronized (dama){
@@ -197,7 +257,7 @@ public class Dama extends Thread{
             }
             return true;
         }else{
-            System.out.println("hra neexistuje");
+            System.out.println("setSettings: hra neexistuje!");
             return false;
         }
     }
