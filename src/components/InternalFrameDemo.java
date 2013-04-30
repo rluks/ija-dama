@@ -57,6 +57,7 @@ import javax.swing.event.InternalFrameEvent;
 import javax.swing.ImageIcon;
 
 import dama.Dama;
+import dama.state.Desk;
 import dama.state.Settings;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
@@ -369,12 +370,21 @@ public class InternalFrameDemo extends JFrame
             System.out.println("GUI:Starting the game...");
             this.lblNehraju.setText(this.settings.getSettingsString());
 
-            //Dama.startingGameThread(this.settings);
-            Dama.setSettings(this.settings);
-            Dama.wakeUpGameThread();
+            if(Dama.isGameSetAndRunning()){
+                Dama.stopGameThread();
+                Dama.startingGameThread();
 
-            this.inFrNewGameSett.setVisible(false);
-            this.inFrNewGameSett.dispose();
+                Dama.setSettings(this.settings);
+                Dama.wakeUpGameThread();
+
+                this.dispose();
+            }else{
+                Dama.setSettings(this.settings);
+                Dama.wakeUpGameThread();
+
+                this.inFrNewGameSett.setVisible(false);
+                this.inFrNewGameSett.dispose();
+            }
         }else{
             System.out.println("Configure settings!");
             this.lblNehraju.setText("Configure settings!");
@@ -461,5 +471,9 @@ public class InternalFrameDemo extends JFrame
 
     public void setLabelHelp(String string){
         this.zMain.setText(string);
+    }
+
+    public void updateDesk(Desk desk){
+        this.zMain.setText("Obnovuju labely figurek na desce");
     }
 }
