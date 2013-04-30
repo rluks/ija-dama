@@ -138,7 +138,7 @@ public class Dama extends Thread{
 
             if (pom==false)
             {
-                System.out.println("Neco se posralo!!!!!");
+                System.out.println("Doslo k patu. To nedas typYco!!!!!");
                 break;
             }
 
