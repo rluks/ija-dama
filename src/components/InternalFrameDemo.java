@@ -78,6 +78,8 @@ public class InternalFrameDemo extends JFrame
     protected Settings settings;
     private JTextField TFPrikaz;
 
+    public JLabel zMain;
+
     public int x_sachovnice=40;
     public int x_offset=5;
     public int y_sachovnice=80;
@@ -106,6 +108,11 @@ public class InternalFrameDemo extends JFrame
         //desktop.addMouseListener(this);
         //addMouseListener(this);
 
+        zMain = new JLabel("Manchester United");
+        desktop.setLayer(zMain, 1);
+        zMain.setBounds(10, 9, 161, 80);
+        desktop.add(zMain);
+
 
         //Make dragging a little faster but perhaps uglier.
         desktop.setDragMode(JDesktopPane.OUTLINE_DRAG_MODE);
@@ -113,7 +120,6 @@ public class InternalFrameDemo extends JFrame
         lblNehraju = new JLabel("Not playing.");
         desktop.setLayer(lblNehraju, 1);
         lblNehraju.setBounds(469, 9, 161, 32);
-
         desktop.add(lblNehraju);
 
         btnNewButton = new JButton("New button");
@@ -296,13 +302,24 @@ public class InternalFrameDemo extends JFrame
             startgame();
         }else if ("startP2Pgame".equals(e.getActionCommand())){
             startP2Pgame();
+        }else if ("Load game".equals(e.getActionCommand())){
+            System.out.println("Neimplementovano");
+        }else if ("Save game".equals(e.getActionCommand())){
+            System.out.println("Neimplementovano");
+        }else if ("Player".equals(e.getActionCommand())){
+            System.out.println("Neimplementovano");
+        }else if ("About".equals(e.getActionCommand())){
+            System.out.println("Neimplementovano");
+        }else if ("quit".equals(e.getActionCommand())){
+            quit();
         }else{
-            //quit();
+            System.out.println("Neznama akce");
         }
     }
 
     //Quit the application.
     protected void quit() {
+        Dama.stopGameThread();
         System.exit(0);
     }
 
@@ -344,7 +361,6 @@ public class InternalFrameDemo extends JFrame
         } catch (java.beans.PropertyVetoException e) {}
     }
 
-
     protected void startgame(){
 
         this.settings = this.inFrNewGameSett.getSettings();
@@ -353,7 +369,9 @@ public class InternalFrameDemo extends JFrame
             System.out.println("GUI:Starting the game...");
             this.lblNehraju.setText(this.settings.getSettingsString());
 
-            Dama.startingGameThread(this.settings);
+            //Dama.startingGameThread(this.settings);
+            Dama.setSettings(this.settings);
+            Dama.wakeUpGameThread();
 
             this.inFrNewGameSett.setVisible(false);
             this.inFrNewGameSett.dispose();
@@ -371,7 +389,7 @@ public class InternalFrameDemo extends JFrame
             System.out.println("GUI:Starting the game...");
             this.lblNehraju.setText(this.settings.getSettingsString());
 
-            Dama.startingGameThread(this.settings);
+            //Dama.startingGameThread(this.settings);
 
             this.inFrNewP2PGameSett.setVisible(false);
             this.inFrNewP2PGameSett.dispose();
@@ -419,9 +437,9 @@ public class InternalFrameDemo extends JFrame
             sy=7 - sy/50;
             System.out.println(sx + ":" + sy);
             //System.out.println("\tKliknul si na sachovnici");
+            Dama.mouseInput(e);
         }
     }
-
 
     @Override
     public void mouseEntered(MouseEvent arg0) {
@@ -439,5 +457,9 @@ public class InternalFrameDemo extends JFrame
     public void mousePressed(MouseEvent arg0)
     {
         // TODO Auto-generated method stub
+    }
+
+    public void setLabelHelp(String string){
+        this.zMain.setText(string);
     }
 }
