@@ -92,7 +92,7 @@ public class Dama extends Thread{
             j++;
             //if (j==800) break;
         }
-
+    }
 
 
     public static void startingGameThread(Settings settings){
