@@ -112,7 +112,8 @@ public class Desk {
                 if (this.board[row][col]!=null) this.board[row][col].mustTakeFlag=false;
     }
 
-    public void printBoard(){
+    public void printBoard()
+    {
         String longName = new String("BP_Professor_Chaos_0");
         int maxLength = longName.length();
         int numOfSpaces = 0;

@@ -88,8 +88,8 @@ public class Moves
 
     public static boolean Move(Desk desk, Turn turn)
     {
-        Position origin = turn.origin;
-        Position dest = turn.destination;
+        Position origin = new Position(turn.origin.row, turn.origin.col) ;
+        Position dest = new Position(turn.destination.row, turn.destination.col)  ;
 
         Figure[][] this_board=desk.getState();
         Figure fig=this_board[origin.row][origin.col];

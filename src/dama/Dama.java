@@ -75,7 +75,7 @@ public class Dama extends Thread{
         // projekt:
         // TODO javadoc
 
-        Dama.startingGameThread();
+        //Dama.startingGameThread();
 
 /*
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
@@ -94,33 +94,35 @@ public class Dama extends Thread{
         System.out.println("Mala sachovnice:");
         d.printSimpleBoard();
 
-        int i=0;
+        //int i=0;
         int j=0;
-        while(!Check.isVictory(d))
+        while(true)
         {
+            System.out.println("====================================================================");
             boolean pom;
-            if (i==0) pom=AI.AIMove(d, 'W');
-            else pom=AI.AIMove(d, 'B');
+            if ((j%2)==0) pom=AI.AIMove(d, 'W', 6);
+            else pom=AI.AIMove(d, 'B', 6);
 
-            System.out.println(j + ": Stav booleanu: " + pom + "; i = " + i);
+            System.out.println(j + ": Stav booleanu: " + pom);
 
-            /*
             if (pom==false)
             {
                 System.out.println("Neco se posralo!!!!!");
                 break;
             }
-            */
+
             Check.isPieceToDame(d);
             d.clearMustTakeFlag();
-
             d.printSimpleBoard();
-
-            i++;
-            i=i%2;
 
             j++;
             //if (j==800) break;
+
+            if (Check.isVictory(d))
+            {
+                System.out.println("VYHRA TYPYCO!!!!");
+                break;
+            }
         }
     }
 
@@ -133,7 +135,7 @@ public class Dama extends Thread{
         dama = new Dama("DamaVlakno"/*, settings*/);
         dama.start();
 
-        //Dama.sleepGameThread();
+        Dama.sleepGameThread();
     }
 
     public static boolean sleepGameThread(){
@@ -179,7 +181,8 @@ public class Dama extends Thread{
     }
 
     public static void mouseInput(MouseEvent e){
-        if(wakeUpGameThread()){
+        //if(wakeUpGameThread())
+        {
             System.out.println("myska me vzbudila");
         }
     }
