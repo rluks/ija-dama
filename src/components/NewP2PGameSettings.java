@@ -31,19 +31,17 @@
 
 package components;
 
-import javax.swing.JInternalFrame;
-
-import java.awt.event.*;
-import java.awt.*;
+import java.awt.GridLayout;
 import java.util.Enumeration;
 
+import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
-import javax.swing.JButton;
-import javax.swing.JRadioButton;
+import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
+import javax.swing.JRadioButton;
+import javax.swing.JTextField;
 
 import dama.state.Settings;
-import javax.swing.JTextField;
 
 /* Used by InternalFrameDemo.java. */
 public class NewP2PGameSettings extends JInternalFrame {
@@ -108,7 +106,7 @@ public class NewP2PGameSettings extends JInternalFrame {
     }
 
     public JRadioButton getSelection(ButtonGroup group) {
-        for (Enumeration e = group.getElements(); e.hasMoreElements();) {
+        for (Enumeration<AbstractButton> e = group.getElements(); e.hasMoreElements();) {
           JRadioButton b = (JRadioButton) e.nextElement();
           if (b.getModel() == group.getSelection()) {
             return b;

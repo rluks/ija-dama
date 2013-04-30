@@ -1,11 +1,11 @@
 package dama;
 
-import java.awt.Point;
-import java.awt.event.MouseEvent;
+import components.InternalFrameDemo;
+
+import dama.operations.AI;
+import dama.operations.Check;
 import dama.state.Desk;
 import dama.state.Position;
-import components.InternalFrameDemo;
-import dama.operations.*;
 import dama.state.Settings;
 
 /**
@@ -55,7 +55,7 @@ public class Dama extends Thread{
             synchronized(this){
                 while(pleaseWait){
                     try{
-                        System.out.println("sleeping...");
+                        System.out.println("sleeping...");//TODO kdyz se tu zavre gui, tak tohle furt spi
                         wait();
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -70,10 +70,11 @@ public class Dama extends Thread{
                 System.exit(0);
             }//vypinaci cast - konec
 
-            gui.setLabelHelp("Baník!!!");
+            this.desk = new Desk();
+            gui.updateDesk(desk);
+
             System.out.println(this.settings.getXML());
 
-            this.desk = new Desk();
 
             //smycka vlastni hry
             while(true){

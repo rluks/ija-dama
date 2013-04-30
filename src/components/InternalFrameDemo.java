@@ -31,152 +31,144 @@
 
 package components;
 
-import javax.imageio.ImageIO;
-import javax.swing.JButton;
-import javax.swing.JInternalFrame;
-import javax.swing.JDesktopPane;
-import javax.swing.JMenu;
-import javax.swing.JMenuItem;
-import javax.swing.JMenuBar;
-import javax.swing.JFrame;
-import javax.swing.JRadioButton;
-import javax.swing.KeyStroke;
+import java.awt.Button;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Label;
+import java.awt.MouseInfo;
+import java.awt.Point;
+import java.awt.PointerInfo;
+import java.awt.TextArea;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
-import java.awt.event.*;
-import java.awt.*;
-import java.io.*;
-
-
-import javax.imageio.*;
-
-import javax.swing.JLabel;
-import javax.swing.event.InternalFrameListener;
-
-import javax.swing.event.InternalFrameAdapter;
-import javax.swing.event.InternalFrameEvent;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JDesktopPane;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JTextField;
+import javax.swing.JTextPane;
+import javax.swing.KeyStroke;
 
 import dama.Dama;
 import dama.state.Desk;
 import dama.state.Position;
 import dama.state.Settings;
-import javax.swing.JTextField;
-import javax.swing.JTextPane;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
 
-/*
- * InternalFrameDemo.java requires:
- *   MyInternalFrame.java
+/**
+ * Uzivatelske rozhrani pro hru Dama
+ * @author Roman Lukš
+ * @author Pavel Hála
+ *
  */
 public class InternalFrameDemo extends JFrame
                                implements ActionListener, MouseListener {
+    /**
+     *
+     */
+    private static final long serialVersionUID = 7275553945417568909L;
+
     JDesktopPane desktop;
-    protected JLabel lblNehraju;
+
+    //nastaveni hry
     protected NewGameSettings inFrNewGameSett;
     protected NewP2PGameSettings inFrNewP2PGameSett;
-    JLabel picture;
-    JButton btnNewButton;
     protected Settings settings;
-    private JTextField TFPrikaz;
 
-    public JLabel zMain;
+    //texty s informacemi
+    protected JLabel lblInfo;
 
-    public int x_sachovnice=40;
-    public int x_offset=5;
-    public int y_sachovnice=80;
-    public int y_offset=50;
+    //deska
+    private int x_sachovnice = 40;
+    private int x_offset = 5;
+    private int y_sachovnice = 80;
+    private int y_offset = 50;
+
+    //notace
+    protected JTextField TFPrikaz;
+    protected TextArea TAVypisNotace;
+    protected Button BSubmitCommand;
+
+    //testovani
+    protected JButton btnTlacitkoLambda;
 
     public InternalFrameDemo() {
         super("InternalFrameDemo");
 
-        //Make the big window be indented 50 pixels from each edge
-        //of the screen.
+        //Nastaveni okna
         int inset = 50;
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        setBounds(inset, inset,
-                 802,
-                  590);
+        setBounds(inset, inset, 800, 600);
 
-
-        //Set up the GUI.
-        desktop = new JDesktopPane(); //a specialized layered pane
+        //GUI
+        desktop = new JDesktopPane();
         desktop.setBackground(Color.LIGHT_GRAY);
-        //createFrame(); //create first "window"
         setContentPane(desktop);
-        setJMenuBar(createMenuBar());
-
-
-        //desktop.addMouseListener(this);
-        //addMouseListener(this);
-
-        zMain = new JLabel("Manchester United");
-        desktop.setLayer(zMain, 1);
-        zMain.setBounds(10, 9, 161, 80);
-        desktop.add(zMain);
-
 
         //Make dragging a little faster but perhaps uglier.
         desktop.setDragMode(JDesktopPane.OUTLINE_DRAG_MODE);
 
-        lblNehraju = new JLabel("Not playing.");
-        desktop.setLayer(lblNehraju, 1);
-        lblNehraju.setBounds(469, 9, 161, 32);
-        desktop.add(lblNehraju);
-
-        btnNewButton = new JButton("New button");
-        desktop.setLayer(btnNewButton, 1);
-        btnNewButton.setContentAreaFilled(false);
-        btnNewButton.setBorderPainted(false);
-
-        btnNewButton.setIcon(new ImageIcon(InternalFrameDemo.class.getResource("/components/images/spray.png")));
-        btnNewButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("SUP");
-                btnNewButton.setIcon(new ImageIcon(InternalFrameDemo.class.getResource("/components/images/Bird.gif")));
-            }
-        });
-        btnNewButton.setOpaque(false);
-        btnNewButton.setBounds(589, 9, 104, 62);
-        desktop.add(btnNewButton);
-
-        JLabel BGSachovnice = new JLabel("");
-        desktop.setLayer(BGSachovnice, -1);
-        BGSachovnice.setFocusable(false);
-        BGSachovnice.setIcon(new ImageIcon(InternalFrameDemo.class.getResource("/components/images/sachovnice_420px_yellow.png")));
-        BGSachovnice.setBounds(x_sachovnice, y_sachovnice, 420, 420);
-        desktop.add(BGSachovnice);
-        BGSachovnice.addMouseListener(this);
         addMouseListener(this);
 
+        //menu
+        setJMenuBar(createMenuBar());
 
-        JButton BNapoveda = new JButton("Help!");
-        BNapoveda.setBounds(386, 15, 70, 20);
-        desktop.add(BNapoveda);
+        //texty s informacemi
+        lblInfo = new JLabel("Not playing.");
+        desktop.setLayer(lblInfo, 1);
+        lblInfo.setBounds(470, 10, 295, 30);
+        desktop.add(lblInfo);
 
-        TextArea TAVypisNotace = new TextArea();
-        TAVypisNotace.setBounds(535, 80, 200, 350);
-        desktop.add(TAVypisNotace);
+        /*
+        btnTlacitkoLambda = new JButton("New button");
+        btnTlacitkoLambda.setOpaque(false);
+        btnTlacitkoLambda.setBounds(590, 10, 100, 60);
+        btnTlacitkoLambda.setContentAreaFilled(false);
+        btnTlacitkoLambda.setBorderPainted(false);
+        btnTlacitkoLambda.setIcon(new ImageIcon(InternalFrameDemo.class.getResource("/components/images/spray.png")));
+        btnTlacitkoLambda.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("SUP");
+                btnTlacitkoLambda.setIcon(new ImageIcon(InternalFrameDemo.class.getResource("/components/images/Bird.gif")));
+            }
+        });
+        desktop.add(btnTlacitkoLambda);
+        desktop.setLayer(btnTlacitkoLambda, 1);
+        */
 
-        Button BSubmitCommand = new Button("OK");
-        BSubmitCommand.setBounds(672, 436, 65, 20);
-        desktop.add(BSubmitCommand);
-
-        TFPrikaz = new JTextField();
-        TFPrikaz.setBounds(535, 436, 131, 20);
-        desktop.add(TFPrikaz);
-        TFPrikaz.setColumns(10);
-
-        JLabel LNapoveda = new JLabel("Napoveda, whatever, huleni, chalst, drogy");
+        //napoveda
+        JLabel LNapoveda = new JLabel("No help requested...");
         LNapoveda.setBounds(40, 15, 336, 20);
         desktop.add(LNapoveda);
 
-        Label LXosaPopisNahore = new Label("    A       B      C      D      E      F      G      H");
+        JButton BNapoveda = new JButton("Help!");
+        BNapoveda.setBounds(390, 15, 70, 20);
+        desktop.add(BNapoveda);
+
+        //deska
+        JLabel BGSachovnice = new JLabel("");
+        BGSachovnice.setFocusable(false);
+        BGSachovnice.setIcon(new ImageIcon(InternalFrameDemo.class.getResource("/components/images/sachovnice_420px_yellow.png")));
+        BGSachovnice.setBounds(x_sachovnice, y_sachovnice, 420, 420);
+        BGSachovnice.addMouseListener(this);
+        desktop.add(BGSachovnice);
+        desktop.setLayer(BGSachovnice, -1);
+
+        String columnsLegend = new String("    A       B      C      D      E      F      G      H");
+        String rowsLegend = new String("8\r\n\r\n7\r\n\r\n6\r\n\r\n5\r\n\r\n4\r\n\r\n3\r\n\r\n2\r\n\r\n1");
+
+        Label LXosaPopisNahore = new Label(columnsLegend);
         LXosaPopisNahore.setFont(new Font("Tahoma", Font.PLAIN, 20));
-        LXosaPopisNahore.setBounds(40, 58, 420, 20);
+        LXosaPopisNahore.setBounds(40, 55, 420, 20);
         desktop.add(LXosaPopisNahore);
 
-        Label LXosaPopisDole = new Label("    A       B      C      D      E      F      G      H");
+        Label LXosaPopisDole = new Label(columnsLegend);
         LXosaPopisDole.setFont(new Font("Tahoma", Font.PLAIN, 20));
         LXosaPopisDole.setBounds(40, 505, 420, 20);
         desktop.add(LXosaPopisDole);
@@ -185,50 +177,47 @@ public class InternalFrameDemo extends JFrame
         TPYosaLeva.setEditable(false);
         TPYosaLeva.setBackground(Color.LIGHT_GRAY);
         TPYosaLeva.setFont(TPYosaLeva.getFont().deriveFont(20f));
-        TPYosaLeva.setText("8\r\n\r\n7\r\n\r\n6\r\n\r\n5\r\n\r\n4\r\n\r\n3\r\n\r\n2\r\n\r\n1");
+        TPYosaLeva.setText(rowsLegend);
         TPYosaLeva.setBounds(17, 95, 17, 402);
         desktop.add(TPYosaLeva);
 
         JTextPane TPYosaPrava = new JTextPane();
         TPYosaPrava.setEditable(false);
-        TPYosaPrava.setText("8\r\n\r\n7\r\n\r\n6\r\n\r\n5\r\n\r\n4\r\n\r\n3\r\n\r\n2\r\n\r\n1");
+        TPYosaPrava.setText(rowsLegend);
         TPYosaPrava.setFont(TPYosaPrava.getFont().deriveFont(20f));
         TPYosaPrava.setBackground(Color.LIGHT_GRAY);
         TPYosaPrava.setBounds(465, 95, 17, 402);
         desktop.add(TPYosaPrava);
 
-        JLabel LFigurkaPokus1 = new JLabel("");
-        LFigurkaPokus1.setBounds(50, 440, 50, 50);
-        desktop.add(LFigurkaPokus1);
-        LFigurkaPokus1.setIcon(new ImageIcon(InternalFrameDemo.class.getResource("/components/images/figurky/bily_pesak.png")));
+        //notace
+        this.TAVypisNotace = new TextArea();
+        this.TAVypisNotace.setBounds(535, 80, 200, 350);
+        desktop.add(this.TAVypisNotace);
 
-        JLabel LFigurkaPokus2 = new JLabel("");
-        LFigurkaPokus2.setBounds(100, 391, 50, 50);
-        desktop.add(LFigurkaPokus2);
-        LFigurkaPokus2.setIcon(new ImageIcon(InternalFrameDemo.class.getResource("/components/images/figurky/cerny_pesak.png")));
-        JLabel LFigurkaPokus3 = new JLabel("");
-        LFigurkaPokus3.setBounds(150, 440, 50, 50);
-        desktop.add(LFigurkaPokus3);
-        LFigurkaPokus3.setIcon(new ImageIcon(InternalFrameDemo.class.getResource("/components/images/figurky/bila_dama.png")));
+        this.BSubmitCommand = new Button("OK");
+        this.BSubmitCommand.setBounds(670, 435, 65, 20);
+        desktop.add(BSubmitCommand);
 
-        JLabel LFigurkaPokus4 = new JLabel("");
-        LFigurkaPokus4.setBounds(200, 391, 50, 50);
-        desktop.add(LFigurkaPokus4);
-        LFigurkaPokus4.setIcon(new ImageIcon(InternalFrameDemo.class.getResource("/components/images/figurky/cerna_dama.png")));
-
-
+        this.TFPrikaz = new JTextField();
+        this.TFPrikaz.setBounds(535, 440, 130, 20);
+        desktop.add(this.TFPrikaz);
+        this.TFPrikaz.setColumns(10);
 
     }
 
+    /**
+     * Vytvori menu
+     * @return JMenuBar Menu obsahujici polozky New game, New P2P game, Load game, Save game, Player, About a Quit
+     */
     protected JMenuBar createMenuBar() {
         JMenuBar menuBar = new JMenuBar();
 
-        //Set up the lone menu.
+        //Menu
         JMenu menu = new JMenu("Menu");
         menu.setMnemonic(KeyEvent.VK_D);
         menuBar.add(menu);
 
-        //Set up the first menu item.
+        //nova lokalni hra
         JMenuItem menuItem = new JMenuItem("New game");
         menuItem.setMnemonic(KeyEvent.VK_N);
         menuItem.setAccelerator(KeyStroke.getKeyStroke(
@@ -237,7 +226,7 @@ public class InternalFrameDemo extends JFrame
         menuItem.addActionListener(this);
         menu.add(menuItem);
 
-        //sitova hra
+        //nova sitova hra
         menuItem = new JMenuItem("New P2P game");
         menuItem.setMnemonic(KeyEvent.VK_W);
         menuItem.setAccelerator(KeyStroke.getKeyStroke(
@@ -282,7 +271,7 @@ public class InternalFrameDemo extends JFrame
         menuItem.addActionListener(this);
         menu.add(menuItem);
 
-        //Set up the second menu item.
+        //quit
         menuItem = new JMenuItem("Quit");
         menuItem.setMnemonic(KeyEvent.VK_Q);
         menuItem.setAccelerator(KeyStroke.getKeyStroke(
@@ -294,16 +283,13 @@ public class InternalFrameDemo extends JFrame
         return menuBar;
     }
 
-    //React to menu selections.
+
+    //Reakce na menu a na tlacitka ve vnitrnich ramcich
     public void actionPerformed(ActionEvent e) {
-        if ("new".equals(e.getActionCommand())) {//menu
+        if ("new".equals(e.getActionCommand())) {                    //menu
             createNewGameSettingsFrame();
         }else if ("newP2P".equals(e.getActionCommand())){
             createNewP2PGameSettingsFrame();
-        }else if ("startgame".equals(e.getActionCommand())){//tlacitka
-            startgame();
-        }else if ("startP2Pgame".equals(e.getActionCommand())){
-            startP2Pgame();
         }else if ("Load game".equals(e.getActionCommand())){
             System.out.println("Neimplementovano");
         }else if ("Save game".equals(e.getActionCommand())){
@@ -314,18 +300,19 @@ public class InternalFrameDemo extends JFrame
             System.out.println("Neimplementovano");
         }else if ("quit".equals(e.getActionCommand())){
             quit();
+        }else if ("startgame".equals(e.getActionCommand())){        //tlacitka ve vnitrnich ramcich
+            startgame();
+        }else if ("startP2Pgame".equals(e.getActionCommand())){
+            startP2Pgame();
         }else{
             System.out.println("Neznama akce");
         }
     }
 
-    //Quit the application.
-    protected void quit() {
-        Dama.stopGameThread();
-        System.exit(0);
-    }
 
-    //Create a new internal frame.
+    /**
+     * Vytvori vnitrni ramec nastaveni lokalni hry
+     */
     protected void createNewGameSettingsFrame() {
 
         this.inFrNewGameSett = new NewGameSettings();
@@ -344,7 +331,10 @@ public class InternalFrameDemo extends JFrame
         } catch (java.beans.PropertyVetoException e) {}
     }
 
-    //Create a new internal frame.
+
+    /**
+     * Vytvori vnitrni ramec nastaveni P2P hry
+     */
     protected void createNewP2PGameSettingsFrame() {
 
         this.inFrNewP2PGameSett = new NewP2PGameSettings();
@@ -363,13 +353,18 @@ public class InternalFrameDemo extends JFrame
         } catch (java.beans.PropertyVetoException e) {}
     }
 
+
+    /**
+     * Ziska settings z vnitrniho ramce inFrNewGameSett
+     * vlozi nastaveni do vlakna hry a probudi ho
+     */
     protected void startgame(){
 
         this.settings = this.inFrNewGameSett.getSettings();
 
         if(this.settings != null){
             System.out.println("GUI:Starting the game...");
-            this.lblNehraju.setText(this.settings.getSettingsString());
+            this.lblInfo.setText(this.settings.getSettingsString());
 
             if(Dama.isGameSetAndRunning()){
                 Dama.stopGameThread();
@@ -388,17 +383,22 @@ public class InternalFrameDemo extends JFrame
             }
         }else{
             System.out.println("Configure settings!");
-            this.lblNehraju.setText("Configure settings!");
+            this.lblInfo.setText("Configure settings!");
         }
     }
 
+
+    /**
+     * prozatim neupdatovana funkce pro nastaveni a spousteni P2P hry
+     */
+    @Deprecated
     protected void startP2Pgame(){
 
         this.settings = this.inFrNewP2PGameSett.getSettings();
 
         if(this.settings != null){
             System.out.println("GUI:Starting the game...");
-            this.lblNehraju.setText(this.settings.getSettingsString());
+            this.lblInfo.setText(this.settings.getSettingsString());
 
             //Dama.startingGameThread(this.settings);
 
@@ -407,9 +407,20 @@ public class InternalFrameDemo extends JFrame
 
         }else{
             System.out.println("Configure settings!");
-            this.lblNehraju.setText("Configure settings!");
+            this.lblInfo.setText("Configure settings!");
         }
     }
+
+
+    /**
+     * Ukonceni hry tlacitkem v menu
+     */
+    protected void quit() {
+        this.dispose();
+        Dama.stopGameThread();
+        System.exit(0);
+    }
+
 
     /**
      * Create the GUI and show it.  For thread safety,
@@ -428,26 +439,25 @@ public class InternalFrameDemo extends JFrame
         frame.setVisible(true);
     }
 
+    //Zpracuje klik tlacitka a posle zvolenou pozici na desce dale
     public void mouseClicked(MouseEvent e)
     {
-        //System.out.println("Mouse clicked (# of clicks: " + e.getClickCount() + ")");
-
-        Point p=getLocationOnScreen();
-
+        Point p = getLocationOnScreen();
         PointerInfo a = MouseInfo.getPointerInfo();
         Point b = a.getLocation();
+
         int x = (int) b.getX() - p.x - x_offset;
         int y = (int) b.getY() - p.y - y_offset;
         if ( (x>=(x_sachovnice+10)) && (y>=y_sachovnice+11) && (x<=(x_sachovnice+409)) && (y<=(y_sachovnice+410)) )
         {
-            //System.out.println(x + ":" + y);
             int sx = (x - 10 - x_sachovnice);
             int sy = y - 11 - y_sachovnice;
-            //System.out.println(sx + ":" + sy);
-            sx=sx/50;
-            sy=7 - sy/50;
+
+            sx = sx/50;
+            sy = 7 - sy/50;
+
             System.out.println(sx + ":" + sy);
-            //System.out.println("\tKliknul si na sachovnici");
+
             Position pos = new Position(sy, sx);
             Dama.mouseInput(pos);
         }
@@ -471,11 +481,31 @@ public class InternalFrameDemo extends JFrame
         // TODO Auto-generated method stub
     }
 
-    public void setLabelHelp(String string){
-        this.zMain.setText(string);
-    }
-
+    /**
+     * Vykresli stav desky
+     * @param desk
+     */
     public void updateDesk(Desk desk){
-        this.zMain.setText("Obnovuju labely figurek na desce");
+        this.lblInfo.setText("Obnovuju labely figurek na desce");
+        /*
+        JLabel LFigurkaPokus1 = new JLabel("");
+        LFigurkaPokus1.setBounds(50, 440, 50, 50);
+        desktop.add(LFigurkaPokus1);
+        LFigurkaPokus1.setIcon(new ImageIcon(InternalFrameDemo.class.getResource("/components/images/figurky/bily_pesak.png")));
+
+        JLabel LFigurkaPokus2 = new JLabel("");
+        LFigurkaPokus2.setBounds(100, 391, 50, 50);
+        desktop.add(LFigurkaPokus2);
+        LFigurkaPokus2.setIcon(new ImageIcon(InternalFrameDemo.class.getResource("/components/images/figurky/cerny_pesak.png")));
+        JLabel LFigurkaPokus3 = new JLabel("");
+        LFigurkaPokus3.setBounds(150, 440, 50, 50);
+        desktop.add(LFigurkaPokus3);
+        LFigurkaPokus3.setIcon(new ImageIcon(InternalFrameDemo.class.getResource("/components/images/figurky/bila_dama.png")));
+
+        JLabel LFigurkaPokus4 = new JLabel("");
+        LFigurkaPokus4.setBounds(200, 391, 50, 50);
+        desktop.add(LFigurkaPokus4);
+        LFigurkaPokus4.setIcon(new ImageIcon(InternalFrameDemo.class.getResource("/components/images/figurky/cerna_dama.png")));
+        */
     }
 }
