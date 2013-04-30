@@ -8,11 +8,12 @@ import java.util.Random;
 
 public class AI
 {
+    //pokud vrati false, doslo k patu
     public static boolean AIMove (Desk desk, char natahu, int nahodnost)
     {
         //Figure[][] this_board=desk.getState();
         if (nahodnost<2) nahodnost=2;
-        if (nahodnost>4) nahodnost=4;
+        if (nahodnost>8) nahodnost=8;
         int preskoceni=0;
 
         if ( Check.isMustTake(desk, natahu) )
@@ -122,12 +123,17 @@ public class AI
                         Position pos0_zaloha = new Position(pos0.row, pos0.col);
 
                         Random generator = new Random();
-
                         int r = generator.nextInt()%nahodnost;
-                        if (r==1) continue;
+                        if (preskoceni<24)
+                        {
+                            if (r==1)
+                            {
+                                preskoceni++;
+                                continue;
+                            }
+                        }
+                        else if (preskoceni>1000) return false; //doslo k patu
 
-
-                        //System.out.print(".");
                         for (int i=1; i<8; i++)
                         {   //po obou uhloprickach jede v obouch smerech a kontroluje jestli muze figurka skocit na danou pozici
 
@@ -217,7 +223,8 @@ public class AI
                         }
                     }
 
-            System.out.println("\tBude se tahnout!5 false");
+            //System.out.println("\tBude se tahnout!5 false" + preskoceni);
+            preskoceni=preskoceni+5;
         }
         //return false;
    }
