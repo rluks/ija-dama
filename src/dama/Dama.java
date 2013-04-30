@@ -20,7 +20,7 @@ public class Dama extends Thread{
     //staticke
     public static Dama dama;
 
-    //vlakno
+    //vlakno hry
     public Settings settings;
     public Desk desk;
     public boolean allDone = false; //ukonceni behu
@@ -28,10 +28,12 @@ public class Dama extends Thread{
 
     public boolean gameSetAndRuning = false; //hra byla nastavena a uz se provadi tahy, atd.
 
-    Dama(String name/*, Settings s*/){
+    /**
+     * Konstruktor vlakna hry
+     * @param name
+     */
+    Dama(String name){
         super(name);
-
-        //this.settings = s;
     }
 
     public void run(){
@@ -42,7 +44,7 @@ public class Dama extends Thread{
         gui.setVisible(true);
         Dama.sleepGameThread();
 
-        //smycka hry
+        //smycka nastaveni hry
         while(true){
             try {
                 Thread.sleep(200);
@@ -67,14 +69,14 @@ public class Dama extends Thread{
             if(!gui.isVisible()){
                 System.out.println("GUI zavreno - vypinam program.");
                 System.exit(0);
-            }
-            //vypinaci cast - konec
+            }//vypinaci cast - konec
 
-            gui.setLabelHelp("Baník pYčo");
+            gui.setLabelHelp("Baník!!!");
             System.out.println(this.settings.getXML());
 
             this.desk = new Desk();
 
+            //smycka vlastni hry
             while(true){
                 gameSetAndRuning = true;
                 System.out.println("Hra nastavena, beziii hra.... bezii uz beziiii");
@@ -87,9 +89,7 @@ public class Dama extends Thread{
                 if(!gui.isVisible()){
                     System.out.println("GUI zavreno - vypinam program.");
                     System.exit(0);
-                }
-                //vypinaci cast - konec
-
+                }//vypinaci cast - konec
 
                 try {
                     Thread.sleep(1000);
@@ -102,7 +102,7 @@ public class Dama extends Thread{
     }
 
 
-    //staticke
+    //staticke metody
     public static void main(String[] args) throws InterruptedException {
 
         // projekt:
@@ -160,21 +160,27 @@ public class Dama extends Thread{
     }
 
 
-    public static void startingGameThread(/*Settings settings*/){
+    /**
+     * Zastavi predchozi vlakno, spusti nove, uspi ho a ceka se na nastaveni
+     */
+    public static void startingGameThread(){
 
         Dama.stopGameThread();
 
-        System.out.println("startuju");
-        dama = new Dama("DamaVlakno"/*, settings*/);
+        System.out.println("startingGameThread...");
+        dama = new Dama("DamaVlakno");
         dama.start();
 
         Dama.sleepGameThread();
     }
 
+    /**
+     * Uspi vlakno hry
+     */
     public static boolean sleepGameThread(){
         System.out.println("sleepGameThread: pokousim se uspat hru...");
 
-        if(dama != null){
+        if(dama != null){//TODO tyhle kontroly delat v jedine fci
             synchronized (dama){
                 dama.pleaseWait = true;
             }
@@ -185,6 +191,9 @@ public class Dama extends Thread{
         }
     }
 
+    /**
+     * Probudi vlakno hry
+     */
     public static boolean wakeUpGameThread(){
         System.out.println("wakeUpGameThread: probouzim hru...");
 
@@ -200,6 +209,10 @@ public class Dama extends Thread{
         }
     }
 
+    /**
+     * Zastavi vlakno hry
+     * @return
+     */
     public static boolean stopGameThread(){
         System.out.println("stopGameThread: zastavuji vlakno hry...");
 
@@ -215,6 +228,10 @@ public class Dama extends Thread{
         }
     }
 
+    /**
+     * Kontrola jestli bezi vlakno hry
+     * @return
+     */
     public static boolean isGameThreadRunning(){
         if(dama != null){
             if(dama.isAlive()){
@@ -227,7 +244,10 @@ public class Dama extends Thread{
         }
     }
 
-    //do hry bylo ulozeno nastaveni a uz se hraje
+    /**
+     * Kontrola jestli uz se hraje (zda bylo vse nastaveno)
+     * @return
+     */
     public static boolean isGameSetAndRunning(){
 
         if(Dama.isGameThreadRunning()){
@@ -243,20 +263,48 @@ public class Dama extends Thread{
         }
     }
 
+    /**
+     * Zpracuje vstup od mysi (kliky na sachovnici) a posila ho dal
+     * @param pos
+     */
     public static void mouseInput(Position pos){
 
         //if(wakeUpGameThread())
         {
             System.out.println("mouseInput:" + pos.getStr());
         }
+        Dama.input(/**/);
     }
 
-    public static boolean setSettings(Settings s){
+    /**
+     * Zpracuje vstup od textove ramecku od notace a posila ho dal
+     */
+    public static void notaceInput(){
+
+        ///zpracovani
+
+
+        Dama.input(/**/);
+    }
+
+    /**
+     * Jednotny vstup tahu pro vlakno hry
+     */
+    public static void input(){
+
+    }
+
+    /**
+     * Uklada nastaveni do vlakna hry
+     * @param s
+     * @return
+     */
+    public static boolean setSettings(Settings settings){
         System.out.println("setSettings: ukladam nastaveni...");
 
         if(dama != null){
             synchronized (dama){
-                dama.settings = s;
+                dama.settings = settings;
                 dama.notify();
             }
             return true;
