@@ -1,8 +1,10 @@
 package dama;
 
+import java.awt.Point;
 import java.awt.event.MouseEvent;
 
 import dama.state.Desk;
+import dama.state.Position;
 import components.InternalFrameDemo;
 import dama.operations.*;
 import dama.state.Settings;
@@ -106,7 +108,7 @@ public class Dama extends Thread{
         // projekt:
         // TODO javadoc
 
-        //Dama.startingGameThread();
+        Dama.startingGameThread();
 
 /*
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
@@ -241,9 +243,11 @@ public class Dama extends Thread{
         }
     }
 
-    public static void mouseInput(MouseEvent e){
-        if(wakeUpGameThread()){
-            System.out.println("myska me vzbudila");
+    public static void mouseInput(Position pos){
+
+        //if(wakeUpGameThread())
+        {
+            System.out.println("mouseInput:" + pos.getStr());
         }
     }
 

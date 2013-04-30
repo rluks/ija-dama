@@ -58,6 +58,7 @@ import javax.swing.ImageIcon;
 
 import dama.Dama;
 import dama.state.Desk;
+import dama.state.Position;
 import dama.state.Settings;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
@@ -447,7 +448,8 @@ public class InternalFrameDemo extends JFrame
             sy=7 - sy/50;
             System.out.println(sx + ":" + sy);
             //System.out.println("\tKliknul si na sachovnici");
-            Dama.mouseInput(e);
+            Position pos = new Position(sy, sx);
+            Dama.mouseInput(pos);
         }
     }
 
