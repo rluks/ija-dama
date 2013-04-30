@@ -2,7 +2,6 @@ package dama;
 
 import java.awt.Point;
 import java.awt.event.MouseEvent;
-
 import dama.state.Desk;
 import dama.state.Position;
 import components.InternalFrameDemo;
