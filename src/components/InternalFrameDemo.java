@@ -366,7 +366,7 @@ public class InternalFrameDemo extends JFrame
             System.out.println("GUI:Starting the game...");
             this.lblInfo.setText(this.settings.getSettingsString());
 
-            if(Dama.isGameSetAndRunning()){
+            if(Dama.isGameSetAndRunning()){//TODO tady to cyklicky dela hovadinky
                 Dama.stopGameThread();
                 Dama.startingGameThread();
 
@@ -417,6 +417,7 @@ public class InternalFrameDemo extends JFrame
      */
     protected void quit() {
         this.dispose();
+        Dama.wakeUpGameThread();//probudi aby vedelo ze je zastaveno
         Dama.stopGameThread();
         System.exit(0);
     }
