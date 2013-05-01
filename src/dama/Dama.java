@@ -408,8 +408,8 @@ public class Dama extends Thread{
 
     /**
      * Uklada nastaveni do vlakna hry
-     * @param s
-     * @return
+     * @param settings instance tridy Settings s nastavenim hry
+     * @return vraci false pokud hra neexistuje
      */
     public static boolean setSettings(Settings settings){
         System.out.println("setSettings: ukladam nastaveni...");
@@ -426,6 +426,11 @@ public class Dama extends Thread{
         }
     }
 
+    /**
+     * Uklada tah do vlakna hry
+     * @param turn instance tridy
+     * @return vraci false pokud hra neexistuje
+     */
     public static boolean setTurn(Turn turn){
 
         System.out.println("setTurn: ukladam tah...");
@@ -443,12 +448,20 @@ public class Dama extends Thread{
 
     }
 
+    /**
+     * Z vlakna hry ziska desku
+     * @return desk instance tridy Desk obsahujici stav hry na sachovnici
+     */
     public static Desk getDesk(){
         synchronized (dama){
             return dama.desk;
         }
     }
 
+    /**
+     * Z vlakna hry ziska turn
+     * @return turn instance tridy Turn obsahujici jeden pultah
+     */
     public static Turn getTurn(){
         synchronized (dama){
             return dama.turn;
@@ -456,6 +469,10 @@ public class Dama extends Thread{
     }
 
 
+    /**
+     * Z vlakna hry ziska barvu hrace na tahu
+     * @return char barva hrace 'W' nebo 'B', pripadne '\0'
+     */
     public static char getPlayerColor(){
         synchronized (dama){
             return dama.playerColor;

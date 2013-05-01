@@ -93,17 +93,27 @@ public class Desk {
         return OK;
     }
 
+    /**
+     * Vraci pole figurek sachovnice
+     * @return
+     */
     public Figure[][] getState()
     {
         return this.board;
     }
 
+    /**
+     * Nastavi tento instanci desky sachovnici
+     * @param board pole figurek
+     */
     public void setState(Figure[][] board)
     {
         this.board = board;
     }
 
-    //odstrani flag mustTake u vsech figur na hraci plose----------------------------------------------------------------------------------------------------------------
+    /**
+     * Odstrani flag mustTake u vsech figur na hraci plose
+     */
     public void clearMustTakeFlag()
     {
         int col,row;
@@ -112,6 +122,10 @@ public class Desk {
                 if (this.board[row][col]!=null) this.board[row][col].mustTakeFlag=false;
     }
 
+    /**
+     * Vytiskne do konzole velkou sachovnici figurkek s barvou (B nebo W), typem(P nebo D),jmenem a musttake flagem (0 nebo 1)
+     * napr.: BP_Professor_Chaos_0
+     */
     public void printBoard()
     {
         String longName = new String("BP_Professor_Chaos_0");
@@ -168,6 +182,10 @@ public class Desk {
         System.out.println();
     }
 
+    /**
+     * Vytiskne do konzole malou sachovnici figurek s  barvou (B nebo W), typem(P nebo D)  a musttake flagem (0 nebo 1)
+     * napr.: BP0
+     */
     public void printSimpleBoard(){
         String longName = new String("BP0");
         int maxLength = longName.length();
@@ -236,6 +254,11 @@ public class Desk {
         System.out.println();
     }
 
+    /**
+     * Vraci instanci figurky na dane pozici
+     * @param position instance Position na sachovnici
+     * @return figure instace Figure
+     */
     public Figure getFigureAtPosition(Position position){
 
         if((position.row < 0) || (position.row > 7) || (position.col < 0) || (position.col > 7)){

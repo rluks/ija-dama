@@ -43,15 +43,19 @@ import javax.swing.JTextField;
 
 import dama.state.Settings;
 
-/* Used by InternalFrameDemo.java. */
+/**
+ * Trida vytvarejici vnitrni ramec s nastavenim nove P2P hry
+ * @author Roman Lukš
+ * @author Pavel Hála
+ *
+ */
 public class NewP2PGameSettings extends JInternalFrame {
 
-    /**
-     *
-     */
     private static final long serialVersionUID = 1403878987649253394L;
+
     static int openFrameCount = 0;
     static final int xOffset = 30, yOffset = 30;
+
     ButtonGroup local;
     private JTextField txtRemoteip;
     private JTextField txtRemotePort;
@@ -63,12 +67,8 @@ public class NewP2PGameSettings extends JInternalFrame {
               false, //maximizable
               false);//iconifiable
 
-        //...Create the GUI and put it in the window...
+        setSize(425,430);
 
-        //...Then set the window size or call pack...
-        setSize(424,429);
-
-        //Set the window's location.
         setLocation(xOffset*openFrameCount, yOffset*openFrameCount);
         getContentPane().setLayout(new GridLayout(0, 1, 0, 0));
 
@@ -105,6 +105,11 @@ public class NewP2PGameSettings extends JInternalFrame {
         txtRemotePort.setColumns(10);
     }
 
+    /**
+     * Pomocna funkce na zisk zvolenych radio buttonu
+     * @param group skupina radio buttonu
+     * @return zvoleny radio button
+     */
     public JRadioButton getSelection(ButtonGroup group) {
         for (Enumeration<AbstractButton> e = group.getElements(); e.hasMoreElements();) {
           JRadioButton b = (JRadioButton) e.nextElement();
@@ -115,6 +120,10 @@ public class NewP2PGameSettings extends JInternalFrame {
         return null;
     }
 
+    /**
+     * Vraci nastaveni zvolene v dialogu nove P2P hry
+     * @return Instance tridy Settings
+     */
     public Settings getSettings(){
 
         JRadioButton local = getSelection(this.local);

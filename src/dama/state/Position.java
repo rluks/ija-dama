@@ -18,7 +18,11 @@ public class Position {
         this.col = col;
     }
 
-    //static metoda tridy rovnou vytvori po konverzi z retezce novou instanci pozice---------------------------------------------------------------------------------------
+    /**
+     * Rovnou vytvori po konverzi z upper case retezce novou instanci pozice
+     * @param positionStr retezec pozice v upper case, napr.: A1
+     * @return instance Pozice
+     */
     public static Position positionStrToPosition(String positionStr)
     {
         //kontrola delky
@@ -41,6 +45,11 @@ public class Position {
         return pos;
     }
 
+    /**
+     * Rovnou vytvori po konverzi z lower case retezce novou instanci pozice
+     * @param positionStr retezec pozice v lower case, napr.: a1
+     * @return instance Pozice
+     */
     public static Position positionStrToPositionLowerCase(String positionStr)
     {
         //kontrola delky
@@ -64,7 +73,10 @@ public class Position {
     }
 
 
-    //pozice bude umet vracet svuj retezec----------------------------------------------------------------------------------------------------------------------------------
+    /**
+     * Vrati upper case retezec odpovidajici pozici na sachovnici
+     * @return String souradnice v upper case, napr.: A1
+     */
     public String getStr()
     {
         char pom1= (char) ( this.col + 'A' );
@@ -73,6 +85,10 @@ public class Position {
         return pom3;
     }
 
+    /**
+     * Vrati lower case retezec odpovidajici pozici na sachovnici
+     * @return String souradnice v lower case, napr.: a1
+     */
     public String getStrLowerCase()
     {
         char pom1= (char) ( this.col + 'a' );
@@ -81,10 +97,18 @@ public class Position {
         return pom3;
     }
 
-    public boolean equals(Position pos)
-    {
-        if (this==pos) return true;    //stejne reference
-        else if ( (this.row==pos.row) && (this.col==pos.col) ) return true;
+    @Override
+    public boolean equals(Object p){
+
+        if(p == this){return true;} //stejne reference
+
+        if(p == null || p.getClass() != this.getClass()){
+            return false;
+        }
+
+        Position pos = (Position)p;
+
+        if ( (this.row==pos.row) && (this.col==pos.col) ) return true;
         else return false;
     }
 
