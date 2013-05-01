@@ -147,6 +147,7 @@ public class Dama extends Thread{
                     Check.isPieceToDame(desk);
                     gui.updateDesk(this.desk);
                     this.desk.printSimpleBoard();
+                    gui.clearAura();
 
                     Turn wturn = turn;
 
@@ -181,10 +182,12 @@ public class Dama extends Thread{
                     Check.isPieceToDame(desk);
                     gui.updateDesk(this.desk);
                     this.desk.printSimpleBoard();
+                    gui.clearAura();
 
                     Turn bturn = turn;
 
                 gui.NotationNewLine(wturn, wtake, bturn, btake, tahCislo);
+
                 //vypinaci cast
                 checkGUIShutdown(gui);
                 if(allDone){System.out.println("Hra: Dama terminated, allDone!!");return;}
