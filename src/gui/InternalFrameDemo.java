@@ -412,11 +412,6 @@ public class InternalFrameDemo extends JFrame
             if(Dama.isGameSetAndRunning()){
                 System.out.println("hra BEZELA spoustim...");
                 Dama.stopGameThread();
-                Dama.wakeUpGameThread();//probudi aby vedelo ze je zastaveno
-
-                Dama.startingGameThread();
-
-                try {Thread.sleep(500);} catch (InterruptedException e) {e.printStackTrace();}
 
                 Dama.setSettings(this.settings);
                 Dama.wakeUpGameThread();
@@ -465,10 +460,14 @@ public class InternalFrameDemo extends JFrame
      * Ukonceni hry tlacitkem v menu
      */
     protected void quit() {
-        this.dispose();
-        Dama.stopGameThread();
+
+        this.setVisible(false);
+
         Dama.wakeUpGameThread();//probudi aby vedelo ze je zastaveno
-        System.exit(0);
+        //Dama.stopGameThread();
+        //System.exit(0);
+        pullThePlug();
+        this.dispose();
     }
 
 
