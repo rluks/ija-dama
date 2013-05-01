@@ -366,15 +366,21 @@ public class InternalFrameDemo extends JFrame
             System.out.println("GUI:Starting the game...");
             this.lblInfo.setText(this.settings.getSettingsString());
 
-            if(Dama.isGameSetAndRunning()){//TODO tady to cyklicky dela hovadinky
+            if(Dama.isGameSetAndRunning()){
+                System.out.println("hra BEZELA spoustim...");
                 Dama.stopGameThread();
+                Dama.wakeUpGameThread();//probudi aby vedelo ze je zastaveno
+
                 Dama.startingGameThread();
+
+                try {Thread.sleep(500);} catch (InterruptedException e) {e.printStackTrace();}
 
                 Dama.setSettings(this.settings);
                 Dama.wakeUpGameThread();
 
                 this.dispose();
             }else{
+                System.out.println("ukladanim nastaveni do NOVE...");
                 Dama.setSettings(this.settings);
                 Dama.wakeUpGameThread();
 

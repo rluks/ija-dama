@@ -26,6 +26,7 @@ public class Dama extends Thread{
     public boolean pleaseWait = false; //pozastaveni behu
 
     public boolean gameSetAndRuning = false; //hra byla nastavena a uz se provadi tahy, atd.
+    InternalFrameDemo gui;
 
     /**
      * Konstruktor vlakna hry
@@ -33,29 +34,27 @@ public class Dama extends Thread{
      */
     Dama(String name){
         super(name);
+
+        gui = new InternalFrameDemo();
+        gui.setVisible(true);
     }
 
     public void run(){
 
         //inicializace
-        InternalFrameDemo gui;
-        gui = new InternalFrameDemo();
-        gui.setVisible(true);
+
+        System.out.println("Hra: Uspavam se");
         Dama.sleepGameThread();
 
         //smycka nastaveni hry
         while(true){
-            try {
-                Thread.sleep(200);
-            } catch (InterruptedException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
+
+            try {Thread.sleep(200);} catch (InterruptedException e) {e.printStackTrace();}
 
             synchronized(this){
                 while(pleaseWait){
                     try{
-                        System.out.println("sleeping...");//TODO kdyz se tu zavre gui, tak tohle furt spi
+                        System.out.println("Hra: sleeping...");
                         wait();
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -64,39 +63,35 @@ public class Dama extends Thread{
             }
 
             //vypinaci cast
-            if(allDone){System.out.println("Dama terminated, allDone!!");return;}
+            if(allDone){System.out.println("Hra: Dama terminated, allDone!!");return;}
             if(!gui.isVisible()){
-                System.out.println("GUI zavreno - vypinam program.");
+                System.out.println("Hra: GUI zavreno - vypinam program.");
                 System.exit(0);
             }//vypinaci cast - konec
 
             this.desk = new Desk();
             gui.updateDesk(desk);
 
+            System.out.println("Hra: Tisknu nastaveni");
             System.out.println(this.settings.getXML());
 
 
             //smycka vlastni hry
             while(true){
                 gameSetAndRuning = true;
-                System.out.println("Hra nastavena, beziii hra.... bezii uz beziiii");
+                System.out.println("Hra: nastavena, beziii hra.... bezii uz beziiii");
                 System.out.println(this.settings.getSettingsString());
 
                 gui.updateDesk(this.desk);
 
                 //vypinaci cast
-                if(allDone){System.out.println("Dama terminated, allDone!!");return;}
+                if(allDone){System.out.println("Hra: Dama terminated, allDone!!");return;}
                 if(!gui.isVisible()){
-                    System.out.println("GUI zavreno - vypinam program.");
+                    System.out.println("Hra: GUI zavreno - vypinam program.");
                     System.exit(0);
                 }//vypinaci cast - konec
 
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
+                try {Thread.sleep(1000);} catch (InterruptedException e) {e.printStackTrace();}
             }
         }
     }
@@ -171,7 +166,7 @@ public class Dama extends Thread{
         dama = new Dama("DamaVlakno");
         dama.start();
 
-        Dama.sleepGameThread();
+        //Dama.sleepGameThread();
     }
 
     /**
