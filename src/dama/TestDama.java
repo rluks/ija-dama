@@ -31,7 +31,10 @@ public class TestDama {
 
     }
 
-    /** Test tridy Desk */
+    /**
+     *  Prvni sada testu.
+     *  Kontroluje, jestli funguje spravne cistici funkce "clearMustTakeFlag"
+     */
     @Test
     public void testClearMustTakeFlag()
     {
@@ -49,7 +52,10 @@ public class TestDama {
 
     }
 
-    /** Test tridy Desk */
+    /**
+     *  Druha sada testu.
+     *  Kontroluje spravnost vytvorene desky.
+     */
     @Test
     public void testGetFigureAtPosition()
     {
@@ -73,6 +79,10 @@ public class TestDama {
         System.out.println("OK");
     }
 
+    /**
+     * Treti sada testu.
+     * Testuje hlavne spravnost pozic.
+     */
     @Test
     public void test01()
     {
@@ -153,6 +163,10 @@ public class TestDama {
         System.out.println("OK");
     }
 
+    /**
+     * Ctvrta sada testu.
+     * Testuje zakladni vlastnosti hry jako brani a pohybovani figurek po plose a korektnost takovychto tahu.
+     */
     @Test
     public void test02()
     {
@@ -383,42 +397,3 @@ public class TestDama {
     }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
