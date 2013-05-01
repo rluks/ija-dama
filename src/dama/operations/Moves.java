@@ -310,6 +310,10 @@ public class Moves
         Figure[][] this_board=desk.getState();
         Figure fig=this_board[turn.origin.row][turn.origin.col];
 
+        if(turn.origin.equals(turn.destination)){
+            return false;
+        }
+
         if (fig==null) return false;                            //zkontroluju jestli ej vubec s cim tahnout
         else if (fig.color!=turn.playerColor) return false;     //zkontroluju, jestli barva hrace na tahu odpovida barve figurky se kterou se tahne
         else if ( (isMoveValid(desk, turn)==true) || (isTakeValid(desk, turn)!=null) ) return true;    //samotna kontrola jestli je tah proveditelny
