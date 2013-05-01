@@ -34,6 +34,7 @@ public class Dama extends Thread{
     protected int tahCislo = 0;
     protected boolean wtake;
     protected boolean btake;
+    private int aiStochasticity = 5; //nahodnost AI tahu
     public boolean allDone = false; //ukonceni behu
     public boolean pleaseWait = false; //pozastaveni behu
     //public int pocaitadlo_tahu=1;
@@ -113,10 +114,9 @@ public class Dama extends Thread{
                     gui.setInfoText(infoText);
 
                     if(this.settings.white == "AI"){
-                        System.out.println("Hra: AI - tah bileho, take() vraci:" + AI.AIMove(desk, 'W', 5));
+                        System.out.println("Hra: AI - tah bileho");
+                        turn = AI.AIMove(desk, this.playerColor, this.aiStochasticity);
                         desk.clearMustTakeFlag();
-                        Position pInvalid = new Position(0, 0);
-                        turn = new Turn(playerColor, pInvalid, pInvalid);
                     }else{
 
                         this.turn = Turn.TurnWhite(pEmpty, pEmpty);
