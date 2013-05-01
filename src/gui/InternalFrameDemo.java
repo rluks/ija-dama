@@ -565,4 +565,9 @@ public class InternalFrameDemo extends JFrame
             }
 
     }
+
+    public void pullThePlug() {
+        WindowEvent wev = new WindowEvent(this, WindowEvent.WINDOW_CLOSING);
+        Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(wev);
+}
 }
