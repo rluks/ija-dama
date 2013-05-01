@@ -251,9 +251,10 @@ public class Moves
                     }
                 }
             }
+            origin=zaloha_origin;
             if (vlastnich>0) return null;        //pri vyhazovani skace pres vlastni figurky
             if (oponentovych!=1) return null;    //pri vyhazovani skace pres vice nez jednu cernou nebo taky pres zadnou cernou
-            origin=zaloha_origin;
+
             return pos;
         }
         return null;
