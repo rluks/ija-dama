@@ -2,8 +2,10 @@ package dama;
 
 import gui.InternalFrameDemo;
 
+import dama.io.Turn;
 import dama.operations.AI;
 import dama.operations.Check;
+import dama.operations.Moves;
 import dama.state.Desk;
 import dama.state.Position;
 import dama.state.Settings;
@@ -18,9 +20,11 @@ public class Dama extends Thread{
 
     //staticke
     public static Dama dama;
+    private static int clickCount = 0; //po dvou klicich posilame tah hre
 
     //vlakno hry
     public Settings settings;
+    public Turn turn;
     public Desk desk;
     public boolean allDone = false; //ukonceni behu
     public boolean pleaseWait = false; //pozastaveni behu
@@ -51,16 +55,7 @@ public class Dama extends Thread{
 
             try {Thread.sleep(200);} catch (InterruptedException e) {e.printStackTrace();}
 
-            synchronized(this){
-                while(pleaseWait){
-                    try{
-                        System.out.println("Hra: sleeping...");
-                        wait();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
+            synchronized(this){ while(pleaseWait){ try { System.out.println("Hra: sleeping..."); wait();} catch (Exception e) { e.printStackTrace(); } }  }
 
             //vypinaci cast
             checkGUIShutdown(gui.isVisible());
@@ -79,6 +74,14 @@ public class Dama extends Thread{
                 gameSetAndRuning = true;
                 System.out.println("Hra: nastavena, beziii hra.... bezii uz beziiii");
                 System.out.println(this.settings.getSettingsString());
+
+                //na tahu White
+                this.turn = Turn.TurnWhite(null, null);
+
+                Dama.sleepGameThread();
+
+                try {Thread.sleep(300);} catch (InterruptedException e) {e.printStackTrace();}
+                synchronized(this){ while(pleaseWait){ try { System.out.println("Hra: sleeping..."); wait();} catch (Exception e) { e.printStackTrace(); } }  }
 
                 gui.updateDesk(this.desk);
 
@@ -157,7 +160,7 @@ public class Dama extends Thread{
             gui.updateDesk(d);
 
             try {
-                Thread.sleep(300);
+                Thread.sleep(500);
             } catch (InterruptedException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
@@ -285,29 +288,41 @@ public class Dama extends Thread{
      */
     public static void mouseInput(Position pos){
 
+        Dama.clickCount++;
         //if(wakeUpGameThread())
         {
             System.out.println("mouseInput:" + pos.getStr());
         }
-        Dama.input(/**/);
+
+        if(Dama.clickCount == 2){
+            //Turn t = Turn.TurnWhite(origin, destination);
+            //Dama.input(t);
+            Dama.clickCount = 0;
+        }
     }
 
     /**
      * Zpracuje vstup od textove ramecku od notace a posila ho dal
      */
-    public static void notaceInput(){
+    public static void notaceInput(Turn turn){
 
         ///zpracovani
 
 
-        Dama.input(/**/);
+        Dama.input(turn);
     }
 
     /**
      * Jednotny vstup tahu pro vlakno hry
      */
-    public static void input(){
+    public static void input(Turn turn){
 
+        if(Moves.isTurnValid(turn, Dama.getDesk())){
+            Dama.setTurn(turn);
+            Dama.wakeUpGameThread();
+        }else{
+            System.out.println("Dama.input: nevalidni tah, neposilam ho dal.");
+        }
     }
 
     /**
@@ -327,6 +342,29 @@ public class Dama extends Thread{
         }else{
             System.out.println("setSettings: hra neexistuje!");
             return false;
+        }
+    }
+
+    public static boolean setTurn(Turn turn){
+
+        System.out.println("setTurn: ukladam tah...");
+
+        if(dama != null){
+            synchronized (dama){
+                dama.turn = turn;
+                dama.notify();
+            }
+            return true;
+        }else{
+            System.out.println("setTurn: hra neexistuje!");
+            return false;
+        }
+
+    }
+
+    public static Desk getDesk(){
+        synchronized (dama){
+            return dama.desk;
         }
     }
 

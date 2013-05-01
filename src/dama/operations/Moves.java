@@ -305,7 +305,7 @@ public class Moves
      * @param desk
      * @return
      */
-    public boolean isTurnValid(Turn turn, Desk desk)
+    public static boolean isTurnValid(Turn turn, Desk desk)
     {
         Figure[][] this_board=desk.getState();
         Figure fig=this_board[turn.origin.row][turn.origin.col];
