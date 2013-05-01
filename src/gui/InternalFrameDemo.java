@@ -61,6 +61,7 @@ import javax.swing.KeyStroke;
 
 import dama.Dama;
 import dama.io.Turn;
+import dama.operations.Check;
 import dama.state.Desk;
 import dama.state.Figure;
 import dama.state.Position;
@@ -206,6 +207,34 @@ public class InternalFrameDemo extends JFrame
         desktop.add(this.TAVypisNotace);
 
         this.BSubmitCommand = new Button("OK");
+        BSubmitCommand.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e)
+            {
+                String string = TFPrikaz.getText();
+                TFPrikaz.setText("");
+                if (!Check.isNotationValid(string))
+                {
+                    lblInfo.setText("Invalid move");
+                    return;
+                }
+
+                Position pos1=Position.positionStrToPositionLowerCase(string.substring(0, 2));
+                Position pos2=Position.positionStrToPositionLowerCase(string.substring(3, 5));
+                char barva=Dama.getPlayerColor();
+                //neni rozehrana hra, takze se nic delat nebude
+                if (!( (barva=='B') || (barva=='W') )) return;
+                if ( (pos1==null) || (pos2==null) ) 
+                {
+                    lblInfo.setText("Invalid move");
+                    return;
+                }
+
+                Turn turn=new Turn(barva, pos1, pos2);
+                Dama.notaceInput(turn);
+                return;
+            }
+        });
         this.BSubmitCommand.setBounds(670, 440, 65, 20);
         desktop.add(BSubmitCommand);
 
