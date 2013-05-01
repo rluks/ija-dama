@@ -234,7 +234,7 @@ public class Moves
             int vlastnich=0;
             int oponentovych=0;
 
-            //Position zaloha_origin = new Position(origin.row, origin.col);
+            Position zaloha_origin = new Position(origin.row, origin.col);
             while(origin.row!=dest.row)
             {    //posuneme se na dalsi pozici
                 origin.row=origin.row+i_row;
@@ -253,7 +253,7 @@ public class Moves
             }
             if (vlastnich>0) return null;        //pri vyhazovani skace pres vlastni figurky
             if (oponentovych!=1) return null;    //pri vyhazovani skace pres vice nez jednu cernou nebo taky pres zadnou cernou
-            //origin=zaloha_origin;
+            origin=zaloha_origin;
             return pos;
         }
         return null;
