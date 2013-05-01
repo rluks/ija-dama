@@ -121,4 +121,27 @@ public final class Check {
         }
         return priznak_zmeny;
     }
+
+    public static boolean isNotationValid(String str)
+    {
+        char pom=str.charAt(0);
+        if (!( (pom>='a') && (pom<='h') )) return false;
+        pom=str.charAt(1);
+        if (!( (pom>='1') && (pom<='8') )) return false;
+        pom=str.charAt(2);
+        if (!( (pom=='-') || (pom=='x') )) return false;
+        pom=str.charAt(3);
+        if (!( (pom>='a') && (pom<='h') )) return false;
+        pom=str.charAt(4);
+        if (!( (pom>='1') && (pom<='8') )) return false;
+        if (str.length()!=5) return false;
+
+        return true;
+    }
+
+
 }
+
+
+
+
