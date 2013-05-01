@@ -1,5 +1,8 @@
 package dama;
 
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
 import gui.InternalFrameDemo;
 
 import dama.io.Turn;
@@ -43,6 +46,15 @@ public class Dama extends Thread{
 
         gui = new InternalFrameDemo();
         gui.setVisible(true);
+        gui.addWindowListener( new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent we) {
+                System.out.println("Okno zavreno, ukoncuji...");
+                Dama.wakeUpGameThread();
+                Dama.stopGameThread();
+                System.exit(0);
+            }
+        } );
 
     }
 
