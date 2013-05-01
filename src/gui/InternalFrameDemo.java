@@ -634,7 +634,7 @@ public class InternalFrameDemo extends JFrame
         String p2=bturn.origin.getStrLowerCase();
         String p3=bturn.destination.getStrLowerCase();
         String b;
-        if (wtake) b="x";
+        if (btake) b="x";
         else b="-";
 
         TAVypisNotace.setText(predchozi_obsah + tah + ". " + p0 + w + p1 + " " + p2 + b + p3 + "\n");

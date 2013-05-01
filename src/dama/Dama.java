@@ -31,6 +31,9 @@ public class Dama extends Thread{
     public Turn turn;
     public Desk desk;
     public char playerColor;
+    protected int tahCislo = 0;
+    protected boolean wtake;
+    protected boolean btake;
     public boolean allDone = false; //ukonceni behu
     public boolean pleaseWait = false; //pozastaveni behu
     //public int pocaitadlo_tahu=1;
@@ -97,6 +100,7 @@ public class Dama extends Thread{
                 gameSetAndRuning = true;
                 System.out.println("Hra: nastavena, beziii hra.... bezii uz beziiii");
                 System.out.println(this.settings.getSettingsString());
+                tahCislo++;
 
                 /* White */
                 this.playerColor = 'W';
@@ -120,13 +124,17 @@ public class Dama extends Thread{
                     if(Check.isMustTake(desk, 'W')){
                         System.out.println("Hra: tah bilyho, take vraci:" + Moves.Take(desk, turn));
                         desk.clearMustTakeFlag();
+                        wtake = true;
                     }else{
                         Moves.Move(desk, turn);
+                        wtake = false;
                     }
 
                     Check.isPieceToDame(desk);
                     gui.updateDesk(this.desk);
                     this.desk.printSimpleBoard();
+
+                    Turn wturn = turn;
 
                 /* Black */
                 this.playerColor = 'B';
@@ -149,14 +157,19 @@ public class Dama extends Thread{
                     if(Check.isMustTake(desk, 'B')){
                         System.out.println("Hra: tah CERNYHO, take vraci:" + Moves.Take(desk, turn));
                         desk.clearMustTakeFlag();
+                        btake = true;
                     }else{
                         Moves.Move(desk, turn);
+                        btake = false;
                     }
 
                     Check.isPieceToDame(desk);
                     gui.updateDesk(this.desk);
                     this.desk.printSimpleBoard();
 
+                    Turn bturn = turn;
+
+                gui.NotationNewLine(wturn, wtake, bturn, btake, tahCislo);
                 //vypinaci cast
                 checkGUIShutdown(gui);
                 if(allDone){System.out.println("Hra: Dama terminated, allDone!!");return;}
