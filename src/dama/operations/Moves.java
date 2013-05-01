@@ -92,6 +92,11 @@ public class Moves
         Position dest = new Position(turn.destination.row, turn.destination.col)  ;
 
         Figure[][] this_board=desk.getState();
+
+        if(origin.row < 0 || origin.col < 0){
+            return false;
+        }
+
         Figure fig=this_board[origin.row][origin.col];
 
         //zavola fci na kontrolu validnosti pohybu
