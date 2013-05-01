@@ -87,6 +87,7 @@ public class Dama extends Thread{
 
                 /* White */
                 this.playerColor = 'W';
+                try {Thread.sleep(300);} catch (InterruptedException e) {e.printStackTrace();}
                     System.out.println("Hra: its white players turn!");
                     Position pEmpty = new Position(-1, -1);
                     this.turn = Turn.TurnWhite(pEmpty, pEmpty);
@@ -110,6 +111,7 @@ public class Dama extends Thread{
 
                 /* Black */
                 this.playerColor = 'B';
+                try {Thread.sleep(300);} catch (InterruptedException e) {e.printStackTrace();}
                     System.out.println("Hra: its BLACK players turn!");
                     this.turn = Turn.TurnBlack(pEmpty, pEmpty);
 
