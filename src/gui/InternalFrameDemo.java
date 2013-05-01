@@ -59,6 +59,7 @@ import javax.swing.KeyStroke;
 
 import dama.Dama;
 import dama.state.Desk;
+import dama.state.Figure;
 import dama.state.Position;
 import dama.state.Settings;
 
@@ -84,6 +85,9 @@ public class InternalFrameDemo extends JFrame
 
     //texty s informacemi
     protected JLabel lblInfo;
+
+    //pole labelu na obrazky  figurek
+    protected JLabel[][] pole_figurek;
 
     //deska
     private int x_sachovnice = 40;
@@ -202,6 +206,38 @@ public class InternalFrameDemo extends JFrame
         this.TFPrikaz.setBounds(535, 440, 130, 20);
         desktop.add(this.TFPrikaz);
         this.TFPrikaz.setColumns(10);
+
+        pole_figurek=new JLabel[8][8];
+        for (int row=0; row<8; row++)
+            for (int col=0; col<8; col++)
+            {
+                //String pom="R" + row + ":C" + col;
+
+                this.pole_figurek[row][col]=new JLabel("");
+                this.pole_figurek[row][col].setBounds(x_sachovnice+10+(col*50), y_sachovnice+10+350-(row*50),50,50);
+                //this.pole_figurek[row][col].setIcon(new ImageIcon(InternalFrameDemo.class.getResource("/gui/images/figurky/aura.png")));
+                desktop.add(this.pole_figurek[row][col]);
+                /*
+                //bile figurky na sude radky a sude sloupce (sude vzhledem k indexu do pole)
+                if ( ((row==0) || (row==2)) && (col%2==0) )
+                    this.pole_figurek[row][col].setIcon(new ImageIcon(InternalFrameDemo.class.getResource("/gui/images/figurky/bily_pesak.png")));
+
+                //bile figurky na lichy radek a liche sloupce (liche vzhledem k indexu do pole)
+                else if ( (row==1) && (col%2==1) )
+                    this.pole_figurek[row][col].setIcon(new ImageIcon(InternalFrameDemo.class.getResource("/gui/images/figurky/bily_pesak.png")));
+
+                //cerne figurky na lichych radcich a lichych sloupcich (liche vzhledem k indexu do pole)
+                else if ( ((row==5) || (row==7)) && (col%2==1) )
+                    this.pole_figurek[row][col].setIcon(new ImageIcon(InternalFrameDemo.class.getResource("/gui/images/figurky/cerny_pesak.png")));
+
+                //cerne figurky na sudem radku a sudych sloupcich (sude vzhledem k indexu do pole)
+                else if ( (row==6) && (col%2==0) )
+                    this.pole_figurek[row][col].setIcon(new ImageIcon(InternalFrameDemo.class.getResource("/gui/images/figurky/cerny_pesak.png")));
+
+                //vsecha ostatni pole jsou prazdna (null)
+                else this.pole_figurek[row][col]=null;
+                */
+            }
 
     }
 
@@ -492,27 +528,34 @@ public class InternalFrameDemo extends JFrame
      * Vykresli stav desky
      * @param desk
      */
-    public void updateDesk(Desk desk){
+    public void updateDesk(Desk desk)
+    {
         this.lblInfo.setText("Obnovuju labely figurek na desce");
-        /*
-        JLabel LFigurkaPokus1 = new JLabel("");
-        LFigurkaPokus1.setBounds(50, 440, 50, 50);
-        desktop.add(LFigurkaPokus1);
-        LFigurkaPokus1.setIcon(new ImageIcon(InternalFrameDemo.class.getResource("/gui/images/figurky/bily_pesak.png")));
 
-        JLabel LFigurkaPokus2 = new JLabel("");
-        LFigurkaPokus2.setBounds(100, 391, 50, 50);
-        desktop.add(LFigurkaPokus2);
-        LFigurkaPokus2.setIcon(new ImageIcon(InternalFrameDemo.class.getResource("/gui/images/figurky/cerny_pesak.png")));
-        JLabel LFigurkaPokus3 = new JLabel("");
-        LFigurkaPokus3.setBounds(150, 440, 50, 50);
-        desktop.add(LFigurkaPokus3);
-        LFigurkaPokus3.setIcon(new ImageIcon(InternalFrameDemo.class.getResource("/gui/images/figurky/bila_dama.png")));
+        Figure[][] this_board=desk.getState();
+        for (int row=0; row<8; row++)
+            for (int col=0; col<8; col++)
+            {
+                if (this_board[row][col]==null)
+                {
+                    this.pole_figurek[row][col].setIcon(null);
+                    continue;
+                }
+                if (this_board[row][col].color=='B')
+                {
+                    if (this_board[row][col].type=='P')
+                        this.pole_figurek[row][col].setIcon(new ImageIcon(InternalFrameDemo.class.getResource("/gui/images/figurky/cerny_pesak.png")));
+                    else
+                        this.pole_figurek[row][col].setIcon(new ImageIcon(InternalFrameDemo.class.getResource("/gui/images/figurky/cerna_dama.png")));
+                }
+                else if (this_board[row][col].color=='W')
+                {
+                    if (this_board[row][col].type=='P')
+                        this.pole_figurek[row][col].setIcon(new ImageIcon(InternalFrameDemo.class.getResource("/gui/images/figurky/bily_pesak.png")));
+                    else
+                        this.pole_figurek[row][col].setIcon(new ImageIcon(InternalFrameDemo.class.getResource("/gui/images/figurky/bila_dama.png")));
+                }
+            }
 
-        JLabel LFigurkaPokus4 = new JLabel("");
-        LFigurkaPokus4.setBounds(200, 391, 50, 50);
-        desktop.add(LFigurkaPokus4);
-        LFigurkaPokus4.setIcon(new ImageIcon(InternalFrameDemo.class.getResource("/gui/images/figurky/cerna_dama.png")));
-        */
     }
 }

@@ -111,8 +111,11 @@ public class Dama extends Thread{
         // projekt:
         // TODO javadoc
 
-        Dama.startingGameThread();
+        //Dama.startingGameThread();
 
+        InternalFrameDemo gui;
+        gui = new InternalFrameDemo();
+        gui.setVisible(true);
 /*
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
@@ -149,7 +152,17 @@ public class Dama extends Thread{
 
             Check.isPieceToDame(d);
             d.clearMustTakeFlag();
-            d.printSimpleBoard();
+            //d.printSimpleBoard();
+
+            gui.updateDesk(d);
+
+            try {
+                Thread.sleep(300);
+            } catch (InterruptedException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+
 
             j++;
             //if (j==800) break;
