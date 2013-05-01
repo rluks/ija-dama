@@ -95,6 +95,7 @@ public class Dama extends Thread{
                         Moves.Move(desk, turn);
                     }
 
+                    Check.isPieceToDame(desk);
                     gui.updateDesk(this.desk);
 
                 /* Black */
@@ -115,6 +116,7 @@ public class Dama extends Thread{
                         Moves.Move(desk, turn);
                     }
 
+                    Check.isPieceToDame(desk);
                     gui.updateDesk(this.desk);
 
                 //vypinaci cast
