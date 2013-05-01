@@ -99,6 +99,8 @@ public class Dama extends Thread{
             while(true){
                 gameSetAndRuning = true;
                 System.out.println("Hra: nastavena, beziii hra.... bezii uz beziiii");
+                Position pEmpty = new Position(-1, -1);
+
                 System.out.println(this.settings.getSettingsString());
                 tahCislo++;
 
@@ -106,28 +108,38 @@ public class Dama extends Thread{
                 this.playerColor = 'W';
                 try {Thread.sleep(300);} catch (InterruptedException e) {e.printStackTrace();}
                     System.out.println("Hra: its white players turn!");
-                    gui.setInfoText("It's WHITE players turn!");
-                    Position pEmpty = new Position(-1, -1);
-                    this.turn = Turn.TurnWhite(pEmpty, pEmpty);
 
-                    Dama.sleepGameThread();
+                    String infoText = (this.settings.white == "AI")? "It's WHITE AIs turn!" : "It's WHITE players turn!";
+                    gui.setInfoText(infoText);
 
-                    try {Thread.sleep(300);} catch (InterruptedException e) {e.printStackTrace();}
-                    synchronized(this){ while(pleaseWait){ try { System.out.println("Hra: sleeping..."); wait();} catch (Exception e) { e.printStackTrace(); } }  }
-                    System.out.println("Hra: white is playing...");
-
-                    //vypinaci cast
-                    checkGUIShutdown(gui);
-                    if(allDone){System.out.println("Hra: Dama terminated, allDone!!");return;}
-
-                    //zpracovani tahu bileho
-                    if(Check.isMustTake(desk, 'W')){
-                        System.out.println("Hra: tah bilyho, take vraci:" + Moves.Take(desk, turn));
+                    if(this.settings.white == "AI"){
+                        System.out.println("Hra: AI - tah bileho, take() vraci:" + AI.AIMove(desk, 'W', 5));
                         desk.clearMustTakeFlag();
-                        wtake = true;
+                        Position pInvalid = new Position(0, 0);
+                        turn = new Turn(playerColor, pInvalid, pInvalid);
                     }else{
-                        Moves.Move(desk, turn);
-                        wtake = false;
+                        System.out.println("Hra: tah bilyho, take() vraci:" + Turn.TurnWhite(pEmpty, pEmpty));
+
+                        Dama.sleepGameThread();
+
+                        try {Thread.sleep(300);} catch (InterruptedException e) {e.printStackTrace();}
+                        synchronized(this){ while(pleaseWait){ try { System.out.println("Hra: sleeping..."); wait();} catch (Exception e) { e.printStackTrace(); } }  }
+
+                        System.out.println("Hra: white is playing...");
+
+                        //vypinaci cast
+                        checkGUIShutdown(gui);
+                        if(allDone){System.out.println("Hra: Dama terminated, allDone!!");return;}
+
+                        //zpracovani tahu bileho
+                        if(Check.isMustTake(desk, 'W')){
+                            System.out.println("Hra: tah bilyho, take() vraci:" + Moves.Take(desk, turn));
+                            desk.clearMustTakeFlag();
+                            wtake = true;
+                        }else{
+                            System.out.println("Hra: tah bilyho, MOVE() vraci:" + Moves.Move(desk, turn));
+                            wtake = false;
+                        }
                     }
 
                     Check.isPieceToDame(desk);
@@ -155,11 +167,11 @@ public class Dama extends Thread{
 
                     //zpracovani tahu cerneho
                     if(Check.isMustTake(desk, 'B')){
-                        System.out.println("Hra: tah CERNYHO, take vraci:" + Moves.Take(desk, turn));
+                        System.out.println("Hra: tah CERNYHO, take() vraci:" + Moves.Take(desk, turn));
                         desk.clearMustTakeFlag();
                         btake = true;
                     }else{
-                        Moves.Move(desk, turn);
+                        System.out.println("Hra: tah CERNYHO, MOVE() vraci:" +  Moves.Move(desk, turn));
                         btake = false;
                     }
 
