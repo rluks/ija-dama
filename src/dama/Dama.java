@@ -73,7 +73,7 @@ public class Dama extends Thread{
             synchronized(this){ while(pleaseWait){ try { System.out.println("Hra: sleeping..."); wait();} catch (Exception e) { e.printStackTrace(); } }  }
 
             //vypinaci cast
-            checkGUIShutdown(gui.isVisible());
+            checkGUIShutdown(gui);
             if(allDone){System.out.println("Hra: Dama terminated, allDone!!");return;}
 
             if(this.settings == null){
@@ -84,7 +84,7 @@ public class Dama extends Thread{
             gui.updateDesk(desk);
 
             System.out.println("Hra: Tisknu nastaveni");
-            System.out.println(this.settings.getXML());
+            //System.out.println(this.settings.getXML());
 
 
             //smycka vlastni hry
@@ -105,6 +105,10 @@ public class Dama extends Thread{
                     try {Thread.sleep(300);} catch (InterruptedException e) {e.printStackTrace();}
                     synchronized(this){ while(pleaseWait){ try { System.out.println("Hra: sleeping..."); wait();} catch (Exception e) { e.printStackTrace(); } }  }
                     System.out.println("Hra: white is playing...");
+
+                    //vypinaci cast
+                    checkGUIShutdown(gui);
+                    if(allDone){System.out.println("Hra: Dama terminated, allDone!!");return;}
 
                     //zpracovani tahu bileho
                     if(Check.isMustTake(desk, 'W')){
@@ -129,6 +133,10 @@ public class Dama extends Thread{
                     synchronized(this){ while(pleaseWait){ try { System.out.println("Hra: sleeping..."); wait();} catch (Exception e) { e.printStackTrace(); } }  }
                     System.out.println("Hra: black is playing...");
 
+                    //vypinaci cast
+                    checkGUIShutdown(gui);
+                    if(allDone){System.out.println("Hra: Dama terminated, allDone!!");return;}
+
                     //zpracovani tahu cerneho
                     if(Check.isMustTake(desk, 'B')){
                         Moves.Take(desk, turn);
@@ -141,7 +149,7 @@ public class Dama extends Thread{
                     gui.updateDesk(this.desk);
 
                 //vypinaci cast
-                checkGUIShutdown(gui.isVisible());
+                checkGUIShutdown(gui);
                 if(allDone){System.out.println("Hra: Dama terminated, allDone!!");return;}
 
                 try {Thread.sleep(1000);} catch (InterruptedException e) {e.printStackTrace();}
@@ -154,10 +162,12 @@ public class Dama extends Thread{
      * Kontrola jestli se GUI zavrelo
      * @param isGUIvisible gui.isVisible;
      */
-    private void checkGUIShutdown(boolean isGUIvisible){
+    private void checkGUIShutdown(InternalFrameDemo gui){
 
-        if(!isGUIvisible){
+        if(!gui.isVisible()){
             System.out.println("Hra: GUI zavreno - vypinam program.");
+            this.allDone = true;
+            gui.pullThePlug();
             System.exit(0);
         }
     }
