@@ -85,6 +85,9 @@ public class InternalFrameDemo extends JFrame
     //texty s informacemi
     protected JLabel lblInfo;
 
+    //pole labelu na obrazky  figurek
+    protected JLabel[][] pole_figurek;
+
     //deska
     private int x_sachovnice = 40;
     private int x_offset = 5;
@@ -202,6 +205,38 @@ public class InternalFrameDemo extends JFrame
         this.TFPrikaz.setBounds(535, 440, 130, 20);
         desktop.add(this.TFPrikaz);
         this.TFPrikaz.setColumns(10);
+
+        pole_figurek=new JLabel[8][8];
+        for (int row=0; row<8; row++)
+            for (int col=0; col<8; col++)
+            {
+                //String pom="R" + row + ":C" + col;
+
+                this.pole_figurek[row][col]=new JLabel("");
+                this.pole_figurek[row][col].setBounds(x_sachovnice+10+(col*50), y_sachovnice+10+350-(row*50),50,50);
+                //this.pole_figurek[row][col].setIcon(new ImageIcon(InternalFrameDemo.class.getResource("/gui/images/figurky/aura.png")));
+                desktop.add(this.pole_figurek[row][col]);
+                /*
+                //bile figurky na sude radky a sude sloupce (sude vzhledem k indexu do pole)
+                if ( ((row==0) || (row==2)) && (col%2==0) )
+                    this.pole_figurek[row][col].setIcon(new ImageIcon(InternalFrameDemo.class.getResource("/gui/images/figurky/bily_pesak.png")));
+
+                //bile figurky na lichy radek a liche sloupce (liche vzhledem k indexu do pole)
+                else if ( (row==1) && (col%2==1) )
+                    this.pole_figurek[row][col].setIcon(new ImageIcon(InternalFrameDemo.class.getResource("/gui/images/figurky/bily_pesak.png")));
+
+                //cerne figurky na lichych radcich a lichych sloupcich (liche vzhledem k indexu do pole)
+                else if ( ((row==5) || (row==7)) && (col%2==1) )
+                    this.pole_figurek[row][col].setIcon(new ImageIcon(InternalFrameDemo.class.getResource("/gui/images/figurky/cerny_pesak.png")));
+
+                //cerne figurky na sudem radku a sudych sloupcich (sude vzhledem k indexu do pole)
+                else if ( (row==6) && (col%2==0) )
+                    this.pole_figurek[row][col].setIcon(new ImageIcon(InternalFrameDemo.class.getResource("/gui/images/figurky/cerny_pesak.png")));
+
+                //vsecha ostatni pole jsou prazdna (null)
+                else this.pole_figurek[row][col]=null;
+                */
+            }
 
     }
 
