@@ -15,9 +15,16 @@ import dama.operations.Moves;
  */
 public final class Check {
 
+    /**
+     * Privatni konstruktor (zabranuje vytvoreni instance teto tridy)
+     */
     private Check(){}
 
-    //v pripade ze je pocet figurek nektere barvy nulovy, vraci se true, znacici vitezstvi------------------------------------------------------------------------------------
+    /**
+     * Kontroluje, jestli nedoslo k vitezstvi jednoho z hracu
+     * @param desk     nad kterou deskou se ma kontrola vykonat
+     * @return         vraci true pokud doslo k vitezstvi jednoho z hrace
+     */
     public static boolean isVictory(Desk desk)
     {
         Figure[][] this_board=desk.getState();
@@ -35,7 +42,12 @@ public final class Check {
         else return false;
     }
 
-    //kontrola jestli hrac ktery je na tahu (turnOf) musi vyhazovat nebo muze normalne jet------------------------------------------------------------------------------------
+    /**
+     * Kontrola jestli hrac ktery je na tahu (turnOf) musi vyhazovat nebo muze normalne jet (u takovychto figurek nastavi flag brani na true)
+     * @param desk      deska nad kterou se ma kontrola provest
+     * @param turnOf    urcuje pro ktereho hrace se ma kontrola vykonat
+     * @return            pokud hrac musi brat, vraci true, jinak vraci false
+     */
     public static boolean isMustTake(Desk desk, char turnOf)
     {
         Figure[][] this_board=desk.getState();
@@ -98,7 +110,11 @@ public final class Check {
         return priznak_brani;
     }
 
-    //kontroluj a rovnou men na damy (neni to ale spravny OOP ]:->) (to Roman: na to ti seru)----------------------------------------------------------------------------------
+    /**
+     * Pokud nejaci pesaci dosli na druhou stranu plochy, jsou transformovani na damy
+     * @param desk    nad kterou deskou se ma fce provest
+     * @return         vraci true pokud byli nejaci pesaci zmeneni na damy
+     */
     public static boolean isPieceToDame(Desk desk)
     {
         Figure[][] this_board=desk.getState();
@@ -122,6 +138,11 @@ public final class Check {
         return priznak_zmeny;
     }
 
+    /**
+     * Kontroluje, jestli je prichozi string validni notace
+     * @param str    tento string se validuje
+     * @return        vraci true, pokud je string validni, jinak vraci false
+     */
     public static boolean isNotationValid(String str)
     {
         if (str.length()!=5) return false;

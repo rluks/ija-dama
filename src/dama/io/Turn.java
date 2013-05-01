@@ -14,6 +14,13 @@ public class Turn {
     public Position origin;
     public Position destination;
 
+
+    /**
+     * Konstruktor.
+     * @param playerColor    barva hrace na tahu
+     * @param origin        pozice figurky se kterou hrac hraje
+     * @param destination   pozice na kterou hrac s touto figurkou hraje
+     */
     public Turn(char playerColor, Position origin, Position destination){
         this.playerColor = playerColor;
         //this.origin = origin;
@@ -22,10 +29,22 @@ public class Turn {
         this.destination = new Position(destination.row, destination.col);
     }
 
+    /**
+     * Obaluje konstruktor, vytvari jen tahy cerneho hrace
+     * @param     origin
+     * @param     destination
+     * @return    vraci novou instanci tridy Turn cerneho hrace
+     */
     public static Turn TurnBlack(Position origin, Position destination){
         return new Turn('B', origin, destination);
     }
 
+    /**
+     * Obaluje konstruktorm vytvari jen tahy bileho hrace
+     * @param     origin
+     * @param     destination
+     * @return    vraci novou instanci tridy Turn bileho hrace
+     */
     public static Turn TurnWhite(Position origin, Position destination){
         return new Turn('W', origin, destination);
     }

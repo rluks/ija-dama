@@ -15,7 +15,12 @@ import dama.io.Turn;
 public class Moves
 {
 
-    //kontroluje, jestli je tento pohyb figurkou mozny--------------------------------------------------------------------------------------------------------------------
+    /**
+     * Kontroluje, jestli je pohyb figurkou mozny.
+     * @param desk    nad jakou deskou se ma kontrola provest
+     * @param turn    tak ktery se ma zkontrolovat
+     * @return        vraci true pokud je tah validni, jinak vraci false
+     */
     public static boolean isMoveValid(Desk desk, Turn turn)
     {
         Position origin = turn.origin;
@@ -86,6 +91,12 @@ public class Moves
         return false;
     }
 
+    /**
+     * Provede tah s figurkou (pohyb ne brani)
+     * @param desk    nad kterou deskou se ma pohyb vykonat
+     * @param turn    jaky pohyb se ma vykonat
+     * @return    vraci true, pokud byl tah uspesne proveden, jinak vraci false
+     */
     public static boolean Move(Desk desk, Turn turn)
     {
         Position origin = new Position(turn.origin.row, turn.origin.col) ;
@@ -113,7 +124,12 @@ public class Moves
         }
     }
 
-    // kontroluje jestli je tah vyhozeni validni; pokud je validni, vraci pozici vyhazovane figury, jinak vraci null --------------------------------------------------------
+    /**
+     * Kontroluje, jestli je brani figurkou mozne
+     * @param desk     deska nad kterou se ma kontrola provest
+     * @param turn     jaky tah se ma zkontrolovat
+     * @return         vraci pozici vyhazovane figurky, pokud je brani mozne, jinak vraci null
+     */
     public static Position isTakeValid(Desk desk, Turn turn)
     {
 

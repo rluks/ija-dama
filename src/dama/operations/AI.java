@@ -6,9 +6,21 @@ import dama.operations.Check;
 import dama.operations.Moves;
 import java.util.Random;
 
+/**
+ * Trida ma jen jednu statickou metodu a tou je jed tah AI
+ * @author Pavel Hála
+ * @author Roman Lukš
+ */
 public class AI
 {
-    //pokud vrati false, doslo k patu
+    
+    /**
+     * Provede jeden nahodny tah hrace (velice hloupa a jednoducha umela inteligence)
+     * @param desk		odkaz na desku na ktere se provede tah AI
+     * @param natahu	barva hrace, ktery je na tahu
+     * @param nahodnost	mira jak chceme, aby byl tah nahodny
+     * @return pokud vrati false, doslo k patu, jinak vraci true
+     */
     public static boolean AIMove (Desk desk, char natahu, int nahodnost)
     {
         //projistotu se omezi nahodnost na rozumne meze
