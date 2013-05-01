@@ -58,6 +58,7 @@ import javax.swing.JTextPane;
 import javax.swing.KeyStroke;
 
 import dama.Dama;
+import dama.io.Turn;
 import dama.state.Desk;
 import dama.state.Figure;
 import dama.state.Position;
@@ -82,6 +83,9 @@ public class InternalFrameDemo extends JFrame
     protected NewGameSettings inFrNewGameSett;
     protected NewP2PGameSettings inFrNewP2PGameSett;
     protected Settings settings;
+
+    //hrac
+    protected Turn turn;
 
     //texty s informacemi
     protected JLabel lblInfo;
@@ -459,8 +463,8 @@ public class InternalFrameDemo extends JFrame
      */
     protected void quit() {
         this.dispose();
-        Dama.wakeUpGameThread();//probudi aby vedelo ze je zastaveno
         Dama.stopGameThread();
+        Dama.wakeUpGameThread();//probudi aby vedelo ze je zastaveno
         System.exit(0);
     }
 
