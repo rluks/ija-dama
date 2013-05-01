@@ -63,6 +63,7 @@ import javax.swing.KeyStroke;
 import dama.Dama;
 import dama.io.Turn;
 import dama.operations.Check;
+import dama.operations.Moves;
 import dama.state.Desk;
 import dama.state.Figure;
 import dama.state.Position;
@@ -609,6 +610,25 @@ public class InternalFrameDemo extends JFrame
                 }
             }
 
+    }
+
+    public void NotationNewLine(Turn wturn, boolean wtake, Turn bturn, boolean btake, int tah)
+    {
+        String predchozi_obsah=TAVypisNotace.getText();
+
+        String p0=wturn.origin.getStrLowerCase();
+        String p1=wturn.destination.getStrLowerCase();
+        String w;
+        if (wtake) w="x";
+        else w="-";
+
+        String p2=bturn.origin.getStrLowerCase();
+        String p3=bturn.destination.getStrLowerCase();
+        String b;
+        if (wtake) b="x";
+        else b="-";
+
+        TAVypisNotace.setText(predchozi_obsah + tah + ". " + p0 + w + p1 + " " + p2 + b + p3 + "\n");
     }
 
     public void pullThePlug() {
