@@ -530,42 +530,42 @@ public class InternalFrameDemo extends JFrame
     public void mouseClicked(MouseEvent e)
     {
         switch(e.getModifiers()) {
-        case InputEvent.BUTTON1_MASK: {
-          System.out.println("That's the LEFT button");
-          Point p = getLocationOnScreen();
-          PointerInfo a = MouseInfo.getPointerInfo();
-          Point b = a.getLocation();
+            case InputEvent.BUTTON1_MASK: {
+                System.out.println("That's the LEFT button");
+                Point p = getLocationOnScreen();
+                PointerInfo a = MouseInfo.getPointerInfo();
+                Point b = a.getLocation();
 
-          int x = (int) b.getX() - p.x - x_offset;
-          int y = (int) b.getY() - p.y - y_offset;
-          if ( (x>=(x_sachovnice+10)) && (y>=y_sachovnice+11) && (x<=(x_sachovnice+409)) && (y<=(y_sachovnice+410)) )
-          {
-              int sx = (x - 10 - x_sachovnice);
-              int sy = y - 11 - y_sachovnice;
+                int x = (int) b.getX() - p.x - x_offset;
+                int y = (int) b.getY() - p.y - y_offset;
+                if ( (x>=(x_sachovnice+10)) && (y>=y_sachovnice+11) && (x<=(x_sachovnice+409)) && (y<=(y_sachovnice+410)) )
+                {
+                    int sx = (x - 10 - x_sachovnice);
+                    int sy = y - 11 - y_sachovnice;
+                     sx = sx/50;
+                     sy = 7 - sy/50;
 
-              sx = sx/50;
-              sy = 7 - sy/50;
+                     System.out.println(sx + ":" + sy);
 
-              System.out.println(sx + ":" + sy);
+                Position pos = new Position(sy, sx);
+                Dama.mouseInput(pos);
 
-              Position pos = new Position(sy, sx);
-              Dama.mouseInput(pos);
+                this.lblAura.setIcon(new ImageIcon(InternalFrameDemo.class.getResource("/gui/images/figurky/aura.png")));
+                this.lblAura.setBounds(x_sachovnice+10+(sx*50), y_sachovnice+10+350-(sy*50),50,50);
 
-              this.lblAura.setIcon(new ImageIcon(InternalFrameDemo.class.getResource("/gui/images/figurky/aura.png")));
-              this.lblAura.setBounds(x_sachovnice+10+(sx*50), y_sachovnice+10+350-(sy*50),50,50);
-
-          }
-          break;
-          }
-        case InputEvent.BUTTON2_MASK: {
-          System.out.println("That's the MIDDLE button");
-          break;
-          }
-        case InputEvent.BUTTON3_MASK: {
-          System.out.println("That's the RIGHT button");
-          Dama.setClickCount(0);
-          break;
-          }
+                }
+            break;
+            }
+            case InputEvent.BUTTON2_MASK: {
+                System.out.println("That's the MIDDLE button");
+                break;
+            }
+            case InputEvent.BUTTON3_MASK: {
+                System.out.println("That's the RIGHT button");
+                Dama.setClickCount(0);
+                this.clearAura();
+                break;
+            }
         }
     }
 
@@ -656,5 +656,9 @@ public class InternalFrameDemo extends JFrame
 
     public void setInfoText(String text){
         this.lblInfo.setText(text);
+    }
+
+    public void clearAura(){
+        this.lblAura.setIcon(null);
     }
 }
