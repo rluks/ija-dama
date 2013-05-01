@@ -21,6 +21,7 @@ public class Dama extends Thread{
     //staticke
     public static Dama dama;
     private static int clickCount = 0; //po dvou klicich posilame tah hre
+    protected static Turn turnInput;
 
     //vlakno hry
     public Settings settings;
@@ -75,15 +76,36 @@ public class Dama extends Thread{
                 System.out.println("Hra: nastavena, beziii hra.... bezii uz beziiii");
                 System.out.println(this.settings.getSettingsString());
 
-                //na tahu White
-                this.turn = Turn.TurnWhite(null, null);
+                /* White */
+                    System.out.println("Hra: its white players turn!");
+                    Position pEmpty = new Position(-1, -1);
+                    this.turn = Turn.TurnWhite(pEmpty, pEmpty);
 
-                Dama.sleepGameThread();
+                    Dama.sleepGameThread();
 
-                try {Thread.sleep(300);} catch (InterruptedException e) {e.printStackTrace();}
-                synchronized(this){ while(pleaseWait){ try { System.out.println("Hra: sleeping..."); wait();} catch (Exception e) { e.printStackTrace(); } }  }
+                    try {Thread.sleep(300);} catch (InterruptedException e) {e.printStackTrace();}
+                    synchronized(this){ while(pleaseWait){ try { System.out.println("Hra: sleeping..."); wait();} catch (Exception e) { e.printStackTrace(); } }  }
+                    System.out.println("Hra: white is playing...");
 
-                gui.updateDesk(this.desk);
+                    //zpracovani tahu bileho
+                    Moves.Move(desk, turn);//TODO brani
+
+                    gui.updateDesk(this.desk);
+
+                /* Black */
+                    System.out.println("Hra: its BLACK players turn!");
+                    this.turn = Turn.TurnBlack(pEmpty, pEmpty);
+
+                    Dama.sleepGameThread();
+
+                    try {Thread.sleep(300);} catch (InterruptedException e) {e.printStackTrace();}
+                    synchronized(this){ while(pleaseWait){ try { System.out.println("Hra: sleeping..."); wait();} catch (Exception e) { e.printStackTrace(); } }  }
+                    System.out.println("Hra: black is playing...");
+
+                    //zpracovani tahu cerneho
+                    Moves.Move(desk, turn);//TODO brani
+
+                    gui.updateDesk(this.desk);
 
                 //vypinaci cast
                 checkGUIShutdown(gui.isVisible());
@@ -114,8 +136,8 @@ public class Dama extends Thread{
         // projekt:
         // TODO javadoc
 
-        //Dama.startingGameThread();
-
+        Dama.startingGameThread();
+/*
         InternalFrameDemo gui;
         gui = new InternalFrameDemo();
         gui.setVisible(true);
@@ -129,7 +151,7 @@ public class Dama extends Thread{
                 gui.setLabelHelp("Baník pYčo");
             }
         });
-*/
+*//*
         Desk d = new Desk();
         //System.out.println("Velka sachovnice:");
         //d.printBoard();
@@ -175,7 +197,7 @@ public class Dama extends Thread{
                 System.out.println("VYHRA TYPYCO!!!!");
                 break;
             }
-        }
+        }*/
     }
 
 
@@ -288,15 +310,25 @@ public class Dama extends Thread{
      */
     public static void mouseInput(Position pos){
 
-        Dama.clickCount++;
-        {
-            System.out.println("mouseInput:" + pos.getStr());
-        }
+        if(Dama.isGameSetAndRunning()){
+            Dama.clickCount++;
+            {
+                System.out.println("mouseInput:" + pos.getStr());
+            }
 
-        if(Dama.clickCount == 2){
-            Turn t = Dama.getTurn();
-            Dama.input(t);
-            Dama.clickCount = 0;
+            if(Dama.clickCount == 1){
+                Dama.turnInput = Dama.getTurn();
+
+                turnInput.origin = pos;
+            }
+
+            if(Dama.clickCount == 2){
+                turnInput.destination = pos;
+
+                Dama.input(turnInput);
+
+                Dama.clickCount = 0;
+            }
         }
     }
 
