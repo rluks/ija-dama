@@ -13,15 +13,15 @@ import java.util.Random;
  */
 public class AI
 {
-    
+
     /**
      * Provede jeden nahodny tah hrace (velice hloupa a jednoducha umela inteligence)
-     * @param desk		odkaz na desku na ktere se provede tah AI
-     * @param natahu	barva hrace, ktery je na tahu
-     * @param nahodnost	mira jak chceme, aby byl tah nahodny
-     * @return pokud vrati false, doslo k patu, jinak vraci true
+     * @param desk        odkaz na desku na ktere se provede tah AI
+     * @param natahu    barva hrace, ktery je na tahu
+     * @param nahodnost    mira jak chceme, aby byl tah nahodny
+     * @return pokud vrati null, doslo k patu, jinak vraci Turn ktery vykonal
      */
-    public static boolean AIMove (Desk desk, char natahu, int nahodnost)
+    public static Turn AIMove (Desk desk, char natahu, int nahodnost)
     {
         //projistotu se omezi nahodnost na rozumne meze
         if (nahodnost<2) nahodnost=2;
@@ -54,7 +54,7 @@ public class AI
                                 {
                                     turn = new Turn(natahu, pos0_zaloha, pos1_zaloha);
                                     Moves.Take(desk, turn);
-                                    return true;
+                                    return turn;
                                 }
 
                                 pos0 = new Position(pos0_zaloha.row, pos0_zaloha.col);
@@ -65,7 +65,7 @@ public class AI
                                 {
                                     turn = new Turn(natahu, pos0_zaloha, pos1_zaloha);
                                     Moves.Take(desk, turn);
-                                    return true;
+                                    return turn;
                                 }
 
                                 pos1 = new Position(row-i, col+i);
@@ -75,7 +75,7 @@ public class AI
                                 {
                                     turn = new Turn(natahu, pos0_zaloha, pos1_zaloha);
                                     Moves.Take(desk, turn);
-                                    return true;
+                                    return turn;
                                 }
 
                                 pos1 = new Position(row-i, col-i);
@@ -85,7 +85,7 @@ public class AI
                                 {
                                     turn = new Turn(natahu, pos0_zaloha, pos1_zaloha);
                                     Moves.Take(desk, turn);
-                                    return true;
+                                    return turn;
                                 }
 
                                 //pokud je figurka pesak, tak se nemusi kontrolovat cela uhlopricka
@@ -94,14 +94,13 @@ public class AI
                         }
 
                     }
-            return false;
+            return null;
         }
 
         //tady se nahodne tahne s nejakou fugurkou - copypasta canMove
         //System.out.println("Bude se tahnout!0");
         while(true)
         {
-            //Boolean priznak_brani=false;
             for (row=0; row<Desk.BOARD_SIZE; row++)
                 for (col=0; col<Desk.BOARD_SIZE; col++)
                     if ( (this_board[row][col]!=null) && (this_board[row][col].color==natahu) )
@@ -120,7 +119,7 @@ public class AI
                                 continue;
                             }
                         }
-                        else if (preskoceni>1000) return false; //doslo k patu
+                        else if (preskoceni>1000) return null; //doslo k patu
 
                         for (int i=1; i<8; i++)
                         {   //po obou uhloprickach jede v obouch smerech a kontroluje jestli muze figurka skocit na danou pozici
@@ -132,7 +131,7 @@ public class AI
                             {
                                 turn=new Turn (natahu, pos0_zaloha, pos1_zaloha);
                                 Moves.Move(desk, turn);
-                                return true;
+                                return turn;
                             }
 
                             pos0=new Position(pos0_zaloha.row, pos0_zaloha.col);
@@ -143,7 +142,7 @@ public class AI
                             {
                                 turn=new Turn (natahu, pos0_zaloha, pos1_zaloha);
                                 Moves.Move(desk, turn);
-                                return true;
+                                return turn;
                             }
 
                             pos0=new Position(pos0_zaloha.row, pos0_zaloha.col);
@@ -154,7 +153,7 @@ public class AI
                             {
                                 turn=new Turn (natahu, pos0_zaloha, pos1_zaloha);
                                 Moves.Move(desk, turn);
-                                return true;
+                                return turn;
                             }
 
                             pos0=new Position(pos0_zaloha.row, pos0_zaloha.col);
@@ -165,7 +164,7 @@ public class AI
                             {
                                 turn=new Turn (natahu, pos0_zaloha, pos1_zaloha);
                                 Moves.Move(desk, turn);
-                                return true;
+                                return turn;
                             }
                             pos0=new Position(pos0_zaloha.row, pos0_zaloha.col);
 

@@ -217,6 +217,8 @@ public class Moves
         //dama
         if (fig.type=='D')
         {
+            System.out.println("!!!!!!!!!!!Zajebana dáma");
+
             //rozdil radku a sloupcu
             int d_col=dest.col-origin.col;
             int d_row=dest.row-origin.row;
@@ -258,12 +260,12 @@ public class Moves
             origin=zaloha_origin;
             if (vlastnich>0)
             {
-                System.out.println("!!!!!!!!!!!!!! DAMA: nejaci vlastni v ceste");
+                System.out.println("!!!!!!!!!!!!!! DAMA: nejaci vlastni v ceste: " + vlastnich);
                 return null;        //pri vyhazovani skace pres vlastni figurky
             }
             if (oponentovych!=1)
             {
-                System.out.println("!!!!!!!!!!!!!! DAMA: skace se pres vic nepritelovych");
+                System.out.println("!!!!!!!!!!!!!! DAMA: skace se pres vic nepritelovych: " + oponentovych);
                 return null;    //pri vyhazovani skace pres vice nez jednu cernou nebo taky pres zadnou cernou
             }
 
@@ -285,6 +287,7 @@ public class Moves
         Position origin = turn.origin;
         Position dest = turn.destination;
         Position zaloha_origin=new Position(origin.row, origin.col);
+        Position zaloha_dest = new Position(dest.row, dest.col);
 
         Figure[][] this_board=desk.getState();
         Figure fig=this_board[origin.row][origin.col];
@@ -300,7 +303,7 @@ public class Moves
         {   //pokud je brani validni, presune se braci figurka a brana figurka je odstranena
             this_board[zaloha_origin.row][zaloha_origin.col]=null;
             this_board[vyhazovana.row][vyhazovana.col]=null;
-            this_board[dest.row][dest.col]=fig;
+            this_board[zaloha_dest.row][zaloha_dest.col]=fig;
             return true;
         }
     }
