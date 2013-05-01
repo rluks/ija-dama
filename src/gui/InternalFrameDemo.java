@@ -62,8 +62,9 @@ import javax.swing.KeyStroke;
 
 import dama.Dama;
 import dama.io.Turn;
+import dama.operations.AI;
 import dama.operations.Check;
-import dama.operations.Moves;
+
 import dama.state.Desk;
 import dama.state.Figure;
 import dama.state.Position;
@@ -94,6 +95,10 @@ public class InternalFrameDemo extends JFrame
 
     //texty s informacemi
     protected JLabel lblInfo;
+
+    //napoveda
+    protected JLabel LNapoveda;
+    protected JButton BNapoveda;
 
     //pole labelu na obrazky  figurek
     protected JLabel[][] pole_figurek;
@@ -139,31 +144,37 @@ public class InternalFrameDemo extends JFrame
         lblInfo.setBounds(470, 10, 295, 30);
         desktop.add(lblInfo);
 
-        /*
-        btnTlacitkoLambda = new JButton("New button");
-        btnTlacitkoLambda.setOpaque(false);
-        btnTlacitkoLambda.setBounds(590, 10, 100, 60);
-        btnTlacitkoLambda.setContentAreaFilled(false);
-        btnTlacitkoLambda.setBorderPainted(false);
-        btnTlacitkoLambda.setIcon(new ImageIcon(InternalFrameDemo.class.getResource("/gui/images/spray.png")));
-        btnTlacitkoLambda.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("SUP");
-                btnTlacitkoLambda.setIcon(new ImageIcon(InternalFrameDemo.class.getResource("/gui/images/Bird.gif")));
-            }
-        });
-        desktop.add(btnTlacitkoLambda);
-        desktop.setLayer(btnTlacitkoLambda, 1);
-        */
-
         //napoveda
-        JLabel LNapoveda = new JLabel("No help requested...");
-        LNapoveda.setBounds(40, 15, 336, 20);
+        this.LNapoveda = new JLabel("No help requested...");
+        this.LNapoveda.setBounds(40, 15, 336, 20);
         desktop.add(LNapoveda);
 
-        JButton BNapoveda = new JButton("Help!");
-        BNapoveda.setBounds(390, 15, 70, 20);
-        desktop.add(BNapoveda);
+        this.BNapoveda = new JButton("Help!");
+        this.BNapoveda.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+
+                if(Dama.isGameSetAndRunning()){
+
+                    Desk deskForHelp = new Desk(Dama.getDesk());
+                    char playerColor = Dama.getPlayerColor();
+                    int aiStochasticity = 10;
+
+                    Turn helpTurn = AI.AIMove(deskForHelp, playerColor, aiStochasticity);
+
+                    String helpText;
+                    if(helpTurn != null){
+                        helpText = helpTurn.origin.getStrLowerCase() + " -> " + helpTurn.destination.getStrLowerCase();
+                    }else{
+                        helpText = "Stalemate!";
+                    }
+
+                    LNapoveda.setText(helpText);
+                }
+            }
+        });
+        this.BNapoveda.setBounds(390, 15, 70, 20);
+        this.BNapoveda.setEnabled(false);
+        desktop.add(this.BNapoveda);
 
         //deska
         JLabel BGSachovnice = new JLabel("");
@@ -458,6 +469,7 @@ public class InternalFrameDemo extends JFrame
                 System.out.println("ukladanim nastaveni do NOVE...");
                 Dama.setSettings(this.settings);
                 this.BSubmitCommand.setEnabled(true);
+                this.BNapoveda.setEnabled(true);
                 Dama.wakeUpGameThread();
 
                 this.inFrNewGameSett.setVisible(false);
@@ -660,5 +672,9 @@ public class InternalFrameDemo extends JFrame
 
     public void clearAura(){
         this.lblAura.setIcon(null);
+    }
+
+    public void clearHelp(){
+        this.LNapoveda.setText("");
     }
 }

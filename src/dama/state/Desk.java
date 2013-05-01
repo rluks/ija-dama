@@ -42,30 +42,24 @@ public class Desk {
         this.board[7][5] = Figure.FigureBlackPiece("Willzyx");
         this.board[7][7] = Figure.FigureBlackPiece("Professor_Chaos");
 
-//        for (int row=0; row<BOARD_SIZE; row++)
-//        {
-//            for (int col=0; col<BOARD_SIZE; col++)
-//            {
-//                //bile figurky na sude radky a sude sloupce (sude vzhledem k indexu do pole)
-//                if ( ((row==0) || (row==2)) && (col%2==0) )
-//                    this.board[row][col]=Figure.FigureWhitePiece("Pepa");
-//
-//                //bile figurky na lichy radek a liche sloupce (liche vzhledem k indexu do pole)
-//                else if ( (row==1) && (col%2==1) )
-//                    this.board[row][col]=Figure.FigureWhitePiece("Pepa");
-//
-//                //cerne figurky na lichych radcich a lichych sloupcich (liche vzhledem k indexu do pole)
-//                else if ( ((row==5) || (row==7)) && (col%2==1) )
-//                    this.board[row][col]=Figure.FigureBlackPiece("Darth Pepa");
-//
-//                //cerne figurky na sudem radku a sudych sloupcich (sude vzhledem k indexu do pole)
-//                else if ( (row==6) && (col%2==0) )
-//                    this.board[row][col]=Figure.FigureBlackPiece("Darth Pepa");
-//
-//                //vsecha ostatni pole jsou prazdna (null)
-//                else this.board[row][col]=null;
-//            }
-//        }
+    }
+
+    /**
+     * Klonovaci funkce
+     * @param d
+     */
+    public Desk(Desk d){
+
+        this.board = new Figure[BOARD_SIZE][BOARD_SIZE];
+
+        for (int row = 0; row < Desk.BOARD_SIZE; row++){
+            for (int col = 0; col < Desk.BOARD_SIZE; col++){
+
+                if(d.board[row][col] != null){
+                    this.board[row][col] = new Figure(d.board[row][col]);
+                }
+            }
+        }
     }
 
     @Override
@@ -103,7 +97,7 @@ public class Desk {
     }
 
     /**
-     * Nastavi tento instanci desky sachovnici
+     * Nastavi teto instanci desky sachovnici
      * @param board pole figurek
      */
     public void setState(Figure[][] board)

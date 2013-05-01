@@ -151,6 +151,7 @@ public class Dama extends Thread{
                     gui.updateDesk(this.desk);
                     this.desk.printSimpleBoard();
                     gui.clearAura();
+                    gui.clearHelp();
 
                     Turn wturn = turn;
 
@@ -191,6 +192,7 @@ public class Dama extends Thread{
                     gui.updateDesk(this.desk);
                     this.desk.printSimpleBoard();
                     gui.clearAura();
+                    gui.clearHelp();
 
                     Turn bturn = turn;
 
@@ -199,7 +201,7 @@ public class Dama extends Thread{
                 if(Check.isVictory(desk)){
                     System.out.println("Konec hry, bily uz nehraje.");
                     Dama.stopGameThread();
-                    //return;
+                    //return;//TODO spravne vypnout, nejaky konec hezky? aji u bilych...
                 }
 
                 //vypinaci cast

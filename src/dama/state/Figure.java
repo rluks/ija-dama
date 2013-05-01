@@ -46,6 +46,17 @@ public class Figure {
         return new Figure('W', 'P', name);
     }
 
+    /**
+     * Klonovaci funkce
+     * @param f
+     */
+    public Figure(Figure f){
+        this.color = f.color;
+        this.mustTakeFlag = f.mustTakeFlag;
+        this.name = f.name;
+        this.type = f.type;
+    }
+
     @Override
     public boolean equals(Object p){
 
