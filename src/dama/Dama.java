@@ -115,8 +115,11 @@ public class Dama extends Thread{
 
                     if(this.settings.white == "AI"){
                         System.out.println("Hra: AI - tah bileho");
-                        turn = AI.AIMove(desk, this.playerColor, this.aiStochasticity);
-                        desk.clearMustTakeFlag();
+                        this.turn = AI.AIMove(desk, this.playerColor, this.aiStochasticity);//TODO null pri patu osetrit
+                        if(this.turn == null){
+                            System.out.println("Hra: AIMove() vratilo null");
+                        }
+                        this.desk.clearMustTakeFlag();
                     }else{
 
                         this.turn = Turn.TurnWhite(pEmpty, pEmpty);
@@ -150,6 +153,11 @@ public class Dama extends Thread{
                     gui.clearAura();
 
                     Turn wturn = turn;
+
+                if(Check.isVictory(desk)){
+                    System.out.println("Konec hry, CERNY uz nehraje.");
+                    Dama.stopGameThread();
+                }
 
                 /* Black */
                 this.playerColor = 'B';
@@ -187,6 +195,12 @@ public class Dama extends Thread{
                     Turn bturn = turn;
 
                 gui.NotationNewLine(wturn, wtake, bturn, btake, tahCislo);
+
+                if(Check.isVictory(desk)){
+                    System.out.println("Konec hry, bily uz nehraje.");
+                    Dama.stopGameThread();
+                    //return;
+                }
 
                 //vypinaci cast
                 checkGUIShutdown(gui);
