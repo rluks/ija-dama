@@ -290,14 +290,13 @@ public class Dama extends Thread{
     public static void mouseInput(Position pos){
 
         Dama.clickCount++;
-        //if(wakeUpGameThread())
         {
             System.out.println("mouseInput:" + pos.getStr());
         }
 
         if(Dama.clickCount == 2){
-            //Turn t = Turn.TurnWhite(origin, destination);
-            //Dama.input(t);
+            Turn t = Dama.getTurn();
+            Dama.input(t);
             Dama.clickCount = 0;
         }
     }
@@ -366,6 +365,12 @@ public class Dama extends Thread{
     public static Desk getDesk(){
         synchronized (dama){
             return dama.desk;
+        }
+    }
+
+    public static Turn getTurn(){
+        synchronized (dama){
+            return dama.turn;
         }
     }
 
