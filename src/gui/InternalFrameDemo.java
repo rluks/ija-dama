@@ -209,12 +209,28 @@ public class InternalFrameDemo extends JFrame
         {
             public void actionPerformed(ActionEvent e)
             {
-                String pom = TFPrikaz.getText();
+                String string = TFPrikaz.getText();
+                TFPrikaz.setText("");
+                if (!Check.isNotationValid(string))
+                {
+                    lblInfo.setText("Invalid move");
+                    return;
+                }
 
-                if (!Check.isNotationValid(pom)) return;
-                //Turn turn=
+                Position pos1=Position.positionStrToPositionLowerCase(string.substring(0, 2));
+                Position pos2=Position.positionStrToPositionLowerCase(string.substring(3, 5));
+                char barva=Dama.getPlayerColor();
+                //neni rozehrana hra, takze se nic delat nebude
+                if (!( (barva=='B') || (barva=='W') )) return;
+                if ( (pos1==null) || (pos2==null) ) 
+                {
+                    lblInfo.setText("Invalid move");
+                    return;
+                }
 
+                Turn turn=new Turn(barva, pos1, pos2);
                 Dama.notaceInput(turn);
+                return;
             }
         });
         this.BSubmitCommand.setBounds(670, 440, 65, 20);

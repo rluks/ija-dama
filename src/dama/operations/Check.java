@@ -124,6 +124,8 @@ public final class Check {
 
     public static boolean isNotationValid(String str)
     {
+        if (str.length()!=5) return false;
+
         char pom=str.charAt(0);
         if (!( (pom>='a') && (pom<='h') )) return false;
         pom=str.charAt(1);
@@ -134,7 +136,6 @@ public final class Check {
         if (!( (pom>='a') && (pom<='h') )) return false;
         pom=str.charAt(4);
         if (!( (pom>='1') && (pom<='8') )) return false;
-        if (str.length()!=5) return false;
 
         return true;
     }
