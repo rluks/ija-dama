@@ -23,7 +23,7 @@ public class Dama extends Thread{
 
     //staticke
     public static Dama dama;
-    private static int clickCount = 0; //po dvou klicich posilame tah hre
+    protected static int clickCount = 0; //po dvou klicich posilame tah hre
     protected static Turn turnInput;
 
     //vlakno hry
@@ -86,6 +86,7 @@ public class Dama extends Thread{
 
             this.desk = new Desk();
             gui.updateDesk(desk);
+            this.desk.printSimpleBoard();
 
             System.out.println("Hra: Tisknu nastaveni");
             //System.out.println(this.settings.getXML());
@@ -101,6 +102,7 @@ public class Dama extends Thread{
                 this.playerColor = 'W';
                 try {Thread.sleep(300);} catch (InterruptedException e) {e.printStackTrace();}
                     System.out.println("Hra: its white players turn!");
+                    gui.setInfoText("It's WHITE players turn!");
                     Position pEmpty = new Position(-1, -1);
                     this.turn = Turn.TurnWhite(pEmpty, pEmpty);
 
@@ -116,7 +118,7 @@ public class Dama extends Thread{
 
                     //zpracovani tahu bileho
                     if(Check.isMustTake(desk, 'W')){
-                        Moves.Take(desk, turn);
+                        System.out.println("Hra: tah bilyho, take vraci:" + Moves.Take(desk, turn));
                         desk.clearMustTakeFlag();
                     }else{
                         Moves.Move(desk, turn);
@@ -124,11 +126,13 @@ public class Dama extends Thread{
 
                     Check.isPieceToDame(desk);
                     gui.updateDesk(this.desk);
+                    this.desk.printSimpleBoard();
 
                 /* Black */
                 this.playerColor = 'B';
                 try {Thread.sleep(300);} catch (InterruptedException e) {e.printStackTrace();}
                     System.out.println("Hra: its BLACK players turn!");
+                    gui.setInfoText("It's BLACK players turn!");
                     this.turn = Turn.TurnBlack(pEmpty, pEmpty);
 
                     Dama.sleepGameThread();
@@ -143,7 +147,7 @@ public class Dama extends Thread{
 
                     //zpracovani tahu cerneho
                     if(Check.isMustTake(desk, 'B')){
-                        Moves.Take(desk, turn);
+                        System.out.println("Hra: tah CERNYHO, take vraci:" + Moves.Take(desk, turn));
                         desk.clearMustTakeFlag();
                     }else{
                         Moves.Move(desk, turn);
@@ -151,6 +155,7 @@ public class Dama extends Thread{
 
                     Check.isPieceToDame(desk);
                     gui.updateDesk(this.desk);
+                    this.desk.printSimpleBoard();
 
                 //vypinaci cast
                 checkGUIShutdown(gui);
@@ -380,6 +385,11 @@ public class Dama extends Thread{
                 Dama.clickCount = 0;
             }
         }
+    }
+
+    public static void setClickCount(int count){
+        Dama.clickCount = count;
+        System.out.println("setClickCount:" + count);
     }
 
     /**

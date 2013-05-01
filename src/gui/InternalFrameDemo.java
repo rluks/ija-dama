@@ -553,6 +553,7 @@ public class InternalFrameDemo extends JFrame
           }
         case InputEvent.BUTTON3_MASK: {
           System.out.println("That's the RIGHT button");
+          Dama.setClickCount(0);
           break;
           }
         }
@@ -582,7 +583,7 @@ public class InternalFrameDemo extends JFrame
      */
     public void updateDesk(Desk desk)
     {
-        this.lblInfo.setText("Obnovuju labely figurek na desce");
+        this.lblInfo.setText("Refreshing playboard, please wait...");
 
         Figure[][] this_board=desk.getState();
         for (int row=0; row<8; row++)
@@ -614,5 +615,9 @@ public class InternalFrameDemo extends JFrame
     public void pullThePlug() {
         WindowEvent wev = new WindowEvent(this, WindowEvent.WINDOW_CLOSING);
         Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(wev);
-}
+    }
+
+    public void setInfoText(String text){
+        this.lblInfo.setText(text);
+    }
 }
