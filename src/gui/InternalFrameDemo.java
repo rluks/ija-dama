@@ -59,6 +59,7 @@ import javax.swing.KeyStroke;
 
 import dama.Dama;
 import dama.state.Desk;
+import dama.state.Figure;
 import dama.state.Position;
 import dama.state.Settings;
 
@@ -521,27 +522,34 @@ public class InternalFrameDemo extends JFrame
      * Vykresli stav desky
      * @param desk
      */
-    public void updateDesk(Desk desk){
+    public void updateDesk(Desk desk)
+    {
         this.lblInfo.setText("Obnovuju labely figurek na desce");
-        /*
-        JLabel LFigurkaPokus1 = new JLabel("");
-        LFigurkaPokus1.setBounds(50, 440, 50, 50);
-        desktop.add(LFigurkaPokus1);
-        LFigurkaPokus1.setIcon(new ImageIcon(InternalFrameDemo.class.getResource("/gui/images/figurky/bily_pesak.png")));
 
-        JLabel LFigurkaPokus2 = new JLabel("");
-        LFigurkaPokus2.setBounds(100, 391, 50, 50);
-        desktop.add(LFigurkaPokus2);
-        LFigurkaPokus2.setIcon(new ImageIcon(InternalFrameDemo.class.getResource("/gui/images/figurky/cerny_pesak.png")));
-        JLabel LFigurkaPokus3 = new JLabel("");
-        LFigurkaPokus3.setBounds(150, 440, 50, 50);
-        desktop.add(LFigurkaPokus3);
-        LFigurkaPokus3.setIcon(new ImageIcon(InternalFrameDemo.class.getResource("/gui/images/figurky/bila_dama.png")));
+        Figure[][] this_board=desk.getState();
+        for (int row=0; row<8; row++)
+            for (int col=0; col<8; col++)
+            {
+                if (this_board[row][col]==null)
+                {
+                    this.pole_figurek[row][col].setIcon(null);
+                    continue;
+                }
+                if (this_board[row][col].color=='B')
+                {
+                    if (this_board[row][col].type=='P')
+                        this.pole_figurek[row][col].setIcon(new ImageIcon(InternalFrameDemo.class.getResource("/gui/images/figurky/cerny_pesak.png")));
+                    else
+                        this.pole_figurek[row][col].setIcon(new ImageIcon(InternalFrameDemo.class.getResource("/gui/images/figurky/cerna_dama.png")));
+                }
+                else if (this_board[row][col].color=='W')
+                {
+                    if (this_board[row][col].type=='P')
+                        this.pole_figurek[row][col].setIcon(new ImageIcon(InternalFrameDemo.class.getResource("/gui/images/figurky/bily_pesak.png")));
+                    else
+                        this.pole_figurek[row][col].setIcon(new ImageIcon(InternalFrameDemo.class.getResource("/gui/images/figurky/bila_dama.png")));
+                }
+            }
 
-        JLabel LFigurkaPokus4 = new JLabel("");
-        LFigurkaPokus4.setBounds(200, 391, 50, 50);
-        desktop.add(LFigurkaPokus4);
-        LFigurkaPokus4.setIcon(new ImageIcon(InternalFrameDemo.class.getResource("/gui/images/figurky/cerna_dama.png")));
-        */
     }
 }
