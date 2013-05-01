@@ -221,7 +221,11 @@ public class Moves
             int d_col=dest.col-origin.col;
             int d_row=dest.row-origin.row;
             //dama se pohybuje libovolne po uhlopricce - je treba zkontolovat jestli se posunula o stejny pocet sloupcu jako radku
-            if ( (Math.abs(d_row))!=(Math.abs(d_col)) ) return null;
+            if ( (Math.abs(d_row))!=(Math.abs(d_col)) )
+            {
+                System.out.println("!!!!!!!!!!!!!! DAMA: brani neni po uhlopricce");
+                return null;
+            }
 
             //prirustky
             int i_col;
@@ -252,11 +256,20 @@ public class Moves
                 }
             }
             origin=zaloha_origin;
-            if (vlastnich>0) return null;        //pri vyhazovani skace pres vlastni figurky
-            if (oponentovych!=1) return null;    //pri vyhazovani skace pres vice nez jednu cernou nebo taky pres zadnou cernou
+            if (vlastnich>0)
+            {
+                System.out.println("!!!!!!!!!!!!!! DAMA: nejaci vlastni v ceste");
+                return null;        //pri vyhazovani skace pres vlastni figurky
+            }
+            if (oponentovych!=1)
+            {
+                System.out.println("!!!!!!!!!!!!!! DAMA: skace se pres vic nepritelovych");
+                return null;    //pri vyhazovani skace pres vice nez jednu cernou nebo taky pres zadnou cernou
+            }
 
             return pos;
         }
+        System.out.println("!!!!!!!!!!!!!! IS TAKE VALID konec banik");
         return null;
     }
 
@@ -278,7 +291,11 @@ public class Moves
 
         //zavola se fce na vyhodnoceni spravnosti brani
         Position vyhazovana=isTakeValid(desk, turn);
-        if (vyhazovana==null) return false;
+        if (vyhazovana==null)
+        {
+            System.out.println("!!!!! Je to shit nevalidni");
+            return false;
+        }
         else
         {   //pokud je brani validni, presune se braci figurka a brana figurka je odstranena
             this_board[zaloha_origin.row][zaloha_origin.col]=null;
