@@ -88,7 +88,12 @@ public class Dama extends Thread{
                     System.out.println("Hra: white is playing...");
 
                     //zpracovani tahu bileho
-                    Moves.Move(desk, turn);//TODO brani
+                    if(Check.isMustTake(desk, 'W')){
+                        Moves.Take(desk, turn);
+                        desk.clearMustTakeFlag();
+                    }else{
+                        Moves.Move(desk, turn);
+                    }
 
                     gui.updateDesk(this.desk);
 
@@ -103,7 +108,12 @@ public class Dama extends Thread{
                     System.out.println("Hra: black is playing...");
 
                     //zpracovani tahu cerneho
-                    Moves.Move(desk, turn);//TODO brani
+                    if(Check.isMustTake(desk, 'B')){
+                        Moves.Take(desk, turn);
+                        desk.clearMustTakeFlag();
+                    }else{
+                        Moves.Move(desk, turn);
+                    }
 
                     gui.updateDesk(this.desk);
 
