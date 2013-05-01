@@ -134,8 +134,8 @@ public class Dama extends Thread{
 
                         //zpracovani tahu bileho
                         if(Check.isMustTake(desk, 'W')){
-                        	System.out.println("================================BRANI=============================");
-                        	System.out.println("Hra: tah bilyho, take() vraci:" + Moves.Take(desk, turn));                            
+                            System.out.println("================================BRANI=============================");
+                            System.out.println("Hra: tah bilyho, take() vraci:" + Moves.Take(desk, turn));
                             desk.clearMustTakeFlag();
                             wtake = true;
                         }else{
@@ -169,8 +169,8 @@ public class Dama extends Thread{
 
                     //zpracovani tahu cerneho
                     if(Check.isMustTake(desk, 'B')){
-                    	System.out.println("================================BRANI=============================");
-                    	System.out.println("Hra: tah CERNYHO, take() vraci:" + Moves.Take(desk, turn));                        
+                        System.out.println("================================BRANI=============================");
+                        System.out.println("Hra: tah CERNYHO, take() vraci:" + Moves.Take(desk, turn));
                         desk.clearMustTakeFlag();
                         btake = true;
                     }else{
@@ -433,12 +433,17 @@ public class Dama extends Thread{
     /**
      * Jednotny vstup tahu pro vlakno hry
      */
-    public static void input(Turn turn){
+    public static void input(Turn turn)
+    {
+        Turn zaloha_turn=new Turn(turn.playerColor, turn.origin, turn.destination);
 
-        if(Moves.isTurnValid(turn, Dama.getDesk())){
-            Dama.setTurn(turn);
+        if(Moves.isTurnValid(turn, Dama.getDesk()))
+        {
+            Dama.setTurn(zaloha_turn);
             Dama.wakeUpGameThread();
-        }else{
+        }
+        else
+        {
             System.out.println("Dama.input: nevalidni tah, neposilam ho dal.");
         }
     }
