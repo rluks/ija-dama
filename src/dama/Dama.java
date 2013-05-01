@@ -27,6 +27,7 @@ public class Dama extends Thread{
     public Settings settings;
     public Turn turn;
     public Desk desk;
+    public char playerColor;
     public boolean allDone = false; //ukonceni behu
     public boolean pleaseWait = false; //pozastaveni behu
 
@@ -42,6 +43,7 @@ public class Dama extends Thread{
 
         gui = new InternalFrameDemo();
         gui.setVisible(true);
+
     }
 
     public void run(){
@@ -62,6 +64,9 @@ public class Dama extends Thread{
             checkGUIShutdown(gui.isVisible());
             if(allDone){System.out.println("Hra: Dama terminated, allDone!!");return;}
 
+            if(this.settings == null){
+                continue;
+            }
 
             this.desk = new Desk();
             gui.updateDesk(desk);
@@ -77,6 +82,7 @@ public class Dama extends Thread{
                 System.out.println(this.settings.getSettingsString());
 
                 /* White */
+                this.playerColor = 'W';
                     System.out.println("Hra: its white players turn!");
                     Position pEmpty = new Position(-1, -1);
                     this.turn = Turn.TurnWhite(pEmpty, pEmpty);
@@ -99,6 +105,7 @@ public class Dama extends Thread{
                     gui.updateDesk(this.desk);
 
                 /* Black */
+                this.playerColor = 'B';
                     System.out.println("Hra: its BLACK players turn!");
                     this.turn = Turn.TurnBlack(pEmpty, pEmpty);
 
@@ -415,6 +422,13 @@ public class Dama extends Thread{
     public static Turn getTurn(){
         synchronized (dama){
             return dama.turn;
+        }
+    }
+
+
+    public static char getPlayerColor(){
+        synchronized (dama){
+            return dama.playerColor;
         }
     }
 
