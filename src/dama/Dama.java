@@ -118,7 +118,8 @@ public class Dama extends Thread{
                         Position pInvalid = new Position(0, 0);
                         turn = new Turn(playerColor, pInvalid, pInvalid);
                     }else{
-                        System.out.println("Hra: tah bilyho, take() vraci:" + Turn.TurnWhite(pEmpty, pEmpty));
+
+                        this.turn = Turn.TurnWhite(pEmpty, pEmpty);
 
                         Dama.sleepGameThread();
 
@@ -391,10 +392,9 @@ public class Dama extends Thread{
     public static void mouseInput(Position pos){
 
         if(Dama.isGameSetAndRunning()){
+
             Dama.clickCount++;
-            {
-                System.out.println("mouseInput:" + pos.getStr());
-            }
+            System.out.println("mouseInput:" + pos.getStr());
 
             if(Dama.clickCount == 1){
                 Dama.turnInput = Dama.getTurn();
