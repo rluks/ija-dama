@@ -29,7 +29,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package components;
+package gui;
 
 import java.awt.Button;
 import java.awt.Color;
@@ -131,11 +131,11 @@ public class InternalFrameDemo extends JFrame
         btnTlacitkoLambda.setBounds(590, 10, 100, 60);
         btnTlacitkoLambda.setContentAreaFilled(false);
         btnTlacitkoLambda.setBorderPainted(false);
-        btnTlacitkoLambda.setIcon(new ImageIcon(InternalFrameDemo.class.getResource("/components/images/spray.png")));
+        btnTlacitkoLambda.setIcon(new ImageIcon(InternalFrameDemo.class.getResource("/gui/images/spray.png")));
         btnTlacitkoLambda.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 System.out.println("SUP");
-                btnTlacitkoLambda.setIcon(new ImageIcon(InternalFrameDemo.class.getResource("/components/images/Bird.gif")));
+                btnTlacitkoLambda.setIcon(new ImageIcon(InternalFrameDemo.class.getResource("/gui/images/Bird.gif")));
             }
         });
         desktop.add(btnTlacitkoLambda);
@@ -154,7 +154,7 @@ public class InternalFrameDemo extends JFrame
         //deska
         JLabel BGSachovnice = new JLabel("");
         BGSachovnice.setFocusable(false);
-        BGSachovnice.setIcon(new ImageIcon(InternalFrameDemo.class.getResource("/components/images/sachovnice_420px_yellow.png")));
+        BGSachovnice.setIcon(new ImageIcon(InternalFrameDemo.class.getResource("/gui/images/sachovnice_420px_yellow.png")));
         BGSachovnice.setBounds(x_sachovnice, y_sachovnice, 420, 420);
         BGSachovnice.addMouseListener(this);
         desktop.add(BGSachovnice);
@@ -492,21 +492,21 @@ public class InternalFrameDemo extends JFrame
         JLabel LFigurkaPokus1 = new JLabel("");
         LFigurkaPokus1.setBounds(50, 440, 50, 50);
         desktop.add(LFigurkaPokus1);
-        LFigurkaPokus1.setIcon(new ImageIcon(InternalFrameDemo.class.getResource("/components/images/figurky/bily_pesak.png")));
+        LFigurkaPokus1.setIcon(new ImageIcon(InternalFrameDemo.class.getResource("/gui/images/figurky/bily_pesak.png")));
 
         JLabel LFigurkaPokus2 = new JLabel("");
         LFigurkaPokus2.setBounds(100, 391, 50, 50);
         desktop.add(LFigurkaPokus2);
-        LFigurkaPokus2.setIcon(new ImageIcon(InternalFrameDemo.class.getResource("/components/images/figurky/cerny_pesak.png")));
+        LFigurkaPokus2.setIcon(new ImageIcon(InternalFrameDemo.class.getResource("/gui/images/figurky/cerny_pesak.png")));
         JLabel LFigurkaPokus3 = new JLabel("");
         LFigurkaPokus3.setBounds(150, 440, 50, 50);
         desktop.add(LFigurkaPokus3);
-        LFigurkaPokus3.setIcon(new ImageIcon(InternalFrameDemo.class.getResource("/components/images/figurky/bila_dama.png")));
+        LFigurkaPokus3.setIcon(new ImageIcon(InternalFrameDemo.class.getResource("/gui/images/figurky/bila_dama.png")));
 
         JLabel LFigurkaPokus4 = new JLabel("");
         LFigurkaPokus4.setBounds(200, 391, 50, 50);
         desktop.add(LFigurkaPokus4);
-        LFigurkaPokus4.setIcon(new ImageIcon(InternalFrameDemo.class.getResource("/components/images/figurky/cerna_dama.png")));
+        LFigurkaPokus4.setIcon(new ImageIcon(InternalFrameDemo.class.getResource("/gui/images/figurky/cerna_dama.png")));
         */
     }
 }

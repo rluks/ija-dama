@@ -29,7 +29,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package components;
+package gui;
 
 import java.awt.GridLayout;
 import java.util.Enumeration;
@@ -39,23 +39,25 @@ import javax.swing.ButtonGroup;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JRadioButton;
+import javax.swing.JTextField;
 
 import dama.state.Settings;
 
 /* Used by InternalFrameDemo.java. */
-public class NewGameSettings extends JInternalFrame {
+public class NewP2PGameSettings extends JInternalFrame {
+
     /**
      *
      */
-    private static final long serialVersionUID = -4326238455841218297L;//kvuli warningu
-
+    private static final long serialVersionUID = 1403878987649253394L;
     static int openFrameCount = 0;
     static final int xOffset = 30, yOffset = 30;
-    ButtonGroup white;
-    ButtonGroup black;
+    ButtonGroup local;
+    private JTextField txtRemoteip;
+    private JTextField txtRemotePort;
 
-    public NewGameSettings() {
-        super("New Game Settings #" + (++openFrameCount),
+    public NewP2PGameSettings() {
+        super("New P2P Game Settings #" + (++openFrameCount),
               true, //resizable
               true, //closable
               false, //maximizable
@@ -70,34 +72,37 @@ public class NewGameSettings extends JInternalFrame {
         setLocation(xOffset*openFrameCount, yOffset*openFrameCount);
         getContentPane().setLayout(new GridLayout(0, 1, 0, 0));
 
-        //white
-        JLabel lblWhitePlayer = new JLabel("White Player:");
-        getContentPane().add(lblWhitePlayer);
+        //local
+        JLabel lblLocalMachine = new JLabel("Player on Local Machine:");
+        getContentPane().add(lblLocalMachine);
 
-        JRadioButton rdbtnWhiteHuman = new JRadioButton("Human");
-        getContentPane().add(rdbtnWhiteHuman);
+        JRadioButton rdbtnWhite = new JRadioButton("White");
+        getContentPane().add(rdbtnWhite);
 
-        JRadioButton rdbtnWhiteAI = new JRadioButton("AI");
-        getContentPane().add(rdbtnWhiteAI);
+        JRadioButton rdbtnBlack = new JRadioButton("Black");
+        getContentPane().add(rdbtnBlack);
 
-        this.white = new ButtonGroup();
-        this.white.add(rdbtnWhiteHuman);
-        this.white.add(rdbtnWhiteAI);
+        this.local = new ButtonGroup();
+        this.local.add(rdbtnWhite);
+        this.local.add(rdbtnBlack);
 
-        //black
-        JLabel lblBlackPlayer = new JLabel("Black Player:");
-        getContentPane().add(lblBlackPlayer);
+        //remote
+        JLabel lblRemoteMachine = new JLabel("Remote Machine IP:");
+        getContentPane().add(lblRemoteMachine);
 
-        JRadioButton rdbtnBlackHuman = new JRadioButton("Human");
-        getContentPane().add(rdbtnBlackHuman);
+        txtRemoteip = new JTextField();
+        txtRemoteip.setText("localhost");
+        getContentPane().add(txtRemoteip);
+        txtRemoteip.setColumns(10);
 
-        JRadioButton rdbtnBlackAI = new JRadioButton("AI");
-        getContentPane().add(rdbtnBlackAI);
+        JLabel lblRemoteMachinePort = new JLabel("Remote Machine Port:");
+        getContentPane().add(lblRemoteMachinePort);
 
-        this.black = new ButtonGroup();
-        this.black.add(rdbtnBlackHuman);
-        this.black.add(rdbtnBlackAI);
 
+        txtRemotePort = new JTextField();
+        txtRemotePort.setText("55555");//49152 – 65535: Dynamic and/or Private Ports
+        getContentPane().add(txtRemotePort);
+        txtRemotePort.setColumns(10);
     }
 
     public JRadioButton getSelection(ButtonGroup group) {
@@ -112,14 +117,26 @@ public class NewGameSettings extends JInternalFrame {
 
     public Settings getSettings(){
 
-        JRadioButton white = getSelection(this.white);
-        JRadioButton black = getSelection(this.black);
-        if(white == null || black == null){return null;}
+        JRadioButton local = getSelection(this.local);
 
-        String whiteStr = white.getText();
-        String blackStr = black.getText();
+        if(local == null || this.txtRemoteip.getText().trim().equals("") || this.txtRemotePort.getText().trim().equals("")){return null;}
 
-        Settings sett = new Settings(whiteStr, blackStr, null, null, 0);
+        String remoteIP = this.txtRemoteip.getText();
+        String remotePortStr = this.txtRemotePort.getText();
+
+        String localStr = local.getText();
+
+        String whiteStr = "Human";
+        String blackStr = "Human";
+
+        try {Double.parseDouble(remotePortStr);
+        }catch (NumberFormatException e) {
+            return null;
+        }
+
+        int remotePort = (int)((Double.parseDouble(remotePortStr)));
+
+        Settings sett = new Settings(whiteStr, blackStr, localStr, remoteIP, remotePort);
         return sett;
     }
 }

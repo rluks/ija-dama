@@ -1,6 +1,6 @@
 package dama;
 
-import components.InternalFrameDemo;
+import gui.InternalFrameDemo;
 
 import dama.operations.AI;
 import dama.operations.Check;
