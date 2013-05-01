@@ -133,20 +133,24 @@ public class Dama extends Thread{
         Desk d = new Desk();
         //System.out.println("Velka sachovnice:");
         //d.printBoard();
-        System.out.println("Mala sachovnice:");
-        d.printSimpleBoard();
+        //System.out.println("Mala sachovnice:");
+        //d.printSimpleBoard();
 
         //int i=0;
         int j=0;
         while(true)
         {
-            System.out.println("====================================================================");
+            gui.updateDesk(d);
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+
             boolean pom;
             if ((j%2)==0) pom=AI.AIMove(d, 'W', 6);
             else pom=AI.AIMove(d, 'B', 6);
-
-            System.out.println(j + ": Stav booleanu: " + pom);
-
             if (pom==false)
             {
                 System.out.println("Doslo k patu. To nedas typYco!!!!!");
@@ -155,27 +159,24 @@ public class Dama extends Thread{
 
             Check.isPieceToDame(d);
             d.clearMustTakeFlag();
-            //d.printSimpleBoard();
-
-            gui.updateDesk(d);
-
-            try {
-                Thread.sleep(500);
-            } catch (InterruptedException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-
-
             j++;
-            //if (j==800) break;
-
             if (Check.isVictory(d))
             {
                 System.out.println("VYHRA TYPYCO!!!!");
                 break;
             }
         }
+
+        /*
+        System.out.println("Validace:\ta1-a2 - " + Check.isNotationValid("a1-a2"));
+        System.out.println("Validace:\ta5xa2 - " + Check.isNotationValid("a5xa2"));
+        System.out.println("Validace:\td1-a1  - " + Check.isNotationValid("d1-a0 "));
+        System.out.println("Validace:\th1-a2 - " + Check.isNotationValid("h1-a2"));
+        System.out.println("Validace:\tg1-a9 - " + Check.isNotationValid("g1-a9"));
+        System.out.println("Validace:\ts1-a2 - " + Check.isNotationValid("s1-a2"));
+        System.out.println("Validace:\tk1-a2 - " + Check.isNotationValid("k1-a2"));
+        */
+
     }
 
 
