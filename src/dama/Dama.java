@@ -63,11 +63,9 @@ public class Dama extends Thread{
             }
 
             //vypinaci cast
+            checkGUIShutdown(gui.isVisible());
             if(allDone){System.out.println("Hra: Dama terminated, allDone!!");return;}
-            if(!gui.isVisible()){
-                System.out.println("Hra: GUI zavreno - vypinam program.");
-                System.exit(0);
-            }//vypinaci cast - konec
+
 
             this.desk = new Desk();
             gui.updateDesk(desk);
@@ -85,14 +83,24 @@ public class Dama extends Thread{
                 gui.updateDesk(this.desk);
 
                 //vypinaci cast
+                checkGUIShutdown(gui.isVisible());
                 if(allDone){System.out.println("Hra: Dama terminated, allDone!!");return;}
-                if(!gui.isVisible()){
-                    System.out.println("Hra: GUI zavreno - vypinam program.");
-                    System.exit(0);
-                }//vypinaci cast - konec
 
                 try {Thread.sleep(1000);} catch (InterruptedException e) {e.printStackTrace();}
             }
+        }
+    }
+
+
+    /**
+     * Kontrola jestli se GUI zavrelo
+     * @param isGUIvisible gui.isVisible;
+     */
+    private void checkGUIShutdown(boolean isGUIvisible){
+
+        if(!isGUIvisible){
+            System.out.println("Hra: GUI zavreno - vypinam program.");
+            System.exit(0);
         }
     }
 
