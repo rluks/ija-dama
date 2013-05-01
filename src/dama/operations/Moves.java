@@ -136,12 +136,6 @@ public class Moves
         Position origin = turn.origin;
         Position dest = turn.destination;
 
-        /*
-        System.out.println("----------------");
-        System.out.println("\torigin:\t" + origin.row + "," + origin.col);
-        System.out.println("\tdest:\t" + dest.row + "," + dest.col);
-        */
-
         Figure[][] this_board=desk.getState();
         Figure fig=this_board[origin.row][origin.col];
 
@@ -157,14 +151,9 @@ public class Moves
         //kontrola jestli barva figurky se kterou tahneme odpovida barve hrace na tahu
         if (fig.color!=turn.playerColor)return null;
 
-        //System.out.println("itw po kontrolach");
-        //System.out.println("\torigin:\t" + origin.row + "," + origin.col);
-        //System.out.println("\tdest:\t" + dest.row + "," + dest.col);
-
         //bily pesak
         if ( (fig.type=='P') && (fig.color=='W') )
         {
-            //System.out.println("\tbily pesak");
             //kontrola, jestli je dest o dva radky nize
             if (origin.row+2!=dest.row) return null;
             if ((origin.row+1<8)&&(origin.col+1<8))
@@ -193,7 +182,6 @@ public class Moves
         //cerny pesak
         if ( (fig.type=='P') && (fig.color=='B') )
         {
-            //System.out.println("\tcerny pesak");
             //kontrola, jestli je dest o dva radky vyse
             if (origin.row-2!=dest.row) return null;
             if ((origin.row-1>=0)&&(origin.col+1<8))
@@ -209,11 +197,8 @@ public class Moves
                             pos=new Position(origin.row-1, origin.col+1);
                             return pos;
                         }
-
                     }
-
                 }
-
             }
             if ((origin.row-1>=0)&&(origin.col-1>=0))
             {
@@ -222,7 +207,6 @@ public class Moves
                 Figure fig2=this_board[origin.row-1][origin.col-1];
                 if ( (origin.col-2==dest.col) && (fig2!=null) && (fig2.color=='W') )
                 {
-
                     pos=new Position(origin.row-1, origin.col-1);
                     return pos;
                 }
@@ -233,14 +217,11 @@ public class Moves
         //dama
         if (fig.type=='D')
         {
-            //System.out.println("\tDama");
-
             //rozdil radku a sloupcu
             int d_col=dest.col-origin.col;
             int d_row=dest.row-origin.row;
             //dama se pohybuje libovolne po uhlopricce - je treba zkontolovat jestli se posunula o stejny pocet sloupcu jako radku
             if ( (Math.abs(d_row))!=(Math.abs(d_col)) ) return null;
-
 
             //prirustky
             int i_col;
@@ -254,27 +235,15 @@ public class Moves
             int oponentovych=0;
 
             //Position zaloha_origin = new Position(origin.row, origin.col);
-
             while(origin.row!=dest.row)
             {    //posuneme se na dalsi pozici
-                //System.out.println("\torigin:\t" + origin.row + "," + origin.col);
                 origin.row=origin.row+i_row;
-                //System.out.println("\torigin:\t" + origin.row + "," + origin.col);
                 origin.col=origin.col+i_col;
-                //System.out.println("\torigin:\t" + origin.row + "," + origin.col);
-                //System.out.println("***************");
-                //System.out.println("\tdest:\t" + dest.row + "," + dest.col);
 
                 //kontroluju, jestli je v ceste figurka
-                //System.out.println("Dama2.5");
-                //System.out.println("r: " + origin.row + "; c: " + origin.col );
                 if (this_board[origin.row][origin.col]!=null)
                 {
-                    //System.out.println("r: " + origin.row + "; c: " + origin.col );
-                    if (this_board[origin.row][origin.col].color==fig.color)
-                    {
-                        vlastnich++;
-                    }
+                    if (this_board[origin.row][origin.col].color==fig.color) vlastnich++;
                     else
                     {
                         oponentovych++;
@@ -291,7 +260,12 @@ public class Moves
     }
 
 
-    //brani----------------------------------------------------------------------------------------------------------------------------------------------------------------
+    /**
+     * Provede tah brani
+     * @param desk    nad kterou deskou se ma brani provest
+     * @param turn    s jakou figurkou a kam se ma tahnout
+     * @return        vraci true, pokud bylo brani uspesne provedeno, jinak vraci false
+     */
     public static boolean Take(Desk desk, Turn turn)
     {
         Position origin = turn.origin;
@@ -303,15 +277,9 @@ public class Moves
 
         //zavola se fce na vyhodnoceni spravnosti brani
         Position vyhazovana=isTakeValid(desk, turn);
-        if (vyhazovana==null)
-        {
-            //System.out.println("Vyhazovana=null");
-            return false;
-        }
+        if (vyhazovana==null) return false;
         else
         {   //pokud je brani validni, presune se braci figurka a brana figurka je odstranena
-            //System.out.println("origin: " + origin.row + "," + origin.col);
-            //System.out.println("zaloha_origin: " + zaloha_origin.row + "," + zaloha_origin.col);
             this_board[zaloha_origin.row][zaloha_origin.col]=null;
             this_board[vyhazovana.row][vyhazovana.col]=null;
             this_board[dest.row][dest.col]=fig;
@@ -319,12 +287,11 @@ public class Moves
         }
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------------------------------
     /**
-     * Je tento tah proveditelný?
-     * @param turn
-     * @param desk
-     * @return
+     * Kontroluje jestli je tah proveditelny
+     * @param turn    jaky tah se ma zkontrolovat
+     * @param desk    nad jakou deskou se ma kontrola provest
+     * @return        vraci true, pokud je tah validni, jinak vraci false
      */
     public static boolean isTurnValid(Turn turn, Desk desk)
     {
@@ -355,10 +322,10 @@ public class Moves
 
 
     /**
-     * Může kámen na této pozici(jestli tam vůbec je nějaký můj kámen) brát nějaký soupeřův kámen?
-     * @param position
-     * @param desk
-     * @return
+     * Provede test, zdali muze figurka na dane pozici nekoho brat
+     * @param position    pozice testovane figurky
+     * @param desk        deska nad kterou se ma test provest
+     * @return            vraci true, pokud ma dana figurka koho brat, jinak vraci false
      */
     public static boolean canTake(Position pos0, Desk desk)
     {//barva pos0 muze poslat jen hrac stejne barvy
@@ -397,6 +364,12 @@ public class Moves
     }
 
 
+    /**
+     * Provede test, jestli se figurka na dane pozici muze pohnout bez vyhazovani
+     * @param pos0    pozice na ktere je dana figurka
+     * @param desk    deska nad kterou se ma kontrola provest
+     * @return        vraci true, pokud se muze figurka pohnout, jinak false
+     */
     public static boolean canMove(Position pos0, Desk desk)
     {//barva pos0 muze poslat jen hrac stejne barvy
         Figure[][] this_board=desk.getState();
