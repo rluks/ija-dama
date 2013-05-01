@@ -612,6 +612,14 @@ public class InternalFrameDemo extends JFrame
 
     }
 
+    /**
+     * Fce prida to textarea dalsi tah v notaci
+     * @param wturn    tah bileho
+     * @param wtake    indikator jestli bily bral
+     * @param bturn    tah cerneho
+     * @param btake    indikator jestli cerny bral
+     * @param tah      poradove cislo tahu
+     */
     public void NotationNewLine(Turn wturn, boolean wtake, Turn bturn, boolean btake, int tah)
     {
         String predchozi_obsah=TAVypisNotace.getText();
