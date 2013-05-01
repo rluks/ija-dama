@@ -59,6 +59,7 @@ import javax.swing.KeyStroke;
 
 import dama.Dama;
 import dama.io.Turn;
+import dama.operations.Check;
 import dama.state.Desk;
 import dama.state.Figure;
 import dama.state.Position;
@@ -204,6 +205,18 @@ public class InternalFrameDemo extends JFrame
         desktop.add(this.TAVypisNotace);
 
         this.BSubmitCommand = new Button("OK");
+        BSubmitCommand.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e)
+            {
+                String pom = TFPrikaz.getText();
+
+                if (!Check.isNotationValid(pom)) return;
+                //Turn turn=
+
+                Dama.notaceInput(turn);
+            }
+        });
         this.BSubmitCommand.setBounds(670, 440, 65, 20);
         desktop.add(BSubmitCommand);
 

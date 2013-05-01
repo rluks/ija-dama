@@ -29,6 +29,7 @@ public class Dama extends Thread{
     public Desk desk;
     public boolean allDone = false; //ukonceni behu
     public boolean pleaseWait = false; //pozastaveni behu
+    //public int pocaitadlo_tahu=1;
 
     public boolean gameSetAndRuning = false; //hra byla nastavena a uz se provadi tahy, atd.
     InternalFrameDemo gui;
@@ -51,8 +52,11 @@ public class Dama extends Thread{
         System.out.println("Hra: Uspavam se");
         Dama.sleepGameThread();
 
+
+
         //smycka nastaveni hry
-        while(true){
+        while(true)
+        {
 
             try {Thread.sleep(200);} catch (InterruptedException e) {e.printStackTrace();}
 
@@ -124,6 +128,8 @@ public class Dama extends Thread{
                 if(allDone){System.out.println("Hra: Dama terminated, allDone!!");return;}
 
                 try {Thread.sleep(1000);} catch (InterruptedException e) {e.printStackTrace();}
+
+
             }
         }
     }
