@@ -207,6 +207,7 @@ public class InternalFrameDemo extends JFrame
         desktop.add(this.TAVypisNotace);
 
         this.BSubmitCommand = new Button("OK");
+        BSubmitCommand.setEnabled(false);
         BSubmitCommand.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent e)
@@ -224,7 +225,7 @@ public class InternalFrameDemo extends JFrame
                 char barva=Dama.getPlayerColor();
                 //neni rozehrana hra, takze se nic delat nebude
                 if (!( (barva=='B') || (barva=='W') )) return;
-                if ( (pos1==null) || (pos2==null) ) 
+                if ( (pos1==null) || (pos2==null) )
                 {
                     lblInfo.setText("Invalid move");
                     return;
@@ -449,6 +450,7 @@ public class InternalFrameDemo extends JFrame
             }else{
                 System.out.println("ukladanim nastaveni do NOVE...");
                 Dama.setSettings(this.settings);
+                this.BSubmitCommand.setEnabled(true);
                 Dama.wakeUpGameThread();
 
                 this.inFrNewGameSett.setVisible(false);
