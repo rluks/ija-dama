@@ -42,6 +42,7 @@ import java.awt.TextArea;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -522,24 +523,38 @@ public class InternalFrameDemo extends JFrame
     //Zpracuje klik tlacitka a posle zvolenou pozici na desce dale
     public void mouseClicked(MouseEvent e)
     {
-        Point p = getLocationOnScreen();
-        PointerInfo a = MouseInfo.getPointerInfo();
-        Point b = a.getLocation();
+        switch(e.getModifiers()) {
+        case InputEvent.BUTTON1_MASK: {
+          System.out.println("That's the LEFT button");
+          Point p = getLocationOnScreen();
+          PointerInfo a = MouseInfo.getPointerInfo();
+          Point b = a.getLocation();
 
-        int x = (int) b.getX() - p.x - x_offset;
-        int y = (int) b.getY() - p.y - y_offset;
-        if ( (x>=(x_sachovnice+10)) && (y>=y_sachovnice+11) && (x<=(x_sachovnice+409)) && (y<=(y_sachovnice+410)) )
-        {
-            int sx = (x - 10 - x_sachovnice);
-            int sy = y - 11 - y_sachovnice;
+          int x = (int) b.getX() - p.x - x_offset;
+          int y = (int) b.getY() - p.y - y_offset;
+          if ( (x>=(x_sachovnice+10)) && (y>=y_sachovnice+11) && (x<=(x_sachovnice+409)) && (y<=(y_sachovnice+410)) )
+          {
+              int sx = (x - 10 - x_sachovnice);
+              int sy = y - 11 - y_sachovnice;
 
-            sx = sx/50;
-            sy = 7 - sy/50;
+              sx = sx/50;
+              sy = 7 - sy/50;
 
-            System.out.println(sx + ":" + sy);
+              System.out.println(sx + ":" + sy);
 
-            Position pos = new Position(sy, sx);
-            Dama.mouseInput(pos);
+              Position pos = new Position(sy, sx);
+              Dama.mouseInput(pos);
+          }
+          break;
+          }
+        case InputEvent.BUTTON2_MASK: {
+          System.out.println("That's the MIDDLE button");
+          break;
+          }
+        case InputEvent.BUTTON3_MASK: {
+          System.out.println("That's the RIGHT button");
+          break;
+          }
         }
     }
 
