@@ -97,10 +97,18 @@ public class Position {
         return pom3;
     }
 
-    public boolean equals(Position pos)
-    {
-        if (this==pos) return true;    //stejne reference
-        else if ( (this.row==pos.row) && (this.col==pos.col) ) return true;
+    @Override
+    public boolean equals(Object p){
+
+        if(p == this){return true;} //stejne reference
+
+        if(p == null || p.getClass() != this.getClass()){
+            return false;
+        }
+
+        Position pos = (Position)p;
+
+        if ( (this.row==pos.row) && (this.col==pos.col) ) return true;
         else return false;
     }
 
