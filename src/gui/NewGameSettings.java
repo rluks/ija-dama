@@ -42,15 +42,22 @@ import javax.swing.JRadioButton;
 
 import dama.state.Settings;
 
-/* Used by InternalFrameDemo.java. */
+
+/**
+ * Trida vytvarejici vnitrni ramec s nastavenim nove hry
+ * @author Roman Lukš
+ * @author Pavel Hála
+ *
+ */
 public class NewGameSettings extends JInternalFrame {
     /**
      *
      */
-    private static final long serialVersionUID = -4326238455841218297L;//kvuli warningu
+    private static final long serialVersionUID = -4326238455841218297L;
 
     static int openFrameCount = 0;
     static final int xOffset = 30, yOffset = 30;
+
     ButtonGroup white;
     ButtonGroup black;
 
@@ -61,12 +68,8 @@ public class NewGameSettings extends JInternalFrame {
               false, //maximizable
               false);//iconifiable
 
-        //...Create the GUI and put it in the window...
 
-        //...Then set the window size or call pack...
-        setSize(424,429);
-
-        //Set the window's location.
+        setSize(425,430);
         setLocation(xOffset*openFrameCount, yOffset*openFrameCount);
         getContentPane().setLayout(new GridLayout(0, 1, 0, 0));
 
@@ -100,6 +103,11 @@ public class NewGameSettings extends JInternalFrame {
 
     }
 
+    /**
+     * Pomocna funkce na zisk zvolenych radio buttonu
+     * @param group skupina radio buttonu
+     * @return zvoleny radio button
+     */
     public JRadioButton getSelection(ButtonGroup group) {
         for (Enumeration<AbstractButton> e = group.getElements(); e.hasMoreElements();) {
           JRadioButton b = (JRadioButton) e.nextElement();
@@ -110,6 +118,10 @@ public class NewGameSettings extends JInternalFrame {
         return null;
     }
 
+    /**
+     * Vraci nastaveni zvolene v dialogu nove hry
+     * @return Instance tridy Settings
+     */
     public Settings getSettings(){
 
         JRadioButton white = getSelection(this.white);

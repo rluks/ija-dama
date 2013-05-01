@@ -19,11 +19,12 @@ public class Settings {
     protected String xml;
 
     /**
-     * @param white Human nebo AI
-     * @param black Human nebo AI
-     * @param local barva hrace na tomto pocitaci: White nebo Black nesitova hra? null
-     * @param remoteIP nesitova hra? null
-     * @param remotePort nesitova hra? 0
+     * Konstruktor
+     * @param white String obsahujici 'Human' nebo 'AI' - urcuje kdo bude hrat za bile
+     * @param black String obsahujici 'Human' nebo 'AI' - urcuje kdo bude hrat za cerne
+     * @param local String barva hrace na tomto pocitaci: 'White' nebo 'Black', nesitova hra? null
+     * @param remoteIP String s IP adresou vzdaleneho klienta, nesitova hra? null
+     * @param remotePort int s cislem portu vzdaleneho klienta, nesitova hra? 0
      */
     public Settings(String white, String black, String local, String remoteIP, int remotePort){
 
@@ -33,8 +34,13 @@ public class Settings {
         this.local = local;
         this.remoteIP = remoteIP;
         this.remotePort = remotePort;
+
     }
 
+    /**
+     * Vraci retezec s nastavenim hry
+     * @return String obsahujici polozky nastaveni
+     */
     public String getSettingsString(){
         if(this.local != null && this.remoteIP != null && this.remotePort != 0){
             System.out.println("White Player: " + this.white + "| Black Player: " + this.black + " (LocalPlayer: " + this.local + ", RemotePlayer: " + this.remoteIP + ":" + this.remotePort + ")");
@@ -45,6 +51,10 @@ public class Settings {
         }
     }
 
+    /**
+     * Vraci retezec strukturovany jako XML s nastavenim hry
+     * @return String v xml formatu
+     */
     public String getXML(){
         this.xml = new String();
         xml += "<settings>\n";

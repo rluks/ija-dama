@@ -13,7 +13,13 @@ public class Figure {
     public String name;
     public boolean mustTakeFlag;    //true-musi brat; false-nemusi brat
 
-    //Static factory method (statická tovární metoda)
+
+    /**
+     *   Statická tovární metoda pro tvorbu figurky
+     * @param color barva figurky 'B' nebo 'W'
+     * @param type typ figurky 'P' nebo 'D'
+     * @param name prezdivka pro figurku
+     */
     private Figure(char color, char type, String name)
     {
         this.color = color;
@@ -22,10 +28,20 @@ public class Figure {
         this.mustTakeFlag = false;
     }
 
+    /**
+     * Verejna metoda pro tvorbu cerneho pesaka
+     * @param name prezdivka pro figurku
+     * @return Instance figurky
+     */
     public static Figure FigureBlackPiece(String name){
         return new Figure('B', 'P', name);
     }
 
+    /**
+     * Verejna metoda pro tvorbu bileho pesaka
+     * @param name prezdivka pro figurku
+     * @return Instance figurky
+     */
     public static Figure FigureWhitePiece(String name){
         return new Figure('W', 'P', name);
     }
