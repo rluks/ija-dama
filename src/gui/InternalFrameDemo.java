@@ -97,6 +97,7 @@ public class InternalFrameDemo extends JFrame
 
     //pole labelu na obrazky  figurek
     protected JLabel[][] pole_figurek;
+    protected JLabel lblAura;
 
     //deska
     private int x_sachovnice = 40;
@@ -201,6 +202,10 @@ public class InternalFrameDemo extends JFrame
         TPYosaPrava.setBackground(Color.LIGHT_GRAY);
         TPYosaPrava.setBounds(465, 95, 17, 402);
         desktop.add(TPYosaPrava);
+
+        //aura
+        this.lblAura = new JLabel("");
+        desktop.add(this.lblAura);
 
         //notace
         this.TAVypisNotace = new TextArea();
@@ -545,6 +550,10 @@ public class InternalFrameDemo extends JFrame
 
               Position pos = new Position(sy, sx);
               Dama.mouseInput(pos);
+
+              this.lblAura.setIcon(new ImageIcon(InternalFrameDemo.class.getResource("/gui/images/figurky/aura.png")));
+              this.lblAura.setBounds(x_sachovnice+10+(sx*50), y_sachovnice+10+350-(sy*50),50,50);
+
           }
           break;
           }
