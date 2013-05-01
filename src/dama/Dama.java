@@ -133,7 +133,8 @@ public class Dama extends Thread{
 
                         //zpracovani tahu bileho
                         if(Check.isMustTake(desk, 'W')){
-                            System.out.println("Hra: tah bilyho, take() vraci:" + Moves.Take(desk, turn));
+                        	System.out.println("================================BRANI=============================");
+                        	System.out.println("Hra: tah bilyho, take() vraci:" + Moves.Take(desk, turn));                            
                             desk.clearMustTakeFlag();
                             wtake = true;
                         }else{
@@ -167,7 +168,8 @@ public class Dama extends Thread{
 
                     //zpracovani tahu cerneho
                     if(Check.isMustTake(desk, 'B')){
-                        System.out.println("Hra: tah CERNYHO, take() vraci:" + Moves.Take(desk, turn));
+                    	System.out.println("================================BRANI=============================");
+                    	System.out.println("Hra: tah CERNYHO, take() vraci:" + Moves.Take(desk, turn));                        
                         desk.clearMustTakeFlag();
                         btake = true;
                     }else{
