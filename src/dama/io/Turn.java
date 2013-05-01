@@ -16,8 +16,10 @@ public class Turn {
 
     public Turn(char playerColor, Position origin, Position destination){
         this.playerColor = playerColor;
-        this.origin = origin;
-        this.destination = destination;
+        //this.origin = origin;
+        this.origin=new Position(origin.row, origin.col);
+        //this.destination = destination;
+        this.destination = new Position(destination.row, destination.col);
     }
 
     public static Turn TurnBlack(Position origin, Position destination){
