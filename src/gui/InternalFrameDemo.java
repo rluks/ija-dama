@@ -102,7 +102,8 @@ public class InternalFrameDemo extends JFrame
 
     //pole labelu na obrazky  figurek
     protected JLabel[][] pole_figurek;
-    protected JLabel lblAura;
+    protected JLabel lblAura;    //oznaceni mysi
+    protected JLabel lblRuna;    //figurky s mustTakeFlag = true
 
     //deska
     private int x_sachovnice = 40;
@@ -114,9 +115,6 @@ public class InternalFrameDemo extends JFrame
     protected JTextField TFPrikaz;
     protected TextArea TAVypisNotace;
     protected Button BSubmitCommand;
-
-    //testovani
-    protected JButton btnTlacitkoLambda;
 
     public InternalFrameDemo() {
         super("InternalFrameDemo");
@@ -218,6 +216,10 @@ public class InternalFrameDemo extends JFrame
         this.lblAura = new JLabel("");
         desktop.add(this.lblAura);
 
+        this.lblRuna = new JLabel("");
+        desktop.setLayer(this.lblRuna, 3);
+        desktop.add(this.lblRuna);
+
         //notace
         this.TAVypisNotace = new TextArea();
         TAVypisNotace.setEditable(false);
@@ -232,7 +234,7 @@ public class InternalFrameDemo extends JFrame
             {
                 String string = TFPrikaz.getText();
                 TFPrikaz.setText("");
-                if (!Check.isNotationValid(string))
+                if (!Check.isNotationValid(string))//TODO mel by vzit i kdyz se to tam napise v upper case
                 {
                     lblInfo.setText("Invalid move");
                     return;
@@ -609,6 +611,7 @@ public class InternalFrameDemo extends JFrame
 
         Figure[][] this_board=desk.getState();
         for (int row=0; row<8; row++)
+        {
             for (int col=0; col<8; col++)
             {
                 if (this_board[row][col]==null)
@@ -630,7 +633,14 @@ public class InternalFrameDemo extends JFrame
                     else
                         this.pole_figurek[row][col].setIcon(new ImageIcon(InternalFrameDemo.class.getResource("/gui/images/figurky/bila_dama.png")));
                 }
+
+                if(this_board[row][col].mustTakeFlag == true){
+                    this.lblRuna.setIcon(new ImageIcon(InternalFrameDemo.class.getResource("/gui/images/figurky/runa.png")));
+                    this.lblRuna.setBounds(x_sachovnice+10+(col*50), y_sachovnice+10+350-(row*50),50,50);
+                    desktop.add(this.lblRuna);
+                }
             }
+        }
 
     }
 
@@ -675,6 +685,6 @@ public class InternalFrameDemo extends JFrame
     }
 
     public void clearHelp(){
-        this.LNapoveda.setText("");
+        this.LNapoveda.setIcon(null);
     }
 }

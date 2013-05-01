@@ -113,6 +113,9 @@ public class Dama extends Thread{
                     String infoText = (this.settings.white == "AI")? "It's WHITE AIs turn!" : "It's WHITE players turn!";
                     gui.setInfoText(infoText);
 
+                    Check.isMustTake(desk, this.playerColor);
+                    gui.updateDesk(this.desk);
+
                     if(this.settings.white == "AI"){
                         System.out.println("Hra: AI - tah bileho");
                         this.turn = AI.AIMove(desk, this.playerColor, this.aiStochasticity);//TODO null pri patu osetrit
@@ -139,7 +142,6 @@ public class Dama extends Thread{
                         if(Check.isMustTake(desk, 'W')){
                             System.out.println("================================BRANI=============================");
                             System.out.println("Hra: tah bilyho, take() vraci:" + Moves.Take(desk, turn));
-                            desk.clearMustTakeFlag();
                             wtake = true;
                         }else{
                             System.out.println("Hra: tah bilyho, MOVE() vraci:" + Moves.Move(desk, turn));
@@ -149,6 +151,7 @@ public class Dama extends Thread{
 
                     Check.isPieceToDame(desk);
                     gui.updateDesk(this.desk);
+                    desk.clearMustTakeFlag();
                     this.desk.printSimpleBoard();
                     gui.clearAura();
                     gui.clearHelp();
@@ -165,6 +168,10 @@ public class Dama extends Thread{
                 try {Thread.sleep(300);} catch (InterruptedException e) {e.printStackTrace();}
                     System.out.println("Hra: its BLACK players turn!");
                     gui.setInfoText("It's BLACK players turn!");
+
+                    Check.isMustTake(desk, this.playerColor);
+                    gui.updateDesk(this.desk);
+
                     this.turn = Turn.TurnBlack(pEmpty, pEmpty);
 
                     Dama.sleepGameThread();
@@ -178,10 +185,9 @@ public class Dama extends Thread{
                     if(allDone){System.out.println("Hra: Dama terminated, allDone!!");return;}
 
                     //zpracovani tahu cerneho
-                    if(Check.isMustTake(desk, 'B')){
+                    if(Check.isMustTake(desk, this.playerColor)){
                         System.out.println("================================BRANI=============================");
                         System.out.println("Hra: tah CERNYHO, take() vraci:" + Moves.Take(desk, turn));
-                        desk.clearMustTakeFlag();
                         btake = true;
                     }else{
                         System.out.println("Hra: tah CERNYHO, MOVE() vraci:" +  Moves.Move(desk, turn));
@@ -190,6 +196,7 @@ public class Dama extends Thread{
 
                     Check.isPieceToDame(desk);
                     gui.updateDesk(this.desk);
+                    desk.clearMustTakeFlag();
                     this.desk.printSimpleBoard();
                     gui.clearAura();
                     gui.clearHelp();
