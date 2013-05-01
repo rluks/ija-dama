@@ -195,11 +195,12 @@ public class InternalFrameDemo extends JFrame
 
         //notace
         this.TAVypisNotace = new TextArea();
+        TAVypisNotace.setEditable(false);
         this.TAVypisNotace.setBounds(535, 80, 200, 350);
         desktop.add(this.TAVypisNotace);
 
         this.BSubmitCommand = new Button("OK");
-        this.BSubmitCommand.setBounds(670, 435, 65, 20);
+        this.BSubmitCommand.setBounds(670, 440, 65, 20);
         desktop.add(BSubmitCommand);
 
         this.TFPrikaz = new JTextField();
