@@ -116,6 +116,16 @@ public class InternalFrameDemo extends JFrame
     protected TextArea TAVypisNotace;
     protected Button BSubmitCommand;
 
+    //obrazky
+    protected ImageIcon imIcAura;
+    protected ImageIcon imIcSachovnice;
+
+    protected ImageIcon imIcBilyPesak;
+    protected ImageIcon imIcBilaDama;
+
+    protected ImageIcon imIcCernyPesak;
+    protected ImageIcon imIcCernaDama;
+
     public InternalFrameDemo() {
         super("InternalFrameDemo");
 
@@ -132,6 +142,14 @@ public class InternalFrameDemo extends JFrame
         desktop.setDragMode(JDesktopPane.OUTLINE_DRAG_MODE);
 
         addMouseListener(this);
+
+        //obrazky
+        this.imIcAura = new ImageIcon(InternalFrameDemo.class.getResource("/gui/images/figurky/aura.png"));
+        this.imIcSachovnice = new ImageIcon(InternalFrameDemo.class.getResource("/gui/images/sachovnice_420px_yellow.png"));
+        this.imIcBilyPesak = new ImageIcon(InternalFrameDemo.class.getResource("/gui/images/figurky/bily_pesak.png"));
+        this.imIcBilaDama = new ImageIcon(InternalFrameDemo.class.getResource("/gui/images/figurky/bila_dama.png"));
+        this.imIcCernyPesak = new ImageIcon(InternalFrameDemo.class.getResource("/gui/images/figurky/cerny_pesak.png"));
+        this.imIcCernaDama = new ImageIcon(InternalFrameDemo.class.getResource("/gui/images/figurky/cerna_dama.png"));
 
         //menu
         setJMenuBar(createMenuBar());
@@ -177,7 +195,8 @@ public class InternalFrameDemo extends JFrame
         //deska
         JLabel BGSachovnice = new JLabel("");
         BGSachovnice.setFocusable(false);
-        BGSachovnice.setIcon(new ImageIcon(InternalFrameDemo.class.getResource("/gui/images/sachovnice_420px_yellow.png")));
+        BGSachovnice.setIcon(this.imIcSachovnice);
+
         BGSachovnice.setBounds(x_sachovnice, y_sachovnice, 420, 420);
         BGSachovnice.addMouseListener(this);
         desktop.add(BGSachovnice);
@@ -272,7 +291,6 @@ public class InternalFrameDemo extends JFrame
 
                 this.pole_figurek[row][col]=new JLabel("");
                 this.pole_figurek[row][col].setBounds(x_sachovnice+10+(col*50), y_sachovnice+10+350-(row*50),50,50);
-                //this.pole_figurek[row][col].setIcon(new ImageIcon(InternalFrameDemo.class.getResource("/gui/images/figurky/aura.png")));
                 desktop.add(this.pole_figurek[row][col]);
                 /*
                 //bile figurky na sude radky a sude sloupce (sude vzhledem k indexu do pole)
@@ -564,7 +582,7 @@ public class InternalFrameDemo extends JFrame
                 Position pos = new Position(sy, sx);
                 Dama.mouseInput(pos);
 
-                this.lblAura.setIcon(new ImageIcon(InternalFrameDemo.class.getResource("/gui/images/figurky/aura.png")));
+                this.lblAura.setIcon(this.imIcAura);
                 this.lblAura.setBounds(x_sachovnice+10+(sx*50), y_sachovnice+10+350-(sy*50),50,50);
 
                 }
@@ -622,16 +640,16 @@ public class InternalFrameDemo extends JFrame
                 if (this_board[row][col].color=='B')
                 {
                     if (this_board[row][col].type=='P')
-                        this.pole_figurek[row][col].setIcon(new ImageIcon(InternalFrameDemo.class.getResource("/gui/images/figurky/cerny_pesak.png")));
+                        this.pole_figurek[row][col].setIcon(this.imIcCernyPesak);
                     else
-                        this.pole_figurek[row][col].setIcon(new ImageIcon(InternalFrameDemo.class.getResource("/gui/images/figurky/cerna_dama.png")));
+                        this.pole_figurek[row][col].setIcon(this.imIcCernaDama);
                 }
                 else if (this_board[row][col].color=='W')
                 {
                     if (this_board[row][col].type=='P')
-                        this.pole_figurek[row][col].setIcon(new ImageIcon(InternalFrameDemo.class.getResource("/gui/images/figurky/bily_pesak.png")));
+                        this.pole_figurek[row][col].setIcon(this.imIcBilyPesak);
                     else
-                        this.pole_figurek[row][col].setIcon(new ImageIcon(InternalFrameDemo.class.getResource("/gui/images/figurky/bila_dama.png")));
+                        this.pole_figurek[row][col].setIcon(this.imIcBilaDama);
                 }
 
                 if(this_board[row][col].mustTakeFlag == true){
