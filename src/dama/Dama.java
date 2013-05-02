@@ -217,21 +217,24 @@ public class Dama extends Thread{
                     tahCislo++;
                     gui.NotationNewLine(wturn, wtake, bturn, btake, tahCislo);
                 }else if(this.playerColor == 'W' && victory){
+                    tahCislo++;
                     gui.NotationNewLineLastWhite(wturn, wtake, tahCislo); //zkracena notace
                 }
 
                 //ukonceni hry pri vitezstvi
                 if(victory){
                     System.out.println("Konec hry, dalsi hrac uz nehraje.");
-                    Dama.stopGameThread();
+                    //Dama.stopGameThread();
+                    gui.setInfoText("!!! Victory !!!");
+                    try {Thread.sleep(2000);} catch (InterruptedException e) {e.printStackTrace();}
+                    gui.setVisible(false);
+                    Dama.startingGameThread();
+                    return;
                 }
 
                 //vypinaci cast
                 checkGUIShutdown(gui);
                 if(allDone){System.out.println("Hra: Dama terminated, allDone!!");return;}
-
-                //try {Thread.sleep(10);} catch (InterruptedException e) {e.printStackTrace();}
-
             }
         }
     }
@@ -246,7 +249,7 @@ public class Dama extends Thread{
         if(!gui.isVisible()){
             System.out.println("Hra: GUI zavreno - vypinam program.");
             this.allDone = true;
-            gui.pullThePlug();
+            //gui.pullThePlug();
             System.exit(0);
         }
     }
@@ -268,67 +271,6 @@ public class Dama extends Thread{
         // TODO javadoc
 
         Dama.startingGameThread();
-/*
-        InternalFrameDemo gui;
-        gui = new InternalFrameDemo();
-        gui.setVisible(true);
-/*
-        javax.swing.SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                //InternalFrameDemo.createAndShowGUI();
-                InternalFrameDemo gui;
-                gui = new InternalFrameDemo();
-                gui.setVisible(true);
-                gui.setLabelHelp("Baník pYčo");
-            }
-        });
-*//*
-        Desk d = new Desk();
-        //System.out.println("Velka sachovnice:");
-        //d.printBoard();
-        //System.out.println("Mala sachovnice:");
-        //d.printSimpleBoard();
-
-        //int i=0;
-        int j=0;
-        while(true)
-        {
-            gui.updateDesk(d);
-            try {
-                Thread.sleep(100);
-            } catch (InterruptedException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-
-            boolean pom;
-            if ((j%2)==0) pom=AI.AIMove(d, 'W', 6);
-            else pom=AI.AIMove(d, 'B', 6);
-            if (pom==false)
-            {
-                System.out.println("Doslo k patu. To nedas typYco!!!!!");
-                break;
-            }
-
-            Check.isPieceToDame(d);
-            d.clearMustTakeFlag();
-            j++;
-            if (Check.isVictory(d))
-            {
-                System.out.println("VYHRA TYPYCO!!!!");
-                break;
-            }
-        }*/
-
-        /*
-        System.out.println("Validace:\ta1-a2 - " + Check.isNotationValid("a1-a2"));
-        System.out.println("Validace:\ta5xa2 - " + Check.isNotationValid("a5xa2"));
-        System.out.println("Validace:\td1-a1  - " + Check.isNotationValid("d1-a0 "));
-        System.out.println("Validace:\th1-a2 - " + Check.isNotationValid("h1-a2"));
-        System.out.println("Validace:\tg1-a9 - " + Check.isNotationValid("g1-a9"));
-        System.out.println("Validace:\ts1-a2 - " + Check.isNotationValid("s1-a2"));
-        System.out.println("Validace:\tk1-a2 - " + Check.isNotationValid("k1-a2"));
-        */
 
     }
 
