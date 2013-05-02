@@ -523,7 +523,16 @@ public class InternalFrameDemo extends JFrame
                 System.out.println("hra BEZELA spoustim...");
                 Dama.stopGameThread();
 
+                try {Thread.sleep(50);} catch (InterruptedException e) {e.printStackTrace();}
+
+                Dama.startingGameThread();
+
+                try {Thread.sleep(50);} catch (InterruptedException e) {e.printStackTrace();}
+
                 Dama.setSettings(this.settings);
+
+                try {Thread.sleep(50);} catch (InterruptedException e) {e.printStackTrace();}
+
                 Dama.wakeUpGameThread();
 
                 this.dispose();
@@ -737,6 +746,26 @@ public class InternalFrameDemo extends JFrame
         else b="-";
 
         TAVypisNotace.setText(predchozi_obsah + tah + ". " + p0 + w + p1 + " " + p2 + b + p3 + "\n");
+    }
+
+    /**
+     * Fce prida to textarea tah bileho v notaci
+     * pouziti: bily vyhraje a cerny uz netahne
+     * @param wturn    tah bileho
+     * @param wtake    indikator jestli bily bral
+     * @param tah      poradove cislo tahu
+     */
+    public void NotationNewLineLastWhite(Turn wturn, boolean wtake, int tah)
+    {
+        String predchozi_obsah=TAVypisNotace.getText();
+
+        String p0=wturn.origin.getStrLowerCase();
+        String p1=wturn.destination.getStrLowerCase();
+        String w;
+        if (wtake) w="x";
+        else w="-";
+
+        TAVypisNotace.setText(predchozi_obsah + tah + ". " + p0 + w + p1 + "\n");
     }
 
     public void pullThePlug() {

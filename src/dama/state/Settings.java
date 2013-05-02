@@ -16,6 +16,8 @@ public class Settings {
     public String remoteIP;
     public int remotePort;
 
+    public int aiWait;
+
     protected String xml;
 
     /**
@@ -25,8 +27,9 @@ public class Settings {
      * @param local String barva hrace na tomto pocitaci: 'White' nebo 'Black', nesitova hra? null
      * @param remoteIP String s IP adresou vzdaleneho klienta, nesitova hra? null
      * @param remotePort int s cislem portu vzdaleneho klienta, nesitova hra? 0
+     * @param aiWait pocet milisekund jak dlouho bude AI cekat pred svym tahem, nesitova hra? 0
      */
-    public Settings(String white, String black, String local, String remoteIP, int remotePort){
+    public Settings(String white, String black, String local, String remoteIP, int remotePort, int aiWait){
 
         this.white = white;
         this.black = black;
@@ -35,6 +38,8 @@ public class Settings {
         this.remoteIP = remoteIP;
         this.remotePort = remotePort;
 
+        this.aiWait = aiWait;
+
     }
 
     /**
@@ -42,12 +47,12 @@ public class Settings {
      * @return String obsahujici polozky nastaveni
      */
     public String getSettingsString(){
-        if(this.local != null && this.remoteIP != null && this.remotePort != 0){
-            System.out.println("White Player: " + this.white + "| Black Player: " + this.black + " (LocalPlayer: " + this.local + ", RemotePlayer: " + this.remoteIP + ":" + this.remotePort + ")");
-            return "White Player: " + this.white + "| Black Player: " + this.black + " (LocalPlayer: " + this.local + ", RemotePlayer: " + this.remoteIP + ":" + this.remotePort + ")";
-        }else{
-            System.out.println("White Player: " + this.white + "| Black Player: " + this.black);
-            return "White Player: " + this.white + "| Black Player: " + this.black;
+        if(this.local != null && this.remoteIP != null && this.remotePort != 0){//sitova hra
+            System.out.println("White Player: " + this.white + "| Black Player: " + this.black + " (LocalPlayer: " + this.local + ", RemotePlayer: " + this.remoteIP + ":" + this.remotePort + " |aiWait: " + this.aiWait + ")");
+            return "White Player: " + this.white + "| Black Player: " + this.black + " (LocalPlayer: " + this.local + ", RemotePlayer: " + this.remoteIP + ":" + this.remotePort + " |aiWait: " + this.aiWait + ")";
+        }else{//lokalni hra
+            System.out.println("White Player: " + this.white + "| Black Player: " + this.black + " |aiWait: " + this.aiWait + ")");
+            return "White Player: " + this.white + "| Black Player: " + this.black + " |aiWait: " + this.aiWait + ")";
         }
     }
 
@@ -64,6 +69,9 @@ public class Settings {
             xml += "\t<black>";
                 xml += this.black;
             xml += "</black>\n";
+            xml += "\t<AI>\n";
+                xml += this.aiWait;
+            xml += "</AI>\n";
             xml += "\t<P2P enabled=\""; xml += (this.local != null)? "yes" : "no"; xml += "\">\n";
                 xml += "\t\t<local>"; xml += (this.local != null)? this.local : ""; xml += "</local>\n";
                 xml += "\t\t<remoteIP>"; xml += (this.remoteIP != null)? this.remoteIP : ""; xml += "</remoteIP>\n";

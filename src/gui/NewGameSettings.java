@@ -36,6 +36,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JRadioButton;
+import javax.swing.JTextField;
 
 import dama.state.Settings;
 
@@ -57,6 +58,8 @@ public class NewGameSettings extends JInternalFrame {
 
     ButtonGroup white;
     ButtonGroup black;
+
+    private JTextField txtAiWait;
 
     public NewGameSettings() {
         super("New Game Settings #" + (++openFrameCount),
@@ -98,6 +101,14 @@ public class NewGameSettings extends JInternalFrame {
         this.black.add(rdbtnBlackHuman);
         this.black.add(rdbtnBlackAI);
 
+        JLabel lblAiWait = new JLabel("AI waiting time:");
+        getContentPane().add(lblAiWait);
+
+        txtAiWait = new JTextField();
+        txtAiWait.setText("300");//49152 – 65535: Dynamic and/or Private Ports
+        getContentPane().add(txtAiWait);
+        txtAiWait.setColumns(10);
+
     }
 
     /**
@@ -110,10 +121,21 @@ public class NewGameSettings extends JInternalFrame {
         JRadioButton black = InternalFrameDemo.getSelection(this.black);
         if(white == null || black == null){return null;}
 
+        if(this.txtAiWait.getText().trim().equals("")){return null;}
+
         String whiteStr = white.getText();
         String blackStr = black.getText();
 
-        Settings sett = new Settings(whiteStr, blackStr, null, null, 0);
+        String aiWaitStr = this.txtAiWait.getText();
+
+        try {Double.parseDouble(aiWaitStr);
+        }catch (NumberFormatException e) {
+            return null;
+        }
+
+        int aiWait = (int)((Double.parseDouble(aiWaitStr)));
+
+        Settings sett = new Settings(whiteStr, blackStr, null, null, 0, aiWait);
         return sett;
     }
 }
