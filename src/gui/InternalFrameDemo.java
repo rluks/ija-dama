@@ -129,6 +129,7 @@ public class InternalFrameDemo extends JFrame
 
     protected ImageIcon imIcCernyPesak;
     protected ImageIcon imIcCernaDama;
+    protected ImageIcon imIcRuna;
 
     public InternalFrameDemo() {
         super("InternalFrameDemo");
@@ -148,12 +149,13 @@ public class InternalFrameDemo extends JFrame
         addMouseListener(this);
 
         //obrazky
-        this.imIcAura = new ImageIcon(InternalFrameDemo.class.getResource("/gui/images/figurky/aura.png"));
+        this.imIcAura = new ImageIcon(InternalFrameDemo.class.getResource("/gui/images/aura.png"));
         this.imIcSachovnice = new ImageIcon(InternalFrameDemo.class.getResource("/gui/images/sachovnice_420px_yellow.png"));
         this.imIcBilyPesak = new ImageIcon(InternalFrameDemo.class.getResource("/gui/images/figurky/bily_pesak.png"));
         this.imIcBilaDama = new ImageIcon(InternalFrameDemo.class.getResource("/gui/images/figurky/bila_dama.png"));
         this.imIcCernyPesak = new ImageIcon(InternalFrameDemo.class.getResource("/gui/images/figurky/cerny_pesak.png"));
         this.imIcCernaDama = new ImageIcon(InternalFrameDemo.class.getResource("/gui/images/figurky/cerna_dama.png"));
+        this.imIcRuna = new ImageIcon(InternalFrameDemo.class.getResource("/gui/images/runa.png"));
 
         //menu
         setJMenuBar(createMenuBar());
@@ -630,6 +632,7 @@ public class InternalFrameDemo extends JFrame
     public void updateDesk(Desk desk)
     {
         this.lblInfo.setText("Refreshing playboard, please wait...");
+        if (!Check.isMustTake(desk, Dama.getPlayerColor())) this.lblRuna.setIcon(null);
 
         Figure[][] this_board=desk.getState();
         for (int row=0; row<8; row++)
@@ -656,13 +659,20 @@ public class InternalFrameDemo extends JFrame
                         this.pole_figurek[row][col].setIcon(this.imIcBilaDama);
                 }
 
-                if(this_board[row][col].mustTakeFlag == true){
-                    this.lblRuna.setIcon(new ImageIcon(InternalFrameDemo.class.getResource("/gui/images/figurky/runa.png")));
+                if(this_board[row][col].mustTakeFlag == true)
+                {
+                    this.lblRuna.setIcon(this.imIcRuna);
                     this.lblRuna.setBounds(x_sachovnice+10+(col*50), y_sachovnice+10+350-(row*50),50,50);
                     desktop.add(this.lblRuna);
                 }
             }
         }
+
+        desk.clearMustTakeFlag();
+        String barva;
+        if (Dama.getPlayerColor()=='W') barva="WHITE's";
+        else barva="BLACK's";
+        this.lblInfo.setText("Playboard is ready for " + barva + " turn.");
 
     }
 
