@@ -69,7 +69,7 @@ public class Settings {
             xml += "\t<black>";
                 xml += this.black;
             xml += "</black>\n";
-            xml += "\t<AI>\n";
+            xml += "\t<AI>";
                 xml += this.aiWait;
             xml += "</AI>\n";
             xml += "\t<P2P enabled=\""; xml += (this.local != null)? "yes" : "no"; xml += "\">\n";
