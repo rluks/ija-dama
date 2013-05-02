@@ -127,7 +127,7 @@ public class NewP2PGameSettings extends JInternalFrame {
 
         int remotePort = (int)((Double.parseDouble(remotePortStr)));
 
-        Settings sett = new Settings(whiteStr, blackStr, localStr, remoteIP, remotePort);
+        Settings sett = new Settings(whiteStr, blackStr, localStr, remoteIP, remotePort, 0);
         return sett;
     }
 }

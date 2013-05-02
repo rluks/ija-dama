@@ -703,6 +703,25 @@ public class InternalFrameDemo extends JFrame
         TAVypisNotace.setText(predchozi_obsah + tah + ". " + p0 + w + p1 + " " + p2 + b + p3 + "\n");
     }
 
+    /**
+     * Fce prida to textarea tah bileho v notaci
+     * @param wturn    tah bileho
+     * @param wtake    indikator jestli bily bral
+     * @param tah      poradove cislo tahu
+     */
+    public void NotationNewLineLastWhite(Turn wturn, boolean wtake, int tah)
+    {
+        String predchozi_obsah=TAVypisNotace.getText();
+
+        String p0=wturn.origin.getStrLowerCase();
+        String p1=wturn.destination.getStrLowerCase();
+        String w;
+        if (wtake) w="x";
+        else w="-";
+
+        TAVypisNotace.setText(predchozi_obsah + tah + ". " + p0 + w + p1 + "\n");
+    }
+
     public void pullThePlug() {
         WindowEvent wev = new WindowEvent(this, WindowEvent.WINDOW_CLOSING);
         Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(wev);
