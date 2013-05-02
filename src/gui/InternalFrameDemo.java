@@ -74,6 +74,8 @@ import dama.state.Figure;
 import dama.state.Position;
 import dama.state.Settings;
 
+
+
 /**
  * Uzivatelske rozhrani pro hru Dama
  * @author Roman Lukš
@@ -93,6 +95,9 @@ public class InternalFrameDemo extends JFrame
     protected NewGameSettings inFrNewGameSett;
     protected NewP2PGameSettings inFrNewP2PGameSett;
     protected Settings settings;
+
+    //loadGame
+    protected LoadGame inFrLoadGame;
 
     //hrac
     protected Turn turn;
@@ -357,7 +362,7 @@ public class InternalFrameDemo extends JFrame
         menuItem.setMnemonic(KeyEvent.VK_L);
         menuItem.setAccelerator(KeyStroke.getKeyStroke(
                 KeyEvent.VK_L, ActionEvent.ALT_MASK));
-        menuItem.setActionCommand("load");
+        menuItem.setActionCommand("loadgame");
         menuItem.addActionListener(this);
         menu.add(menuItem);
 
@@ -407,8 +412,13 @@ public class InternalFrameDemo extends JFrame
             createNewGameSettingsFrame();
         }else if ("newP2P".equals(e.getActionCommand())){
             createNewP2PGameSettingsFrame();
-        }else if ("Load game".equals(e.getActionCommand())){
-            System.out.println("Neimplementovano");
+        }else if ("loadgame".equals(e.getActionCommand()))
+        {
+            System.out.println("LoadGame");
+            createLoadGameFrame();
+            System.out.println("/LoadGame");
+            //this.inFrLoadGame=new LoadGame();
+
         }else if ("Save game".equals(e.getActionCommand())){
             System.out.println("Neimplementovano");
         }else if ("Player".equals(e.getActionCommand())){
@@ -447,6 +457,32 @@ public class InternalFrameDemo extends JFrame
             inFrNewGameSett.setSelected(true);
         } catch (java.beans.PropertyVetoException e) {}
     }
+
+
+    protected void createLoadGameFrame() 
+    {
+    	System.out.println("\tcreate LG");
+        
+    	this.inFrLoadGame=new LoadGame();
+        desktop.setLayer(inFrLoadGame, 5);
+        inFrLoadGame.setLocation(100, 100);
+        inFrLoadGame.setVisible(true);
+        /*
+        JButton btnStartgame = new JButton("StartGame");
+        inFrNewGameSett.getContentPane().add(btnStartgame);
+        btnStartgame.setActionCommand("startgame");
+        btnStartgame.addActionListener(this);
+        */
+        desktop.add(inFrLoadGame);
+        try
+        {
+            inFrLoadGame.setSelected(true);
+        }
+        catch (java.beans.PropertyVetoException e) {}
+        
+        System.out.println("\t/create LG");
+    }
+
 
 
     /**
