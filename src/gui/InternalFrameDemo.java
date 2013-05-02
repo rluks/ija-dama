@@ -47,7 +47,10 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
+import java.util.Enumeration;
 
+import javax.swing.AbstractButton;
+import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDesktopPane;
@@ -56,6 +59,7 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.KeyStroke;
@@ -704,5 +708,20 @@ public class InternalFrameDemo extends JFrame
 
     public void clearHelp(){
         this.LNapoveda.setIcon(null);
+    }
+
+    /**
+     * Pomocna funkce na zisk zvolenych radio buttonu
+     * @param group skupina radio buttonu
+     * @return zvoleny radio button
+     */
+    public static JRadioButton getSelection(ButtonGroup group) {
+        for (Enumeration<AbstractButton> e = group.getElements(); e.hasMoreElements();) {
+          JRadioButton b = (JRadioButton) e.nextElement();
+          if (b.getModel() == group.getSelection()) {
+            return b;
+          }
+        }
+        return null;
     }
 }

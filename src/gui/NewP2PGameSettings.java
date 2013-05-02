@@ -32,9 +32,6 @@
 package gui;
 
 import java.awt.GridLayout;
-import java.util.Enumeration;
-
-import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
@@ -106,27 +103,12 @@ public class NewP2PGameSettings extends JInternalFrame {
     }
 
     /**
-     * Pomocna funkce na zisk zvolenych radio buttonu
-     * @param group skupina radio buttonu
-     * @return zvoleny radio button
-     */
-    public JRadioButton getSelection(ButtonGroup group) {
-        for (Enumeration<AbstractButton> e = group.getElements(); e.hasMoreElements();) {
-          JRadioButton b = (JRadioButton) e.nextElement();
-          if (b.getModel() == group.getSelection()) {
-            return b;
-          }
-        }
-        return null;
-    }
-
-    /**
      * Vraci nastaveni zvolene v dialogu nove P2P hry
      * @return Instance tridy Settings
      */
     public Settings getSettings(){
 
-        JRadioButton local = getSelection(this.local);
+        JRadioButton local = InternalFrameDemo.getSelection(this.local);
 
         if(local == null || this.txtRemoteip.getText().trim().equals("") || this.txtRemotePort.getText().trim().equals("")){return null;}
 

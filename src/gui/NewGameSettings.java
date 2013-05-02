@@ -32,9 +32,6 @@
 package gui;
 
 import java.awt.GridLayout;
-import java.util.Enumeration;
-
-import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
@@ -104,28 +101,13 @@ public class NewGameSettings extends JInternalFrame {
     }
 
     /**
-     * Pomocna funkce na zisk zvolenych radio buttonu
-     * @param group skupina radio buttonu
-     * @return zvoleny radio button
-     */
-    public JRadioButton getSelection(ButtonGroup group) {
-        for (Enumeration<AbstractButton> e = group.getElements(); e.hasMoreElements();) {
-          JRadioButton b = (JRadioButton) e.nextElement();
-          if (b.getModel() == group.getSelection()) {
-            return b;
-          }
-        }
-        return null;
-    }
-
-    /**
      * Vraci nastaveni zvolene v dialogu nove hry
      * @return Instance tridy Settings
      */
     public Settings getSettings(){
 
-        JRadioButton white = getSelection(this.white);
-        JRadioButton black = getSelection(this.black);
+        JRadioButton white = InternalFrameDemo.getSelection(this.white);
+        JRadioButton black = InternalFrameDemo.getSelection(this.black);
         if(white == null || black == null){return null;}
 
         String whiteStr = white.getText();
