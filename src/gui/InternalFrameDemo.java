@@ -487,7 +487,16 @@ public class InternalFrameDemo extends JFrame
                 System.out.println("hra BEZELA spoustim...");
                 Dama.stopGameThread();
 
+                try {Thread.sleep(50);} catch (InterruptedException e) {e.printStackTrace();}
+
+                Dama.startingGameThread();
+
+                try {Thread.sleep(50);} catch (InterruptedException e) {e.printStackTrace();}
+
                 Dama.setSettings(this.settings);
+
+                try {Thread.sleep(50);} catch (InterruptedException e) {e.printStackTrace();}
+
                 Dama.wakeUpGameThread();
 
                 this.dispose();
@@ -705,6 +714,7 @@ public class InternalFrameDemo extends JFrame
 
     /**
      * Fce prida to textarea tah bileho v notaci
+     * pouziti: bily vyhraje a cerny uz netahne
      * @param wturn    tah bileho
      * @param wtake    indikator jestli bily bral
      * @param tah      poradove cislo tahu
