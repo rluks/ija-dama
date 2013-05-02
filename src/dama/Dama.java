@@ -34,6 +34,9 @@ public class Dama extends Thread{
     protected int tahCislo = 0;
     protected boolean wtake;
     protected boolean btake;
+    protected Turn wturn;
+    protected Turn bturn;
+    public int bothPlayersPlayed = 0;
     private int aiStochasticity = 5; //nahodnost AI tahu
     public boolean allDone = false; //ukonceni behu
     public boolean pleaseWait = false; //pozastaveni behu
@@ -70,8 +73,6 @@ public class Dama extends Thread{
         System.out.println("Hra: Uspavam se");
         Dama.sleepGameThread();
 
-
-
         //smycka nastaveni hry
         while(true)
         {
@@ -93,29 +94,123 @@ public class Dama extends Thread{
             this.desk.printSimpleBoard();
 
             System.out.println("Hra: Tisknu nastaveni");
-            //System.out.println(this.settings.getXML());
+            System.out.println(this.settings.getXML());
 
+            Position pEmpty = new Position(-1, -1);
 
             //smycka vlastni hry
             while(true){
                 gameSetAndRuning = true;
-                System.out.println("Hra: nastavena, beziii hra.... bezii uz beziiii");
-                Position pEmpty = new Position(-1, -1);
+                System.out.println("Hra: bezi s timto nastavenim: " + this.settings.getSettingsString());
 
-                System.out.println(this.settings.getSettingsString());
-                tahCislo++;
+                //stridani barev hracu
+                if (this.playerColor != 'W' && this.playerColor != 'B'){//prvni kolo
+                    this.playerColor = 'W';
+                    bothPlayersPlayed = 1;
+                }else if (this.playerColor == 'W'){
+                    this.playerColor = 'B';
+                    bothPlayersPlayed = 2;
+                }else if (this.playerColor == 'B'){
+                    this.playerColor = 'W';
+                    bothPlayersPlayed = 1;
+                }else{
+                    System.out.println("Hra: neco je spatne s barvami hracu!");
+                }
 
-                /* White */
-                this.playerColor = 'W';
                 try {Thread.sleep(300);} catch (InterruptedException e) {e.printStackTrace();}
-                    System.out.println("Hra: its white players turn!");
 
-                    String infoText = (this.settings.white == "AI")? "It's WHITE AIs turn!" : "It's WHITE players turn!";
-                    gui.setInfoText(infoText);
+                String currentPlayerAIHumanSettings = getAIorHumanSettingsForCurrentPlayerColor(this.playerColor);
 
-                    Check.isMustTake(desk, this.playerColor);
-                    gui.updateDesk(this.desk);
+                System.out.println("Hra: "+ Dama.getPlayerColorString(this.playerColor)+ " will play!");
+                String infoText = (currentPlayerAIHumanSettings == "AI")? "Hra: it's "+ Dama.getPlayerColorString(this.playerColor)+ " AI turn!" : "Hra: it's "+ Dama.getPlayerColorString(this.playerColor)+ "players turn!";
+                gui.setInfoText(infoText);
 
+                Check.isMustTake(desk, this.playerColor);
+                gui.updateDesk(this.desk);
+
+                if(currentPlayerAIHumanSettings == "AI"){
+                    System.out.println("Hra: it's "+ Dama.getPlayerColorString(this.playerColor)+ " AI turn!");
+                    this.turn = AI.AIMove(desk, this.playerColor, this.aiStochasticity);
+                    if(this.turn == null){
+                        System.out.println("Hra: AIMove() vratilo null");
+                        //TODO dodelat kdyz vrati null
+                    }
+                    this.desk.clearMustTakeFlag();
+                }else{
+                    this.turn = (this.playerColor == 'W') ? Turn.TurnWhite(pEmpty, pEmpty) : Turn.TurnBlack(pEmpty, pEmpty);
+
+                    Dama.sleepGameThread();
+
+                    try {Thread.sleep(300);} catch (InterruptedException e) {e.printStackTrace();}
+                    synchronized(this){ while(pleaseWait){ try { System.out.println("Hra: sleeping..."); wait();} catch (Exception e) { e.printStackTrace(); } }  }
+
+                    System.out.println("Hra: " + Dama.getPlayerColorString(this.playerColor) + " is playing...");
+
+                    //vypinaci cast
+                    checkGUIShutdown(gui);
+                    if(allDone){System.out.println("Hra: Dama terminated, allDone!!");return;}
+
+                  //zpracovani tahu
+                    if(Check.isMustTake(desk, this.playerColor)){
+                        System.out.println("================================BRANI=============================");
+                        System.out.println("Hra: tah " + Dama.getPlayerColorString(this.playerColor) + ", take() vraci:" + Moves.Take(desk, turn));
+
+                        if(this.playerColor == 'W'){
+                            wtake = true;
+                        }else if(this.playerColor == 'B'){
+                            btake = true;
+                        }else{
+                            System.out.println("Hra: neco je spatne s barvami hracu!");
+                        }
+
+                    }else{
+                        System.out.println("Hra: tah " + Dama.getPlayerColorString(this.playerColor) + ", MOVE() vraci:" + Moves.Move(desk, turn));
+
+                        if(this.playerColor == 'W'){
+                            wtake = false;
+                        }else if(this.playerColor == 'B'){
+                            btake = false;
+                        }else{
+                            System.out.println("Hra: neco je spatne s barvami hracu!");
+                        }
+                    }
+                }
+
+                Check.isPieceToDame(desk);
+                gui.updateDesk(this.desk);
+                desk.clearMustTakeFlag();
+                this.desk.printSimpleBoard();
+                gui.clearAura();
+                gui.clearHelp();
+
+
+                if(this.playerColor == 'W'){
+                    this.wturn = this.turn;
+                }else if(this.playerColor == 'B'){
+                    this.bturn = this.turn;
+                }else{
+                    System.out.println("Hra: neco je spatne s barvami hracu!");
+                }
+
+                if(bothPlayersPlayed == 2){
+                    System.out.println("Hra: oba hraci hrali");
+                    tahCislo++;
+                    gui.NotationNewLine(wturn, wtake, bturn, btake, tahCislo);
+                }
+
+                if(Check.isVictory(desk)){
+                    System.out.println("Konec hry, dalsi hrac uz nehraje.");
+                    Dama.stopGameThread();
+                }
+
+                //vypinaci cast
+                checkGUIShutdown(gui);
+                if(allDone){System.out.println("Hra: Dama terminated, allDone!!");return;}
+
+                try {Thread.sleep(1000);} catch (InterruptedException e) {e.printStackTrace();}
+
+            }
+                /*
                     if(this.settings.white == "AI"){
                         System.out.println("Hra: AI - tah bileho");
                         this.turn = AI.AIMove(desk, this.playerColor, this.aiStochasticity);//TODO null pri patu osetrit
@@ -163,7 +258,7 @@ public class Dama extends Thread{
                     Dama.stopGameThread();
                 }
 
-                /* Black */
+                // Black
                 this.playerColor = 'B';
                 try {Thread.sleep(300);} catch (InterruptedException e) {e.printStackTrace();}
                     System.out.println("Hra: its BLACK players turn!");
@@ -218,7 +313,7 @@ public class Dama extends Thread{
                 try {Thread.sleep(1000);} catch (InterruptedException e) {e.printStackTrace();}
 
 
-            }
+            }*/
         }
     }
 
@@ -237,6 +332,15 @@ public class Dama extends Thread{
         }
     }
 
+    private String getAIorHumanSettingsForCurrentPlayerColor(char playerColor){
+        if(playerColor == 'W'){
+            return this.settings.white;
+        }else if(playerColor == 'B'){
+            return this.settings.black;
+        }else{
+            return "";
+        }
+    }
 
     //staticke metody
     public static void main(String[] args) throws InterruptedException {
@@ -545,6 +649,10 @@ public class Dama extends Thread{
         synchronized (dama){
             return dama.playerColor;
         }
+    }
+
+    public static String getPlayerColorString(char playerColor){
+        return (playerColor == 'W') ? "white" : "black";
     }
 
 
