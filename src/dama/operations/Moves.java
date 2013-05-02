@@ -125,7 +125,7 @@ public class Moves
     }
 
     /**
-     * Kontroluje, jestli je brani figurkou mozne
+     * Kontroluje, jestli je brani figurkou mozne !!!POZOR PREPISUJE PARAMETR TURN !!!
      * @param desk     deska nad kterou se ma kontrola provest
      * @param turn     jaky tah se ma zkontrolovat
      * @return         vraci pozici vyhazovane figurky, pokud je brani mozne, jinak vraci null
