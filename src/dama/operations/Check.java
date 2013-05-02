@@ -66,10 +66,6 @@ public final class Check {
                         int i;
                         for (i=2; i<8; i++)
                         {    //po obou uhloprickach jede v obouch smerech a kontroluje jestli muze figurka skocit na danou pozici pohybem vyhozeni
-                             //System.out.println("\t" + i + ".");
-
-                            //System.out.println("for!!!!!!!!!!!!!!!!!!!!");
-
                             Position pos1 = new Position(row+i, col+i);
                             Turn turn = new Turn(this_board[row][col].color, pos0, pos1);
                             if (Moves.isTakeValid(desk, turn)!=null)
@@ -106,7 +102,6 @@ public final class Check {
                     }
 
                 }
-        //System.out.println("false");
         return priznak_brani;
     }
 

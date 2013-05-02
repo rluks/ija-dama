@@ -461,11 +461,11 @@ public class Dama extends Thread{
      */
     public static void input(Turn turn)
     {
-        Turn zaloha_turn=new Turn(turn.playerColor, turn.origin, turn.destination);
+        //Turn zaloha_turn=new Turn(turn.playerColor, turn.origin, turn.destination);
 
         if(Moves.isTurnValid(turn, Dama.getDesk()))
         {
-            Dama.setTurn(zaloha_turn);
+            //Dama.setTurn(zaloha_turn);
             Dama.wakeUpGameThread();
         }
         else

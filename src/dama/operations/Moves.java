@@ -21,10 +21,14 @@ public class Moves
      * @param turn    tak ktery se ma zkontrolovat
      * @return        vraci true pokud je tah validni, jinak vraci false
      */
-    public static boolean isMoveValid(Desk desk, Turn turn)
+    public static boolean isMoveValid(Desk desk, Turn turn_p)
     {
-        Position origin = turn.origin;
-        Position dest = turn.destination;
+        Turn turn=new Turn(turn_p.playerColor, turn_p.origin, turn_p.destination);
+        Position origin = new Position(turn_p.origin.row, turn_p.origin.col);
+        Position dest = new Position(turn_p.destination.row, turn_p.destination.col);
+
+        //Position origin = turn.origin;
+        //Position dest = turn.destination;
 
         Figure[][] this_board=desk.getState();
         Figure fig=this_board[origin.row][origin.col];
@@ -97,8 +101,9 @@ public class Moves
      * @param turn    jaky pohyb se ma vykonat
      * @return    vraci true, pokud byl tah uspesne proveden, jinak vraci false
      */
-    public static boolean Move(Desk desk, Turn turn)
+    public static boolean Move(Desk desk, Turn turn_p)
     {
+        Turn turn=new Turn(turn_p.playerColor, turn_p.origin, turn_p.destination);
         Position origin = new Position(turn.origin.row, turn.origin.col) ;
         Position dest = new Position(turn.destination.row, turn.destination.col)  ;
 
@@ -130,11 +135,13 @@ public class Moves
      * @param turn     jaky tah se ma zkontrolovat
      * @return         vraci pozici vyhazovane figurky, pokud je brani mozne, jinak vraci null
      */
-    public static Position isTakeValid(Desk desk, Turn turn)
+    public static Position isTakeValid(Desk desk, Turn turn_p)
     {
-
-        Position origin = turn.origin;
-        Position dest = turn.destination;
+        Turn turn=new Turn(turn_p.playerColor, turn_p.origin, turn_p.destination);
+        Position origin = new Position(turn_p.origin.row, turn_p.origin.col);
+        Position dest = new Position(turn_p.destination.row, turn_p.destination.col);
+        //Position origin = turn.origin;
+        //Position dest = turn.destination;
 
         Figure[][] this_board=desk.getState();
         Figure fig=this_board[origin.row][origin.col];
@@ -282,10 +289,14 @@ public class Moves
      * @param turn    s jakou figurkou a kam se ma tahnout
      * @return        vraci true, pokud bylo brani uspesne provedeno, jinak vraci false
      */
-    public static boolean Take(Desk desk, Turn turn)
+    public static boolean Take(Desk desk, Turn turn_p)
     {
-        Position origin = turn.origin;
-        Position dest = turn.destination;
+        Turn turn=new Turn(turn_p.playerColor, turn_p.origin, turn_p.destination);
+        Position origin = new Position(turn_p.origin.row, turn_p.origin.col);
+        Position dest = new Position(turn_p.destination.row, turn_p.destination.col);
+
+        //Position origin = turn.origin;
+        //Position dest = turn.destination;
         Position zaloha_origin=new Position(origin.row, origin.col);
         Position zaloha_dest = new Position(dest.row, dest.col);
 
@@ -314,8 +325,9 @@ public class Moves
      * @param desk    nad jakou deskou se ma kontrola provest
      * @return        vraci true, pokud je tah validni, jinak vraci false
      */
-    public static boolean isTurnValid(Turn turn, Desk desk)
+    public static boolean isTurnValid(Turn turn_p, Desk desk)
     {
+        Turn turn=new Turn(turn_p.playerColor, turn_p.origin, turn_p.destination);
         Figure[][] this_board=desk.getState();
         Figure fig=this_board[turn.origin.row][turn.origin.col];
 
@@ -348,10 +360,10 @@ public class Moves
      * @param desk        deska nad kterou se ma test provest
      * @return            vraci true, pokud ma dana figurka koho brat, jinak vraci false
      */
-    public static boolean canTake(Position pos0, Desk desk)
+    public static boolean canTake(Position pos0_p, Desk desk)
     {//barva pos0 muze poslat jen hrac stejne barvy
 
-
+        Position pos0=new Position(pos0_p.row, pos0_p.col);
         Figure fig = desk.getFigureAtPosition(pos0);
         Position pos0_zaloha = new Position(pos0.row, pos0.col);
 
@@ -387,12 +399,13 @@ public class Moves
 
     /**
      * Provede test, jestli se figurka na dane pozici muze pohnout bez vyhazovani
-     * @param pos0    pozice na ktere je dana figurka
-     * @param desk    deska nad kterou se ma kontrola provest
-     * @return        vraci true, pokud se muze figurka pohnout, jinak false
+     * @param position    pozice na ktere je dana figurka
+     * @param desk        deska nad kterou se ma kontrola provest
+     * @return            vraci true, pokud se muze figurka pohnout, jinak false
      */
-    public static boolean canMove(Position pos0, Desk desk)
-    {//barva pos0 muze poslat jen hrac stejne barvy
+    public static boolean canMove(Position pos0_p, Desk desk)
+    {   //barva pos0 muze poslat jen hrac stejne barvy
+        Position pos0=new Position(pos0_p.row, pos0_p.col);
         Figure[][] this_board=desk.getState();
         Figure fig = desk.getFigureAtPosition(pos0);
         Position pos0_zaloha = new Position(pos0.row, pos0.col);
