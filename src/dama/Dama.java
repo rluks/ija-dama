@@ -2,6 +2,7 @@ package dama;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.Vector;
 
 import gui.InternalFrameDemo;
 
@@ -28,6 +29,10 @@ public class Dama extends Thread{
 
     //vlakno hry
     public Settings settings;
+
+    public Vector<Turn> ouputTurns;    //sem hra uklada proveden tahy
+    public Vector<Turn> loadedTurns;//zde jsou ulozeny tahy v pripade nacteni hry
+
     public Turn turn;
     public Desk desk;
     public char playerColor;
@@ -285,8 +290,6 @@ public class Dama extends Thread{
         System.out.println("startingGameThread...");
         dama = new Dama("DamaVlakno");
         dama.start();
-
-        //Dama.sleepGameThread();
     }
 
     /**
@@ -335,7 +338,6 @@ public class Dama extends Thread{
             if(dama.isAlive()){
                 dama.allDone = true;
             }
-            //while(dama.isAlive()){}
             return true;
         }else{
             System.out.println("stopGameThread: hra neexistuje!");
