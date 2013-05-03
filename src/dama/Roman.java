@@ -16,7 +16,7 @@ public class Roman {
         System.out.println("ROMAN");
         Dama.startingGameThread();
 
-
+/*
         if(Dama.XmlToVector("C:\\eclipseworkspace\\ija-dama-2013\\turnvector.xml")){
             System.out.println("Turns nastaveny!");
         }else{
@@ -24,17 +24,18 @@ public class Roman {
             return;
         }
 
+        /*
         String whiteStr = "Human";
         String blackStr = "Human";
         int aiWait = 300;
         Settings settings = new Settings(whiteStr, blackStr, null, null, 0, aiWait);
 
-        //Dama.setLoadedTurns(lt);
+        Dama.setLoadedTurns(lt);
         Dama.setSettings(settings);
 
         try {Thread.sleep(300);} catch (InterruptedException e) {e.printStackTrace();}
-
-        Dama.wakeUpGameThread();
+        */
+       // Dama.wakeUpGameThread();
 
     }
 }

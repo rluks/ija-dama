@@ -685,7 +685,6 @@ public class Dama extends Thread{
             Document doc = dBuilder.parse(fXmlFile);
             doc.getDocumentElement().normalize();
 
-            /*
             //promenny pro setting
             String w="";
             String b="";
