@@ -442,7 +442,7 @@ public class InternalFrameDemo extends JFrame
             System.out.println("Cesta: \"" + cesta + "\"");
             inFrLoadGame.dispose();
             Dama.XmlToVector(cesta);
-            
+            Dama.wakeUpGameThread();
         }
         else{
             System.out.println("Neznama akce: " + e.getActionCommand());

@@ -65,7 +65,7 @@ public class LoadGame extends JInternalFrame
       {
             public void actionPerformed(ActionEvent e)
             {
-                  JFileChooser c = new JFileChooser();
+                  JFileChooser c = new JFileChooser(".\\examples");
                   FileNameExtensionFilter xmlfilter = new FileNameExtensionFilter("xml files (*.xml)", "xml");
                   c.setFileFilter(xmlfilter);
 
