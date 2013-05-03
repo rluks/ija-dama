@@ -61,4 +61,13 @@ public class Turn {
     public static Turn TurnWhite(Position origin, Position destination){
         return new Turn('W', origin, destination);
     }
+
+    public String getTurnString(){
+        String s = new String();
+
+        s += "origin:\n\trow: " + this.origin.row + " col: " + this.origin.col + "\n";
+        s += "destination: \n\trow: " + this.destination.row + " col: " + this.destination.col + "\n";
+
+        return s;
+    }
 }
