@@ -85,7 +85,7 @@ public class Dama extends Thread{
         /*
         if (!XmlToVector("C:\\Users\\HAL\\workspace\\ija-dama\\turnvector.xml"))
             System.out.println("\n\nXML to vector se posralo!!!\n");
-         */
+        else System.out.println("\n\nXML to vector DOBRY!!!\n");
 
 
 
@@ -632,6 +632,10 @@ public class Dama extends Thread{
         }
     }
 
+    /**	Fce pro prevod XML souboru na interni reprezentaci tahu
+     * @param cesta 	string s cestou k souboru
+     * @return 			vraci true pokud je xml validni a podarilo se jej konvertovat na vektor tahu a ulozit
+     */
     public static boolean XmlToVector (String cesta)
     {
         Vector<Turn> TurnVector=new Vector<Turn>();
@@ -658,7 +662,6 @@ public class Dama extends Thread{
                 {
                     Element eElement = (Element) nNode;
 
-                    String pom2;
                     //barva hrace na tahu
                     String pom=eElement.getAttribute("player_color");
                     if (pom.length()!=1) return false;
@@ -666,6 +669,9 @@ public class Dama extends Thread{
                     if (natahu==p)
                     {
                         if (natahu=='W') natahu='B';
+                        /*if (natahu=='B') natahu='W';
+                        else return false;
+                        */
                         else natahu='W';
                     }
                     else
@@ -718,6 +724,7 @@ public class Dama extends Thread{
         }
         catch (Exception e)
         {
+            System.out.println("!!!!!!!!!!!Exception!!!!!!!!!!!!!!!!!");
             e.printStackTrace();
             return false;
         }
