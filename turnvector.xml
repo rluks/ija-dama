@@ -1,12 +1,12 @@
 <Dama>
 	<settings>
 		<white>Human</white>
-		<black>AI</black>
-		<AI>300</AI>
-		<P2P enabled="no">
-			<local></local>
-			<remoteIP></remoteIP>
-			<remotePort></remotePort>
+		<black>Human</black>
+		<AI>0</AI>
+		<P2P enabled="yes">
+			<local>White</local>
+			<remoteIP>localhost</remoteIP>
+			<remotePort>55555</remotePort>
 		</P2P>
 	</settings>
 	<Turns>

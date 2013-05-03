@@ -97,7 +97,6 @@ public class Dama extends Thread{
 
 
 
-
         //inicializace
 
         System.out.println("Hra: Uspavam se");
@@ -384,13 +383,25 @@ public class Dama extends Thread{
 
         */
 
+        System.out.println("===============================================");
+        System.out.println("===============================================");
+        System.out.println("===============================================");
 
-        if(Dama.XmlToVector("C:\\eclipseworkspace\\ija-dama-2013\\turnvector.xml")){
+        if(XmlToVector("C:\\Users\\HAL\\workspace\\ija-dama\\turnvector.xml")){
             System.out.println("Turns nastaveny!");
         }else{
             System.out.println("Turns FAIL!");
+            System.out.println("====================Konec======================");
+            System.out.println("====================Konec======================");
+            System.out.println("====================Konec======================");
             return;
         }
+
+        System.out.println("====================Konec======================");
+        System.out.println("====================Konec======================");
+        System.out.println("====================Konec======================");
+
+
 
         String whiteStr = "Human";
         String blackStr = "Human";
@@ -676,13 +687,14 @@ public class Dama extends Thread{
 
             /*
             //promenny pro setting
-            String w;
-            String b;
-            String ais;
-            String p2pEn;
-            String p2pLoc;
-            String p2pRemIp;
-            String p2pRemP;
+            String w="";
+            String b="";
+            int    ai=0;
+            String p2pEn="";
+            String p2pLoc="";
+            String p2pRemIp="";
+            int    p2pRemP=0;
+            Settings set;
 
             /// nacteni settings
             NodeList nSettings = doc.getElementsByTagName("settings");
@@ -697,8 +709,9 @@ public class Dama extends Thread{
                 Element eElementS = (Element) nNodeS;
                 w=eElementS.getElementsByTagName("white").item(0).getTextContent();
                 b=eElementS.getElementsByTagName("black").item(0).getTextContent();
-                ais=eElementS.getElementsByTagName("AI").item(0).getTextContent();
-                System.out.println("Bily: " + w +"; cerny: " + b + "; ai speed: " + ais);
+                String ais=eElementS.getElementsByTagName("AI").item(0).getTextContent();
+                ai = Integer.parseInt(ais);
+                System.out.println("Bily: " + w +"; cerny: " + b + "; ai speed: " + ai);
             }
 
             NodeList nSettingsP = doc.getElementsByTagName("P2P");
@@ -711,14 +724,22 @@ public class Dama extends Thread{
             if (nNodeSP.getNodeType() == Node.ELEMENT_NODE)
             {
                 Element eElementSP = (Element) nNodeSP;
-                p2pEn=eElementSP.getAttribute("enable");
-                p2pLoc=eElementSP.getElementsByTagName("local").item(0).getTextContent();
-                p2pRemIp=eElementSP.getElementsByTagName("remoteIP").item(0).getTextContent();
-                p2pRemP=eElementSP.getElementsByTagName("remotePort").item(0).getTextContent();
+                p2pEn=eElementSP.getAttribute("enabled");
+                if (p2pEn.equals("yes"))
+                {
+                    p2pLoc=eElementSP.getElementsByTagName("local").item(0).getTextContent();
+                    p2pRemIp=eElementSP.getElementsByTagName("remoteIP").item(0).getTextContent();
+                    String p2pRemPS=eElementSP.getElementsByTagName("remotePort").item(0).getTextContent();
+                    p2pRemP = Integer.parseInt(p2pRemPS);
+                }
                 System.out.println("P2P enable:" + p2pEn + "; local: " + p2pLoc + "; remIP: " + p2pRemIp + "; remPort: " + p2pRemP);
-            }
-            */
 
+            }
+
+            if (p2pEn.equals("yes")) set=new Settings(w, b, p2pLoc, p2pRemIp, p2pRemP, ai);
+            else if (p2pEn.equals("no")) set=new Settings(w, b, null, null, 0, ai);
+            else return false;
+            Dama.setSettings(set);
 
             /// nacteni jednotlivych tahu
             NodeList nList = doc.getElementsByTagName("turn");
