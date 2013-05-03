@@ -82,6 +82,16 @@ public class Dama extends Thread{
 
     public void run(){
 
+
+        if (!XmlToVector("C:\\Users\\HAL\\workspace\\ija-dama\\turnvector.xml"))
+            System.out.println("\n\nXML to vector se posralo!!!\n");
+
+
+
+
+
+
+
         //inicializace
 
         System.out.println("Hra: Uspavam se");
@@ -556,6 +566,8 @@ public class Dama extends Thread{
 
     public static boolean XmlToVector (String cesta)
     {
+        Vector<Turn> TurnVector=new Vector<Turn>();
+
         try
         {
             File fXmlFile = new File(cesta);
@@ -568,7 +580,7 @@ public class Dama extends Thread{
             NodeList nList = doc.getElementsByTagName("turn");
             System.out.println("----------------------------");
 
-            String natahu = "W";
+            char natahu = 'W';
             for (int temp = 0; temp < nList.getLength(); temp++)
             {
                 Node nNode = nList.item(temp);
@@ -578,32 +590,72 @@ public class Dama extends Thread{
                 {
                     Element eElement = (Element) nNode;
 
-                    //char p=eElement.getAttribute("player_color").charAt(0);
-                    //int o_r=eElement.getElementsByTagName("origin_row").item(0).getTextContent().charAt(0);
-
-                    /*
-                    if (natahu==eElement.getAttribute("player_color")) natahu="B";
+                    String pom2;
+                    //barva hrace na tahu
+                    String pom=eElement.getAttribute("player_color");
+                    if (pom.length()!=1) return false;
+                    char p=pom.charAt(0);
+                    if (natahu==p)
+                    {
+                        if (natahu=='W') natahu='B';
+                        else natahu='W';
+                    }
                     else
                     {
                         System.out.println("Spatny poradi hracu");
                         return false;
                     }
-                    */
-                    System.out.println("Hrac : " + eElement.getAttribute("player_color"));
-                    System.out.print("Origin : " + eElement.getElementsByTagName("origin_row").item(0).getTextContent());
-                    System.out.println(":" + eElement.getElementsByTagName("origin_col").item(0).getTextContent());
-                    System.out.print("Destination : " + eElement.getElementsByTagName("destination_row").item(0).getTextContent());
-                    System.out.print(":" + eElement.getElementsByTagName("destination_col").item(0).getTextContent());
-                }
-            }
 
+                    //origin pozice
+                    pom=eElement.getElementsByTagName("origin_row").item(0).getTextContent();
+                    if (pom.length()!=1) return false;
+                    int o_r = (int)((char)pom.charAt(0)-(char)'0');
+                    if ( (o_r>7)||(o_r<0) ) return false;
+
+                    pom=eElement.getElementsByTagName("origin_col").item(0).getTextContent();
+                    if (pom.length()!=1) return false;
+                    int o_c = (int)((char)pom.charAt(0)-(char)'0');
+                    if ( (o_c>7)||(o_c<0) ) return false;
+
+                    Position o=new Position(o_r, o_c);
+
+                    //destination pozice
+                    pom=eElement.getElementsByTagName("destination_row").item(0).getTextContent();
+                    if (pom.length()!=1) return false;
+                    int d_r = (int)((char)pom.charAt(0)-(char)'0');
+                    if ( (d_r>7)||(d_r<0) ) return false;
+
+                    pom=eElement.getElementsByTagName("destination_col").item(0).getTextContent();
+                    if (pom.length()!=1) return false;
+                    int d_c = (int)((char)pom.charAt(0)-(char)'0');
+                    if ( (d_c>7)||(d_c<0) ) return false;
+
+                    Position d=new Position(d_r, d_c);
+
+                    Turn turn = new Turn(p, o, d);
+
+                    TurnVector.add(turn);
+
+
+                    System.out.println("Hrac : " + p);
+                    System.out.println("Origin: " + o_r + ":" + o_c);
+                    System.out.println("Destination: " + d_r + ":" + d_c);
+                    System.out.println("-----------------------------------");
+
+
+                }
+
+            }
+            System.out.println("===============================================");
         }
         catch (Exception e)
         {
             e.printStackTrace();
             return false;
         }
-        return true;
+
+        if (setLoadedTurns(TurnVector))return true;
+        return false;
     }
 
 
