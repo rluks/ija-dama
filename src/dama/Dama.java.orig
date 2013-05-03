@@ -1,0 +1,730 @@
+package dama;
+
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.util.Vector;
+
+import gui.InternalFrameDemo;
+
+import dama.io.Output;
+import dama.io.Turn;
+import dama.operations.AI;
+import dama.operations.Check;
+import dama.operations.Moves;
+import dama.state.Desk;
+import dama.state.Position;
+import dama.state.Settings;
+
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.DocumentBuilder;
+import org.w3c.dom.Document;
+import org.w3c.dom.NodeList;
+import org.w3c.dom.Node;
+import org.w3c.dom.Element;
+import java.io.File;
+
+/**
+ * Hra Dáma v Javě
+ * @author Roman Lukš
+ * @author Pavel Hála
+ *
+ */
+public class Dama extends Thread{
+
+    //staticke
+    public static Dama dama;
+    protected static int clickCount = 0; //po dvou klicich posilame tah hre
+    protected static Turn turnInput;
+
+    //vlakno hry
+    public Settings settings;
+
+    public Vector<Turn> ouputTurns;    //sem hra uklada provedene tahy - pouzije se v pripade ulozeni hry
+    public Vector<Turn> loadedTurns;//zde jsou ulozeny tahy v pripade nacteni hry
+
+    public Turn turn;
+    public Desk desk;
+    public char playerColor;
+    protected int tahCislo = 0;
+    protected boolean wtake;
+    protected boolean btake;
+    protected Turn wturn;
+    protected Turn bturn;
+    private int aiStochasticity = 5; //nahodnost AI tahu
+    public boolean allDone = false; //ukonceni behu
+    public boolean pleaseWait = false; //pozastaveni behu
+    //public int pocaitadlo_tahu=1;
+
+    public boolean gameSetAndRuning = false; //hra byla nastavena a uz se provadi tahy, atd.
+    InternalFrameDemo gui;
+
+    /**
+     * Konstruktor vlakna hry
+     * @param name
+     */
+    Dama(String name){
+        super(name);
+
+        gui = new InternalFrameDemo();
+        gui.setVisible(true);
+        gui.addWindowListener( new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent we) {
+                System.out.println("Okno zavreno, ukoncuji...");
+                Dama.wakeUpGameThread();
+                Dama.stopGameThread();
+                System.exit(0);
+            }
+        } );
+
+    }
+
+    public void run(){
+
+
+        /*
+        if (!XmlToVector("C:\\Users\\HAL\\workspace\\ija-dama\\turnvector.xml"))
+            System.out.println("\n\nXML to vector se posralo!!!\n");
+<<<<<<< HEAD
+        else System.out.println("\n\nXML to vector DOBRY!!!\n");
+
+=======
+         */
+>>>>>>> d13c901a8587861dc5ef718a218b8c4c8cd84ef3
+
+
+
+
+
+
+        //inicializace
+
+        System.out.println("Hra: Uspavam se");
+        Dama.sleepGameThread();
+
+        //smycka nastaveni hry
+        while(true)
+        {
+
+            try {Thread.sleep(200);} catch (InterruptedException e) {e.printStackTrace();}
+
+            synchronized(this){ while(pleaseWait){ try { System.out.println("Hra: sleeping..."); wait();} catch (Exception e) { e.printStackTrace(); } }  }
+
+            //vypinaci cast
+            checkGUIShutdown(gui);
+            if(allDone){System.out.println("Hra: Dama terminated, allDone!!");return;}
+
+            if(this.settings == null){
+                continue;
+            }
+
+            this.desk = new Desk();
+            gui.updateDesk(desk);
+            //this.desk.printSimpleBoard();
+
+            System.out.println("Hra: Tisknu nastaveni");
+            System.out.println(this.settings.getXML());
+
+            Position pEmpty = new Position(-1, -1);
+            this.ouputTurns = new Vector<Turn>();
+
+            //smycka vlastni hry
+            while(true){
+                gameSetAndRuning = true;
+                System.out.println("Hra: bezi s timto nastavenim: " + this.settings.getSettingsString());
+
+                if(this.loadedTurns != null){
+                    if(this.loadedTurns.size() > 0){
+                        System.out.println("Hra: V loadedTurns zbyva " + this.loadedTurns.size() + " tahu");
+                    }
+                }
+
+                //vypinaci cast
+                checkGUIShutdown(gui);
+                if(allDone){System.out.println("Hra: Dama terminated, allDone!!");return;}
+
+                //stridani barev hracu
+                if (this.playerColor != 'W' && this.playerColor != 'B'){//prvni kolo
+                    this.playerColor = 'W';
+                }else if (this.playerColor == 'W'){
+                    this.playerColor = 'B';
+                }else if (this.playerColor == 'B'){
+                    this.playerColor = 'W';
+                }else{
+                    System.out.println("Hra: neco je spatne s barvami hracu!");
+                }
+
+                //try {Thread.sleep(50);} catch (InterruptedException e) {e.printStackTrace();}
+
+                String currentPlayerAIHumanSettings = getAIorHumanSettingsForCurrentPlayerColor(this.playerColor);
+
+                //tisk informaci
+                System.out.println("Hra: "+ Output.getPlayerColorString(this.playerColor)+ " will play!");
+                String infoText = (currentPlayerAIHumanSettings == "AI")? "Hra: it's "+ Output.getPlayerColorString(this.playerColor)+ " AI turn!" : "Hra: it's "+ Output.getPlayerColorString(this.playerColor)+ "players turn!";
+                gui.setInfoText(infoText);
+
+                //vykresleni desky
+                Check.isMustTake(desk, this.playerColor);
+                gui.updateDesk(this.desk);
+                //this.desk.printSimpleBoard();
+
+                //ulozeny tah
+                if(this.loadedTurns != null && this.loadedTurns.size() > 0){
+
+                    Turn loadedTurn = new Turn(this.loadedTurns.firstElement());
+                    System.out.println("Hra: nacteny tah:\n" + loadedTurn.getTurnString());
+                    if(Moves.isTurnValid(loadedTurn, desk)){
+                        System.out.println("Hra: Nacteny tah je validni, provadim...");
+
+                        if(Check.isMustTake(desk, this.playerColor)){//Take
+                            System.out.println("Hra: nacteny tah - " + Output.getPlayerColorString(this.playerColor) + ", take() vraci:" + Moves.Take(desk, loadedTurn));
+
+                        if(this.playerColor == 'W'){
+                            wtake = true;
+                        }else if(this.playerColor == 'B'){
+                            btake = true;
+                        }else{
+                            System.out.println("Hra: nactena hra - neco je spatne s barvami hracu!");
+                        }
+
+                        }else{//Move
+                            System.out.println("Hra: nacteny tah - " + Output.getPlayerColorString(this.playerColor) + ", MOVE() vraci:" + Moves.Move(desk, loadedTurn));
+
+                            if(this.playerColor == 'W'){
+                                wtake = false;
+                            }else if(this.playerColor == 'B'){
+                                btake = false;
+                            }else{
+                                System.out.println("Hra: nactena hra - neco je spatne s barvami hracu!");
+                            }
+                        }
+
+                        this.turn = new Turn(loadedTurn);
+                        this.loadedTurns.remove(0);
+                        desk.clearMustTakeFlag();
+
+                    }else{
+                        System.out.println("Hra: Nacteny tah NENI validni!");
+                        return;//TODO hlaska v gui
+                    }
+                }else if(currentPlayerAIHumanSettings == "AI"){//AI
+
+                    System.out.println("Hra: it's "+ Output.getPlayerColorString(this.playerColor)+ " AI turn!");
+
+                    try {Thread.sleep(this.settings.aiWait);} catch (InterruptedException e) {e.printStackTrace();}
+
+                    this.turn = AI.AIMove(desk, this.playerColor, this.aiStochasticity);
+                    if(this.turn == null){
+                        System.out.println("Hra: AIMove() vratilo null");
+                        return;//TODO dodelat kdyz vrati null
+                    }
+                    this.desk.clearMustTakeFlag();
+
+                }else{//Human
+
+                    this.turn = (this.playerColor == 'W') ? Turn.TurnWhite(pEmpty, pEmpty) : Turn.TurnBlack(pEmpty, pEmpty);
+
+                    //cekani na tah od cloveka
+                    Dama.sleepGameThread();
+                    try {Thread.sleep(300);} catch (InterruptedException e) {e.printStackTrace();}
+                    synchronized(this){ while(pleaseWait){ try { System.out.println("Hra: sleeping..."); wait();} catch (Exception e) { e.printStackTrace(); } }  }
+
+                    //vypinaci cast
+                    checkGUIShutdown(gui);
+                    if(allDone){System.out.println("Hra: Dama terminated, allDone!!");return;}
+
+                    //zpracovani tahu
+                    System.out.println("Hra: " + Output.getPlayerColorString(this.playerColor) + " is playing...");
+                    if(Check.isMustTake(desk, this.playerColor)){//Take
+                        System.out.println("================================BRANI=============================");
+                        System.out.println("Hra: tah " + Output.getPlayerColorString(this.playerColor) + ", take() vraci:" + Moves.Take(desk, turn));
+
+                        if(this.playerColor == 'W'){
+                            wtake = true;
+                        }else if(this.playerColor == 'B'){
+                            btake = true;
+                        }else{
+                            System.out.println("Hra: neco je spatne s barvami hracu!");
+                        }
+
+                    }else{//Move
+                        System.out.println("Hra: tah " + Output.getPlayerColorString(this.playerColor) + ", MOVE() vraci:" + Moves.Move(desk, turn));
+
+                        if(this.playerColor == 'W'){
+                            wtake = false;
+                        }else if(this.playerColor == 'B'){
+                            btake = false;
+                        }else{
+                            System.out.println("Hra: neco je spatne s barvami hracu!");
+                        }
+                    }
+                    desk.clearMustTakeFlag();
+                }
+
+                //zmena na damy
+                Check.isPieceToDame(desk);
+
+                //vykresleni desky
+                gui.updateDesk(this.desk);
+                //this.desk.printSimpleBoard();
+
+                //cisteni
+                gui.clearAura();
+                gui.clearHelp();
+
+                //ukladani tahu pro vypis notace
+                if(this.playerColor == 'W'){
+                    this.wturn = this.turn;
+                }else if(this.playerColor == 'B'){
+                    this.bturn = this.turn;
+                }else{
+                    System.out.println("Hra: neco je spatne s barvami hracu!");
+                }
+
+                this.ouputTurns.addElement(new Turn(this.turn));
+
+                boolean victory = Check.isVictory(desk);
+
+                //tisk notace
+                if(this.playerColor == 'B'){
+                    System.out.println("Hra: oba hraci hrali");
+                    tahCislo++;
+                    gui.NotationNewLine(wturn, wtake, bturn, btake, tahCislo);
+                }else if(this.playerColor == 'W' && victory){
+                    tahCislo++;
+                    gui.NotationNewLineLastWhite(wturn, wtake, tahCislo); //zkracena notace
+                }
+
+                //ukonceni hry pri vitezstvi
+                if(victory){
+                    System.out.println("Hra: Konec hry, dalsi hrac uz nehraje.");
+                    try {
+                        Output.printTurnVector(ouputTurns);
+                    } catch (Exception e1) {
+                        // TODO Auto-generated catch block
+                        e1.printStackTrace();
+                    }
+                    //Dama.stopGameThread();
+                    gui.setInfoText("!!! Victory !!!");
+                    try {Thread.sleep(2000);} catch (InterruptedException e) {e.printStackTrace();}
+                    gui.setVisible(false);
+                    Dama.startingGameThread();
+                    return;
+                }
+
+                //vypinaci cast
+                checkGUIShutdown(gui);
+                if(allDone){System.out.println("Hra: Dama terminated, allDone!!");return;}
+            }
+        }
+    }
+
+
+    /**
+     * Kontrola jestli se GUI zavrelo
+     * @param isGUIvisible gui.isVisible;//TODO zmena
+     */
+    private void checkGUIShutdown(InternalFrameDemo gui){
+
+        if(!gui.isVisible()){
+            System.out.println("Hra: GUI zavreno - vypinam program.");
+            this.allDone = true;
+            //gui.pullThePlug();
+            System.exit(0);
+        }
+    }
+
+    private String getAIorHumanSettingsForCurrentPlayerColor(char playerColor){
+        if(playerColor == 'W'){
+            return this.settings.white;
+        }else if(playerColor == 'B'){
+            return this.settings.black;
+        }else{
+            return "";
+        }
+    }
+
+    //staticke metody
+    public static void main(String[] args) throws InterruptedException {
+
+        // projekt:
+        // TODO javadoc
+        // TODO k try-catch blokum dat do catch osetreni,zotaveni z chyb
+
+        Dama.startingGameThread();
+
+        Vector<Turn> lt = new Vector<Turn>();
+        Position o = new Position(2, 2);
+        Position d = new Position(3, 1);
+        Turn t = new Turn('W', o, d);
+        System.out.println(t.getTurnString());
+        lt.add(t);
+
+        String whiteStr = "Human";
+        String blackStr = "Human";
+        int aiWait = 300;
+        Settings settings = new Settings(whiteStr, blackStr, null, null, 0, aiWait);
+
+        Dama.setLoadedTurns(lt);
+        Dama.setSettings(settings);
+
+        try {Thread.sleep(300);} catch (InterruptedException e) {e.printStackTrace();}
+
+        Dama.wakeUpGameThread();
+
+    }
+
+
+    /**
+     * Zastavi predchozi vlakno, spusti nove, uspi ho a ceka se na nastaveni
+     */
+    public static void startingGameThread(){
+
+        Dama.stopGameThread();
+
+        System.out.println("startingGameThread...");
+        dama = new Dama("DamaVlakno");
+        dama.start();
+    }
+
+    /**
+     * Uspi vlakno hry
+     */
+    public static boolean sleepGameThread(){
+        System.out.println("sleepGameThread: pokousim se uspat hru...");
+
+        if(dama != null){//TODO tyhle kontroly delat v jedine fci
+            synchronized (dama){
+                dama.pleaseWait = true;
+            }
+            return true;
+        }else{
+            System.out.println("sleepGameThread: hra neexistuje!");
+            return false;
+        }
+    }
+
+    /**
+     * Probudi vlakno hry
+     */
+    public static boolean wakeUpGameThread(){
+        System.out.println("wakeUpGameThread: probouzim hru...");
+
+        if(dama != null){
+            synchronized (dama){
+                dama.pleaseWait = false;
+                dama.notify();
+            }
+            return true;
+        }else{
+            System.out.println("wakeUpGameThread: hra neexistuje!");
+            return false;
+        }
+    }
+
+    /**
+     * Zastavi vlakno hry
+     * @return
+     */
+    public static boolean stopGameThread(){
+        System.out.println("stopGameThread: zastavuji vlakno hry...");
+
+        if(dama != null){
+            if(dama.isAlive()){
+                dama.allDone = true;
+            }
+            return true;
+        }else{
+            System.out.println("stopGameThread: hra neexistuje!");
+            return false;
+        }
+    }
+
+    /**
+     * Kontrola jestli bezi vlakno hry
+     * @return
+     */
+    public static boolean isGameThreadRunning(){
+        if(dama != null){
+            if(dama.isAlive()){
+                return true;
+            }else{
+                return false;
+            }
+        }else{
+            return false;
+        }
+    }
+
+    /**
+     * Kontrola jestli uz se hraje (zda bylo vse nastaveno)
+     * @return
+     */
+    public static boolean isGameSetAndRunning(){
+
+        if(Dama.isGameThreadRunning()){
+            synchronized (dama){
+                if(dama.gameSetAndRuning){
+                    return true;
+                }else{
+                    return false;
+                }
+            }
+        }else{
+            return false;
+        }
+    }
+
+    /**
+     * Zpracuje vstup od mysi (kliky na sachovnici) a posila ho dal
+     * @param pos
+     */
+    public static void mouseInput(Position pos){
+
+        if(Dama.isGameSetAndRunning()){
+
+            Dama.clickCount++;
+            System.out.println("mouseInput:" + pos.getStr());
+
+            if(Dama.clickCount == 1){
+                Dama.turnInput = Dama.getTurn();
+
+                turnInput.origin = pos;
+            }
+
+            if(Dama.clickCount == 2){
+                turnInput.destination = pos;
+
+                Dama.input(turnInput);
+
+                Dama.clickCount = 0;
+            }
+        }
+    }
+
+    public static void setClickCount(int count){
+        Dama.clickCount = count;
+        System.out.println("setClickCount:" + count);
+    }
+
+    /**
+     * Zpracuje vstup od textove ramecku od notace a posila ho dal
+     */
+    public static void notaceInput(Turn turn){
+
+        ///zpracovani
+
+
+        Dama.input(turn);
+    }
+
+    /**
+     * Jednotny vstup tahu pro vlakno hry
+     */
+    public static void input(Turn turn)
+    {
+        //Turn zaloha_turn=new Turn(turn.playerColor, turn.origin, turn.destination);
+
+        if(Moves.isTurnValid(turn, Dama.getDesk()))
+        {
+            //Dama.setTurn(zaloha_turn);
+            Dama.wakeUpGameThread();
+        }
+        else
+        {
+            System.out.println("Dama.input: nevalidni tah, neposilam ho dal.");
+        }
+    }
+
+    /**
+     * Uklada nastaveni do vlakna hry
+     * @param settings instance tridy Settings s nastavenim hry
+     * @return vraci false pokud hra neexistuje
+     */
+    public static boolean setSettings(Settings settings){
+        System.out.println("setSettings: ukladam nastaveni...");
+
+        if(dama != null){
+            synchronized (dama){
+                dama.settings = settings;
+                dama.notify();
+            }
+            return true;
+        }else{
+            System.out.println("setSettings: hra neexistuje!");
+            return false;
+        }
+    }
+
+    /**
+     * Uklada tah do vlakna hry
+     * @param turn instance tridy
+     * @return vraci false pokud hra neexistuje
+     */
+    public static boolean setTurn(Turn turn){
+
+        System.out.println("setTurn: ukladam tah...");
+
+        if(dama != null){
+            synchronized (dama){
+                dama.turn = turn;
+                dama.notify();
+            }
+            return true;
+        }else{
+            System.out.println("setTurn: hra neexistuje!");
+            return false;
+        }
+
+    }
+
+    public static boolean setLoadedTurns(Vector<Turn> loadedTurns){
+
+        System.out.println("setTurn: ukladam nactene tahy do vlakna hry...");
+
+        if(dama != null){
+            synchronized (dama){
+                dama.loadedTurns = loadedTurns;
+                dama.notify();
+            }
+            return true;
+        }else{
+            System.out.println("setTurn: hra neexistuje!");
+            return false;
+        }
+    }
+
+    /**
+     * Z vlakna hry ziska desku
+     * @return desk instance tridy Desk obsahujici stav hry na sachovnici
+     */
+    public static Desk getDesk(){
+        synchronized (dama){
+            return dama.desk;
+        }
+    }
+
+    /**
+     * Z vlakna hry ziska turn
+     * @return turn instance tridy Turn obsahujici jeden pultah
+     */
+    public static Turn getTurn(){
+        synchronized (dama){
+            return dama.turn;
+        }
+    }
+
+
+    /**
+     * Z vlakna hry ziska barvu hrace na tahu
+     * @return char barva hrace 'W' nebo 'B', pripadne '\0'
+     */
+    public static char getPlayerColor(){
+        synchronized (dama){
+            return dama.playerColor;
+        }
+    }
+
+    /**	Fce pro prevod XML souboru na interni reprezentaci tahu
+     * @param cesta 	string s cestou k souboru
+     * @return 			vraci true pokud je xml validni a podarilo se jej konvertovat na vektor tahu a ulozit
+     */
+    public static boolean XmlToVector (String cesta)
+    {
+        Vector<Turn> TurnVector=new Vector<Turn>();
+
+        try
+        {
+            File fXmlFile = new File(cesta);
+            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+            Document doc = dBuilder.parse(fXmlFile);
+            doc.getDocumentElement().normalize();
+
+            System.out.println("Root element :" + doc.getDocumentElement().getNodeName());
+            NodeList nList = doc.getElementsByTagName("turn");
+            System.out.println("----------------------------");
+
+            char natahu = 'W';
+            for (int temp = 0; temp < nList.getLength(); temp++)
+            {
+                Node nNode = nList.item(temp);
+                System.out.println("\nCurrent Element :" + nNode.getNodeName());
+
+                if (nNode.getNodeType() == Node.ELEMENT_NODE)
+                {
+                    Element eElement = (Element) nNode;
+
+                    //barva hrace na tahu
+                    String pom=eElement.getAttribute("player_color");
+                    if (pom.length()!=1) return false;
+                    char p=pom.charAt(0);
+                    if (natahu==p)
+                    {
+                        if (natahu=='W') natahu='B';
+                        /*if (natahu=='B') natahu='W';
+                        else return false;
+                        */
+                        else natahu='W';
+                    }
+                    else
+                    {
+                        System.out.println("Spatny poradi hracu");
+                        return false;
+                    }
+
+                    //origin pozice
+                    pom=eElement.getElementsByTagName("origin_row").item(0).getTextContent();
+                    if (pom.length()!=1) return false;
+                    int o_r = (int)((char)pom.charAt(0)-(char)'0');
+                    if ( (o_r>7)||(o_r<0) ) return false;
+
+                    pom=eElement.getElementsByTagName("origin_col").item(0).getTextContent();
+                    if (pom.length()!=1) return false;
+                    int o_c = (int)((char)pom.charAt(0)-(char)'0');
+                    if ( (o_c>7)||(o_c<0) ) return false;
+
+                    Position o=new Position(o_r, o_c);
+
+                    //destination pozice
+                    pom=eElement.getElementsByTagName("destination_row").item(0).getTextContent();
+                    if (pom.length()!=1) return false;
+                    int d_r = (int)((char)pom.charAt(0)-(char)'0');
+                    if ( (d_r>7)||(d_r<0) ) return false;
+
+                    pom=eElement.getElementsByTagName("destination_col").item(0).getTextContent();
+                    if (pom.length()!=1) return false;
+                    int d_c = (int)((char)pom.charAt(0)-(char)'0');
+                    if ( (d_c>7)||(d_c<0) ) return false;
+
+                    Position d=new Position(d_r, d_c);
+
+                    Turn turn = new Turn(p, o, d);
+
+                    TurnVector.add(turn);
+
+
+                    System.out.println("Hrac : " + p);
+                    System.out.println("Origin: " + o_r + ":" + o_c);
+                    System.out.println("Destination: " + d_r + ":" + d_c);
+                    System.out.println("-----------------------------------");
+
+
+                }
+
+            }
+            System.out.println("===============================================");
+        }
+        catch (Exception e)
+        {
+            System.out.println("!!!!!!!!!!!Exception!!!!!!!!!!!!!!!!!");
+            e.printStackTrace();
+            return false;
+        }
+
+        if (setLoadedTurns(TurnVector))return true;
+        return false;
+    }
+
+
+}

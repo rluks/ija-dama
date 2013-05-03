@@ -81,11 +81,15 @@ public class Dama extends Thread{
 
     public void run(){
 
-
-        /*
+        System.out.println("====================================================");
+        System.out.println("====================================================");
+        System.out.println("====================================================");
         if (!XmlToVector("C:\\Users\\HAL\\workspace\\ija-dama\\turnvector.xml"))
             System.out.println("\n\nXML to vector se posralo!!!\n");
         else System.out.println("\n\nXML to vector DOBRY!!!\n");
+        System.out.println("=======================KONEC=====================");
+        System.out.println("=======================KONEC========================");
+        System.out.println("=======================KONEC========================");
 
 
 
@@ -620,9 +624,9 @@ public class Dama extends Thread{
         }
     }
 
-    /**	Fce pro prevod XML souboru na interni reprezentaci tahu
-     * @param cesta 	string s cestou k souboru
-     * @return 			vraci true pokud je xml validni a podarilo se jej konvertovat na vektor tahu a ulozit
+    /**    Fce pro prevod XML souboru na interni reprezentaci tahu
+     * @param cesta     string s cestou k souboru
+     * @return             vraci true pokud je xml validni a podarilo se jej konvertovat na vektor tahu a ulozit
      */
     public static boolean XmlToVector (String cesta)
     {
@@ -636,16 +640,58 @@ public class Dama extends Thread{
             Document doc = dBuilder.parse(fXmlFile);
             doc.getDocumentElement().normalize();
 
-            System.out.println("Root element :" + doc.getDocumentElement().getNodeName());
-            NodeList nList = doc.getElementsByTagName("turn");
-            System.out.println("----------------------------");
+            //promenny pro setting
+            String w;
+            String b;
+            String ais;
+            String p2pEn;
+            String p2pLoc;
+            String p2pRemIp;
+            String p2pRemP;
 
+            /// nacteni settings
+            NodeList nSettings = doc.getElementsByTagName("settings");
+            if (nSettings.getLength()!=1)
+            {
+                System.out.println("!!setings nenalezeny!!");
+                return false;
+            }
+            Node nNodeS = nSettings.item(0);
+            if (nNodeS.getNodeType() == Node.ELEMENT_NODE)
+            {
+                Element eElementS = (Element) nNodeS;
+                w=eElementS.getElementsByTagName("white").item(0).getTextContent();
+                b=eElementS.getElementsByTagName("black").item(0).getTextContent();
+                ais=eElementS.getElementsByTagName("AI").item(0).getTextContent();
+                System.out.println("Bily: " + w +"; cerny: " + b + "; ai speed: " + ais);
+            }
+
+            NodeList nSettingsP = doc.getElementsByTagName("P2P");
+            if (nSettingsP.getLength()!=1)
+            {
+                System.out.println("!!setings P2P nenalezeny!!");
+                return false;
+            }
+            Node nNodeSP = nSettingsP.item(0);
+            if (nNodeSP.getNodeType() == Node.ELEMENT_NODE)
+            {
+                Element eElementSP = (Element) nNodeSP;
+                p2pEn=eElementSP.getAttribute("enable");
+                p2pLoc=eElementSP.getElementsByTagName("local").item(0).getTextContent();
+                p2pRemIp=eElementSP.getElementsByTagName("remoteIP").item(0).getTextContent();
+                p2pRemP=eElementSP.getElementsByTagName("remotePort").item(0).getTextContent();
+                System.out.println("P2P enable:" + p2pEn + "; local: " + p2pLoc + "; remIP: " + p2pRemIp + "; remPort: " + p2pRemP);
+            }
+
+
+
+
+            /// nacteni jednotlivych tahu
+            NodeList nList = doc.getElementsByTagName("turn");
             char natahu = 'W';
             for (int temp = 0; temp < nList.getLength(); temp++)
             {
                 Node nNode = nList.item(temp);
-                System.out.println("\nCurrent Element :" + nNode.getNodeName());
-
                 if (nNode.getNodeType() == Node.ELEMENT_NODE)
                 {
                     Element eElement = (Element) nNode;
@@ -698,17 +744,16 @@ public class Dama extends Thread{
 
                     TurnVector.add(turn);
 
-
+                    /*
                     System.out.println("Hrac : " + p);
                     System.out.println("Origin: " + o_r + ":" + o_c);
                     System.out.println("Destination: " + d_r + ":" + d_c);
                     System.out.println("-----------------------------------");
-
-
+                    */
                 }
 
             }
-            System.out.println("===============================================");
+            //System.out.println("===============================================");
         }
         catch (Exception e)
         {
