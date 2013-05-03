@@ -459,27 +459,29 @@ public class InternalFrameDemo extends JFrame
     }
 
 
-    protected void createLoadGameFrame() 
+    protected void createLoadGameFrame()
     {
-    	System.out.println("\tcreate LG");
-        
-    	this.inFrLoadGame=new LoadGame();
+        System.out.println("\tcreate LG");
+
+        this.inFrLoadGame=new LoadGame();
         desktop.setLayer(inFrLoadGame, 5);
         inFrLoadGame.setLocation(100, 100);
         inFrLoadGame.setVisible(true);
-        /*
-        JButton btnStartgame = new JButton("StartGame");
-        inFrNewGameSett.getContentPane().add(btnStartgame);
-        btnStartgame.setActionCommand("startgame");
-        btnStartgame.addActionListener(this);
-        */
+
+        JButton btnLoadgame = new JButton("OK");
+        btnLoadgame.setBounds(294, 39, 80, 20);
+
+        inFrLoadGame.getContentPane().add(btnLoadgame);
+        btnLoadgame.setActionCommand("_LG_");
+        btnLoadgame.addActionListener(this);
+
         desktop.add(inFrLoadGame);
         try
         {
             inFrLoadGame.setSelected(true);
         }
         catch (java.beans.PropertyVetoException e) {}
-        
+
         System.out.println("\t/create LG");
     }
 
