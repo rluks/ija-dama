@@ -65,6 +65,7 @@ import javax.swing.JTextPane;
 import javax.swing.KeyStroke;
 
 import dama.Dama;
+import dama.io.Output;
 import dama.io.Turn;
 import dama.operations.AI;
 import dama.operations.Check;
@@ -422,6 +423,7 @@ public class InternalFrameDemo extends JFrame
         {
             System.out.println("Save game");
             createLoadGameFrame("Save game");
+
             System.out.println("/Save game");
 
         }else if ("Player".equals(e.getActionCommand())){
@@ -443,6 +445,25 @@ public class InternalFrameDemo extends JFrame
             inFrLoadGame.dispose();
             Dama.XmlToVector(cesta);
             Dama.wakeUpGameThread();
+        }
+        else if ("savegamebutton".equals(e.getActionCommand()))
+        {
+            System.out.println("Tlacitko save!");
+            String cesta=inFrLoadGame.GetPath();
+            System.out.println("Cesta: \"" + cesta + "\"");
+            inFrLoadGame.dispose();
+            String xml = Output.getXmlFromSettingsAndTurnVector(Dama.getSettings(), Dama.getOutputTurns());
+
+            try
+            {
+                Output.printStringToFile(xml, cesta+".xml");
+            }
+            catch (Exception e1)
+            {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
+            }
+
         }
         else{
             System.out.println("Neznama akce: " + e.getActionCommand());

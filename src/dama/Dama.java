@@ -383,6 +383,7 @@ public class Dama extends Thread{
 
         */
 
+        /*
         System.out.println("===============================================");
         System.out.println("===============================================");
         System.out.println("===============================================");
@@ -414,7 +415,7 @@ public class Dama extends Thread{
         try {Thread.sleep(300);} catch (InterruptedException e) {e.printStackTrace();}
 
         Dama.wakeUpGameThread();
-
+        */
 
     }
 
@@ -666,6 +667,26 @@ public class Dama extends Thread{
     public static char getPlayerColor(){
         synchronized (dama){
             return dama.playerColor;
+        }
+    }
+
+    /**
+     * Z vlakna hry ziska settings
+     * @return
+     */
+    public static Settings getSettings(){
+        synchronized (dama){
+            return dama.settings;
+        }
+    }
+
+    /**
+     * Z vlakna hry ziska vektor tahu
+     * @return
+     */
+    public static Vector<Turn> getOutputTurns(){
+        synchronized (dama){
+            return dama.ouputTurns;
         }
     }
 
