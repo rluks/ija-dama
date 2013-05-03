@@ -12,9 +12,16 @@ import java.util.Vector;
  */
 public class Output {
 
-    public static void printTurnVector(Vector<Turn> turnVector) throws Exception{
+    public static void printStringToFile(String string, String filepath) throws Exception{
 
-     PrintWriter pw = new PrintWriter(new FileWriter("turnvector.xml"));
+         PrintWriter pw = new PrintWriter(new FileWriter(filepath));
+         pw.print(string);
+         pw.close();
+    }
+
+    public static String getTurnVectorString(Vector<Turn> turnVector){
+
+     //PrintWriter pw = new PrintWriter(new FileWriter("turnvector.xml"));
 
      Turn tmp;
      String xml = new String();
@@ -26,7 +33,7 @@ public class Output {
      {
          tmp = turnVector.get(i);
 
-         System.out.println(tmp.getTurnString());
+         //System.out.println(tmp.getTurnString());
 
          turn = "";
 
@@ -45,12 +52,7 @@ public class Output {
 
      xml += "\t</Turns>";
 
-     //System.out.println("Cele xml:");
-     //System.out.println(xml);
-     pw.print(xml);
-
-     pw.close();
-
+     return xml;
     }
 
     public static String getPlayerColorString(char playerColor){
