@@ -47,6 +47,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
+import java.io.File;
 import java.util.Enumeration;
 
 import javax.swing.AbstractButton;
@@ -63,6 +64,17 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.KeyStroke;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
+
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.DocumentBuilder;
+import org.w3c.dom.Document;
+import org.w3c.dom.NodeList;
+import org.w3c.dom.Node;
+import org.w3c.dom.Element;
+import java.io.File;
 
 import dama.Dama;
 import dama.io.Turn;
@@ -786,6 +798,49 @@ public class InternalFrameDemo extends JFrame
     public void clearHelp(){
         this.LNapoveda.setIcon(null);
     }
+
+    public static boolean XmlToVector (String cesta)
+    {
+        try
+        {
+            File fXmlFile = new File(cesta);
+            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+            Document doc = dBuilder.parse(fXmlFile);
+            doc.getDocumentElement().normalize();
+
+            System.out.println("Root element :" + doc.getDocumentElement().getNodeName());
+            NodeList nList = doc.getElementsByTagName("turn");
+            System.out.println("----------------------------");
+
+            for (int temp = 0; temp < nList.getLength(); temp++)
+            {
+                Node nNode = nList.item(temp);
+                System.out.println("\nCurrent Element :" + nNode.getNodeName());
+
+                if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+
+                    Element eElement = (Element) nNode;
+
+                    System.out.println("Hrac : " + eElement.getAttribute("player_color"));
+                    System.out.print("Origin : " + eElement.getElementsByTagName("origin_row").item(0).getTextContent());
+                    System.out.println(":" + eElement.getElementsByTagName("origin_col").item(0).getTextContent());
+                    System.out.print("Destination : " + eElement.getElementsByTagName("destination_row").item(0).getTextContent());
+                    System.out.print(":" + eElement.getElementsByTagName("destination_col").item(0).getTextContent());
+                }
+            }
+
+
+
+
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+        return true;
+    }
+
 
     /**
      * Pomocna funkce na zisk zvolenych radio buttonu
