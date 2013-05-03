@@ -86,7 +86,7 @@ public class Dama extends Thread{
         if (!XmlToVector("C:\\Users\\HAL\\workspace\\ija-dama\\turnvector.xml"))
             System.out.println("\n\nXML to vector se posralo!!!\n");
         else System.out.println("\n\nXML to vector DOBRY!!!\n");
-
+    */
 
 
 
@@ -167,6 +167,7 @@ public class Dama extends Thread{
                 if(this.loadedTurns != null && this.loadedTurns.size() > 0){
 
                     Turn loadedTurn = new Turn(this.loadedTurns.firstElement());
+                    this.turn = loadedTurn;
                     System.out.println("Hra: nacteny tah:\n" + loadedTurn.getTurnString());
                     if(Moves.isTurnValid(loadedTurn, desk)){
                         System.out.println("Hra: Nacteny tah je validni, provadim...");
@@ -263,6 +264,11 @@ public class Dama extends Thread{
                 gui.updateDesk(this.desk);
                 //this.desk.printSimpleBoard();
 
+                if(this.playerColor != this.turn.playerColor){
+                    System.out.println("Hra: barva hrace v tahu a v this.playerColor si neodpovida!");
+                    return;
+                }
+
                 //cisteni
                 gui.clearAura();
                 gui.clearHelp();
@@ -348,6 +354,8 @@ public class Dama extends Thread{
 
         Dama.startingGameThread();
 
+        /*
+
         Vector<Turn> lt = new Vector<Turn>();
         Position o = Position.positionStrToPositionLowerCase("c3");
         Position d = Position.positionStrToPositionLowerCase("b4");
@@ -367,17 +375,28 @@ public class Dama extends Thread{
         System.out.println(t.getTurnString());
         lt.add(t);
 
+        */
+
+
+        if(Dama.XmlToVector("C:\\eclipseworkspace\\ija-dama-2013\\turnvector.xml")){
+            System.out.println("Turns nastaveny!");
+        }else{
+            System.out.println("Turns FAIL!");
+            return;
+        }
+
         String whiteStr = "Human";
         String blackStr = "Human";
         int aiWait = 300;
         Settings settings = new Settings(whiteStr, blackStr, null, null, 0, aiWait);
 
-        Dama.setLoadedTurns(lt);
+        //Dama.setLoadedTurns(lt);
         Dama.setSettings(settings);
 
         try {Thread.sleep(300);} catch (InterruptedException e) {e.printStackTrace();}
 
         Dama.wakeUpGameThread();
+
 
     }
 
@@ -632,9 +651,9 @@ public class Dama extends Thread{
         }
     }
 
-    /**	Fce pro prevod XML souboru na interni reprezentaci tahu
-     * @param cesta 	string s cestou k souboru
-     * @return 			vraci true pokud je xml validni a podarilo se jej konvertovat na vektor tahu a ulozit
+    /**    Fce pro prevod XML souboru na interni reprezentaci tahu
+     * @param cesta     string s cestou k souboru
+     * @return             vraci true pokud je xml validni a podarilo se jej konvertovat na vektor tahu a ulozit
      */
     public static boolean XmlToVector (String cesta)
     {
@@ -729,7 +748,7 @@ public class Dama extends Thread{
             return false;
         }
 
-        if (setLoadedTurns(TurnVector))return true;
+        if (Dama.setLoadedTurns(TurnVector))return true;
         return false;
     }
 
