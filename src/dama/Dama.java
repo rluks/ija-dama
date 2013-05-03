@@ -349,9 +349,21 @@ public class Dama extends Thread{
         Dama.startingGameThread();
 
         Vector<Turn> lt = new Vector<Turn>();
-        Position o = new Position(2, 2);
-        Position d = new Position(3, 1);
+        Position o = Position.positionStrToPositionLowerCase("c3");
+        Position d = Position.positionStrToPositionLowerCase("b4");
         Turn t = new Turn('W', o, d);
+        System.out.println(t.getTurnString());
+        lt.add(t);
+
+        o = Position.positionStrToPositionLowerCase("b6");
+        d = Position.positionStrToPositionLowerCase("c5");
+        t = new Turn('B', o, d);
+        System.out.println(t.getTurnString());
+        lt.add(t);
+
+        o = Position.positionStrToPositionLowerCase("b4");
+        d = Position.positionStrToPositionLowerCase("a5");
+        t = new Turn('W', o, d);
         System.out.println(t.getTurnString());
         lt.add(t);
 
