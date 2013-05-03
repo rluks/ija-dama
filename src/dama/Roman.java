@@ -10,10 +10,11 @@ import dama.state.Settings;
 public class Roman {
 
     public static void main(String[] args) {
+
+        System.out.println("ROMAN");
         Dama.startingGameThread();
 
         /*
-
         Vector<Turn> lt = new Vector<Turn>();
         Position o = Position.positionStrToPositionLowerCase("c3");
         Position d = Position.positionStrToPositionLowerCase("b4");
