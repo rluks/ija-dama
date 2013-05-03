@@ -4,6 +4,8 @@ import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.util.Vector;
 
+import dama.state.Settings;
+
 /**
  * Třída, která vypisuje informace hráči a odesílá informace protihráči.
  * @author Roman Lukš
@@ -19,9 +21,18 @@ public class Output {
          pw.close();
     }
 
-    public static String getTurnVectorString(Vector<Turn> turnVector){
+    public static String getXmlFromSettingsAndTurnVector(Settings settings, Vector<Turn> turnVector){
 
-     //PrintWriter pw = new PrintWriter(new FileWriter("turnvector.xml"));
+        String xml = new String();
+
+        String turnsXml = Output.getTurnVectorString(turnVector);
+        String settingsXml = settings.getXML();
+
+        xml = "<Dama>\n" + settingsXml + "\n" + turnsXml + "\n</Dama>";
+        return xml;
+    }
+
+    public static String getTurnVectorString(Vector<Turn> turnVector){
 
      Turn tmp;
      String xml = new String();

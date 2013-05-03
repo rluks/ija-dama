@@ -173,7 +173,7 @@ public class Dama extends Thread{
 
                     Turn loadedTurn = new Turn(this.loadedTurns.firstElement());
                     this.turn = loadedTurn;
-                    System.out.println("Hra: nacteny tah:\n" + loadedTurn.getTurnString());
+                    System.out.println("Hra: nacteny tah:  " + loadedTurn.getTurnString());
                     if(Moves.isTurnValid(loadedTurn, desk)){
                         System.out.println("Hra: Nacteny tah je validni, provadim...");
 
@@ -306,15 +306,14 @@ public class Dama extends Thread{
                     System.out.println("Hra: Konec hry, dalsi hrac uz nehraje.");
                     try {
                         System.out.println("Hra: Konec hry, tisknu xml s tahy.");
-                        String xml = Output.getTurnVectorString(this.ouputTurns);
-                        Output.printStringToFile(xml, "turnvector.xml");
+                        Output.printStringToFile(Output.getXmlFromSettingsAndTurnVector(this.settings, this.ouputTurns), "examples\\katafalka.xml");
                     } catch (Exception e1) {
                         // TODO Auto-generated catch block
                         e1.printStackTrace();
                     }
                     //Dama.stopGameThread();
                     gui.setInfoText("!!! Victory !!!");
-                    try {Thread.sleep(2000);} catch (InterruptedException e) {e.printStackTrace();}
+                    try {Thread.sleep(4000);} catch (InterruptedException e) {e.printStackTrace();}
                     gui.setVisible(false);
                     Dama.startingGameThread();
                     return;
