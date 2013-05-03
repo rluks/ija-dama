@@ -62,22 +62,22 @@ public class Settings {
      */
     public String getXML(){
         this.xml = new String();
-        xml += "<settings>\n";
-            xml += "\t<white>";
+        xml += "\t<settings>\n";
+            xml += "\t\t<white>";
                 xml += this.white;
             xml += "</white>\n";
-            xml += "\t<black>";
+            xml += "\t\t<black>";
                 xml += this.black;
             xml += "</black>\n";
-            xml += "\t<AI>";
+            xml += "\t\t<AI>";
                 xml += this.aiWait;
             xml += "</AI>\n";
-            xml += "\t<P2P enabled=\""; xml += (this.local != null)? "yes" : "no"; xml += "\">\n";
-                xml += "\t\t<local>"; xml += (this.local != null)? this.local : ""; xml += "</local>\n";
-                xml += "\t\t<remoteIP>"; xml += (this.remoteIP != null)? this.remoteIP : ""; xml += "</remoteIP>\n";
-                xml += "\t\t<remotePort>"; xml += (this.remotePort != 0)? this.remotePort : ""; xml += "</remotePort>\n";
-            xml += "\t</P2P>\n";
-        xml += "</settings>";
+            xml += "\t\t<P2P enabled=\""; xml += (this.local != null)? "yes" : "no"; xml += "\">\n";
+                xml += "\t\t\t<local>"; xml += (this.local != null)? this.local : ""; xml += "</local>\n";
+                xml += "\t\t\t<remoteIP>"; xml += (this.remoteIP != null)? this.remoteIP : ""; xml += "</remoteIP>\n";
+                xml += "\t\t\t<remotePort>"; xml += (this.remotePort != 0)? this.remotePort : ""; xml += "</remotePort>\n";
+            xml += "\t\t</P2P>\n";
+        xml += "\t</settings>";
         return this.xml;
     }
 
