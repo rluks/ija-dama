@@ -50,7 +50,6 @@ public class Dama extends Thread{
     protected boolean btake;
     protected Turn wturn;
     protected Turn bturn;
-    public int bothPlayersPlayed = 0;
     private int aiStochasticity = 5; //nahodnost AI tahu
     public boolean allDone = false; //ukonceni behu
     public boolean pleaseWait = false; //pozastaveni behu
@@ -83,10 +82,10 @@ public class Dama extends Thread{
     public void run(){
 
 
+        /*
         if (!XmlToVector("C:\\Users\\HAL\\workspace\\ija-dama\\turnvector.xml"))
             System.out.println("\n\nXML to vector se posralo!!!\n");
         else System.out.println("\n\nXML to vector DOBRY!!!\n");
-
 
 
 
@@ -116,7 +115,7 @@ public class Dama extends Thread{
 
             this.desk = new Desk();
             gui.updateDesk(desk);
-            this.desk.printSimpleBoard();
+            //this.desk.printSimpleBoard();
 
             System.out.println("Hra: Tisknu nastaveni");
             System.out.println(this.settings.getXML());
@@ -142,13 +141,10 @@ public class Dama extends Thread{
                 //stridani barev hracu
                 if (this.playerColor != 'W' && this.playerColor != 'B'){//prvni kolo
                     this.playerColor = 'W';
-                    bothPlayersPlayed = 1;
                 }else if (this.playerColor == 'W'){
                     this.playerColor = 'B';
-                    bothPlayersPlayed = 2;
                 }else if (this.playerColor == 'B'){
                     this.playerColor = 'W';
-                    bothPlayersPlayed = 1;
                 }else{
                     System.out.println("Hra: neco je spatne s barvami hracu!");
                 }
@@ -167,7 +163,46 @@ public class Dama extends Thread{
                 gui.updateDesk(this.desk);
                 //this.desk.printSimpleBoard();
 
-                if(currentPlayerAIHumanSettings == "AI"){//AI
+                //ulozeny tah
+                if(this.loadedTurns != null && this.loadedTurns.size() > 0){
+
+                    Turn loadedTurn = new Turn(this.loadedTurns.firstElement());
+                    System.out.println("Hra: nacteny tah:\n" + loadedTurn.getTurnString());
+                    if(Moves.isTurnValid(loadedTurn, desk)){
+                        System.out.println("Hra: Nacteny tah je validni, provadim...");
+
+                        if(Check.isMustTake(desk, this.playerColor)){//Take
+                            System.out.println("Hra: nacteny tah - " + Output.getPlayerColorString(this.playerColor) + ", take() vraci:" + Moves.Take(desk, loadedTurn));
+
+                        if(this.playerColor == 'W'){
+                            wtake = true;
+                        }else if(this.playerColor == 'B'){
+                            btake = true;
+                        }else{
+                            System.out.println("Hra: nactena hra - neco je spatne s barvami hracu!");
+                        }
+
+                        }else{//Move
+                            System.out.println("Hra: nacteny tah - " + Output.getPlayerColorString(this.playerColor) + ", MOVE() vraci:" + Moves.Move(desk, loadedTurn));
+
+                            if(this.playerColor == 'W'){
+                                wtake = false;
+                            }else if(this.playerColor == 'B'){
+                                btake = false;
+                            }else{
+                                System.out.println("Hra: nactena hra - neco je spatne s barvami hracu!");
+                            }
+                        }
+
+                        this.turn = new Turn(loadedTurn);
+                        this.loadedTurns.remove(0);
+                        desk.clearMustTakeFlag();
+
+                    }else{
+                        System.out.println("Hra: Nacteny tah NENI validni!");
+                        return;//TODO hlaska v gui
+                    }
+                }else if(currentPlayerAIHumanSettings == "AI"){//AI
 
                     System.out.println("Hra: it's "+ Output.getPlayerColorString(this.playerColor)+ " AI turn!");
 
@@ -282,7 +317,7 @@ public class Dama extends Thread{
 
     /**
      * Kontrola jestli se GUI zavrelo
-     * @param isGUIvisible gui.isVisible;
+     * @param isGUIvisible gui.isVisible;//TODO zmena
      */
     private void checkGUIShutdown(InternalFrameDemo gui){
 
@@ -309,8 +344,28 @@ public class Dama extends Thread{
 
         // projekt:
         // TODO javadoc
+        // TODO k try-catch blokum dat do catch osetreni,zotaveni z chyb
 
         Dama.startingGameThread();
+
+        Vector<Turn> lt = new Vector<Turn>();
+        Position o = new Position(2, 2);
+        Position d = new Position(3, 1);
+        Turn t = new Turn('W', o, d);
+        System.out.println(t.getTurnString());
+        lt.add(t);
+
+        String whiteStr = "Human";
+        String blackStr = "Human";
+        int aiWait = 300;
+        Settings settings = new Settings(whiteStr, blackStr, null, null, 0, aiWait);
+
+        Dama.setLoadedTurns(lt);
+        Dama.setSettings(settings);
+
+        try {Thread.sleep(300);} catch (InterruptedException e) {e.printStackTrace();}
+
+        Dama.wakeUpGameThread();
 
     }
 
@@ -520,7 +575,7 @@ public class Dama extends Thread{
 
     public static boolean setLoadedTurns(Vector<Turn> loadedTurns){
 
-        System.out.println("setTurn: ukladam nactene tahy tah...");
+        System.out.println("setTurn: ukladam nactene tahy do vlakna hry...");
 
         if(dama != null){
             synchronized (dama){

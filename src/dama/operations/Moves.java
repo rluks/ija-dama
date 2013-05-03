@@ -103,7 +103,8 @@ public class Moves
      */
     public static boolean Move(Desk desk, Turn turn_p)
     {
-        Turn turn=new Turn(turn_p.playerColor, turn_p.origin, turn_p.destination);
+        //Turn turn=new Turn(turn_p.playerColor, turn_p.origin, turn_p.destination);
+        Turn turn = new Turn(turn_p);
         Position origin = new Position(turn.origin.row, turn.origin.col) ;
         Position dest = new Position(turn.destination.row, turn.destination.col)  ;
 
