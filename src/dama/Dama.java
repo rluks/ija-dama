@@ -6,6 +6,7 @@ import java.util.Vector;
 
 import gui.InternalFrameDemo;
 
+import dama.io.Output;
 import dama.io.Turn;
 import dama.operations.AI;
 import dama.operations.Check;
@@ -30,7 +31,7 @@ public class Dama extends Thread{
     //vlakno hry
     public Settings settings;
 
-    public Vector<Turn> ouputTurns;    //sem hra uklada proveden tahy
+    public Vector<Turn> ouputTurns;    //sem hra uklada provedene tahy - pouzije se v pripade ulozeni hry
     public Vector<Turn> loadedTurns;//zde jsou ulozeny tahy v pripade nacteni hry
 
     public Turn turn;
@@ -102,6 +103,7 @@ public class Dama extends Thread{
             System.out.println(this.settings.getXML());
 
             Position pEmpty = new Position(-1, -1);
+            this.ouputTurns = new Vector<Turn>();
 
             //smycka vlastni hry
             while(true){
@@ -138,7 +140,7 @@ public class Dama extends Thread{
                 //vykresleni desky
                 Check.isMustTake(desk, this.playerColor);
                 gui.updateDesk(this.desk);
-                this.desk.printSimpleBoard();
+                //this.desk.printSimpleBoard();
 
                 if(currentPlayerAIHumanSettings == "AI"){//AI
 
@@ -199,7 +201,7 @@ public class Dama extends Thread{
 
                 //vykresleni desky
                 gui.updateDesk(this.desk);
-                this.desk.printSimpleBoard();
+                //this.desk.printSimpleBoard();
 
                 //cisteni
                 gui.clearAura();
@@ -212,6 +214,15 @@ public class Dama extends Thread{
                     this.bturn = this.turn;
                 }else{
                     System.out.println("Hra: neco je spatne s barvami hracu!");
+                }
+
+                this.ouputTurns.addElement(new Turn(this.turn));
+                //this.ouputTurns.addElement(new Turn(Dama.turnInput));
+                try {
+                    Output.printTurnVector(ouputTurns);
+                } catch (Exception e1) {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
                 }
 
                 boolean victory = Check.isVictory(desk);
