@@ -83,7 +83,7 @@ public class Dama extends Thread{
     public void run(){
 
 
-        XmlToVector("C:\\Users\\HAL\\workspace\\ija-dama\\turnvector.xml");
+        XmlToVector("C:\\Users\\HAL\\workspace\\ija-dama\\turnvector.xml", loadedTurns);
 
 
 
