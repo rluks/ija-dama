@@ -1,0 +1,10 @@
+<settings>
+	<white>Human</white>
+	<black>Human</black>
+	<AI>0</AI>
+	<P2P enabled="yes">
+		<local>White</local>
+		<remoteIP>localhost</remoteIP>
+		<remotePort>55555</remotePort>
+	</P2P>
+</settings>
