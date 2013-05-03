@@ -18,11 +18,11 @@ public class LoadGame extends JInternalFrame
     private JButton BtBrowse;
     //private JButton BtOk;
 
-    public LoadGame()
+    public LoadGame(String nazevOkna)
     {
 
 
-            super("New Game Settings #" ,
+            super("" ,
                   true, //resizable
                   true, //closable
                   false, //maximizable
@@ -31,6 +31,7 @@ public class LoadGame extends JInternalFrame
             System.out.println("\t\tKonstruktor LG");
 
            this.setSize(400,120);
+           this.title=nazevOkna;
 
         getContentPane().setLayout(null);
 

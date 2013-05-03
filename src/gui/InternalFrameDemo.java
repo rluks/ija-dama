@@ -414,12 +414,16 @@ public class InternalFrameDemo extends JFrame
         }else if ("loadgame".equals(e.getActionCommand()))
         {
             System.out.println("LoadGame");
-            createLoadGameFrame();
+            createLoadGameFrame("Load game");
             System.out.println("/LoadGame");
             //this.inFrLoadGame=new LoadGame();
 
-        }else if ("Save game".equals(e.getActionCommand())){
-            System.out.println("Neimplementovano");
+        }else if ("save".equals(e.getActionCommand()))
+        {
+            System.out.println("Save game");
+            createLoadGameFrame("Save game");
+            System.out.println("/Save game");
+
         }else if ("Player".equals(e.getActionCommand())){
             System.out.println("Neimplementovano");
         }else if ("About".equals(e.getActionCommand())){
@@ -430,8 +434,18 @@ public class InternalFrameDemo extends JFrame
             startgame();
         }else if ("startP2Pgame".equals(e.getActionCommand())){
             startP2Pgame();
-        }else{
-            System.out.println("Neznama akce");
+        }
+        else if ("loadgamebutton".equals(e.getActionCommand()))
+        {
+            System.out.println("Tlacitko load!");
+            String cesta=inFrLoadGame.GetPath();
+            System.out.println("Cesta: \"" + cesta + "\"");
+            inFrLoadGame.dispose();
+            Dama.XmlToVector(cesta);
+            
+        }
+        else{
+            System.out.println("Neznama akce: " + e.getActionCommand());
         }
     }
 
@@ -458,11 +472,11 @@ public class InternalFrameDemo extends JFrame
     }
 
 
-    protected void createLoadGameFrame()
+    protected void createLoadGameFrame(String nazevOkna)
     {
         System.out.println("\tcreate LG");
 
-        this.inFrLoadGame=new LoadGame();
+        this.inFrLoadGame=new LoadGame(nazevOkna);
         desktop.setLayer(inFrLoadGame, 5);
         inFrLoadGame.setLocation(100, 100);
         inFrLoadGame.setVisible(true);
@@ -471,7 +485,8 @@ public class InternalFrameDemo extends JFrame
         btnLoadgame.setBounds(294, 39, 80, 20);
 
         inFrLoadGame.getContentPane().add(btnLoadgame);
-        btnLoadgame.setActionCommand("_LG_");
+        if (nazevOkna=="Load game") btnLoadgame.setActionCommand("loadgamebutton");
+        else btnLoadgame.setActionCommand("savegamebutton");
         btnLoadgame.addActionListener(this);
 
         desktop.add(inFrLoadGame);
