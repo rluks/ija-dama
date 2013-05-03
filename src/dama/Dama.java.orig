@@ -81,17 +81,20 @@ public class Dama extends Thread{
 
     public void run(){
 
-
-        /*
+        System.out.println("====================================================");
+        System.out.println("====================================================");
+        System.out.println("====================================================");
         if (!XmlToVector("C:\\Users\\HAL\\workspace\\ija-dama\\turnvector.xml"))
             System.out.println("\n\nXML to vector se posralo!!!\n");
-<<<<<<< HEAD
         else System.out.println("\n\nXML to vector DOBRY!!!\n");
+<<<<<<< HEAD
+        System.out.println("=======================KONEC=====================");
+        System.out.println("=======================KONEC========================");
+        System.out.println("=======================KONEC========================");
 
 =======
-         */
->>>>>>> d13c901a8587861dc5ef718a218b8c4c8cd84ef3
-
+    */
+>>>>>>> 015c51102345588224cab92fff6895dee0851308
 
 
 
@@ -172,6 +175,7 @@ public class Dama extends Thread{
                 if(this.loadedTurns != null && this.loadedTurns.size() > 0){
 
                     Turn loadedTurn = new Turn(this.loadedTurns.firstElement());
+                    this.turn = loadedTurn;
                     System.out.println("Hra: nacteny tah:\n" + loadedTurn.getTurnString());
                     if(Moves.isTurnValid(loadedTurn, desk)){
                         System.out.println("Hra: Nacteny tah je validni, provadim...");
@@ -268,6 +272,11 @@ public class Dama extends Thread{
                 gui.updateDesk(this.desk);
                 //this.desk.printSimpleBoard();
 
+                if(this.playerColor != this.turn.playerColor){
+                    System.out.println("Hra: barva hrace v tahu a v this.playerColor si neodpovida!");
+                    return;
+                }
+
                 //cisteni
                 gui.clearAura();
                 gui.clearHelp();
@@ -353,24 +362,49 @@ public class Dama extends Thread{
 
         Dama.startingGameThread();
 
+        /*
+
         Vector<Turn> lt = new Vector<Turn>();
-        Position o = new Position(2, 2);
-        Position d = new Position(3, 1);
+        Position o = Position.positionStrToPositionLowerCase("c3");
+        Position d = Position.positionStrToPositionLowerCase("b4");
         Turn t = new Turn('W', o, d);
         System.out.println(t.getTurnString());
         lt.add(t);
+
+        o = Position.positionStrToPositionLowerCase("b6");
+        d = Position.positionStrToPositionLowerCase("c5");
+        t = new Turn('B', o, d);
+        System.out.println(t.getTurnString());
+        lt.add(t);
+
+        o = Position.positionStrToPositionLowerCase("b4");
+        d = Position.positionStrToPositionLowerCase("a5");
+        t = new Turn('W', o, d);
+        System.out.println(t.getTurnString());
+        lt.add(t);
+
+        */
+
+
+        if(Dama.XmlToVector("C:\\eclipseworkspace\\ija-dama-2013\\turnvector.xml")){
+            System.out.println("Turns nastaveny!");
+        }else{
+            System.out.println("Turns FAIL!");
+            return;
+        }
 
         String whiteStr = "Human";
         String blackStr = "Human";
         int aiWait = 300;
         Settings settings = new Settings(whiteStr, blackStr, null, null, 0, aiWait);
 
-        Dama.setLoadedTurns(lt);
+        //Dama.setLoadedTurns(lt);
         Dama.setSettings(settings);
 
         try {Thread.sleep(300);} catch (InterruptedException e) {e.printStackTrace();}
 
         Dama.wakeUpGameThread();
+
 
     }
 
@@ -625,9 +659,9 @@ public class Dama extends Thread{
         }
     }
 
-    /**	Fce pro prevod XML souboru na interni reprezentaci tahu
-     * @param cesta 	string s cestou k souboru
-     * @return 			vraci true pokud je xml validni a podarilo se jej konvertovat na vektor tahu a ulozit
+    /**    Fce pro prevod XML souboru na interni reprezentaci tahu
+     * @param cesta     string s cestou k souboru
+     * @return             vraci true pokud je xml validni a podarilo se jej konvertovat na vektor tahu a ulozit
      */
     public static boolean XmlToVector (String cesta)
     {
@@ -641,16 +675,58 @@ public class Dama extends Thread{
             Document doc = dBuilder.parse(fXmlFile);
             doc.getDocumentElement().normalize();
 
-            System.out.println("Root element :" + doc.getDocumentElement().getNodeName());
-            NodeList nList = doc.getElementsByTagName("turn");
-            System.out.println("----------------------------");
+            //promenny pro setting
+            String w;
+            String b;
+            String ais;
+            String p2pEn;
+            String p2pLoc;
+            String p2pRemIp;
+            String p2pRemP;
 
+            /// nacteni settings
+            NodeList nSettings = doc.getElementsByTagName("settings");
+            if (nSettings.getLength()!=1)
+            {
+                System.out.println("!!setings nenalezeny!!");
+                return false;
+            }
+            Node nNodeS = nSettings.item(0);
+            if (nNodeS.getNodeType() == Node.ELEMENT_NODE)
+            {
+                Element eElementS = (Element) nNodeS;
+                w=eElementS.getElementsByTagName("white").item(0).getTextContent();
+                b=eElementS.getElementsByTagName("black").item(0).getTextContent();
+                ais=eElementS.getElementsByTagName("AI").item(0).getTextContent();
+                System.out.println("Bily: " + w +"; cerny: " + b + "; ai speed: " + ais);
+            }
+
+            NodeList nSettingsP = doc.getElementsByTagName("P2P");
+            if (nSettingsP.getLength()!=1)
+            {
+                System.out.println("!!setings P2P nenalezeny!!");
+                return false;
+            }
+            Node nNodeSP = nSettingsP.item(0);
+            if (nNodeSP.getNodeType() == Node.ELEMENT_NODE)
+            {
+                Element eElementSP = (Element) nNodeSP;
+                p2pEn=eElementSP.getAttribute("enable");
+                p2pLoc=eElementSP.getElementsByTagName("local").item(0).getTextContent();
+                p2pRemIp=eElementSP.getElementsByTagName("remoteIP").item(0).getTextContent();
+                p2pRemP=eElementSP.getElementsByTagName("remotePort").item(0).getTextContent();
+                System.out.println("P2P enable:" + p2pEn + "; local: " + p2pLoc + "; remIP: " + p2pRemIp + "; remPort: " + p2pRemP);
+            }
+
+
+
+
+            /// nacteni jednotlivych tahu
+            NodeList nList = doc.getElementsByTagName("turn");
             char natahu = 'W';
             for (int temp = 0; temp < nList.getLength(); temp++)
             {
                 Node nNode = nList.item(temp);
-                System.out.println("\nCurrent Element :" + nNode.getNodeName());
-
                 if (nNode.getNodeType() == Node.ELEMENT_NODE)
                 {
                     Element eElement = (Element) nNode;
@@ -703,17 +779,16 @@ public class Dama extends Thread{
 
                     TurnVector.add(turn);
 
-
+                    /*
                     System.out.println("Hrac : " + p);
                     System.out.println("Origin: " + o_r + ":" + o_c);
                     System.out.println("Destination: " + d_r + ":" + d_c);
                     System.out.println("-----------------------------------");
-
-
+                    */
                 }
 
             }
-            System.out.println("===============================================");
+            //System.out.println("===============================================");
         }
         catch (Exception e)
         {
@@ -722,7 +797,7 @@ public class Dama extends Thread{
             return false;
         }
 
-        if (setLoadedTurns(TurnVector))return true;
+        if (Dama.setLoadedTurns(TurnVector))return true;
         return false;
     }
 
