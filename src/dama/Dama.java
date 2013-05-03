@@ -232,13 +232,6 @@ public class Dama extends Thread{
 
                 this.ouputTurns.addElement(new Turn(this.turn));
 
-                try {
-                    Output.printTurnVector(ouputTurns);
-                } catch (Exception e1) {
-                    // TODO Auto-generated catch block
-                    e1.printStackTrace();
-                }
-
                 boolean victory = Check.isVictory(desk);
 
                 //tisk notace
@@ -254,6 +247,12 @@ public class Dama extends Thread{
                 //ukonceni hry pri vitezstvi
                 if(victory){
                     System.out.println("Hra: Konec hry, dalsi hrac uz nehraje.");
+                    try {
+                        Output.printTurnVector(ouputTurns);
+                    } catch (Exception e1) {
+                        // TODO Auto-generated catch block
+                        e1.printStackTrace();
+                    }
                     //Dama.stopGameThread();
                     gui.setInfoText("!!! Victory !!!");
                     try {Thread.sleep(2000);} catch (InterruptedException e) {e.printStackTrace();}

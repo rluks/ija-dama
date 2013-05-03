@@ -26,6 +26,10 @@ public class Output {
      {
          tmp = turnVector.get(i);
 
+         System.out.println(tmp.getTurnString());
+
+         turn = "";
+
          turn += "\t\t<turn player_color=\"";turn += tmp.playerColor;turn += "\">\n";
 
          turn += "\t\t\t<origin_row>";turn += tmp.origin.row;turn += "</origin_row>\n";
