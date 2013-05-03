@@ -180,12 +180,12 @@ public class InternalFrameDemo extends JFrame
         //texty s informacemi
         lblInfo = new JLabel("Not playing.");
         desktop.setLayer(lblInfo, 1);
-        lblInfo.setBounds(470, 10, 295, 30);
+        lblInfo.setBounds(107, 10, 295, 30);
         desktop.add(lblInfo);
 
         //napoveda
         this.LNapoveda = new JLabel("No help requested...");
-        this.LNapoveda.setBounds(40, 15, 336, 20);
+        this.LNapoveda.setBounds(541, 15, 194, 20);
         desktop.add(LNapoveda);
 
         this.BNapoveda = new JButton("Help!");
@@ -211,7 +211,7 @@ public class InternalFrameDemo extends JFrame
                 }
             }
         });
-        this.BNapoveda.setBounds(390, 15, 70, 20);
+        this.BNapoveda.setBounds(461, 15, 70, 20);
         this.BNapoveda.setEnabled(false);
         desktop.add(this.BNapoveda);
 
