@@ -118,6 +118,12 @@ public class Dama extends Thread{
                 gameSetAndRuning = true;
                 System.out.println("Hra: bezi s timto nastavenim: " + this.settings.getSettingsString());
 
+                if(this.loadedTurns != null){
+                    if(this.loadedTurns.size() > 0){
+                        System.out.println("Hra: V loadedTurns zbyva " + this.loadedTurns.size() + " tahu");
+                    }
+                }
+
                 //vypinaci cast
                 checkGUIShutdown(gui);
                 if(allDone){System.out.println("Hra: Dama terminated, allDone!!");return;}
@@ -141,8 +147,8 @@ public class Dama extends Thread{
                 String currentPlayerAIHumanSettings = getAIorHumanSettingsForCurrentPlayerColor(this.playerColor);
 
                 //tisk informaci
-                System.out.println("Hra: "+ Dama.getPlayerColorString(this.playerColor)+ " will play!");
-                String infoText = (currentPlayerAIHumanSettings == "AI")? "Hra: it's "+ Dama.getPlayerColorString(this.playerColor)+ " AI turn!" : "Hra: it's "+ Dama.getPlayerColorString(this.playerColor)+ "players turn!";
+                System.out.println("Hra: "+ Output.getPlayerColorString(this.playerColor)+ " will play!");
+                String infoText = (currentPlayerAIHumanSettings == "AI")? "Hra: it's "+ Output.getPlayerColorString(this.playerColor)+ " AI turn!" : "Hra: it's "+ Output.getPlayerColorString(this.playerColor)+ "players turn!";
                 gui.setInfoText(infoText);
 
                 //vykresleni desky
@@ -152,7 +158,7 @@ public class Dama extends Thread{
 
                 if(currentPlayerAIHumanSettings == "AI"){//AI
 
-                    System.out.println("Hra: it's "+ Dama.getPlayerColorString(this.playerColor)+ " AI turn!");
+                    System.out.println("Hra: it's "+ Output.getPlayerColorString(this.playerColor)+ " AI turn!");
 
                     try {Thread.sleep(this.settings.aiWait);} catch (InterruptedException e) {e.printStackTrace();}
 
@@ -177,10 +183,10 @@ public class Dama extends Thread{
                     if(allDone){System.out.println("Hra: Dama terminated, allDone!!");return;}
 
                     //zpracovani tahu
-                    System.out.println("Hra: " + Dama.getPlayerColorString(this.playerColor) + " is playing...");
+                    System.out.println("Hra: " + Output.getPlayerColorString(this.playerColor) + " is playing...");
                     if(Check.isMustTake(desk, this.playerColor)){//Take
                         System.out.println("================================BRANI=============================");
-                        System.out.println("Hra: tah " + Dama.getPlayerColorString(this.playerColor) + ", take() vraci:" + Moves.Take(desk, turn));
+                        System.out.println("Hra: tah " + Output.getPlayerColorString(this.playerColor) + ", take() vraci:" + Moves.Take(desk, turn));
 
                         if(this.playerColor == 'W'){
                             wtake = true;
@@ -191,7 +197,7 @@ public class Dama extends Thread{
                         }
 
                     }else{//Move
-                        System.out.println("Hra: tah " + Dama.getPlayerColorString(this.playerColor) + ", MOVE() vraci:" + Moves.Move(desk, turn));
+                        System.out.println("Hra: tah " + Output.getPlayerColorString(this.playerColor) + ", MOVE() vraci:" + Moves.Move(desk, turn));
 
                         if(this.playerColor == 'W'){
                             wtake = false;
@@ -225,7 +231,7 @@ public class Dama extends Thread{
                 }
 
                 this.ouputTurns.addElement(new Turn(this.turn));
-                //this.ouputTurns.addElement(new Turn(Dama.turnInput));
+
                 try {
                     Output.printTurnVector(ouputTurns);
                 } catch (Exception e1) {
@@ -247,7 +253,7 @@ public class Dama extends Thread{
 
                 //ukonceni hry pri vitezstvi
                 if(victory){
-                    System.out.println("Konec hry, dalsi hrac uz nehraje.");
+                    System.out.println("Hra: Konec hry, dalsi hrac uz nehraje.");
                     //Dama.stopGameThread();
                     gui.setInfoText("!!! Victory !!!");
                     try {Thread.sleep(2000);} catch (InterruptedException e) {e.printStackTrace();}
@@ -547,10 +553,6 @@ public class Dama extends Thread{
         synchronized (dama){
             return dama.playerColor;
         }
-    }
-
-    public static String getPlayerColorString(char playerColor){
-        return (playerColor == 'W') ? "white" : "black";
     }
 
     public static boolean XmlToVector (String cesta)

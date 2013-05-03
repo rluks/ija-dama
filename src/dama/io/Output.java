@@ -49,4 +49,8 @@ public class Output {
 
     }
 
+    public static String getPlayerColorString(char playerColor){
+        return (playerColor == 'W') ? "white" : "black";
+    }
+
 }
