@@ -1,4 +1,3 @@
-<DamaPyco>
 	<Turns>
 		<turn player_color="W">
 			<origin_row>2</origin_row>
@@ -6,6 +5,12 @@
 			<destination_row>3</destination_row>
 			<destination_col>1</destination_col>
 		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>0</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>1</destination_col>
+		</turn>
 		<turn player_color="B">
 			<origin_row>5</origin_row>
 			<origin_col>1</origin_col>
@@ -2599,6 +2604,372 @@
 			<destination_col>4</destination_col>
 		</turn>
 		<turn player_color="W">
+			<origin_row>0</origin_row>
+			<origin_col>6</origin_col>
+			<destination_row>1</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>0</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>1</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>2</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>1</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>2</destination_row>
+			<destination_col>0</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>4</origin_row>
+			<origin_col>2</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>3</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>2</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>4</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>3</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>4</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>6</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>5</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>7</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>0</origin_row>
+			<origin_col>0</origin_col>
+			<destination_row>1</destination_row>
+			<destination_col>1</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>7</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>6</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>1</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>2</destination_row>
+			<destination_col>2</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>4</origin_row>
+			<origin_col>6</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>6</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>4</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>3</origin_row>
+			<origin_col>7</origin_col>
+			<destination_row>2</destination_row>
+			<destination_col>6</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>1</origin_row>
+			<origin_col>5</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>7</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>6</origin_row>
+			<origin_col>0</origin_col>
+			<destination_row>5</destination_row>
+			<destination_col>1</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>0</origin_row>
+			<origin_col>2</origin_col>
+			<destination_row>1</destination_row>
+			<destination_col>1</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>2</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>3</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>5</destination_row>
+			<destination_col>3</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>6</origin_row>
+			<origin_col>4</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>2</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>0</origin_row>
+			<origin_col>4</origin_col>
+			<destination_row>1</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>4</origin_row>
+			<origin_col>2</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>3</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>1</origin_row>
+			<origin_col>3</origin_col>
+			<destination_row>2</destination_row>
+			<destination_col>4</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>6</origin_row>
+			<origin_col>2</origin_col>
+			<destination_row>5</destination_row>
+			<destination_col>3</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>4</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>2</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>3</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>1</origin_row>
+			<origin_col>5</origin_col>
+			<destination_row>2</destination_row>
+			<destination_col>6</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>3</origin_row>
+			<origin_col>5</origin_col>
+			<destination_row>2</destination_row>
+			<destination_col>4</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>0</origin_row>
+			<origin_col>6</origin_col>
+			<destination_row>1</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>2</origin_row>
+			<origin_col>4</origin_col>
+			<destination_row>0</destination_row>
+			<destination_col>6</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>0</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>1</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>2</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>1</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>2</destination_row>
+			<destination_col>0</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>4</origin_row>
+			<origin_col>2</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>3</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>2</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>4</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>3</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>4</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>6</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>5</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>7</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>0</origin_row>
+			<origin_col>0</origin_col>
+			<destination_row>1</destination_row>
+			<destination_col>1</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>7</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>6</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>1</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>2</destination_row>
+			<destination_col>2</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>4</origin_row>
+			<origin_col>6</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>6</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>4</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>3</origin_row>
+			<origin_col>7</origin_col>
+			<destination_row>2</destination_row>
+			<destination_col>6</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>1</origin_row>
+			<origin_col>5</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>7</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>6</origin_row>
+			<origin_col>0</origin_col>
+			<destination_row>5</destination_row>
+			<destination_col>1</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>0</origin_row>
+			<origin_col>2</origin_col>
+			<destination_row>1</destination_row>
+			<destination_col>1</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>2</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>3</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>5</destination_row>
+			<destination_col>3</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>6</origin_row>
+			<origin_col>4</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>2</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>0</origin_row>
+			<origin_col>4</origin_col>
+			<destination_row>1</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>4</origin_row>
+			<origin_col>2</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>3</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>1</origin_row>
+			<origin_col>3</origin_col>
+			<destination_row>2</destination_row>
+			<destination_col>4</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>6</origin_row>
+			<origin_col>2</origin_col>
+			<destination_row>5</destination_row>
+			<destination_col>3</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>4</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>2</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>3</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>1</origin_row>
+			<origin_col>5</origin_col>
+			<destination_row>2</destination_row>
+			<destination_col>6</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>3</origin_row>
+			<origin_col>5</origin_col>
+			<destination_row>2</destination_row>
+			<destination_col>4</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>0</origin_row>
+			<origin_col>6</origin_col>
+			<destination_row>1</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>2</origin_row>
+			<origin_col>4</origin_col>
+			<destination_row>0</destination_row>
+			<destination_col>6</destination_col>
+		</turn>
+		<turn player_color="W">
 			<origin_row>2</origin_row>
 			<origin_col>0</origin_col>
 			<destination_row>3</destination_row>
@@ -2773,16 +3144,28 @@
 			<destination_col>4</destination_col>
 		</turn>
 		<turn player_color="W">
+			<origin_row>0</origin_row>
+			<origin_col>6</origin_col>
+			<destination_row>1</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>2</origin_row>
+			<origin_col>4</origin_col>
+			<destination_row>0</destination_row>
+			<destination_col>6</destination_col>
+		</turn>
+		<turn player_color="W">
 			<origin_row>2</origin_row>
 			<origin_col>0</origin_col>
 			<destination_row>3</destination_row>
 			<destination_col>1</destination_col>
 		</turn>
 		<turn player_color="B">
-			<origin_row>2</origin_row>
-			<origin_col>4</origin_col>
-			<destination_row>1</destination_row>
-			<destination_col>5</destination_col>
+			<origin_row>0</origin_row>
+			<origin_col>6</origin_col>
+			<destination_row>5</destination_row>
+			<destination_col>1</destination_col>
 		</turn>
 		<turn player_color="W">
 			<origin_row>2</origin_row>
@@ -2953,406 +3336,28 @@
 			<destination_col>4</destination_col>
 		</turn>
 		<turn player_color="W">
-			<origin_row>2</origin_row>
-			<origin_col>0</origin_col>
-			<destination_row>3</destination_row>
-			<destination_col>1</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>2</origin_row>
-			<origin_col>4</origin_col>
-			<destination_row>1</destination_row>
-			<destination_col>5</destination_col>
-		</turn>
-		<turn player_color="W">
 			<origin_row>0</origin_row>
 			<origin_col>6</origin_col>
-			<destination_row>2</destination_row>
-			<destination_col>4</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>2</origin_row>
-			<origin_col>0</origin_col>
-			<destination_row>3</destination_row>
-			<destination_col>1</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>5</origin_row>
-			<origin_col>1</origin_col>
-			<destination_row>4</destination_row>
-			<destination_col>2</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>1</origin_row>
-			<origin_col>1</origin_col>
-			<destination_row>2</destination_row>
-			<destination_col>0</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>4</origin_row>
-			<origin_col>2</origin_col>
-			<destination_row>3</destination_row>
-			<destination_col>3</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>2</origin_row>
-			<origin_col>2</origin_col>
-			<destination_row>4</destination_row>
-			<destination_col>4</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>5</origin_row>
-			<origin_col>3</origin_col>
-			<destination_row>3</destination_row>
+			<destination_row>1</destination_row>
 			<destination_col>5</destination_col>
 		</turn>
-		<turn player_color="W">
+		<turn player_color="B">
 			<origin_row>2</origin_row>
 			<origin_col>4</origin_col>
-			<destination_row>4</destination_row>
-			<destination_col>6</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>5</origin_row>
-			<origin_col>5</origin_col>
-			<destination_row>3</destination_row>
-			<destination_col>7</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>0</origin_row>
-			<origin_col>0</origin_col>
-			<destination_row>1</destination_row>
-			<destination_col>1</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>5</origin_row>
-			<origin_col>7</origin_col>
-			<destination_row>4</destination_row>
+			<destination_row>0</destination_row>
 			<destination_col>6</destination_col>
 		</turn>
 		<turn player_color="W">
-			<origin_row>1</origin_row>
-			<origin_col>1</origin_col>
-			<destination_row>2</destination_row>
-			<destination_col>2</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>4</origin_row>
-			<origin_col>6</origin_col>
-			<destination_row>3</destination_row>
-			<destination_col>5</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>2</origin_row>
-			<origin_col>6</origin_col>
-			<destination_row>4</destination_row>
-			<destination_col>4</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>3</origin_row>
-			<origin_col>7</origin_col>
-			<destination_row>2</destination_row>
-			<destination_col>6</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>1</origin_row>
-			<origin_col>5</origin_col>
-			<destination_row>3</destination_row>
-			<destination_col>7</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>6</origin_row>
-			<origin_col>0</origin_col>
-			<destination_row>5</destination_row>
-			<destination_col>1</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>0</origin_row>
-			<origin_col>2</origin_col>
-			<destination_row>1</destination_row>
-			<destination_col>1</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>5</origin_row>
-			<origin_col>1</origin_col>
-			<destination_row>4</destination_row>
-			<destination_col>2</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>3</origin_row>
-			<origin_col>1</origin_col>
-			<destination_row>5</destination_row>
-			<destination_col>3</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>6</origin_row>
-			<origin_col>4</origin_col>
-			<destination_row>4</destination_row>
-			<destination_col>2</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>0</origin_row>
-			<origin_col>4</origin_col>
-			<destination_row>1</destination_row>
-			<destination_col>5</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>4</origin_row>
-			<origin_col>2</origin_col>
-			<destination_row>3</destination_row>
-			<destination_col>3</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>1</origin_row>
-			<origin_col>3</origin_col>
-			<destination_row>2</destination_row>
-			<destination_col>4</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>6</origin_row>
-			<origin_col>2</origin_col>
-			<destination_row>5</destination_row>
-			<destination_col>3</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>2</origin_row>
-			<origin_col>4</origin_col>
-			<destination_row>4</destination_row>
-			<destination_col>2</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>5</origin_row>
-			<origin_col>3</origin_col>
-			<destination_row>3</destination_row>
-			<destination_col>5</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>1</origin_row>
-			<origin_col>5</origin_col>
-			<destination_row>2</destination_row>
-			<destination_col>6</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>3</origin_row>
-			<origin_col>5</origin_col>
-			<destination_row>2</destination_row>
-			<destination_col>4</destination_col>
-		</turn>
-		<turn player_color="W">
 			<origin_row>2</origin_row>
 			<origin_col>0</origin_col>
 			<destination_row>3</destination_row>
 			<destination_col>1</destination_col>
 		</turn>
 		<turn player_color="B">
-			<origin_row>2</origin_row>
-			<origin_col>4</origin_col>
-			<destination_row>1</destination_row>
-			<destination_col>5</destination_col>
-		</turn>
-		<turn player_color="W">
 			<origin_row>0</origin_row>
 			<origin_col>6</origin_col>
-			<destination_row>2</destination_row>
-			<destination_col>4</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>6</origin_row>
-			<origin_col>6</origin_col>
-			<destination_row>5</destination_row>
-			<destination_col>7</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>2</origin_row>
-			<origin_col>0</origin_col>
-			<destination_row>3</destination_row>
-			<destination_col>1</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>5</origin_row>
-			<origin_col>1</origin_col>
-			<destination_row>4</destination_row>
-			<destination_col>2</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>1</origin_row>
-			<origin_col>1</origin_col>
-			<destination_row>2</destination_row>
-			<destination_col>0</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>4</origin_row>
-			<origin_col>2</origin_col>
-			<destination_row>3</destination_row>
-			<destination_col>3</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>2</origin_row>
-			<origin_col>2</origin_col>
-			<destination_row>4</destination_row>
-			<destination_col>4</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>5</origin_row>
-			<origin_col>3</origin_col>
-			<destination_row>3</destination_row>
-			<destination_col>5</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>2</origin_row>
-			<origin_col>4</origin_col>
-			<destination_row>4</destination_row>
-			<destination_col>6</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>5</origin_row>
-			<origin_col>5</origin_col>
-			<destination_row>3</destination_row>
-			<destination_col>7</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>0</origin_row>
-			<origin_col>0</origin_col>
-			<destination_row>1</destination_row>
-			<destination_col>1</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>5</origin_row>
-			<origin_col>7</origin_col>
-			<destination_row>4</destination_row>
-			<destination_col>6</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>1</origin_row>
-			<origin_col>1</origin_col>
-			<destination_row>2</destination_row>
-			<destination_col>2</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>4</origin_row>
-			<origin_col>6</origin_col>
-			<destination_row>3</destination_row>
-			<destination_col>5</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>2</origin_row>
-			<origin_col>6</origin_col>
-			<destination_row>4</destination_row>
-			<destination_col>4</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>3</origin_row>
-			<origin_col>7</origin_col>
-			<destination_row>2</destination_row>
-			<destination_col>6</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>1</origin_row>
-			<origin_col>5</origin_col>
-			<destination_row>3</destination_row>
-			<destination_col>7</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>6</origin_row>
-			<origin_col>0</origin_col>
 			<destination_row>5</destination_row>
 			<destination_col>1</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>0</origin_row>
-			<origin_col>2</origin_col>
-			<destination_row>1</destination_row>
-			<destination_col>1</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>5</origin_row>
-			<origin_col>1</origin_col>
-			<destination_row>4</destination_row>
-			<destination_col>2</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>3</origin_row>
-			<origin_col>1</origin_col>
-			<destination_row>5</destination_row>
-			<destination_col>3</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>6</origin_row>
-			<origin_col>4</origin_col>
-			<destination_row>4</destination_row>
-			<destination_col>2</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>0</origin_row>
-			<origin_col>4</origin_col>
-			<destination_row>1</destination_row>
-			<destination_col>5</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>4</origin_row>
-			<origin_col>2</origin_col>
-			<destination_row>3</destination_row>
-			<destination_col>3</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>1</origin_row>
-			<origin_col>3</origin_col>
-			<destination_row>2</destination_row>
-			<destination_col>4</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>6</origin_row>
-			<origin_col>2</origin_col>
-			<destination_row>5</destination_row>
-			<destination_col>3</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>2</origin_row>
-			<origin_col>4</origin_col>
-			<destination_row>4</destination_row>
-			<destination_col>2</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>5</origin_row>
-			<origin_col>3</origin_col>
-			<destination_row>3</destination_row>
-			<destination_col>5</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>1</origin_row>
-			<origin_col>5</origin_col>
-			<destination_row>2</destination_row>
-			<destination_col>6</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>3</origin_row>
-			<origin_col>5</origin_col>
-			<destination_row>2</destination_row>
-			<destination_col>4</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>2</origin_row>
-			<origin_col>0</origin_col>
-			<destination_row>3</destination_row>
-			<destination_col>1</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>2</origin_row>
-			<origin_col>4</origin_col>
-			<destination_row>1</destination_row>
-			<destination_col>5</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>0</origin_row>
-			<origin_col>6</origin_col>
-			<destination_row>2</destination_row>
-			<destination_col>4</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>6</origin_row>
-			<origin_col>6</origin_col>
-			<destination_row>5</destination_row>
-			<destination_col>7</destination_col>
 		</turn>
 		<turn player_color="W">
 			<origin_row>1</origin_row>
@@ -3529,28 +3534,28 @@
 			<destination_col>4</destination_col>
 		</turn>
 		<turn player_color="W">
+			<origin_row>0</origin_row>
+			<origin_col>6</origin_col>
+			<destination_row>1</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>2</origin_row>
+			<origin_col>4</origin_col>
+			<destination_row>0</destination_row>
+			<destination_col>6</destination_col>
+		</turn>
+		<turn player_color="W">
 			<origin_row>2</origin_row>
 			<origin_col>0</origin_col>
 			<destination_row>3</destination_row>
 			<destination_col>1</destination_col>
 		</turn>
 		<turn player_color="B">
-			<origin_row>2</origin_row>
-			<origin_col>4</origin_col>
-			<destination_row>1</destination_row>
-			<destination_col>5</destination_col>
-		</turn>
-		<turn player_color="W">
 			<origin_row>0</origin_row>
 			<origin_col>6</origin_col>
-			<destination_row>2</destination_row>
-			<destination_col>4</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>6</origin_row>
-			<origin_col>6</origin_col>
 			<destination_row>5</destination_row>
-			<destination_col>7</destination_col>
+			<destination_col>1</destination_col>
 		</turn>
 		<turn player_color="W">
 			<origin_row>1</origin_row>
@@ -3560,219 +3565,9 @@
 		</turn>
 		<turn player_color="B">
 			<origin_row>5</origin_row>
-			<origin_col>7</origin_col>
-			<destination_row>4</destination_row>
-			<destination_col>6</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>2</origin_row>
-			<origin_col>0</origin_col>
-			<destination_row>3</destination_row>
-			<destination_col>1</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>5</origin_row>
 			<origin_col>1</origin_col>
-			<destination_row>4</destination_row>
+			<destination_row>6</destination_row>
 			<destination_col>2</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>1</origin_row>
-			<origin_col>1</origin_col>
-			<destination_row>2</destination_row>
-			<destination_col>0</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>4</origin_row>
-			<origin_col>2</origin_col>
-			<destination_row>3</destination_row>
-			<destination_col>3</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>2</origin_row>
-			<origin_col>2</origin_col>
-			<destination_row>4</destination_row>
-			<destination_col>4</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>5</origin_row>
-			<origin_col>3</origin_col>
-			<destination_row>3</destination_row>
-			<destination_col>5</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>2</origin_row>
-			<origin_col>4</origin_col>
-			<destination_row>4</destination_row>
-			<destination_col>6</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>5</origin_row>
-			<origin_col>5</origin_col>
-			<destination_row>3</destination_row>
-			<destination_col>7</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>0</origin_row>
-			<origin_col>0</origin_col>
-			<destination_row>1</destination_row>
-			<destination_col>1</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>5</origin_row>
-			<origin_col>7</origin_col>
-			<destination_row>4</destination_row>
-			<destination_col>6</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>1</origin_row>
-			<origin_col>1</origin_col>
-			<destination_row>2</destination_row>
-			<destination_col>2</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>4</origin_row>
-			<origin_col>6</origin_col>
-			<destination_row>3</destination_row>
-			<destination_col>5</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>2</origin_row>
-			<origin_col>6</origin_col>
-			<destination_row>4</destination_row>
-			<destination_col>4</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>3</origin_row>
-			<origin_col>7</origin_col>
-			<destination_row>2</destination_row>
-			<destination_col>6</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>1</origin_row>
-			<origin_col>5</origin_col>
-			<destination_row>3</destination_row>
-			<destination_col>7</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>6</origin_row>
-			<origin_col>0</origin_col>
-			<destination_row>5</destination_row>
-			<destination_col>1</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>0</origin_row>
-			<origin_col>2</origin_col>
-			<destination_row>1</destination_row>
-			<destination_col>1</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>5</origin_row>
-			<origin_col>1</origin_col>
-			<destination_row>4</destination_row>
-			<destination_col>2</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>3</origin_row>
-			<origin_col>1</origin_col>
-			<destination_row>5</destination_row>
-			<destination_col>3</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>6</origin_row>
-			<origin_col>4</origin_col>
-			<destination_row>4</destination_row>
-			<destination_col>2</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>0</origin_row>
-			<origin_col>4</origin_col>
-			<destination_row>1</destination_row>
-			<destination_col>5</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>4</origin_row>
-			<origin_col>2</origin_col>
-			<destination_row>3</destination_row>
-			<destination_col>3</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>1</origin_row>
-			<origin_col>3</origin_col>
-			<destination_row>2</destination_row>
-			<destination_col>4</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>6</origin_row>
-			<origin_col>2</origin_col>
-			<destination_row>5</destination_row>
-			<destination_col>3</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>2</origin_row>
-			<origin_col>4</origin_col>
-			<destination_row>4</destination_row>
-			<destination_col>2</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>5</origin_row>
-			<origin_col>3</origin_col>
-			<destination_row>3</destination_row>
-			<destination_col>5</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>1</origin_row>
-			<origin_col>5</origin_col>
-			<destination_row>2</destination_row>
-			<destination_col>6</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>3</origin_row>
-			<origin_col>5</origin_col>
-			<destination_row>2</destination_row>
-			<destination_col>4</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>2</origin_row>
-			<origin_col>0</origin_col>
-			<destination_row>3</destination_row>
-			<destination_col>1</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>2</origin_row>
-			<origin_col>4</origin_col>
-			<destination_row>1</destination_row>
-			<destination_col>5</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>0</origin_row>
-			<origin_col>6</origin_col>
-			<destination_row>2</destination_row>
-			<destination_col>4</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>6</origin_row>
-			<origin_col>6</origin_col>
-			<destination_row>5</destination_row>
-			<destination_col>7</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>1</origin_row>
-			<origin_col>1</origin_col>
-			<destination_row>2</destination_row>
-			<destination_col>0</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>5</origin_row>
-			<origin_col>7</origin_col>
-			<destination_row>4</destination_row>
-			<destination_col>6</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>3</origin_row>
-			<origin_col>7</origin_col>
-			<destination_row>5</destination_row>
-			<destination_col>5</destination_col>
 		</turn>
 		<turn player_color="W">
 			<origin_row>2</origin_row>
@@ -3943,28 +3738,28 @@
 			<destination_col>4</destination_col>
 		</turn>
 		<turn player_color="W">
+			<origin_row>0</origin_row>
+			<origin_col>6</origin_col>
+			<destination_row>1</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>2</origin_row>
+			<origin_col>4</origin_col>
+			<destination_row>0</destination_row>
+			<destination_col>6</destination_col>
+		</turn>
+		<turn player_color="W">
 			<origin_row>2</origin_row>
 			<origin_col>0</origin_col>
 			<destination_row>3</destination_row>
 			<destination_col>1</destination_col>
 		</turn>
 		<turn player_color="B">
-			<origin_row>2</origin_row>
-			<origin_col>4</origin_col>
-			<destination_row>1</destination_row>
-			<destination_col>5</destination_col>
-		</turn>
-		<turn player_color="W">
 			<origin_row>0</origin_row>
 			<origin_col>6</origin_col>
-			<destination_row>2</destination_row>
-			<destination_col>4</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>6</origin_row>
-			<origin_col>6</origin_col>
 			<destination_row>5</destination_row>
-			<destination_col>7</destination_col>
+			<destination_col>1</destination_col>
 		</turn>
 		<turn player_color="W">
 			<origin_row>1</origin_row>
@@ -3974,15 +3769,2169 @@
 		</turn>
 		<turn player_color="B">
 			<origin_row>5</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>6</destination_row>
+			<destination_col>2</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>2</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>3</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>0</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>1</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>2</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>1</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>2</destination_row>
+			<destination_col>0</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>4</origin_row>
+			<origin_col>2</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>3</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>2</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>4</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>3</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>4</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>6</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>5</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>7</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>0</origin_row>
+			<origin_col>0</origin_col>
+			<destination_row>1</destination_row>
+			<destination_col>1</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>7</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>6</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>1</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>2</destination_row>
+			<destination_col>2</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>4</origin_row>
+			<origin_col>6</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>6</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>4</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>3</origin_row>
+			<origin_col>7</origin_col>
+			<destination_row>2</destination_row>
+			<destination_col>6</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>1</origin_row>
+			<origin_col>5</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>7</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>6</origin_row>
+			<origin_col>0</origin_col>
+			<destination_row>5</destination_row>
+			<destination_col>1</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>0</origin_row>
+			<origin_col>2</origin_col>
+			<destination_row>1</destination_row>
+			<destination_col>1</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>2</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>3</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>5</destination_row>
+			<destination_col>3</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>6</origin_row>
+			<origin_col>4</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>2</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>0</origin_row>
+			<origin_col>4</origin_col>
+			<destination_row>1</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>4</origin_row>
+			<origin_col>2</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>3</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>1</origin_row>
+			<origin_col>3</origin_col>
+			<destination_row>2</destination_row>
+			<destination_col>4</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>6</origin_row>
+			<origin_col>2</origin_col>
+			<destination_row>5</destination_row>
+			<destination_col>3</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>4</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>2</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>3</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>1</origin_row>
+			<origin_col>5</origin_col>
+			<destination_row>2</destination_row>
+			<destination_col>6</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>3</origin_row>
+			<origin_col>5</origin_col>
+			<destination_row>2</destination_row>
+			<destination_col>4</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>0</origin_row>
+			<origin_col>6</origin_col>
+			<destination_row>1</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>2</origin_row>
+			<origin_col>4</origin_col>
+			<destination_row>0</destination_row>
+			<destination_col>6</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>0</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>1</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>0</origin_row>
+			<origin_col>6</origin_col>
+			<destination_row>5</destination_row>
+			<destination_col>1</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>1</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>2</destination_row>
+			<destination_col>0</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>6</destination_row>
+			<destination_col>2</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>2</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>3</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>6</origin_row>
+			<origin_col>2</origin_col>
+			<destination_row>5</destination_row>
+			<destination_col>3</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>0</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>1</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>2</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>1</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>2</destination_row>
+			<destination_col>0</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>4</origin_row>
+			<origin_col>2</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>3</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>2</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>4</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>3</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>4</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>6</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>5</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>7</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>0</origin_row>
+			<origin_col>0</origin_col>
+			<destination_row>1</destination_row>
+			<destination_col>1</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>7</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>6</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>1</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>2</destination_row>
+			<destination_col>2</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>4</origin_row>
+			<origin_col>6</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>6</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>4</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>3</origin_row>
+			<origin_col>7</origin_col>
+			<destination_row>2</destination_row>
+			<destination_col>6</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>1</origin_row>
+			<origin_col>5</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>7</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>6</origin_row>
+			<origin_col>0</origin_col>
+			<destination_row>5</destination_row>
+			<destination_col>1</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>0</origin_row>
+			<origin_col>2</origin_col>
+			<destination_row>1</destination_row>
+			<destination_col>1</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>2</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>3</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>5</destination_row>
+			<destination_col>3</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>6</origin_row>
+			<origin_col>4</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>2</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>0</origin_row>
+			<origin_col>4</origin_col>
+			<destination_row>1</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>4</origin_row>
+			<origin_col>2</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>3</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>1</origin_row>
+			<origin_col>3</origin_col>
+			<destination_row>2</destination_row>
+			<destination_col>4</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>6</origin_row>
+			<origin_col>2</origin_col>
+			<destination_row>5</destination_row>
+			<destination_col>3</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>4</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>2</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>3</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>1</origin_row>
+			<origin_col>5</origin_col>
+			<destination_row>2</destination_row>
+			<destination_col>6</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>3</origin_row>
+			<origin_col>5</origin_col>
+			<destination_row>2</destination_row>
+			<destination_col>4</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>0</origin_row>
+			<origin_col>6</origin_col>
+			<destination_row>1</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>2</origin_row>
+			<origin_col>4</origin_col>
+			<destination_row>0</destination_row>
+			<destination_col>6</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>0</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>1</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>0</origin_row>
+			<origin_col>6</origin_col>
+			<destination_row>5</destination_row>
+			<destination_col>1</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>1</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>2</destination_row>
+			<destination_col>0</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>6</destination_row>
+			<destination_col>2</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>2</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>3</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>6</origin_row>
+			<origin_col>2</origin_col>
+			<destination_row>5</destination_row>
+			<destination_col>3</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>6</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>0</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>1</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>2</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>1</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>2</destination_row>
+			<destination_col>0</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>4</origin_row>
+			<origin_col>2</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>3</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>2</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>4</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>3</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>4</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>6</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>5</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>7</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>0</origin_row>
+			<origin_col>0</origin_col>
+			<destination_row>1</destination_row>
+			<destination_col>1</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>7</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>6</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>1</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>2</destination_row>
+			<destination_col>2</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>4</origin_row>
+			<origin_col>6</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>6</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>4</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>3</origin_row>
+			<origin_col>7</origin_col>
+			<destination_row>2</destination_row>
+			<destination_col>6</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>1</origin_row>
+			<origin_col>5</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>7</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>6</origin_row>
+			<origin_col>0</origin_col>
+			<destination_row>5</destination_row>
+			<destination_col>1</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>0</origin_row>
+			<origin_col>2</origin_col>
+			<destination_row>1</destination_row>
+			<destination_col>1</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>2</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>3</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>5</destination_row>
+			<destination_col>3</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>6</origin_row>
+			<origin_col>4</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>2</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>0</origin_row>
+			<origin_col>4</origin_col>
+			<destination_row>1</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>4</origin_row>
+			<origin_col>2</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>3</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>1</origin_row>
+			<origin_col>3</origin_col>
+			<destination_row>2</destination_row>
+			<destination_col>4</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>6</origin_row>
+			<origin_col>2</origin_col>
+			<destination_row>5</destination_row>
+			<destination_col>3</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>4</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>2</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>3</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>1</origin_row>
+			<origin_col>5</origin_col>
+			<destination_row>2</destination_row>
+			<destination_col>6</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>3</origin_row>
+			<origin_col>5</origin_col>
+			<destination_row>2</destination_row>
+			<destination_col>4</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>0</origin_row>
+			<origin_col>6</origin_col>
+			<destination_row>1</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>2</origin_row>
+			<origin_col>4</origin_col>
+			<destination_row>0</destination_row>
+			<destination_col>6</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>0</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>1</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>0</origin_row>
+			<origin_col>6</origin_col>
+			<destination_row>5</destination_row>
+			<destination_col>1</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>1</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>2</destination_row>
+			<destination_col>0</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>6</destination_row>
+			<destination_col>2</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>2</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>3</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>6</origin_row>
+			<origin_col>2</origin_col>
+			<destination_row>5</destination_row>
+			<destination_col>3</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>6</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>3</origin_col>
+			<destination_row>2</destination_row>
+			<destination_col>6</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>0</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>1</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>2</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>1</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>2</destination_row>
+			<destination_col>0</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>4</origin_row>
+			<origin_col>2</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>3</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>2</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>4</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>3</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>4</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>6</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>5</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>7</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>0</origin_row>
+			<origin_col>0</origin_col>
+			<destination_row>1</destination_row>
+			<destination_col>1</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>7</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>6</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>1</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>2</destination_row>
+			<destination_col>2</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>4</origin_row>
+			<origin_col>6</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>6</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>4</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>3</origin_row>
+			<origin_col>7</origin_col>
+			<destination_row>2</destination_row>
+			<destination_col>6</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>1</origin_row>
+			<origin_col>5</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>7</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>6</origin_row>
+			<origin_col>0</origin_col>
+			<destination_row>5</destination_row>
+			<destination_col>1</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>0</origin_row>
+			<origin_col>2</origin_col>
+			<destination_row>1</destination_row>
+			<destination_col>1</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>2</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>3</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>5</destination_row>
+			<destination_col>3</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>6</origin_row>
+			<origin_col>4</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>2</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>0</origin_row>
+			<origin_col>4</origin_col>
+			<destination_row>1</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>4</origin_row>
+			<origin_col>2</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>3</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>1</origin_row>
+			<origin_col>3</origin_col>
+			<destination_row>2</destination_row>
+			<destination_col>4</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>6</origin_row>
+			<origin_col>2</origin_col>
+			<destination_row>5</destination_row>
+			<destination_col>3</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>4</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>2</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>3</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>1</origin_row>
+			<origin_col>5</origin_col>
+			<destination_row>2</destination_row>
+			<destination_col>6</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>3</origin_row>
+			<origin_col>5</origin_col>
+			<destination_row>2</destination_row>
+			<destination_col>4</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>0</origin_row>
+			<origin_col>6</origin_col>
+			<destination_row>1</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>2</origin_row>
+			<origin_col>4</origin_col>
+			<destination_row>0</destination_row>
+			<destination_col>6</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>0</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>1</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>0</origin_row>
+			<origin_col>6</origin_col>
+			<destination_row>5</destination_row>
+			<destination_col>1</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>1</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>2</destination_row>
+			<destination_col>0</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>6</destination_row>
+			<destination_col>2</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>2</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>3</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>6</origin_row>
+			<origin_col>2</origin_col>
+			<destination_row>5</destination_row>
+			<destination_col>3</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>6</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>3</origin_col>
+			<destination_row>2</destination_row>
+			<destination_col>6</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>1</origin_row>
+			<origin_col>7</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>0</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>1</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>2</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>1</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>2</destination_row>
+			<destination_col>0</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>4</origin_row>
+			<origin_col>2</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>3</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>2</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>4</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>3</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>4</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>6</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>5</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>7</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>0</origin_row>
+			<origin_col>0</origin_col>
+			<destination_row>1</destination_row>
+			<destination_col>1</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>7</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>6</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>1</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>2</destination_row>
+			<destination_col>2</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>4</origin_row>
+			<origin_col>6</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>6</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>4</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>3</origin_row>
+			<origin_col>7</origin_col>
+			<destination_row>2</destination_row>
+			<destination_col>6</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>1</origin_row>
+			<origin_col>5</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>7</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>6</origin_row>
+			<origin_col>0</origin_col>
+			<destination_row>5</destination_row>
+			<destination_col>1</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>0</origin_row>
+			<origin_col>2</origin_col>
+			<destination_row>1</destination_row>
+			<destination_col>1</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>2</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>3</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>5</destination_row>
+			<destination_col>3</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>6</origin_row>
+			<origin_col>4</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>2</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>0</origin_row>
+			<origin_col>4</origin_col>
+			<destination_row>1</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>4</origin_row>
+			<origin_col>2</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>3</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>1</origin_row>
+			<origin_col>3</origin_col>
+			<destination_row>2</destination_row>
+			<destination_col>4</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>6</origin_row>
+			<origin_col>2</origin_col>
+			<destination_row>5</destination_row>
+			<destination_col>3</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>4</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>2</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>3</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>1</origin_row>
+			<origin_col>5</origin_col>
+			<destination_row>2</destination_row>
+			<destination_col>6</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>3</origin_row>
+			<origin_col>5</origin_col>
+			<destination_row>2</destination_row>
+			<destination_col>4</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>0</origin_row>
+			<origin_col>6</origin_col>
+			<destination_row>1</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>2</origin_row>
+			<origin_col>4</origin_col>
+			<destination_row>0</destination_row>
+			<destination_col>6</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>0</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>1</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>0</origin_row>
+			<origin_col>6</origin_col>
+			<destination_row>5</destination_row>
+			<destination_col>1</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>1</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>2</destination_row>
+			<destination_col>0</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>6</destination_row>
+			<destination_col>2</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>2</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>3</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>6</origin_row>
+			<origin_col>2</origin_col>
+			<destination_row>5</destination_row>
+			<destination_col>3</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>6</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>3</origin_col>
+			<destination_row>2</destination_row>
+			<destination_col>6</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>1</origin_row>
+			<origin_col>7</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>6</origin_row>
+			<origin_col>6</origin_col>
+			<destination_row>5</destination_row>
+			<destination_col>7</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>0</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>1</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>2</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>1</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>2</destination_row>
+			<destination_col>0</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>4</origin_row>
+			<origin_col>2</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>3</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>2</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>4</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>3</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>4</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>6</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>5</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>7</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>0</origin_row>
+			<origin_col>0</origin_col>
+			<destination_row>1</destination_row>
+			<destination_col>1</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>7</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>6</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>1</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>2</destination_row>
+			<destination_col>2</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>4</origin_row>
+			<origin_col>6</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>6</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>4</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>3</origin_row>
+			<origin_col>7</origin_col>
+			<destination_row>2</destination_row>
+			<destination_col>6</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>1</origin_row>
+			<origin_col>5</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>7</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>6</origin_row>
+			<origin_col>0</origin_col>
+			<destination_row>5</destination_row>
+			<destination_col>1</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>0</origin_row>
+			<origin_col>2</origin_col>
+			<destination_row>1</destination_row>
+			<destination_col>1</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>2</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>3</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>5</destination_row>
+			<destination_col>3</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>6</origin_row>
+			<origin_col>4</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>2</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>0</origin_row>
+			<origin_col>4</origin_col>
+			<destination_row>1</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>4</origin_row>
+			<origin_col>2</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>3</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>1</origin_row>
+			<origin_col>3</origin_col>
+			<destination_row>2</destination_row>
+			<destination_col>4</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>6</origin_row>
+			<origin_col>2</origin_col>
+			<destination_row>5</destination_row>
+			<destination_col>3</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>4</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>2</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>3</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>1</origin_row>
+			<origin_col>5</origin_col>
+			<destination_row>2</destination_row>
+			<destination_col>6</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>3</origin_row>
+			<origin_col>5</origin_col>
+			<destination_row>2</destination_row>
+			<destination_col>4</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>0</origin_row>
+			<origin_col>6</origin_col>
+			<destination_row>1</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>2</origin_row>
+			<origin_col>4</origin_col>
+			<destination_row>0</destination_row>
+			<destination_col>6</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>0</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>1</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>0</origin_row>
+			<origin_col>6</origin_col>
+			<destination_row>5</destination_row>
+			<destination_col>1</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>1</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>2</destination_row>
+			<destination_col>0</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>6</destination_row>
+			<destination_col>2</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>2</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>3</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>6</origin_row>
+			<origin_col>2</origin_col>
+			<destination_row>5</destination_row>
+			<destination_col>3</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>6</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>3</origin_col>
+			<destination_row>2</destination_row>
+			<destination_col>6</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>1</origin_row>
+			<origin_col>7</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>6</origin_row>
+			<origin_col>6</origin_col>
+			<destination_row>5</destination_row>
+			<destination_col>7</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>3</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>2</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>0</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>1</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>2</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>1</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>2</destination_row>
+			<destination_col>0</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>4</origin_row>
+			<origin_col>2</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>3</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>2</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>4</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>3</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>4</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>6</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>5</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>7</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>0</origin_row>
+			<origin_col>0</origin_col>
+			<destination_row>1</destination_row>
+			<destination_col>1</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>7</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>6</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>1</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>2</destination_row>
+			<destination_col>2</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>4</origin_row>
+			<origin_col>6</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>6</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>4</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>3</origin_row>
+			<origin_col>7</origin_col>
+			<destination_row>2</destination_row>
+			<destination_col>6</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>1</origin_row>
+			<origin_col>5</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>7</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>6</origin_row>
+			<origin_col>0</origin_col>
+			<destination_row>5</destination_row>
+			<destination_col>1</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>0</origin_row>
+			<origin_col>2</origin_col>
+			<destination_row>1</destination_row>
+			<destination_col>1</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>2</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>3</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>5</destination_row>
+			<destination_col>3</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>6</origin_row>
+			<origin_col>4</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>2</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>0</origin_row>
+			<origin_col>4</origin_col>
+			<destination_row>1</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>4</origin_row>
+			<origin_col>2</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>3</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>1</origin_row>
+			<origin_col>3</origin_col>
+			<destination_row>2</destination_row>
+			<destination_col>4</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>6</origin_row>
+			<origin_col>2</origin_col>
+			<destination_row>5</destination_row>
+			<destination_col>3</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>4</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>2</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>3</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>1</origin_row>
+			<origin_col>5</origin_col>
+			<destination_row>2</destination_row>
+			<destination_col>6</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>3</origin_row>
+			<origin_col>5</origin_col>
+			<destination_row>2</destination_row>
+			<destination_col>4</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>0</origin_row>
+			<origin_col>6</origin_col>
+			<destination_row>1</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>2</origin_row>
+			<origin_col>4</origin_col>
+			<destination_row>0</destination_row>
+			<destination_col>6</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>0</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>1</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>0</origin_row>
+			<origin_col>6</origin_col>
+			<destination_row>5</destination_row>
+			<destination_col>1</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>1</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>2</destination_row>
+			<destination_col>0</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>6</destination_row>
+			<destination_col>2</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>2</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>3</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>6</origin_row>
+			<origin_col>2</origin_col>
+			<destination_row>5</destination_row>
+			<destination_col>3</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>6</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>3</origin_col>
+			<destination_row>2</destination_row>
+			<destination_col>6</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>1</origin_row>
+			<origin_col>7</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>6</origin_row>
+			<origin_col>6</origin_col>
+			<destination_row>5</destination_row>
+			<destination_col>7</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>3</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>2</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>7</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>6</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>0</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>1</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>2</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>1</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>2</destination_row>
+			<destination_col>0</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>4</origin_row>
+			<origin_col>2</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>3</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>2</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>4</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>3</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>4</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>6</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>5</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>7</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>0</origin_row>
+			<origin_col>0</origin_col>
+			<destination_row>1</destination_row>
+			<destination_col>1</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>7</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>6</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>1</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>2</destination_row>
+			<destination_col>2</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>4</origin_row>
+			<origin_col>6</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>6</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>4</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>3</origin_row>
+			<origin_col>7</origin_col>
+			<destination_row>2</destination_row>
+			<destination_col>6</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>1</origin_row>
+			<origin_col>5</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>7</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>6</origin_row>
+			<origin_col>0</origin_col>
+			<destination_row>5</destination_row>
+			<destination_col>1</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>0</origin_row>
+			<origin_col>2</origin_col>
+			<destination_row>1</destination_row>
+			<destination_col>1</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>2</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>3</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>5</destination_row>
+			<destination_col>3</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>6</origin_row>
+			<origin_col>4</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>2</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>0</origin_row>
+			<origin_col>4</origin_col>
+			<destination_row>1</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>4</origin_row>
+			<origin_col>2</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>3</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>1</origin_row>
+			<origin_col>3</origin_col>
+			<destination_row>2</destination_row>
+			<destination_col>4</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>6</origin_row>
+			<origin_col>2</origin_col>
+			<destination_row>5</destination_row>
+			<destination_col>3</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>4</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>2</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>3</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>1</origin_row>
+			<origin_col>5</origin_col>
+			<destination_row>2</destination_row>
+			<destination_col>6</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>3</origin_row>
+			<origin_col>5</origin_col>
+			<destination_row>2</destination_row>
+			<destination_col>4</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>0</origin_row>
+			<origin_col>6</origin_col>
+			<destination_row>1</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>2</origin_row>
+			<origin_col>4</origin_col>
+			<destination_row>0</destination_row>
+			<destination_col>6</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>0</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>1</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>0</origin_row>
+			<origin_col>6</origin_col>
+			<destination_row>5</destination_row>
+			<destination_col>1</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>1</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>2</destination_row>
+			<destination_col>0</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>6</destination_row>
+			<destination_col>2</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>2</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>3</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>6</origin_row>
+			<origin_col>2</origin_col>
+			<destination_row>5</destination_row>
+			<destination_col>3</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>6</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>3</origin_col>
+			<destination_row>2</destination_row>
+			<destination_col>6</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>1</origin_row>
+			<origin_col>7</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>6</origin_row>
+			<origin_col>6</origin_col>
+			<destination_row>5</destination_row>
+			<destination_col>7</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>3</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>2</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
 			<origin_col>7</origin_col>
 			<destination_row>4</destination_row>
 			<destination_col>6</destination_col>
 		</turn>
 		<turn player_color="W">
 			<origin_row>3</origin_row>
-			<origin_col>7</origin_col>
+			<origin_col>5</origin_col>
 			<destination_row>5</destination_row>
+			<destination_col>7</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>0</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>1</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>2</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>1</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>2</destination_row>
+			<destination_col>0</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>4</origin_row>
+			<origin_col>2</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>3</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>2</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>4</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>3</origin_col>
+			<destination_row>3</destination_row>
 			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>4</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>6</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>5</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>7</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>0</origin_row>
+			<origin_col>0</origin_col>
+			<destination_row>1</destination_row>
+			<destination_col>1</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>7</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>6</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>1</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>2</destination_row>
+			<destination_col>2</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>4</origin_row>
+			<origin_col>6</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>6</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>4</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>3</origin_row>
+			<origin_col>7</origin_col>
+			<destination_row>2</destination_row>
+			<destination_col>6</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>1</origin_row>
+			<origin_col>5</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>7</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>6</origin_row>
+			<origin_col>0</origin_col>
+			<destination_row>5</destination_row>
+			<destination_col>1</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>0</origin_row>
+			<origin_col>2</origin_col>
+			<destination_row>1</destination_row>
+			<destination_col>1</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>2</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>3</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>5</destination_row>
+			<destination_col>3</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>6</origin_row>
+			<origin_col>4</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>2</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>0</origin_row>
+			<origin_col>4</origin_col>
+			<destination_row>1</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>4</origin_row>
+			<origin_col>2</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>3</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>1</origin_row>
+			<origin_col>3</origin_col>
+			<destination_row>2</destination_row>
+			<destination_col>4</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>6</origin_row>
+			<origin_col>2</origin_col>
+			<destination_row>5</destination_row>
+			<destination_col>3</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>4</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>2</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>3</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>1</origin_row>
+			<origin_col>5</origin_col>
+			<destination_row>2</destination_row>
+			<destination_col>6</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>3</origin_row>
+			<origin_col>5</origin_col>
+			<destination_row>2</destination_row>
+			<destination_col>4</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>0</origin_row>
+			<origin_col>6</origin_col>
+			<destination_row>1</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>2</origin_row>
+			<origin_col>4</origin_col>
+			<destination_row>0</destination_row>
+			<destination_col>6</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>0</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>1</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>0</origin_row>
+			<origin_col>6</origin_col>
+			<destination_row>5</destination_row>
+			<destination_col>1</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>1</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>2</destination_row>
+			<destination_col>0</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>6</destination_row>
+			<destination_col>2</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>2</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>3</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>6</origin_row>
+			<origin_col>2</origin_col>
+			<destination_row>5</destination_row>
+			<destination_col>3</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>6</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>3</origin_col>
+			<destination_row>2</destination_row>
+			<destination_col>6</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>1</origin_row>
+			<origin_col>7</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>6</origin_row>
+			<origin_col>6</origin_col>
+			<destination_row>5</destination_row>
+			<destination_col>7</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>3</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>2</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>7</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>6</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>3</origin_row>
+			<origin_col>5</origin_col>
+			<destination_row>5</destination_row>
+			<destination_col>7</destination_col>
 		</turn>
 		<turn player_color="B">
 			<origin_row>7</origin_row>
@@ -4159,28 +6108,28 @@
 			<destination_col>4</destination_col>
 		</turn>
 		<turn player_color="W">
+			<origin_row>0</origin_row>
+			<origin_col>6</origin_col>
+			<destination_row>1</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>2</origin_row>
+			<origin_col>4</origin_col>
+			<destination_row>0</destination_row>
+			<destination_col>6</destination_col>
+		</turn>
+		<turn player_color="W">
 			<origin_row>2</origin_row>
 			<origin_col>0</origin_col>
 			<destination_row>3</destination_row>
 			<destination_col>1</destination_col>
 		</turn>
 		<turn player_color="B">
-			<origin_row>2</origin_row>
-			<origin_col>4</origin_col>
-			<destination_row>1</destination_row>
-			<destination_col>5</destination_col>
-		</turn>
-		<turn player_color="W">
 			<origin_row>0</origin_row>
 			<origin_col>6</origin_col>
-			<destination_row>2</destination_row>
-			<destination_col>4</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>6</origin_row>
-			<origin_col>6</origin_col>
 			<destination_row>5</destination_row>
-			<destination_col>7</destination_col>
+			<destination_col>1</destination_col>
 		</turn>
 		<turn player_color="W">
 			<origin_row>1</origin_row>
@@ -4190,15 +6139,63 @@
 		</turn>
 		<turn player_color="B">
 			<origin_row>5</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>6</destination_row>
+			<destination_col>2</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>2</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>3</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>6</origin_row>
+			<origin_col>2</origin_col>
+			<destination_row>5</destination_row>
+			<destination_col>3</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>6</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>3</origin_col>
+			<destination_row>2</destination_row>
+			<destination_col>6</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>1</origin_row>
+			<origin_col>7</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>6</origin_row>
+			<origin_col>6</origin_col>
+			<destination_row>5</destination_row>
+			<destination_col>7</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>3</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>2</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
 			<origin_col>7</origin_col>
 			<destination_row>4</destination_row>
 			<destination_col>6</destination_col>
 		</turn>
 		<turn player_color="W">
 			<origin_row>3</origin_row>
-			<origin_col>7</origin_col>
+			<origin_col>5</origin_col>
 			<destination_row>5</destination_row>
-			<destination_col>5</destination_col>
+			<destination_col>7</destination_col>
 		</turn>
 		<turn player_color="B">
 			<origin_row>7</origin_row>
@@ -4208,9 +6205,9 @@
 		</turn>
 		<turn player_color="W">
 			<origin_row>2</origin_row>
-			<origin_col>2</origin_col>
+			<origin_col>0</origin_col>
 			<destination_row>3</destination_row>
-			<destination_col>3</destination_col>
+			<destination_col>1</destination_col>
 		</turn>
 		<turn player_color="W">
 			<origin_row>2</origin_row>
@@ -4381,28 +6378,28 @@
 			<destination_col>4</destination_col>
 		</turn>
 		<turn player_color="W">
+			<origin_row>0</origin_row>
+			<origin_col>6</origin_col>
+			<destination_row>1</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>2</origin_row>
+			<origin_col>4</origin_col>
+			<destination_row>0</destination_row>
+			<destination_col>6</destination_col>
+		</turn>
+		<turn player_color="W">
 			<origin_row>2</origin_row>
 			<origin_col>0</origin_col>
 			<destination_row>3</destination_row>
 			<destination_col>1</destination_col>
 		</turn>
 		<turn player_color="B">
-			<origin_row>2</origin_row>
-			<origin_col>4</origin_col>
-			<destination_row>1</destination_row>
-			<destination_col>5</destination_col>
-		</turn>
-		<turn player_color="W">
 			<origin_row>0</origin_row>
 			<origin_col>6</origin_col>
-			<destination_row>2</destination_row>
-			<destination_col>4</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>6</origin_row>
-			<origin_col>6</origin_col>
 			<destination_row>5</destination_row>
-			<destination_col>7</destination_col>
+			<destination_col>1</destination_col>
 		</turn>
 		<turn player_color="W">
 			<origin_row>1</origin_row>
@@ -4412,15 +6409,63 @@
 		</turn>
 		<turn player_color="B">
 			<origin_row>5</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>6</destination_row>
+			<destination_col>2</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>2</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>3</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>6</origin_row>
+			<origin_col>2</origin_col>
+			<destination_row>5</destination_row>
+			<destination_col>3</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>6</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>3</origin_col>
+			<destination_row>2</destination_row>
+			<destination_col>6</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>1</origin_row>
+			<origin_col>7</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>6</origin_row>
+			<origin_col>6</origin_col>
+			<destination_row>5</destination_row>
+			<destination_col>7</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>3</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>2</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
 			<origin_col>7</origin_col>
 			<destination_row>4</destination_row>
 			<destination_col>6</destination_col>
 		</turn>
 		<turn player_color="W">
 			<origin_row>3</origin_row>
-			<origin_col>7</origin_col>
+			<origin_col>5</origin_col>
 			<destination_row>5</destination_row>
-			<destination_col>5</destination_col>
+			<destination_col>7</destination_col>
 		</turn>
 		<turn player_color="B">
 			<origin_row>7</origin_row>
@@ -4430,9 +6475,9 @@
 		</turn>
 		<turn player_color="W">
 			<origin_row>2</origin_row>
-			<origin_col>2</origin_col>
+			<origin_col>0</origin_col>
 			<destination_row>3</destination_row>
-			<destination_col>3</destination_col>
+			<destination_col>1</destination_col>
 		</turn>
 		<turn player_color="B">
 			<origin_row>6</origin_row>
@@ -4609,28 +6654,28 @@
 			<destination_col>4</destination_col>
 		</turn>
 		<turn player_color="W">
+			<origin_row>0</origin_row>
+			<origin_col>6</origin_col>
+			<destination_row>1</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>2</origin_row>
+			<origin_col>4</origin_col>
+			<destination_row>0</destination_row>
+			<destination_col>6</destination_col>
+		</turn>
+		<turn player_color="W">
 			<origin_row>2</origin_row>
 			<origin_col>0</origin_col>
 			<destination_row>3</destination_row>
 			<destination_col>1</destination_col>
 		</turn>
 		<turn player_color="B">
-			<origin_row>2</origin_row>
-			<origin_col>4</origin_col>
-			<destination_row>1</destination_row>
-			<destination_col>5</destination_col>
-		</turn>
-		<turn player_color="W">
 			<origin_row>0</origin_row>
 			<origin_col>6</origin_col>
-			<destination_row>2</destination_row>
-			<destination_col>4</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>6</origin_row>
-			<origin_col>6</origin_col>
 			<destination_row>5</destination_row>
-			<destination_col>7</destination_col>
+			<destination_col>1</destination_col>
 		</turn>
 		<turn player_color="W">
 			<origin_row>1</origin_row>
@@ -4640,15 +6685,63 @@
 		</turn>
 		<turn player_color="B">
 			<origin_row>5</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>6</destination_row>
+			<destination_col>2</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>2</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>3</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>6</origin_row>
+			<origin_col>2</origin_col>
+			<destination_row>5</destination_row>
+			<destination_col>3</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>6</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>3</origin_col>
+			<destination_row>2</destination_row>
+			<destination_col>6</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>1</origin_row>
+			<origin_col>7</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>6</origin_row>
+			<origin_col>6</origin_col>
+			<destination_row>5</destination_row>
+			<destination_col>7</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>3</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>2</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
 			<origin_col>7</origin_col>
 			<destination_row>4</destination_row>
 			<destination_col>6</destination_col>
 		</turn>
 		<turn player_color="W">
 			<origin_row>3</origin_row>
-			<origin_col>7</origin_col>
+			<origin_col>5</origin_col>
 			<destination_row>5</destination_row>
-			<destination_col>5</destination_col>
+			<destination_col>7</destination_col>
 		</turn>
 		<turn player_color="B">
 			<origin_row>7</origin_row>
@@ -4658,9 +6751,9 @@
 		</turn>
 		<turn player_color="W">
 			<origin_row>2</origin_row>
-			<origin_col>2</origin_col>
+			<origin_col>0</origin_col>
 			<destination_row>3</destination_row>
-			<destination_col>3</destination_col>
+			<destination_col>1</destination_col>
 		</turn>
 		<turn player_color="B">
 			<origin_row>6</origin_row>
@@ -4843,28 +6936,28 @@
 			<destination_col>4</destination_col>
 		</turn>
 		<turn player_color="W">
+			<origin_row>0</origin_row>
+			<origin_col>6</origin_col>
+			<destination_row>1</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>2</origin_row>
+			<origin_col>4</origin_col>
+			<destination_row>0</destination_row>
+			<destination_col>6</destination_col>
+		</turn>
+		<turn player_color="W">
 			<origin_row>2</origin_row>
 			<origin_col>0</origin_col>
 			<destination_row>3</destination_row>
 			<destination_col>1</destination_col>
 		</turn>
 		<turn player_color="B">
-			<origin_row>2</origin_row>
-			<origin_col>4</origin_col>
-			<destination_row>1</destination_row>
-			<destination_col>5</destination_col>
-		</turn>
-		<turn player_color="W">
 			<origin_row>0</origin_row>
 			<origin_col>6</origin_col>
-			<destination_row>2</destination_row>
-			<destination_col>4</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>6</origin_row>
-			<origin_col>6</origin_col>
 			<destination_row>5</destination_row>
-			<destination_col>7</destination_col>
+			<destination_col>1</destination_col>
 		</turn>
 		<turn player_color="W">
 			<origin_row>1</origin_row>
@@ -4874,15 +6967,63 @@
 		</turn>
 		<turn player_color="B">
 			<origin_row>5</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>6</destination_row>
+			<destination_col>2</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>2</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>3</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>6</origin_row>
+			<origin_col>2</origin_col>
+			<destination_row>5</destination_row>
+			<destination_col>3</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>6</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>3</origin_col>
+			<destination_row>2</destination_row>
+			<destination_col>6</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>1</origin_row>
+			<origin_col>7</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>6</origin_row>
+			<origin_col>6</origin_col>
+			<destination_row>5</destination_row>
+			<destination_col>7</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>3</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>2</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
 			<origin_col>7</origin_col>
 			<destination_row>4</destination_row>
 			<destination_col>6</destination_col>
 		</turn>
 		<turn player_color="W">
 			<origin_row>3</origin_row>
-			<origin_col>7</origin_col>
+			<origin_col>5</origin_col>
 			<destination_row>5</destination_row>
-			<destination_col>5</destination_col>
+			<destination_col>7</destination_col>
 		</turn>
 		<turn player_color="B">
 			<origin_row>7</origin_row>
@@ -4892,249 +7033,9 @@
 		</turn>
 		<turn player_color="W">
 			<origin_row>2</origin_row>
-			<origin_col>2</origin_col>
-			<destination_row>3</destination_row>
-			<destination_col>3</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>6</origin_row>
-			<origin_col>2</origin_col>
-			<destination_row>5</destination_row>
-			<destination_col>3</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>4</origin_row>
-			<origin_col>2</origin_col>
-			<destination_row>6</destination_row>
-			<destination_col>4</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>7</origin_row>
-			<origin_col>5</origin_col>
-			<destination_row>5</destination_row>
-			<destination_col>3</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>2</origin_row>
 			<origin_col>0</origin_col>
 			<destination_row>3</destination_row>
 			<destination_col>1</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>5</origin_row>
-			<origin_col>1</origin_col>
-			<destination_row>4</destination_row>
-			<destination_col>2</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>1</origin_row>
-			<origin_col>1</origin_col>
-			<destination_row>2</destination_row>
-			<destination_col>0</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>4</origin_row>
-			<origin_col>2</origin_col>
-			<destination_row>3</destination_row>
-			<destination_col>3</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>2</origin_row>
-			<origin_col>2</origin_col>
-			<destination_row>4</destination_row>
-			<destination_col>4</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>5</origin_row>
-			<origin_col>3</origin_col>
-			<destination_row>3</destination_row>
-			<destination_col>5</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>2</origin_row>
-			<origin_col>4</origin_col>
-			<destination_row>4</destination_row>
-			<destination_col>6</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>5</origin_row>
-			<origin_col>5</origin_col>
-			<destination_row>3</destination_row>
-			<destination_col>7</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>0</origin_row>
-			<origin_col>0</origin_col>
-			<destination_row>1</destination_row>
-			<destination_col>1</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>5</origin_row>
-			<origin_col>7</origin_col>
-			<destination_row>4</destination_row>
-			<destination_col>6</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>1</origin_row>
-			<origin_col>1</origin_col>
-			<destination_row>2</destination_row>
-			<destination_col>2</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>4</origin_row>
-			<origin_col>6</origin_col>
-			<destination_row>3</destination_row>
-			<destination_col>5</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>2</origin_row>
-			<origin_col>6</origin_col>
-			<destination_row>4</destination_row>
-			<destination_col>4</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>3</origin_row>
-			<origin_col>7</origin_col>
-			<destination_row>2</destination_row>
-			<destination_col>6</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>1</origin_row>
-			<origin_col>5</origin_col>
-			<destination_row>3</destination_row>
-			<destination_col>7</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>6</origin_row>
-			<origin_col>0</origin_col>
-			<destination_row>5</destination_row>
-			<destination_col>1</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>0</origin_row>
-			<origin_col>2</origin_col>
-			<destination_row>1</destination_row>
-			<destination_col>1</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>5</origin_row>
-			<origin_col>1</origin_col>
-			<destination_row>4</destination_row>
-			<destination_col>2</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>3</origin_row>
-			<origin_col>1</origin_col>
-			<destination_row>5</destination_row>
-			<destination_col>3</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>6</origin_row>
-			<origin_col>4</origin_col>
-			<destination_row>4</destination_row>
-			<destination_col>2</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>0</origin_row>
-			<origin_col>4</origin_col>
-			<destination_row>1</destination_row>
-			<destination_col>5</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>4</origin_row>
-			<origin_col>2</origin_col>
-			<destination_row>3</destination_row>
-			<destination_col>3</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>1</origin_row>
-			<origin_col>3</origin_col>
-			<destination_row>2</destination_row>
-			<destination_col>4</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>6</origin_row>
-			<origin_col>2</origin_col>
-			<destination_row>5</destination_row>
-			<destination_col>3</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>2</origin_row>
-			<origin_col>4</origin_col>
-			<destination_row>4</destination_row>
-			<destination_col>2</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>5</origin_row>
-			<origin_col>3</origin_col>
-			<destination_row>3</destination_row>
-			<destination_col>5</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>1</origin_row>
-			<origin_col>5</origin_col>
-			<destination_row>2</destination_row>
-			<destination_col>6</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>3</origin_row>
-			<origin_col>5</origin_col>
-			<destination_row>2</destination_row>
-			<destination_col>4</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>2</origin_row>
-			<origin_col>0</origin_col>
-			<destination_row>3</destination_row>
-			<destination_col>1</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>2</origin_row>
-			<origin_col>4</origin_col>
-			<destination_row>1</destination_row>
-			<destination_col>5</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>0</origin_row>
-			<origin_col>6</origin_col>
-			<destination_row>2</destination_row>
-			<destination_col>4</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>6</origin_row>
-			<origin_col>6</origin_col>
-			<destination_row>5</destination_row>
-			<destination_col>7</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>1</origin_row>
-			<origin_col>1</origin_col>
-			<destination_row>2</destination_row>
-			<destination_col>0</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>5</origin_row>
-			<origin_col>7</origin_col>
-			<destination_row>4</destination_row>
-			<destination_col>6</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>3</origin_row>
-			<origin_col>7</origin_col>
-			<destination_row>5</destination_row>
-			<destination_col>5</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>7</origin_row>
-			<origin_col>1</origin_col>
-			<destination_row>6</destination_row>
-			<destination_col>2</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>2</origin_row>
-			<origin_col>2</origin_col>
-			<destination_row>3</destination_row>
-			<destination_col>3</destination_col>
 		</turn>
 		<turn player_color="B">
 			<origin_row>6</origin_row>
@@ -5150,14 +7051,8 @@
 		</turn>
 		<turn player_color="B">
 			<origin_row>7</origin_row>
-			<origin_col>5</origin_col>
+			<origin_col>3</origin_col>
 			<destination_row>5</destination_row>
-			<destination_col>3</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>2</origin_row>
-			<origin_col>4</origin_col>
-			<destination_row>3</destination_row>
 			<destination_col>5</destination_col>
 		</turn>
 		<turn player_color="W">
@@ -5329,28 +7224,28 @@
 			<destination_col>4</destination_col>
 		</turn>
 		<turn player_color="W">
+			<origin_row>0</origin_row>
+			<origin_col>6</origin_col>
+			<destination_row>1</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>2</origin_row>
+			<origin_col>4</origin_col>
+			<destination_row>0</destination_row>
+			<destination_col>6</destination_col>
+		</turn>
+		<turn player_color="W">
 			<origin_row>2</origin_row>
 			<origin_col>0</origin_col>
 			<destination_row>3</destination_row>
 			<destination_col>1</destination_col>
 		</turn>
 		<turn player_color="B">
-			<origin_row>2</origin_row>
-			<origin_col>4</origin_col>
-			<destination_row>1</destination_row>
-			<destination_col>5</destination_col>
-		</turn>
-		<turn player_color="W">
 			<origin_row>0</origin_row>
 			<origin_col>6</origin_col>
-			<destination_row>2</destination_row>
-			<destination_col>4</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>6</origin_row>
-			<origin_col>6</origin_col>
 			<destination_row>5</destination_row>
-			<destination_col>7</destination_col>
+			<destination_col>1</destination_col>
 		</turn>
 		<turn player_color="W">
 			<origin_row>1</origin_row>
@@ -5360,18 +7255,6 @@
 		</turn>
 		<turn player_color="B">
 			<origin_row>5</origin_row>
-			<origin_col>7</origin_col>
-			<destination_row>4</destination_row>
-			<destination_col>6</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>3</origin_row>
-			<origin_col>7</origin_col>
-			<destination_row>5</destination_row>
-			<destination_col>5</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>7</origin_row>
 			<origin_col>1</origin_col>
 			<destination_row>6</destination_row>
 			<destination_col>2</destination_col>
@@ -5389,214 +7272,22 @@
 			<destination_col>3</destination_col>
 		</turn>
 		<turn player_color="W">
-			<origin_row>4</origin_row>
-			<origin_col>2</origin_col>
-			<destination_row>6</destination_row>
-			<destination_col>4</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>7</origin_row>
-			<origin_col>5</origin_col>
-			<destination_row>5</destination_row>
-			<destination_col>3</destination_col>
-		</turn>
-		<turn player_color="W">
 			<origin_row>2</origin_row>
-			<origin_col>4</origin_col>
+			<origin_col>6</origin_col>
 			<destination_row>3</destination_row>
 			<destination_col>5</destination_col>
 		</turn>
 		<turn player_color="B">
 			<origin_row>5</origin_row>
 			<origin_col>3</origin_col>
-			<destination_row>4</destination_row>
-			<destination_col>4</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>2</origin_row>
-			<origin_col>0</origin_col>
-			<destination_row>3</destination_row>
-			<destination_col>1</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>5</origin_row>
-			<origin_col>1</origin_col>
-			<destination_row>4</destination_row>
-			<destination_col>2</destination_col>
+			<destination_row>2</destination_row>
+			<destination_col>6</destination_col>
 		</turn>
 		<turn player_color="W">
 			<origin_row>1</origin_row>
-			<origin_col>1</origin_col>
-			<destination_row>2</destination_row>
-			<destination_col>0</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>4</origin_row>
-			<origin_col>2</origin_col>
-			<destination_row>3</destination_row>
-			<destination_col>3</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>2</origin_row>
-			<origin_col>2</origin_col>
-			<destination_row>4</destination_row>
-			<destination_col>4</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>5</origin_row>
-			<origin_col>3</origin_col>
-			<destination_row>3</destination_row>
-			<destination_col>5</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>2</origin_row>
-			<origin_col>4</origin_col>
-			<destination_row>4</destination_row>
-			<destination_col>6</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>5</origin_row>
-			<origin_col>5</origin_col>
-			<destination_row>3</destination_row>
-			<destination_col>7</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>0</origin_row>
-			<origin_col>0</origin_col>
-			<destination_row>1</destination_row>
-			<destination_col>1</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>5</origin_row>
 			<origin_col>7</origin_col>
-			<destination_row>4</destination_row>
-			<destination_col>6</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>1</origin_row>
-			<origin_col>1</origin_col>
-			<destination_row>2</destination_row>
-			<destination_col>2</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>4</origin_row>
-			<origin_col>6</origin_col>
 			<destination_row>3</destination_row>
 			<destination_col>5</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>2</origin_row>
-			<origin_col>6</origin_col>
-			<destination_row>4</destination_row>
-			<destination_col>4</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>3</origin_row>
-			<origin_col>7</origin_col>
-			<destination_row>2</destination_row>
-			<destination_col>6</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>1</origin_row>
-			<origin_col>5</origin_col>
-			<destination_row>3</destination_row>
-			<destination_col>7</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>6</origin_row>
-			<origin_col>0</origin_col>
-			<destination_row>5</destination_row>
-			<destination_col>1</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>0</origin_row>
-			<origin_col>2</origin_col>
-			<destination_row>1</destination_row>
-			<destination_col>1</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>5</origin_row>
-			<origin_col>1</origin_col>
-			<destination_row>4</destination_row>
-			<destination_col>2</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>3</origin_row>
-			<origin_col>1</origin_col>
-			<destination_row>5</destination_row>
-			<destination_col>3</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>6</origin_row>
-			<origin_col>4</origin_col>
-			<destination_row>4</destination_row>
-			<destination_col>2</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>0</origin_row>
-			<origin_col>4</origin_col>
-			<destination_row>1</destination_row>
-			<destination_col>5</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>4</origin_row>
-			<origin_col>2</origin_col>
-			<destination_row>3</destination_row>
-			<destination_col>3</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>1</origin_row>
-			<origin_col>3</origin_col>
-			<destination_row>2</destination_row>
-			<destination_col>4</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>6</origin_row>
-			<origin_col>2</origin_col>
-			<destination_row>5</destination_row>
-			<destination_col>3</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>2</origin_row>
-			<origin_col>4</origin_col>
-			<destination_row>4</destination_row>
-			<destination_col>2</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>5</origin_row>
-			<origin_col>3</origin_col>
-			<destination_row>3</destination_row>
-			<destination_col>5</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>1</origin_row>
-			<origin_col>5</origin_col>
-			<destination_row>2</destination_row>
-			<destination_col>6</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>3</origin_row>
-			<origin_col>5</origin_col>
-			<destination_row>2</destination_row>
-			<destination_col>4</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>2</origin_row>
-			<origin_col>0</origin_col>
-			<destination_row>3</destination_row>
-			<destination_col>1</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>2</origin_row>
-			<origin_col>4</origin_col>
-			<destination_row>1</destination_row>
-			<destination_col>5</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>0</origin_row>
-			<origin_col>6</origin_col>
-			<destination_row>2</destination_row>
-			<destination_col>4</destination_col>
 		</turn>
 		<turn player_color="B">
 			<origin_row>6</origin_row>
@@ -5605,10 +7296,10 @@
 			<destination_col>7</destination_col>
 		</turn>
 		<turn player_color="W">
-			<origin_row>1</origin_row>
+			<origin_row>3</origin_row>
 			<origin_col>1</origin_col>
-			<destination_row>2</destination_row>
-			<destination_col>0</destination_col>
+			<destination_row>4</destination_row>
+			<destination_col>2</destination_col>
 		</turn>
 		<turn player_color="B">
 			<origin_row>5</origin_row>
@@ -5618,9 +7309,9 @@
 		</turn>
 		<turn player_color="W">
 			<origin_row>3</origin_row>
-			<origin_col>7</origin_col>
+			<origin_col>5</origin_col>
 			<destination_row>5</destination_row>
-			<destination_col>5</destination_col>
+			<destination_col>7</destination_col>
 		</turn>
 		<turn player_color="B">
 			<origin_row>7</origin_row>
@@ -5630,9 +7321,9 @@
 		</turn>
 		<turn player_color="W">
 			<origin_row>2</origin_row>
-			<origin_col>2</origin_col>
+			<origin_col>0</origin_col>
 			<destination_row>3</destination_row>
-			<destination_col>3</destination_col>
+			<destination_col>1</destination_col>
 		</turn>
 		<turn player_color="B">
 			<origin_row>6</origin_row>
@@ -5648,27 +7339,15 @@
 		</turn>
 		<turn player_color="B">
 			<origin_row>7</origin_row>
-			<origin_col>5</origin_col>
-			<destination_row>5</destination_row>
-			<destination_col>3</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>2</origin_row>
-			<origin_col>4</origin_col>
-			<destination_row>3</destination_row>
-			<destination_col>5</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>5</origin_row>
 			<origin_col>3</origin_col>
-			<destination_row>4</destination_row>
-			<destination_col>4</destination_col>
+			<destination_row>5</destination_row>
+			<destination_col>5</destination_col>
 		</turn>
 		<turn player_color="W">
 			<origin_row>3</origin_row>
-			<origin_col>5</origin_col>
-			<destination_row>5</destination_row>
-			<destination_col>3</destination_col>
+			<origin_col>1</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>2</destination_col>
 		</turn>
 		<turn player_color="W">
 			<origin_row>2</origin_row>
@@ -5839,28 +7518,28 @@
 			<destination_col>4</destination_col>
 		</turn>
 		<turn player_color="W">
+			<origin_row>0</origin_row>
+			<origin_col>6</origin_col>
+			<destination_row>1</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>2</origin_row>
+			<origin_col>4</origin_col>
+			<destination_row>0</destination_row>
+			<destination_col>6</destination_col>
+		</turn>
+		<turn player_color="W">
 			<origin_row>2</origin_row>
 			<origin_col>0</origin_col>
 			<destination_row>3</destination_row>
 			<destination_col>1</destination_col>
 		</turn>
 		<turn player_color="B">
-			<origin_row>2</origin_row>
-			<origin_col>4</origin_col>
-			<destination_row>1</destination_row>
-			<destination_col>5</destination_col>
-		</turn>
-		<turn player_color="W">
 			<origin_row>0</origin_row>
 			<origin_col>6</origin_col>
-			<destination_row>2</destination_row>
-			<destination_col>4</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>6</origin_row>
-			<origin_col>6</origin_col>
 			<destination_row>5</destination_row>
-			<destination_col>7</destination_col>
+			<destination_col>1</destination_col>
 		</turn>
 		<turn player_color="W">
 			<origin_row>1</origin_row>
@@ -5870,18 +7549,6 @@
 		</turn>
 		<turn player_color="B">
 			<origin_row>5</origin_row>
-			<origin_col>7</origin_col>
-			<destination_row>4</destination_row>
-			<destination_col>6</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>3</origin_row>
-			<origin_col>7</origin_col>
-			<destination_row>5</destination_row>
-			<destination_col>5</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>7</origin_row>
 			<origin_col>1</origin_col>
 			<destination_row>6</destination_row>
 			<destination_col>2</destination_col>
@@ -5899,6 +7566,66 @@
 			<destination_col>3</destination_col>
 		</turn>
 		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>6</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>3</origin_col>
+			<destination_row>2</destination_row>
+			<destination_col>6</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>1</origin_row>
+			<origin_col>7</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>6</origin_row>
+			<origin_col>6</origin_col>
+			<destination_row>5</destination_row>
+			<destination_col>7</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>3</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>2</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>7</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>6</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>3</origin_row>
+			<origin_col>5</origin_col>
+			<destination_row>5</destination_row>
+			<destination_col>7</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>7</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>6</destination_row>
+			<destination_col>2</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>0</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>1</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>6</origin_row>
+			<origin_col>2</origin_col>
+			<destination_row>5</destination_row>
+			<destination_col>3</destination_col>
+		</turn>
+		<turn player_color="W">
 			<origin_row>4</origin_row>
 			<origin_col>2</origin_col>
 			<destination_row>6</destination_row>
@@ -5906,32 +7633,20 @@
 		</turn>
 		<turn player_color="B">
 			<origin_row>7</origin_row>
-			<origin_col>5</origin_col>
-			<destination_row>5</destination_row>
-			<destination_col>3</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>2</origin_row>
-			<origin_col>4</origin_col>
-			<destination_row>3</destination_row>
-			<destination_col>5</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>5</origin_row>
 			<origin_col>3</origin_col>
-			<destination_row>4</destination_row>
-			<destination_col>4</destination_col>
+			<destination_row>5</destination_row>
+			<destination_col>5</destination_col>
 		</turn>
 		<turn player_color="W">
 			<origin_row>3</origin_row>
-			<origin_col>5</origin_col>
-			<destination_row>5</destination_row>
-			<destination_col>3</destination_col>
+			<origin_col>1</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>2</destination_col>
 		</turn>
 		<turn player_color="B">
-			<origin_row>7</origin_row>
-			<origin_col>7</origin_col>
-			<destination_row>6</destination_row>
+			<origin_row>5</origin_row>
+			<origin_col>5</origin_col>
+			<destination_row>4</destination_row>
 			<destination_col>6</destination_col>
 		</turn>
 		<turn player_color="W">
@@ -6103,28 +7818,28 @@
 			<destination_col>4</destination_col>
 		</turn>
 		<turn player_color="W">
+			<origin_row>0</origin_row>
+			<origin_col>6</origin_col>
+			<destination_row>1</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>2</origin_row>
+			<origin_col>4</origin_col>
+			<destination_row>0</destination_row>
+			<destination_col>6</destination_col>
+		</turn>
+		<turn player_color="W">
 			<origin_row>2</origin_row>
 			<origin_col>0</origin_col>
 			<destination_row>3</destination_row>
 			<destination_col>1</destination_col>
 		</turn>
 		<turn player_color="B">
-			<origin_row>2</origin_row>
-			<origin_col>4</origin_col>
-			<destination_row>1</destination_row>
-			<destination_col>5</destination_col>
-		</turn>
-		<turn player_color="W">
 			<origin_row>0</origin_row>
 			<origin_col>6</origin_col>
-			<destination_row>2</destination_row>
-			<destination_col>4</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>6</origin_row>
-			<origin_col>6</origin_col>
 			<destination_row>5</destination_row>
-			<destination_col>7</destination_col>
+			<destination_col>1</destination_col>
 		</turn>
 		<turn player_color="W">
 			<origin_row>1</origin_row>
@@ -6134,18 +7849,6 @@
 		</turn>
 		<turn player_color="B">
 			<origin_row>5</origin_row>
-			<origin_col>7</origin_col>
-			<destination_row>4</destination_row>
-			<destination_col>6</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>3</origin_row>
-			<origin_col>7</origin_col>
-			<destination_row>5</destination_row>
-			<destination_col>5</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>7</origin_row>
 			<origin_col>1</origin_col>
 			<destination_row>6</destination_row>
 			<destination_col>2</destination_col>
@@ -6163,6 +7866,66 @@
 			<destination_col>3</destination_col>
 		</turn>
 		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>6</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>3</origin_col>
+			<destination_row>2</destination_row>
+			<destination_col>6</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>1</origin_row>
+			<origin_col>7</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>6</origin_row>
+			<origin_col>6</origin_col>
+			<destination_row>5</destination_row>
+			<destination_col>7</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>3</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>2</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>7</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>6</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>3</origin_row>
+			<origin_col>5</origin_col>
+			<destination_row>5</destination_row>
+			<destination_col>7</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>7</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>6</destination_row>
+			<destination_col>2</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>0</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>1</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>6</origin_row>
+			<origin_col>2</origin_col>
+			<destination_row>5</destination_row>
+			<destination_col>3</destination_col>
+		</turn>
+		<turn player_color="W">
 			<origin_row>4</origin_row>
 			<origin_col>2</origin_col>
 			<destination_row>6</destination_row>
@@ -6170,27 +7933,1299 @@
 		</turn>
 		<turn player_color="B">
 			<origin_row>7</origin_row>
+			<origin_col>3</origin_col>
+			<destination_row>5</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>3</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>2</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
 			<origin_col>5</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>6</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>3</origin_row>
+			<origin_col>7</origin_col>
+			<destination_row>5</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>0</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>1</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>2</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>1</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>2</destination_row>
+			<destination_col>0</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>4</origin_row>
+			<origin_col>2</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>3</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>2</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>4</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>3</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>4</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>6</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>5</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>7</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>0</origin_row>
+			<origin_col>0</origin_col>
+			<destination_row>1</destination_row>
+			<destination_col>1</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>7</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>6</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>1</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>2</destination_row>
+			<destination_col>2</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>4</origin_row>
+			<origin_col>6</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>6</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>4</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>3</origin_row>
+			<origin_col>7</origin_col>
+			<destination_row>2</destination_row>
+			<destination_col>6</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>1</origin_row>
+			<origin_col>5</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>7</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>6</origin_row>
+			<origin_col>0</origin_col>
+			<destination_row>5</destination_row>
+			<destination_col>1</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>0</origin_row>
+			<origin_col>2</origin_col>
+			<destination_row>1</destination_row>
+			<destination_col>1</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>2</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>3</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>5</destination_row>
+			<destination_col>3</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>6</origin_row>
+			<origin_col>4</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>2</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>0</origin_row>
+			<origin_col>4</origin_col>
+			<destination_row>1</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>4</origin_row>
+			<origin_col>2</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>3</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>1</origin_row>
+			<origin_col>3</origin_col>
+			<destination_row>2</destination_row>
+			<destination_col>4</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>6</origin_row>
+			<origin_col>2</origin_col>
 			<destination_row>5</destination_row>
 			<destination_col>3</destination_col>
 		</turn>
 		<turn player_color="W">
 			<origin_row>2</origin_row>
 			<origin_col>4</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>2</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>3</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>1</origin_row>
+			<origin_col>5</origin_col>
+			<destination_row>2</destination_row>
+			<destination_col>6</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>3</origin_row>
+			<origin_col>5</origin_col>
+			<destination_row>2</destination_row>
+			<destination_col>4</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>0</origin_row>
+			<origin_col>6</origin_col>
+			<destination_row>1</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>2</origin_row>
+			<origin_col>4</origin_col>
+			<destination_row>0</destination_row>
+			<destination_col>6</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>0</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>1</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>0</origin_row>
+			<origin_col>6</origin_col>
+			<destination_row>5</destination_row>
+			<destination_col>1</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>1</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>2</destination_row>
+			<destination_col>0</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>6</destination_row>
+			<destination_col>2</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>2</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>3</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>6</origin_row>
+			<origin_col>2</origin_col>
+			<destination_row>5</destination_row>
+			<destination_col>3</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>6</origin_col>
 			<destination_row>3</destination_row>
 			<destination_col>5</destination_col>
 		</turn>
 		<turn player_color="B">
 			<origin_row>5</origin_row>
 			<origin_col>3</origin_col>
+			<destination_row>2</destination_row>
+			<destination_col>6</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>1</origin_row>
+			<origin_col>7</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>6</origin_row>
+			<origin_col>6</origin_col>
+			<destination_row>5</destination_row>
+			<destination_col>7</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>3</origin_row>
+			<origin_col>1</origin_col>
 			<destination_row>4</destination_row>
-			<destination_col>4</destination_col>
+			<destination_col>2</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>7</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>6</destination_col>
 		</turn>
 		<turn player_color="W">
 			<origin_row>3</origin_row>
 			<origin_col>5</origin_col>
 			<destination_row>5</destination_row>
+			<destination_col>7</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>7</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>6</destination_row>
+			<destination_col>2</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>0</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>1</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>6</origin_row>
+			<origin_col>2</origin_col>
+			<destination_row>5</destination_row>
 			<destination_col>3</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>4</origin_row>
+			<origin_col>2</origin_col>
+			<destination_row>6</destination_row>
+			<destination_col>4</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>7</origin_row>
+			<origin_col>3</origin_col>
+			<destination_row>5</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>3</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>2</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>5</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>6</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>3</origin_row>
+			<origin_col>7</origin_col>
+			<destination_row>5</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>7</origin_row>
+			<origin_col>5</origin_col>
+			<destination_row>6</destination_row>
+			<destination_col>6</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>0</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>1</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>2</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>1</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>2</destination_row>
+			<destination_col>0</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>4</origin_row>
+			<origin_col>2</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>3</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>2</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>4</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>3</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>4</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>6</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>5</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>7</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>0</origin_row>
+			<origin_col>0</origin_col>
+			<destination_row>1</destination_row>
+			<destination_col>1</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>7</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>6</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>1</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>2</destination_row>
+			<destination_col>2</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>4</origin_row>
+			<origin_col>6</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>6</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>4</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>3</origin_row>
+			<origin_col>7</origin_col>
+			<destination_row>2</destination_row>
+			<destination_col>6</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>1</origin_row>
+			<origin_col>5</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>7</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>6</origin_row>
+			<origin_col>0</origin_col>
+			<destination_row>5</destination_row>
+			<destination_col>1</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>0</origin_row>
+			<origin_col>2</origin_col>
+			<destination_row>1</destination_row>
+			<destination_col>1</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>2</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>3</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>5</destination_row>
+			<destination_col>3</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>6</origin_row>
+			<origin_col>4</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>2</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>0</origin_row>
+			<origin_col>4</origin_col>
+			<destination_row>1</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>4</origin_row>
+			<origin_col>2</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>3</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>1</origin_row>
+			<origin_col>3</origin_col>
+			<destination_row>2</destination_row>
+			<destination_col>4</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>6</origin_row>
+			<origin_col>2</origin_col>
+			<destination_row>5</destination_row>
+			<destination_col>3</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>4</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>2</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>3</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>1</origin_row>
+			<origin_col>5</origin_col>
+			<destination_row>2</destination_row>
+			<destination_col>6</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>3</origin_row>
+			<origin_col>5</origin_col>
+			<destination_row>2</destination_row>
+			<destination_col>4</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>0</origin_row>
+			<origin_col>6</origin_col>
+			<destination_row>1</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>2</origin_row>
+			<origin_col>4</origin_col>
+			<destination_row>0</destination_row>
+			<destination_col>6</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>0</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>1</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>0</origin_row>
+			<origin_col>6</origin_col>
+			<destination_row>5</destination_row>
+			<destination_col>1</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>1</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>2</destination_row>
+			<destination_col>0</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>6</destination_row>
+			<destination_col>2</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>2</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>3</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>6</origin_row>
+			<origin_col>2</origin_col>
+			<destination_row>5</destination_row>
+			<destination_col>3</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>6</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>3</origin_col>
+			<destination_row>2</destination_row>
+			<destination_col>6</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>1</origin_row>
+			<origin_col>7</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>6</origin_row>
+			<origin_col>6</origin_col>
+			<destination_row>5</destination_row>
+			<destination_col>7</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>3</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>2</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>7</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>6</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>3</origin_row>
+			<origin_col>5</origin_col>
+			<destination_row>5</destination_row>
+			<destination_col>7</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>7</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>6</destination_row>
+			<destination_col>2</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>0</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>1</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>6</origin_row>
+			<origin_col>2</origin_col>
+			<destination_row>5</destination_row>
+			<destination_col>3</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>4</origin_row>
+			<origin_col>2</origin_col>
+			<destination_row>6</destination_row>
+			<destination_col>4</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>7</origin_row>
+			<origin_col>3</origin_col>
+			<destination_row>5</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>3</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>2</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>5</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>6</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>3</origin_row>
+			<origin_col>7</origin_col>
+			<destination_row>5</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>7</origin_row>
+			<origin_col>5</origin_col>
+			<destination_row>6</destination_row>
+			<destination_col>6</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>5</origin_row>
+			<origin_col>7</origin_col>
+			<destination_row>7</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>0</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>1</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>2</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>1</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>2</destination_row>
+			<destination_col>0</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>4</origin_row>
+			<origin_col>2</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>3</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>2</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>4</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>3</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>4</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>6</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>5</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>7</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>0</origin_row>
+			<origin_col>0</origin_col>
+			<destination_row>1</destination_row>
+			<destination_col>1</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>7</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>6</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>1</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>2</destination_row>
+			<destination_col>2</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>4</origin_row>
+			<origin_col>6</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>6</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>4</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>3</origin_row>
+			<origin_col>7</origin_col>
+			<destination_row>2</destination_row>
+			<destination_col>6</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>1</origin_row>
+			<origin_col>5</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>7</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>6</origin_row>
+			<origin_col>0</origin_col>
+			<destination_row>5</destination_row>
+			<destination_col>1</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>0</origin_row>
+			<origin_col>2</origin_col>
+			<destination_row>1</destination_row>
+			<destination_col>1</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>2</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>3</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>5</destination_row>
+			<destination_col>3</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>6</origin_row>
+			<origin_col>4</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>2</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>0</origin_row>
+			<origin_col>4</origin_col>
+			<destination_row>1</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>4</origin_row>
+			<origin_col>2</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>3</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>1</origin_row>
+			<origin_col>3</origin_col>
+			<destination_row>2</destination_row>
+			<destination_col>4</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>6</origin_row>
+			<origin_col>2</origin_col>
+			<destination_row>5</destination_row>
+			<destination_col>3</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>4</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>2</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>3</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>1</origin_row>
+			<origin_col>5</origin_col>
+			<destination_row>2</destination_row>
+			<destination_col>6</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>3</origin_row>
+			<origin_col>5</origin_col>
+			<destination_row>2</destination_row>
+			<destination_col>4</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>0</origin_row>
+			<origin_col>6</origin_col>
+			<destination_row>1</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>2</origin_row>
+			<origin_col>4</origin_col>
+			<destination_row>0</destination_row>
+			<destination_col>6</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>0</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>1</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>0</origin_row>
+			<origin_col>6</origin_col>
+			<destination_row>5</destination_row>
+			<destination_col>1</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>1</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>2</destination_row>
+			<destination_col>0</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>6</destination_row>
+			<destination_col>2</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>2</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>3</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>6</origin_row>
+			<origin_col>2</origin_col>
+			<destination_row>5</destination_row>
+			<destination_col>3</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>6</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>3</origin_col>
+			<destination_row>2</destination_row>
+			<destination_col>6</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>1</origin_row>
+			<origin_col>7</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>6</origin_row>
+			<origin_col>6</origin_col>
+			<destination_row>5</destination_row>
+			<destination_col>7</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>3</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>2</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>7</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>6</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>3</origin_row>
+			<origin_col>5</origin_col>
+			<destination_row>5</destination_row>
+			<destination_col>7</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>7</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>6</destination_row>
+			<destination_col>2</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>0</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>1</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>6</origin_row>
+			<origin_col>2</origin_col>
+			<destination_row>5</destination_row>
+			<destination_col>3</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>4</origin_row>
+			<origin_col>2</origin_col>
+			<destination_row>6</destination_row>
+			<destination_col>4</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>7</origin_row>
+			<origin_col>3</origin_col>
+			<destination_row>5</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>3</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>2</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>5</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>6</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>3</origin_row>
+			<origin_col>7</origin_col>
+			<destination_row>5</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>7</origin_row>
+			<origin_col>5</origin_col>
+			<destination_row>6</destination_row>
+			<destination_col>6</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>5</origin_row>
+			<origin_col>7</origin_col>
+			<destination_row>7</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>7</origin_row>
+			<origin_col>7</origin_col>
+			<destination_row>6</destination_row>
+			<destination_col>6</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>0</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>1</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>2</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>1</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>2</destination_row>
+			<destination_col>0</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>4</origin_row>
+			<origin_col>2</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>3</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>2</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>4</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>3</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>4</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>6</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>5</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>7</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>0</origin_row>
+			<origin_col>0</origin_col>
+			<destination_row>1</destination_row>
+			<destination_col>1</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>7</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>6</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>1</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>2</destination_row>
+			<destination_col>2</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>4</origin_row>
+			<origin_col>6</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>6</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>4</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>3</origin_row>
+			<origin_col>7</origin_col>
+			<destination_row>2</destination_row>
+			<destination_col>6</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>1</origin_row>
+			<origin_col>5</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>7</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>6</origin_row>
+			<origin_col>0</origin_col>
+			<destination_row>5</destination_row>
+			<destination_col>1</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>0</origin_row>
+			<origin_col>2</origin_col>
+			<destination_row>1</destination_row>
+			<destination_col>1</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>2</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>3</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>5</destination_row>
+			<destination_col>3</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>6</origin_row>
+			<origin_col>4</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>2</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>0</origin_row>
+			<origin_col>4</origin_col>
+			<destination_row>1</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>4</origin_row>
+			<origin_col>2</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>3</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>1</origin_row>
+			<origin_col>3</origin_col>
+			<destination_row>2</destination_row>
+			<destination_col>4</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>6</origin_row>
+			<origin_col>2</origin_col>
+			<destination_row>5</destination_row>
+			<destination_col>3</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>4</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>2</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>3</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>1</origin_row>
+			<origin_col>5</origin_col>
+			<destination_row>2</destination_row>
+			<destination_col>6</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>3</origin_row>
+			<origin_col>5</origin_col>
+			<destination_row>2</destination_row>
+			<destination_col>4</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>0</origin_row>
+			<origin_col>6</origin_col>
+			<destination_row>1</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>2</origin_row>
+			<origin_col>4</origin_col>
+			<destination_row>0</destination_row>
+			<destination_col>6</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>0</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>1</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>0</origin_row>
+			<origin_col>6</origin_col>
+			<destination_row>5</destination_row>
+			<destination_col>1</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>1</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>2</destination_row>
+			<destination_col>0</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>6</destination_row>
+			<destination_col>2</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>2</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>3</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>6</origin_row>
+			<origin_col>2</origin_col>
+			<destination_row>5</destination_row>
+			<destination_col>3</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>6</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>3</origin_col>
+			<destination_row>2</destination_row>
+			<destination_col>6</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>1</origin_row>
+			<origin_col>7</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>6</origin_row>
+			<origin_col>6</origin_col>
+			<destination_row>5</destination_row>
+			<destination_col>7</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>3</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>2</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>7</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>6</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>3</origin_row>
+			<origin_col>5</origin_col>
+			<destination_row>5</destination_row>
+			<destination_col>7</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>7</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>6</destination_row>
+			<destination_col>2</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>2</origin_row>
+			<origin_col>0</origin_col>
+			<destination_row>3</destination_row>
+			<destination_col>1</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>6</origin_row>
+			<origin_col>2</origin_col>
+			<destination_row>5</destination_row>
+			<destination_col>3</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>4</origin_row>
+			<origin_col>2</origin_col>
+			<destination_row>6</destination_row>
+			<destination_col>4</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>7</origin_row>
+			<origin_col>3</origin_col>
+			<destination_row>5</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>3</origin_row>
+			<origin_col>1</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>2</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>5</origin_row>
+			<origin_col>5</origin_col>
+			<destination_row>4</destination_row>
+			<destination_col>6</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>3</origin_row>
+			<origin_col>7</origin_col>
+			<destination_row>5</destination_row>
+			<destination_col>5</destination_col>
+		</turn>
+		<turn player_color="B">
+			<origin_row>7</origin_row>
+			<origin_col>5</origin_col>
+			<destination_row>6</destination_row>
+			<destination_col>6</destination_col>
+		</turn>
+		<turn player_color="W">
+			<origin_row>5</origin_row>
+			<origin_col>7</origin_col>
+			<destination_row>7</destination_row>
+			<destination_col>5</destination_col>
 		</turn>
 		<turn player_color="B">
 			<origin_row>7</origin_row>
@@ -6203,564 +9238,5 @@
 			<origin_col>5</origin_col>
 			<destination_row>7</destination_row>
 			<destination_col>7</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>2</origin_row>
-			<origin_col>0</origin_col>
-			<destination_row>3</destination_row>
-			<destination_col>1</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>5</origin_row>
-			<origin_col>1</origin_col>
-			<destination_row>4</destination_row>
-			<destination_col>2</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>1</origin_row>
-			<origin_col>1</origin_col>
-			<destination_row>2</destination_row>
-			<destination_col>0</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>4</origin_row>
-			<origin_col>2</origin_col>
-			<destination_row>3</destination_row>
-			<destination_col>3</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>2</origin_row>
-			<origin_col>2</origin_col>
-			<destination_row>4</destination_row>
-			<destination_col>4</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>5</origin_row>
-			<origin_col>3</origin_col>
-			<destination_row>3</destination_row>
-			<destination_col>5</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>2</origin_row>
-			<origin_col>4</origin_col>
-			<destination_row>4</destination_row>
-			<destination_col>6</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>5</origin_row>
-			<origin_col>5</origin_col>
-			<destination_row>3</destination_row>
-			<destination_col>7</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>0</origin_row>
-			<origin_col>0</origin_col>
-			<destination_row>1</destination_row>
-			<destination_col>1</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>5</origin_row>
-			<origin_col>7</origin_col>
-			<destination_row>4</destination_row>
-			<destination_col>6</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>1</origin_row>
-			<origin_col>1</origin_col>
-			<destination_row>2</destination_row>
-			<destination_col>2</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>4</origin_row>
-			<origin_col>6</origin_col>
-			<destination_row>3</destination_row>
-			<destination_col>5</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>2</origin_row>
-			<origin_col>6</origin_col>
-			<destination_row>4</destination_row>
-			<destination_col>4</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>3</origin_row>
-			<origin_col>7</origin_col>
-			<destination_row>2</destination_row>
-			<destination_col>6</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>1</origin_row>
-			<origin_col>5</origin_col>
-			<destination_row>3</destination_row>
-			<destination_col>7</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>6</origin_row>
-			<origin_col>0</origin_col>
-			<destination_row>5</destination_row>
-			<destination_col>1</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>0</origin_row>
-			<origin_col>2</origin_col>
-			<destination_row>1</destination_row>
-			<destination_col>1</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>5</origin_row>
-			<origin_col>1</origin_col>
-			<destination_row>4</destination_row>
-			<destination_col>2</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>3</origin_row>
-			<origin_col>1</origin_col>
-			<destination_row>5</destination_row>
-			<destination_col>3</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>6</origin_row>
-			<origin_col>4</origin_col>
-			<destination_row>4</destination_row>
-			<destination_col>2</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>0</origin_row>
-			<origin_col>4</origin_col>
-			<destination_row>1</destination_row>
-			<destination_col>5</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>4</origin_row>
-			<origin_col>2</origin_col>
-			<destination_row>3</destination_row>
-			<destination_col>3</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>1</origin_row>
-			<origin_col>3</origin_col>
-			<destination_row>2</destination_row>
-			<destination_col>4</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>6</origin_row>
-			<origin_col>2</origin_col>
-			<destination_row>5</destination_row>
-			<destination_col>3</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>2</origin_row>
-			<origin_col>4</origin_col>
-			<destination_row>4</destination_row>
-			<destination_col>2</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>5</origin_row>
-			<origin_col>3</origin_col>
-			<destination_row>3</destination_row>
-			<destination_col>5</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>1</origin_row>
-			<origin_col>5</origin_col>
-			<destination_row>2</destination_row>
-			<destination_col>6</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>3</origin_row>
-			<origin_col>5</origin_col>
-			<destination_row>2</destination_row>
-			<destination_col>4</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>2</origin_row>
-			<origin_col>0</origin_col>
-			<destination_row>3</destination_row>
-			<destination_col>1</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>2</origin_row>
-			<origin_col>4</origin_col>
-			<destination_row>1</destination_row>
-			<destination_col>5</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>0</origin_row>
-			<origin_col>6</origin_col>
-			<destination_row>2</destination_row>
-			<destination_col>4</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>6</origin_row>
-			<origin_col>6</origin_col>
-			<destination_row>5</destination_row>
-			<destination_col>7</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>1</origin_row>
-			<origin_col>1</origin_col>
-			<destination_row>2</destination_row>
-			<destination_col>0</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>5</origin_row>
-			<origin_col>7</origin_col>
-			<destination_row>4</destination_row>
-			<destination_col>6</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>3</origin_row>
-			<origin_col>7</origin_col>
-			<destination_row>5</destination_row>
-			<destination_col>5</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>7</origin_row>
-			<origin_col>1</origin_col>
-			<destination_row>6</destination_row>
-			<destination_col>2</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>2</origin_row>
-			<origin_col>2</origin_col>
-			<destination_row>3</destination_row>
-			<destination_col>3</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>6</origin_row>
-			<origin_col>2</origin_col>
-			<destination_row>5</destination_row>
-			<destination_col>3</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>4</origin_row>
-			<origin_col>2</origin_col>
-			<destination_row>6</destination_row>
-			<destination_col>4</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>7</origin_row>
-			<origin_col>5</origin_col>
-			<destination_row>5</destination_row>
-			<destination_col>3</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>2</origin_row>
-			<origin_col>4</origin_col>
-			<destination_row>3</destination_row>
-			<destination_col>5</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>5</origin_row>
-			<origin_col>3</origin_col>
-			<destination_row>4</destination_row>
-			<destination_col>4</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>3</origin_row>
-			<origin_col>5</origin_col>
-			<destination_row>5</destination_row>
-			<destination_col>3</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>7</origin_row>
-			<origin_col>7</origin_col>
-			<destination_row>6</destination_row>
-			<destination_col>6</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>5</origin_row>
-			<origin_col>5</origin_col>
-			<destination_row>7</destination_row>
-			<destination_col>7</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>7</origin_row>
-			<origin_col>3</origin_col>
-			<destination_row>6</destination_row>
-			<destination_col>4</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>2</origin_row>
-			<origin_col>0</origin_col>
-			<destination_row>3</destination_row>
-			<destination_col>1</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>5</origin_row>
-			<origin_col>1</origin_col>
-			<destination_row>4</destination_row>
-			<destination_col>2</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>1</origin_row>
-			<origin_col>1</origin_col>
-			<destination_row>2</destination_row>
-			<destination_col>0</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>4</origin_row>
-			<origin_col>2</origin_col>
-			<destination_row>3</destination_row>
-			<destination_col>3</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>2</origin_row>
-			<origin_col>2</origin_col>
-			<destination_row>4</destination_row>
-			<destination_col>4</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>5</origin_row>
-			<origin_col>3</origin_col>
-			<destination_row>3</destination_row>
-			<destination_col>5</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>2</origin_row>
-			<origin_col>4</origin_col>
-			<destination_row>4</destination_row>
-			<destination_col>6</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>5</origin_row>
-			<origin_col>5</origin_col>
-			<destination_row>3</destination_row>
-			<destination_col>7</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>0</origin_row>
-			<origin_col>0</origin_col>
-			<destination_row>1</destination_row>
-			<destination_col>1</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>5</origin_row>
-			<origin_col>7</origin_col>
-			<destination_row>4</destination_row>
-			<destination_col>6</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>1</origin_row>
-			<origin_col>1</origin_col>
-			<destination_row>2</destination_row>
-			<destination_col>2</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>4</origin_row>
-			<origin_col>6</origin_col>
-			<destination_row>3</destination_row>
-			<destination_col>5</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>2</origin_row>
-			<origin_col>6</origin_col>
-			<destination_row>4</destination_row>
-			<destination_col>4</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>3</origin_row>
-			<origin_col>7</origin_col>
-			<destination_row>2</destination_row>
-			<destination_col>6</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>1</origin_row>
-			<origin_col>5</origin_col>
-			<destination_row>3</destination_row>
-			<destination_col>7</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>6</origin_row>
-			<origin_col>0</origin_col>
-			<destination_row>5</destination_row>
-			<destination_col>1</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>0</origin_row>
-			<origin_col>2</origin_col>
-			<destination_row>1</destination_row>
-			<destination_col>1</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>5</origin_row>
-			<origin_col>1</origin_col>
-			<destination_row>4</destination_row>
-			<destination_col>2</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>3</origin_row>
-			<origin_col>1</origin_col>
-			<destination_row>5</destination_row>
-			<destination_col>3</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>6</origin_row>
-			<origin_col>4</origin_col>
-			<destination_row>4</destination_row>
-			<destination_col>2</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>0</origin_row>
-			<origin_col>4</origin_col>
-			<destination_row>1</destination_row>
-			<destination_col>5</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>4</origin_row>
-			<origin_col>2</origin_col>
-			<destination_row>3</destination_row>
-			<destination_col>3</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>1</origin_row>
-			<origin_col>3</origin_col>
-			<destination_row>2</destination_row>
-			<destination_col>4</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>6</origin_row>
-			<origin_col>2</origin_col>
-			<destination_row>5</destination_row>
-			<destination_col>3</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>2</origin_row>
-			<origin_col>4</origin_col>
-			<destination_row>4</destination_row>
-			<destination_col>2</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>5</origin_row>
-			<origin_col>3</origin_col>
-			<destination_row>3</destination_row>
-			<destination_col>5</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>1</origin_row>
-			<origin_col>5</origin_col>
-			<destination_row>2</destination_row>
-			<destination_col>6</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>3</origin_row>
-			<origin_col>5</origin_col>
-			<destination_row>2</destination_row>
-			<destination_col>4</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>2</origin_row>
-			<origin_col>0</origin_col>
-			<destination_row>3</destination_row>
-			<destination_col>1</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>2</origin_row>
-			<origin_col>4</origin_col>
-			<destination_row>1</destination_row>
-			<destination_col>5</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>0</origin_row>
-			<origin_col>6</origin_col>
-			<destination_row>2</destination_row>
-			<destination_col>4</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>6</origin_row>
-			<origin_col>6</origin_col>
-			<destination_row>5</destination_row>
-			<destination_col>7</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>1</origin_row>
-			<origin_col>1</origin_col>
-			<destination_row>2</destination_row>
-			<destination_col>0</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>5</origin_row>
-			<origin_col>7</origin_col>
-			<destination_row>4</destination_row>
-			<destination_col>6</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>3</origin_row>
-			<origin_col>7</origin_col>
-			<destination_row>5</destination_row>
-			<destination_col>5</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>7</origin_row>
-			<origin_col>1</origin_col>
-			<destination_row>6</destination_row>
-			<destination_col>2</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>2</origin_row>
-			<origin_col>2</origin_col>
-			<destination_row>3</destination_row>
-			<destination_col>3</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>6</origin_row>
-			<origin_col>2</origin_col>
-			<destination_row>5</destination_row>
-			<destination_col>3</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>4</origin_row>
-			<origin_col>2</origin_col>
-			<destination_row>6</destination_row>
-			<destination_col>4</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>7</origin_row>
-			<origin_col>5</origin_col>
-			<destination_row>5</destination_row>
-			<destination_col>3</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>2</origin_row>
-			<origin_col>4</origin_col>
-			<destination_row>3</destination_row>
-			<destination_col>5</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>5</origin_row>
-			<origin_col>3</origin_col>
-			<destination_row>4</destination_row>
-			<destination_col>4</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>3</origin_row>
-			<origin_col>5</origin_col>
-			<destination_row>5</destination_row>
-			<destination_col>3</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>7</origin_row>
-			<origin_col>7</origin_col>
-			<destination_row>6</destination_row>
-			<destination_col>6</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>5</origin_row>
-			<origin_col>5</origin_col>
-			<destination_row>7</destination_row>
-			<destination_col>7</destination_col>
-		</turn>
-		<turn player_color="B">
-			<origin_row>7</origin_row>
-			<origin_col>3</origin_col>
-			<destination_row>6</destination_row>
-			<destination_col>4</destination_col>
-		</turn>
-		<turn player_color="W">
-			<origin_row>5</origin_row>
-			<origin_col>3</origin_col>
-			<destination_row>7</destination_row>
-			<destination_col>5</destination_col>
 		</turn>
 	</Turns>
-</DamaPyco>

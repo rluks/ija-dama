@@ -83,7 +83,8 @@ public class Dama extends Thread{
     public void run(){
 
 
-        XmlToVector("C:\\Users\\HAL\\workspace\\ija-dama\\turnvector.xml", loadedTurns);
+        if (!XmlToVector("C:\\Users\\HAL\\workspace\\ija-dama\\turnvector.xml"))
+            System.out.println("\n\nXML to vector se posralo!!!\n");
 
 
 
@@ -564,8 +565,10 @@ public class Dama extends Thread{
         }
     }
 
-    public static boolean XmlToVector (String cesta, Vector<Turn> loadedTurns)
+    public static boolean XmlToVector (String cesta)
     {
+        Vector<Turn> TurnVector=new Vector<Turn>();
+
         try
         {
             File fXmlFile = new File(cesta);
@@ -631,12 +634,15 @@ public class Dama extends Thread{
                     Position d=new Position(d_r, d_c);
 
                     Turn turn = new Turn(p, o, d);
-                    loadedTurns.add(turn);
+
+                    TurnVector.add(turn);
+
 
                     System.out.println("Hrac : " + p);
                     System.out.println("Origin: " + o_r + ":" + o_c);
                     System.out.println("Destination: " + d_r + ":" + d_c);
                     System.out.println("-----------------------------------");
+
 
                 }
 
@@ -648,7 +654,9 @@ public class Dama extends Thread{
             e.printStackTrace();
             return false;
         }
-        return true;
+
+        if (setLoadedTurns(TurnVector))return true;
+        return false;
     }
 
 
