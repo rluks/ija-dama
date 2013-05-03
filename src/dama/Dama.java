@@ -171,6 +171,7 @@ public class Dama extends Thread{
                 if(this.loadedTurns != null && this.loadedTurns.size() > 0){
 
                     Turn loadedTurn = new Turn(this.loadedTurns.firstElement());
+                    this.turn = loadedTurn;
                     System.out.println("Hra: nacteny tah:\n" + loadedTurn.getTurnString());
                     if(Moves.isTurnValid(loadedTurn, desk)){
                         System.out.println("Hra: Nacteny tah je validni, provadim...");
@@ -267,6 +268,11 @@ public class Dama extends Thread{
                 gui.updateDesk(this.desk);
                 //this.desk.printSimpleBoard();
 
+                if(this.playerColor != this.turn.playerColor){
+                    System.out.println("Hra: barva hrace v tahu a v this.playerColor si neodpovida!");
+                    return;
+                }
+
                 //cisteni
                 gui.clearAura();
                 gui.clearHelp();
@@ -352,24 +358,49 @@ public class Dama extends Thread{
 
         Dama.startingGameThread();
 
+        /*
+
         Vector<Turn> lt = new Vector<Turn>();
-        Position o = new Position(2, 2);
-        Position d = new Position(3, 1);
+        Position o = Position.positionStrToPositionLowerCase("c3");
+        Position d = Position.positionStrToPositionLowerCase("b4");
         Turn t = new Turn('W', o, d);
         System.out.println(t.getTurnString());
         lt.add(t);
+
+        o = Position.positionStrToPositionLowerCase("b6");
+        d = Position.positionStrToPositionLowerCase("c5");
+        t = new Turn('B', o, d);
+        System.out.println(t.getTurnString());
+        lt.add(t);
+
+        o = Position.positionStrToPositionLowerCase("b4");
+        d = Position.positionStrToPositionLowerCase("a5");
+        t = new Turn('W', o, d);
+        System.out.println(t.getTurnString());
+        lt.add(t);
+
+        */
+
+
+        if(Dama.XmlToVector("C:\\eclipseworkspace\\ija-dama-2013\\turnvector.xml")){
+            System.out.println("Turns nastaveny!");
+        }else{
+            System.out.println("Turns FAIL!");
+            return;
+        }
 
         String whiteStr = "Human";
         String blackStr = "Human";
         int aiWait = 300;
         Settings settings = new Settings(whiteStr, blackStr, null, null, 0, aiWait);
 
-        Dama.setLoadedTurns(lt);
+        //Dama.setLoadedTurns(lt);
         Dama.setSettings(settings);
 
         try {Thread.sleep(300);} catch (InterruptedException e) {e.printStackTrace();}
 
         Dama.wakeUpGameThread();
+
 
     }
 
@@ -762,7 +793,7 @@ public class Dama extends Thread{
             return false;
         }
 
-        if (setLoadedTurns(TurnVector))return true;
+        if (Dama.setLoadedTurns(TurnVector))return true;
         return false;
     }
 
