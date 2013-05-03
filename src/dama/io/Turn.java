@@ -30,6 +30,19 @@ public class Turn {
     }
 
     /**
+     * Klonovaci funkce
+     * @param turn
+     */
+    public Turn(Turn turn){
+        this.playerColor = turn.playerColor;
+        Position origin = new Position(turn.origin);
+        Position destination = new Position(turn.destination);
+
+        this.origin = origin;
+        this.destination = destination;
+    }
+
+    /**
      * Obaluje konstruktor, vytvari jen tahy cerneho hrace
      * @param     origin
      * @param     destination

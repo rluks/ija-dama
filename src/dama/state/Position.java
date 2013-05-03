@@ -19,6 +19,15 @@ public class Position {
     }
 
     /**
+     * Klonovaci funkce
+     * @param position
+     */
+    public Position(Position position){
+        this.row = position.row;
+        this.col = position.col;
+    }
+
+    /**
      * Rovnou vytvori po konverzi z upper case retezce novou instanci pozice
      * @param positionStr retezec pozice v upper case, napr.: A1
      * @return instance Pozice
