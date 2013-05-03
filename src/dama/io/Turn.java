@@ -64,7 +64,7 @@ public class Turn {
 
     public String getTurnString(){
         String s = new String();
-
+        s += "playerColor: " + this.playerColor + " \n";
         s += "origin:\n\t" + this.origin.getStr() + " (row: " + this.origin.row + " col: " + this.origin.col + ")\n";
         s += "destination: \n\t" + this.destination.getStr() + " (row: " + this.destination.row + " col: " + this.destination.col + ")\n";
 
