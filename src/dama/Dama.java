@@ -81,6 +81,7 @@ public class Dama extends Thread{
 
     public void run(){
 
+        /*
         System.out.println("====================================================");
         System.out.println("====================================================");
         System.out.println("====================================================");
@@ -90,6 +91,7 @@ public class Dama extends Thread{
         System.out.println("=======================KONEC=====================");
         System.out.println("=======================KONEC========================");
         System.out.println("=======================KONEC========================");
+        */
 
 
 
@@ -304,7 +306,9 @@ public class Dama extends Thread{
                 if(victory){
                     System.out.println("Hra: Konec hry, dalsi hrac uz nehraje.");
                     try {
-                        Output.printTurnVector(ouputTurns);
+                        System.out.println("Hra: Konec hry, tisknu xml s tahy.");
+                        String xml = Output.getTurnVectorString(this.ouputTurns);
+                        Output.printStringToFile(xml, "turnvector.xml");
                     } catch (Exception e1) {
                         // TODO Auto-generated catch block
                         e1.printStackTrace();
