@@ -15,6 +15,14 @@ import dama.state.Desk;
 import dama.state.Position;
 import dama.state.Settings;
 
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.DocumentBuilder;
+import org.w3c.dom.Document;
+import org.w3c.dom.NodeList;
+import org.w3c.dom.Node;
+import org.w3c.dom.Element;
+import java.io.File;
+
 /**
  * Hra Dáma v Javě
  * @author Roman Lukš
@@ -543,6 +551,58 @@ public class Dama extends Thread{
 
     public static String getPlayerColorString(char playerColor){
         return (playerColor == 'W') ? "white" : "black";
+    }
+
+    public static boolean XmlToVector (String cesta)
+    {
+        try
+        {
+            File fXmlFile = new File(cesta);
+            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+            Document doc = dBuilder.parse(fXmlFile);
+            doc.getDocumentElement().normalize();
+
+            System.out.println("Root element :" + doc.getDocumentElement().getNodeName());
+            NodeList nList = doc.getElementsByTagName("turn");
+            System.out.println("----------------------------");
+
+            String natahu = "W";
+            for (int temp = 0; temp < nList.getLength(); temp++)
+            {
+                Node nNode = nList.item(temp);
+                System.out.println("\nCurrent Element :" + nNode.getNodeName());
+
+                if (nNode.getNodeType() == Node.ELEMENT_NODE)
+                {
+                    Element eElement = (Element) nNode;
+
+                    //char p=eElement.getAttribute("player_color").charAt(0);
+                    //int o_r=eElement.getElementsByTagName("origin_row").item(0).getTextContent().charAt(0);
+
+                    /*
+                    if (natahu==eElement.getAttribute("player_color")) natahu="B";
+                    else
+                    {
+                        System.out.println("Spatny poradi hracu");
+                        return false;
+                    }
+                    */
+                    System.out.println("Hrac : " + eElement.getAttribute("player_color"));
+                    System.out.print("Origin : " + eElement.getElementsByTagName("origin_row").item(0).getTextContent());
+                    System.out.println(":" + eElement.getElementsByTagName("origin_col").item(0).getTextContent());
+                    System.out.print("Destination : " + eElement.getElementsByTagName("destination_row").item(0).getTextContent());
+                    System.out.print(":" + eElement.getElementsByTagName("destination_col").item(0).getTextContent());
+                }
+            }
+
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
     }
 
 
