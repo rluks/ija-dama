@@ -8,6 +8,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class LoadGame extends JInternalFrame
 {
@@ -15,7 +16,7 @@ public class LoadGame extends JInternalFrame
 
     private JTextField TFCesta;
     private JButton BtBrowse;
-    private JButton BtOk;
+    //private JButton BtOk;
 
     public LoadGame()
     {
@@ -39,7 +40,7 @@ public class LoadGame extends JInternalFrame
         //this.cesta.setColumns(10);
 
         this.BtBrowse = new JButton("Browse");
-        this.BtBrowse.setBounds(294, 11, 67, 20);
+        this.BtBrowse.setBounds(294, 11, 80, 20);
         this.BtBrowse.addActionListener(new OpenL());
         getContentPane().add(this.BtBrowse);
 
@@ -47,9 +48,11 @@ public class LoadGame extends JInternalFrame
         popisek.setBounds(26, 15, 34, 14);
         getContentPane().add(popisek);
 
+        /*
         this.BtOk = new JButton("OK");
         this.BtOk.setBounds(272, 39, 89, 23);
         getContentPane().add(this.BtOk);
+         */
 
         System.out.println("\t\t/Konstruktor LG");
     }
@@ -62,6 +65,9 @@ public class LoadGame extends JInternalFrame
             public void actionPerformed(ActionEvent e)
             {
                   JFileChooser c = new JFileChooser();
+                  FileNameExtensionFilter xmlfilter = new FileNameExtensionFilter("xml files (*.xml)", "xml");
+                  c.setFileFilter(xmlfilter);
+
                   int rVal = c.showOpenDialog(LoadGame.this);
                   if (rVal == JFileChooser.APPROVE_OPTION)
                   {
