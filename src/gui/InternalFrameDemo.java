@@ -95,6 +95,9 @@ public class InternalFrameDemo extends JFrame
     protected NewP2PGameSettings inFrNewP2PGameSett;
     protected Settings settings;
 
+    //vnitrni ramec
+    protected Victory victory;
+
     //loadGame
     protected LoadGame inFrLoadGame;
 
@@ -163,6 +166,8 @@ public class InternalFrameDemo extends JFrame
 
         //menu
         setJMenuBar(createMenuBar());
+
+        createVictory();
 
         //texty s informacemi
         lblInfo = new JLabel("Not playing.");
@@ -520,6 +525,30 @@ public class InternalFrameDemo extends JFrame
         try {
             inFrNewP2PGameSett.setSelected(true);
         } catch (java.beans.PropertyVetoException e) {}
+    }
+
+    public void createVictory(){
+
+        this.victory = new Victory();
+        desktop.setLayer(this.victory, 1);
+        this.victory.setLocation(200, 200);
+        this.victory.setVisible(true);
+
+        JButton btnOK = new JButton("OK");
+        this.victory.getContentPane().add(btnOK);
+        btnOK.setActionCommand("victoryOK");
+        btnOK.addActionListener(this);
+
+        JButton btnSave = new JButton("Save game");
+        this.victory.getContentPane().add(btnSave);
+        btnSave.setActionCommand("save");
+        btnSave.addActionListener(this);
+
+        desktop.add(this.victory);
+        try {
+            this.victory.setSelected(true);
+        } catch (java.beans.PropertyVetoException e) {}
+
     }
 
 
