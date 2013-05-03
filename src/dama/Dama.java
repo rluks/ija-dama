@@ -483,6 +483,22 @@ public class Dama extends Thread{
 
     }
 
+    public static boolean setLoadedTurns(Vector<Turn> loadedTurns){
+
+        System.out.println("setTurn: ukladam nactene tahy tah...");
+
+        if(dama != null){
+            synchronized (dama){
+                dama.loadedTurns = loadedTurns;
+                dama.notify();
+            }
+            return true;
+        }else{
+            System.out.println("setTurn: hra neexistuje!");
+            return false;
+        }
+    }
+
     /**
      * Z vlakna hry ziska desku
      * @return desk instance tridy Desk obsahujici stav hry na sachovnici
