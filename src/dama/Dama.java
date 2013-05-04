@@ -44,6 +44,7 @@ public class Dama extends Thread{
 
     //vlakno hry
     public Settings settings;
+    String currentPlayerAIHumanSettings;
 
     public Vector<Turn> ouputTurns;    //sem hra uklada provedene tahy - pouzije se v pripade ulozeni hry
     public Vector<Turn> loadedTurns;//zde jsou ulozeny tahy v pripade nacteni hry
@@ -54,6 +55,7 @@ public class Dama extends Thread{
     protected int tahCislo = 0;
     protected boolean wtake;
     protected boolean btake;
+    protected boolean wbtake;
     protected Turn wturn;
     protected Turn bturn;
     private int aiStochasticity = 5; //nahodnost AI tahu
@@ -87,22 +89,6 @@ public class Dama extends Thread{
     }
 
     public void run(){
-
-        /*
-        System.out.println("====================================================");
-        System.out.println("====================================================");
-        System.out.println("====================================================");
-        if (!XmlToVector("C:\\Users\\HAL\\workspace\\ija-dama\\turnvector.xml"))
-            System.out.println("\n\nXML to vector se posralo!!!\n");
-        else System.out.println("\n\nXML to vector DOBRY!!!\n");
-        System.out.println("=======================KONEC=====================");
-        System.out.println("=======================KONEC========================");
-        System.out.println("=======================KONEC========================");
-        */
-
-
-
-
 
         //inicializace
 
@@ -140,35 +126,15 @@ public class Dama extends Thread{
                 gameSetAndRuning = true;
                 System.out.println("Hra: tah cislo: " + tahCislo + " ,bezi s timto nastavenim: " + this.settings.getSettingsString());
 
-                if(this.loadedTurns != null){
-                    if(this.loadedTurns.size() > 0){
-                        System.out.println("Hra: V loadedTurns zbyva " + this.loadedTurns.size() + " tahu");
-                    }
-                }
-
                 //vypinaci cast
                 checkGUIShutdown(gui);
                 if(allDone){System.out.println("Hra: Dama terminated, allDone!!");return;}
 
-                //stridani barev hracu
-                if (this.playerColor != 'W' && this.playerColor != 'B'){//prvni kolo
-                    this.playerColor = 'W';
-                }else if (this.playerColor == 'W'){
-                    this.playerColor = 'B';
-                }else if (this.playerColor == 'B'){
-                    this.playerColor = 'W';
-                }else{
-                    System.out.println("Hra: neco je spatne s barvami hracu!");
-                }
+                switchPlayerColors();
 
-                //try {Thread.sleep(50);} catch (InterruptedException e) {e.printStackTrace();}
+                this.currentPlayerAIHumanSettings = getAIorHumanSettingsForCurrentPlayerColor(this.playerColor);
 
-                String currentPlayerAIHumanSettings = getAIorHumanSettingsForCurrentPlayerColor(this.playerColor);
-
-                //tisk informaci
-                System.out.println("Hra: "+ Output.getPlayerColorString(this.playerColor)+ " will play!");
-                String infoText = (currentPlayerAIHumanSettings == "AI")? "Hra: it's "+ Output.getPlayerColorString(this.playerColor)+ " AI turn!" : "Hra: it's "+ Output.getPlayerColorString(this.playerColor)+ "players turn!";
-                gui.setInfoText(infoText);
+                printAndSetInfo();
 
                 //vykresleni desky
                 Check.isMustTake(desk, this.playerColor);
@@ -177,6 +143,8 @@ public class Dama extends Thread{
 
                 //ulozeny tah
                 if(this.loadedTurns != null && this.loadedTurns.size() > 0){
+                	
+                	System.out.println("Hra: V loadedTurns zbyva " + this.loadedTurns.size() + " tahu");
 
                     Turn loadedTurn = new Turn(this.loadedTurns.firstElement());
                     this.turn = loadedTurn;
@@ -186,25 +154,11 @@ public class Dama extends Thread{
 
                         if(Check.isMustTake(desk, this.playerColor)){//Take
                             System.out.println("Hra: nacteny tah - " + Output.getPlayerColorString(this.playerColor) + ", take() vraci:" + Moves.Take(desk, loadedTurn));
-
-                        if(this.playerColor == 'W'){
-                            wtake = true;
-                        }else if(this.playerColor == 'B'){
-                            btake = true;
-                        }else{
-                            System.out.println("Hra: nactena hra - neco je spatne s barvami hracu!");
-                        }
-
+                            wbtake = true;
+                            
                         }else{//Move
                             System.out.println("Hra: nacteny tah - " + Output.getPlayerColorString(this.playerColor) + ", MOVE() vraci:" + Moves.Move(desk, loadedTurn));
-
-                            if(this.playerColor == 'W'){
-                                wtake = false;
-                            }else if(this.playerColor == 'B'){
-                                btake = false;
-                            }else{
-                                System.out.println("Hra: nactena hra - neco je spatne s barvami hracu!");
-                            }
+                            wbtake = false;
                         }
 
                         this.turn = new Turn(loadedTurn);
@@ -213,7 +167,8 @@ public class Dama extends Thread{
 
                     }else{
                         System.out.println("Hra: Nacteny tah NENI validni!");
-                        return;//TODO hlaska v gui
+                        gui.createFail("Nacteny tah NENI validni!");
+                        //return;
                     }
                 }else if(currentPlayerAIHumanSettings == "AI"){//AI
 
@@ -224,7 +179,8 @@ public class Dama extends Thread{
                     this.turn = AI.AIMove(desk, this.playerColor, this.aiStochasticity);
                     if(this.turn == null){
                         System.out.println("Hra: AIMove() vratilo null");
-                        return;//TODO dodelat kdyz vrati null
+                        gui.createFail("AI Move failed. It's probably stalemate!");
+                        //return;
                     }
                     this.desk.clearMustTakeFlag();
 
@@ -240,7 +196,7 @@ public class Dama extends Thread{
                     while(this.invalidTurn){
                         synchronized(this){ while(pleaseWait){ try { System.out.println("Hra: sleeping..."); wait();} catch (Exception e) { e.printStackTrace(); } }  }
                         gui.setInfoText("Nevalidni tah!");
-                        //gui.
+                    	//TODO napoveda
                         this.pleaseWait = true;
                     }
 
@@ -253,25 +209,14 @@ public class Dama extends Thread{
                     if(Check.isMustTake(desk, this.playerColor)){//Take
                         System.out.println("================================BRANI=============================");
                         System.out.println("Hra: tah " + Output.getPlayerColorString(this.playerColor) + ", take() vraci:" + Moves.Take(desk, turn));
-
-                        if(this.playerColor == 'W'){
-                            wtake = true;
-                        }else if(this.playerColor == 'B'){
-                            btake = true;
-                        }else{
-                            System.out.println("Hra: neco je spatne s barvami hracu!");
-                        }
+                        wbtake = true;
 
                     }else{//Move
                         System.out.println("Hra: tah " + Output.getPlayerColorString(this.playerColor) + ", MOVE() vraci:" + Moves.Move(desk, turn));
 
-                        if(this.playerColor == 'W'){
-                            wtake = false;
-                        }else if(this.playerColor == 'B'){
-                            btake = false;
-                        }else{
-                            System.out.println("Hra: neco je spatne s barvami hracu!");
-                        }
+                    }else{//Move
+                        System.out.println("Hra: tah " + Output.getPlayerColorString(this.playerColor) + ", MOVE() vraci:" + Moves.Move(desk, turn));
+                        wbtake = false;
                     }
                     desk.clearMustTakeFlag();
                 }
@@ -290,42 +235,18 @@ public class Dama extends Thread{
 
                 //cisteni
                 gui.clearAura();
-                gui.clearHelp();
-
+                gui.clearHelp();             
                 this.invalidTurn = false;
 
-                //ukladani tahu pro vypis notace
-                if(this.playerColor == 'W'){
-                    this.wturn = this.turn;
-                }else if(this.playerColor == 'B'){
-                    this.bturn = this.turn;
-                }else{
-                    System.out.println("Hra: neco je spatne s barvami hracu!");
-                }
+                setWBTurn();
 
                 this.ouputTurns.addElement(new Turn(this.turn));
 
-                boolean victory = Check.isVictory(desk);
+                boolean victory = Check.isVictory(desk);               
+                
+                setWBtake();
 
-                //tisk notace
-                if(this.playerColor == 'B'){
-                    System.out.println("Hra: oba hraci hrali");
-                    gui.NotationNewLineLastBlack(bturn, btake);
-                }else if(this.playerColor == 'W'){
-                    tahCislo++;
-                    System.out.println("Hra: hral bily");
-                    gui.NotationNewLineLastWhite(wturn, wtake, this.tahCislo);
-                }
-                /*
-                if(this.playerColor == 'B'){
-                    System.out.println("Hra: oba hraci hrali");
-                    tahCislo++;
-                    gui.NotationNewLine(wturn, wtake, bturn, btake, tahCislo);
-                }else if(this.playerColor == 'W' && victory){
-                    tahCislo++;
-                    gui.NotationNewLineLastWhite(wturn, wtake, tahCislo); //zkracena notace
-                }
-                */
+                printNotation();  
 
                 //ukonceni hry pri vitezstvi
                 if(victory){
@@ -334,15 +255,14 @@ public class Dama extends Thread{
                         System.out.println("Hra: Konec hry, tisknu xml s tahy.");
                         Output.printStringToFile(Output.getXmlFromSettingsAndTurnVector(this.settings, this.ouputTurns), "examples\\katafalka.xml");
                     } catch (Exception e1) {
-                        // TODO Auto-generated catch block
                         e1.printStackTrace();
+                        gui.createFail("Failed to save file!");
                     }
                     //Dama.stopGameThread();
                     gui.setInfoText("!!! Victory !!!");
                     gui.createVictory();
                     this.pleaseWait = true;
                     synchronized(this){ while(pleaseWait){ try { System.out.println("Hra: sleeping..."); wait();} catch (Exception e) { e.printStackTrace(); } }  }
-                    //try {Thread.sleep(4000);} catch (InterruptedException e) {e.printStackTrace();}
                     gui.setVisible(false);
                     Dama.startingGameThread();
                     return;
@@ -356,9 +276,79 @@ public class Dama extends Thread{
     }
 
 
-    /**
+	/**
+	 * Vytiskne do gui notaci a zvysi pocitadlo tahu
+	 */
+	private void printNotation() {
+		
+        if(this.playerColor == 'B'){
+            System.out.println("Hra: oba hraci hrali");
+            gui.NotationNewLineLastBlack(bturn, btake);
+        }else if(this.playerColor == 'W'){
+            tahCislo++;
+            System.out.println("Hra: hral bily");
+            gui.NotationNewLineLastWhite(wturn, wtake, this.tahCislo);
+        }   	
+	}
+
+	/**
+     * Metoda ulozi flag o tom jestli se bralo do wtake nebo btake
+     * dle barvy hrace na tahu
+     */
+    private void setWBtake() {
+    	
+        if(this.playerColor == 'W'){
+            wtake = wbtake;
+        }else if(this.playerColor == 'B'){
+            btake = wbtake;
+        }else{
+            System.out.println("Hra: neco je spatne s barvami hracu!");
+        }	
+	}
+
+	/**
+     * Metoda ulozi posledni provedeny tah do wturn nebo bturn
+     * dle barvy hrace na tahu
+     */
+    private void setWBTurn() {
+    	
+        if(this.playerColor == 'W'){
+            this.wturn = this.turn;
+        }else if(this.playerColor == 'B'){
+            this.bturn = this.turn;
+        }else{
+            System.out.println("Hra: neco je spatne s barvami hracu!");
+        }		
+	}
+
+	/**
+	 * Tisk informaci o tom kdo je na tahu do konzole a do gui
+	 */
+	private void printAndSetInfo() {
+        System.out.println("Hra: "+ Output.getPlayerColorString(this.playerColor)+ " will play!");
+        String infoText = (currentPlayerAIHumanSettings == "AI")? "Hra: it's "+ Output.getPlayerColorString(this.playerColor)+ " AI turn!" : "Hra: it's "+ Output.getPlayerColorString(this.playerColor)+ "players turn!";
+        gui.setInfoText(infoText);	
+	}
+
+	/**
+	 * Prohazuje barvy hracu
+	 */
+	private void switchPlayerColors() {
+    	
+        if (this.playerColor != 'W' && this.playerColor != 'B'){//prvni kolo
+            this.playerColor = 'W';
+        }else if (this.playerColor == 'W'){
+            this.playerColor = 'B';
+        }else if (this.playerColor == 'B'){
+            this.playerColor = 'W';
+        }else{
+            System.out.println("Hra: neco je spatne s barvami hracu!");
+        }		
+	}
+
+	/**
      * Kontrola jestli se GUI zavrelo
-     * @param isGUIvisible gui.isVisible;//TODO zmena
+     * @param gui instance InternalFrameDemo
      */
     private void checkGUIShutdown(InternalFrameDemo gui){
 
@@ -467,7 +457,7 @@ public class Dama extends Thread{
     public static boolean sleepGameThread(){
         System.out.println("sleepGameThread: pokousim se uspat hru...");
 
-        if(dama != null){//TODO tyhle kontroly delat v jedine fci
+        if(dama != null){
             synchronized (dama){
                 dama.pleaseWait = true;
             }
@@ -806,7 +796,7 @@ public class Dama extends Thread{
             if (p2pEn.equals("yes")) set=new Settings(w, b, p2pLoc, p2pRemIp, p2pRemP, ai);
             else if (p2pEn.equals("no")) set=new Settings(w, b, null, null, 0, ai);
             else return false;
-            Dama.setSettings(set);
+            if (!Dama.setSettings(set)) return false;
 
             /// nacteni jednotlivych tahu
             NodeList nList = doc.getElementsByTagName("turn");

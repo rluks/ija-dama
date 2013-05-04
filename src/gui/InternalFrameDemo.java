@@ -34,6 +34,8 @@ package gui;
 import java.awt.Button;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.Image;
 import java.awt.Label;
 import java.awt.MouseInfo;
 import java.awt.Point;
@@ -47,6 +49,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Enumeration;
 
 import javax.swing.AbstractButton;
@@ -101,6 +105,7 @@ public class InternalFrameDemo extends JFrame
 
     //vnitrni ramec
     protected Victory victory;
+    protected Fail fail;
 
     //loadGame
     protected LoadGame inFrLoadGame;
@@ -176,8 +181,6 @@ public class InternalFrameDemo extends JFrame
 
         //menu
         setJMenuBar(createMenuBar());
-
-        //createVictory();
 
         //texty s informacemi
         lblInfo = new JLabel("Not playing.");
@@ -558,11 +561,13 @@ public class InternalFrameDemo extends JFrame
         }
         catch (Exception e1)
         {
-            // TODO Auto-generated catch block
             System.out.println("Nepodarilo se ulozit hru");
+            this.createFail("Failed to save game in XML!");
             e1.printStackTrace();
         }
     }
+    
+    
     public void SaveGameButtonNot()
     {
         String notace=TAVypisNotace.getText();
@@ -576,11 +581,13 @@ public class InternalFrameDemo extends JFrame
         }
         catch (Exception e1)
         {
-            // TODO Auto-generated catch block
             System.out.println("Nepodarilo se ulozit hru");
+            this.createFail("Failed to save game in notation!");
             e1.printStackTrace();
         }
     }
+    
+    
     public void LoadGameButton()
     {
         System.out.println("Tlacitko load!");
@@ -652,6 +659,28 @@ public class InternalFrameDemo extends JFrame
         } catch (java.beans.PropertyVetoException e) {}
 
     }
+    
+	public void createFail(String string) {
+		
+	       this.fail = new Fail(string);
+	       desktop.setLayer(this.fail, 1);
+	       this.fail.setLocation(200, 100);
+	       this.fail.setVisible(true);
+	        
+	        JButton btnNewButton = new JButton("OK");
+	        GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
+	        gbc_btnNewButton.gridx = 0;
+	        gbc_btnNewButton.gridy = 1;
+	        this.fail.getContentPane().add(btnNewButton, gbc_btnNewButton);
+	        btnNewButton.setActionCommand("failOK");
+	        btnNewButton.addActionListener(this);
+
+	        desktop.add(this.fail);
+	        try {
+	            this.fail.setSelected(true);
+	        } catch (java.beans.PropertyVetoException e) {}
+		
+	}
 
 
     /**
