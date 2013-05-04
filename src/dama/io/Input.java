@@ -208,6 +208,8 @@ public class Input
 
         int pozice=0;
         int predchozi_pozice=0;
+
+        int pocitadlo_tahu=1;
         while(pozice!=-1)
         {
             predchozi_pozice=pozice;
@@ -225,6 +227,13 @@ public class Input
                 int tecka=radek.indexOf(".");
                 if (tecka==-1) return false;
                 else tecka=tecka+2;
+
+                String numero=radek.substring(0, tecka-2);
+                //System.out.println("#" + numero);
+                if (pocitadlo_tahu!=Integer.parseInt(numero))return false;
+                else pocitadlo_tahu++;
+
+
 
                 radek=radek.substring(tecka);
                 //System.out.println(radek);
@@ -269,6 +278,11 @@ public class Input
                 int tecka=radek.indexOf(".");
                 if (tecka==-1) return false;
                 else tecka=tecka+2;
+
+                String numero=radek.substring(0, tecka-2);
+                //System.out.println("#" + numero);
+                if (pocitadlo_tahu!=Integer.parseInt(numero))return false;
+
                 radek=radek.substring(tecka);
                 if (radek.length()!=5) return false;
 
