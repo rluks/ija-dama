@@ -39,7 +39,7 @@ public class Dama extends Thread{
 
     //staticke
     public static Dama dama;
-    protected static int clickCount = 0; //po dvou klicich posilame tah hre
+    //protected static int clickCount = 0; //po dvou klicich posilame tah hre
     protected static Turn turnInput;
 
     //vlakno hry
@@ -196,6 +196,7 @@ public class Dama extends Thread{
                     while(this.invalidTurn){
                         synchronized(this){ while(pleaseWait){ try { System.out.println("Hra: sleeping..."); wait();} catch (Exception e) { e.printStackTrace(); } }  }
                         gui.setInfoText("Nevalidni tah!");
+                        gui.clearAura();
                         //TODO napoveda
                         this.pleaseWait = true;
                     }
@@ -237,7 +238,7 @@ public class Dama extends Thread{
 
                 setWBTurn();
                 setWBtake();
-                
+
                 this.ouputTurns.addElement(new Turn(this.turn));
                 boolean victory = Check.isVictory(desk);
 
@@ -535,38 +536,6 @@ public class Dama extends Thread{
     }
 
     /**
-     * Zpracuje vstup od mysi (kliky na sachovnici) a posila ho dal
-     * @param pos
-     */
-    public static void mouseInput(Position pos){
-
-        if(Dama.isGameSetAndRunning()){
-
-            Dama.clickCount++;
-            System.out.println("mouseInput:" + pos.getStr());
-
-            if(Dama.clickCount == 1){
-                Dama.turnInput = Dama.getTurn();
-
-                turnInput.origin = pos;
-            }
-
-            if(Dama.clickCount == 2){
-                turnInput.destination = pos;
-
-                Dama.input(turnInput);
-
-                Dama.clickCount = 0;
-            }
-        }
-    }
-
-    public static void setClickCount(int count){
-        Dama.clickCount = count;
-        System.out.println("setClickCount:" + count);
-    }
-
-    /**
      * Zpracuje vstup od textove ramecku od notace a posila ho dal
      */
     public static void notaceInput(Turn turn){
@@ -594,6 +563,7 @@ public class Dama extends Thread{
         {
             System.out.println("Dama.input: nevalidni tah, nastavime napovedu");
             Dama.setInvalidTurn(true);
+            try {Thread.sleep(200);} catch (InterruptedException e) {e.printStackTrace();}
             Dama.wakeUpGameThread();
         }
     }
@@ -720,5 +690,21 @@ public class Dama extends Thread{
         synchronized (dama){
             return dama.ouputTurns;
         }
+    }
+
+    public static void setTurnInputOrigin(Position pos) {
+        Dama.turnInput.origin = pos;
+    }
+
+    public static void setTurnInputDestination(Position pos) {
+        Dama.turnInput.destination = pos;
+    }
+
+    public static void setTurnInput(Turn turn) {
+        Dama.turnInput = turn;
+    }
+
+    public static Turn getTurnInput() {
+        return Dama.turnInput;
     }
 }

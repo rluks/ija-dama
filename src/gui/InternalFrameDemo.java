@@ -96,6 +96,8 @@ public class InternalFrameDemo extends JFrame
 
     JDesktopPane desktop;
 
+    protected static int clickCount = 0; //po dvou klicich posilame tah hre
+
     //nastaveni hry
     protected NewGameSettings inFrNewGameSett;
     protected NewP2PGameSettings inFrNewP2PGameSett;
@@ -811,7 +813,7 @@ public class InternalFrameDemo extends JFrame
                      System.out.println(sx + ":" + sy);
 
                 Position pos = new Position(sy, sx);
-                Dama.mouseInput(pos);
+                this.mouseInput(pos);
 
                 this.lblAura.setIcon(this.imIcAura);
                 this.lblAura.setBounds(x_sachovnice+10+(sx*50), y_sachovnice+10+350-(sy*50),50,50);
@@ -825,7 +827,7 @@ public class InternalFrameDemo extends JFrame
             }
             case InputEvent.BUTTON3_MASK: {
                 System.out.println("That's the RIGHT button");
-                Dama.setClickCount(0);
+                InternalFrameDemo.setClickCount(0);
                 this.clearAura();
                 break;
             }
@@ -848,6 +850,40 @@ public class InternalFrameDemo extends JFrame
     public void mousePressed(MouseEvent arg0)
     {
         // TODO Auto-generated method stub
+    }
+
+    /**
+     * Zpracuje vstup od mysi (kliky na sachovnici) a posila ho dal
+     * @param pos
+     */
+    public void mouseInput(Position pos){
+
+        if(Dama.isGameSetAndRunning()){
+
+            InternalFrameDemo.clickCount++;
+            System.out.println("mouseInput:" + pos.getStr());
+
+            if(InternalFrameDemo.clickCount == 1){
+                Dama.setTurnInput(Dama.getTurn());
+
+                Dama.setTurnInputOrigin(pos);
+            }
+
+            if(InternalFrameDemo.clickCount == 2){
+                Dama.setTurnInputDestination(pos);
+
+                Dama.input(Dama.getTurnInput());
+
+                InternalFrameDemo.clickCount = 0;
+
+                this.clearAura();
+            }
+        }
+    }
+
+    public static void setClickCount(int count){
+        InternalFrameDemo.clickCount = count;
+        System.out.println("setClickCount:" + count);
     }
 
     /**
