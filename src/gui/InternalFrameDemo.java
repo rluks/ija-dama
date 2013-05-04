@@ -69,6 +69,7 @@ import javax.swing.JTextPane;
 import javax.swing.KeyStroke;
 
 import dama.Dama;
+import dama.io.Input;
 import dama.io.Output;
 import dama.io.Turn;
 import dama.operations.AI;
@@ -566,8 +567,8 @@ public class InternalFrameDemo extends JFrame
             e1.printStackTrace();
         }
     }
-    
-    
+
+
     public void SaveGameButtonNot()
     {
         String notace=TAVypisNotace.getText();
@@ -586,8 +587,8 @@ public class InternalFrameDemo extends JFrame
             e1.printStackTrace();
         }
     }
-    
-    
+
+
     public void LoadGameButton()
     {
         System.out.println("Tlacitko load!");
@@ -597,12 +598,12 @@ public class InternalFrameDemo extends JFrame
         if (cesta.endsWith(".xml"))
         {
             System.out.println("XML MOTAFAKA!!");
-            if (!Dama.XmlToVector(cesta)) return;
+            if (!Input.XmlToVector(cesta)) return;
         }
         else if (cesta.endsWith(".txt"))
         {
             System.out.println("NOTACE BIATCH!!");
-            if (!Dama.NotToVector(cesta)) return;
+            if (!Input.NotToVector(cesta)) return;
         }
         else
         {
@@ -659,28 +660,28 @@ public class InternalFrameDemo extends JFrame
         } catch (java.beans.PropertyVetoException e) {}
 
     }
-    
-	public void createFail(String string) {
-		
-	       this.fail = new Fail(string);
-	       desktop.setLayer(this.fail, 1);
-	       this.fail.setLocation(200, 100);
-	       this.fail.setVisible(true);
-	        
-	        JButton btnNewButton = new JButton("OK");
-	        GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
-	        gbc_btnNewButton.gridx = 0;
-	        gbc_btnNewButton.gridy = 1;
-	        this.fail.getContentPane().add(btnNewButton, gbc_btnNewButton);
-	        btnNewButton.setActionCommand("failOK");
-	        btnNewButton.addActionListener(this);
 
-	        desktop.add(this.fail);
-	        try {
-	            this.fail.setSelected(true);
-	        } catch (java.beans.PropertyVetoException e) {}
-		
-	}
+    public void createFail(String string) {
+
+           this.fail = new Fail(string);
+           desktop.setLayer(this.fail, 1);
+           this.fail.setLocation(200, 100);
+           this.fail.setVisible(true);
+
+            JButton btnNewButton = new JButton("OK");
+            GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
+            gbc_btnNewButton.gridx = 0;
+            gbc_btnNewButton.gridy = 1;
+            this.fail.getContentPane().add(btnNewButton, gbc_btnNewButton);
+            btnNewButton.setActionCommand("failOK");
+            btnNewButton.addActionListener(this);
+
+            desktop.add(this.fail);
+            try {
+                this.fail.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {}
+
+    }
 
 
     /**
