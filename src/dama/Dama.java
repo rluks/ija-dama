@@ -236,12 +236,10 @@ public class Dama extends Thread{
                 this.invalidTurn = false;
 
                 setWBTurn();
-
-                this.ouputTurns.addElement(new Turn(this.turn));
-
-                boolean victory = Check.isVictory(desk);
-
                 setWBtake();
+                
+                this.ouputTurns.addElement(new Turn(this.turn));
+                boolean victory = Check.isVictory(desk);
 
                 printNotation();
 
