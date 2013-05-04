@@ -197,8 +197,6 @@ public class Dama extends Thread{
                     wbtake = false;
                 }
 
-                executedTurn = false;
-
                 //kontrola
                 if(executedTurn){
                     System.out.println("Tah " + this.turn.getTurnString() + " byl proveden");
@@ -360,63 +358,6 @@ public class Dama extends Thread{
         // TODO k try-catch blokum dat do catch osetreni,zotaveni z chyb
 
         Dama.startingGameThread();
-
-        /*
-
-        Vector<Turn> lt = new Vector<Turn>();
-        Position o = Position.positionStrToPositionLowerCase("c3");
-        Position d = Position.positionStrToPositionLowerCase("b4");
-        Turn t = new Turn('W', o, d);
-        System.out.println(t.getTurnString());
-        lt.add(t);
-
-        o = Position.positionStrToPositionLowerCase("b6");
-        d = Position.positionStrToPositionLowerCase("c5");
-        t = new Turn('B', o, d);
-        System.out.println(t.getTurnString());
-        lt.add(t);
-
-        o = Position.positionStrToPositionLowerCase("b4");
-        d = Position.positionStrToPositionLowerCase("a5");
-        t = new Turn('W', o, d);
-        System.out.println(t.getTurnString());
-        lt.add(t);
-
-        */
-
-        /*
-        System.out.println("===============================================");
-        System.out.println("===============================================");
-        System.out.println("===============================================");
-
-        if(XmlToVector("C:\\Users\\HAL\\workspace\\ija-dama\\turnvector.xml")){
-            System.out.println("Turns nastaveny!");
-        }else{
-            System.out.println("Turns FAIL!");
-            System.out.println("====================Konec======================");
-            System.out.println("====================Konec======================");
-            System.out.println("====================Konec======================");
-            return;
-        }
-
-        System.out.println("====================Konec======================");
-        System.out.println("====================Konec======================");
-        System.out.println("====================Konec======================");
-
-
-
-        String whiteStr = "Human";
-        String blackStr = "Human";
-        int aiWait = 300;
-        Settings settings = new Settings(whiteStr, blackStr, null, null, 0, aiWait);
-
-        //Dama.setLoadedTurns(lt);
-        Dama.setSettings(settings);
-
-        try {Thread.sleep(300);} catch (InterruptedException e) {e.printStackTrace();}
-
-        Dama.wakeUpGameThread();
-        */
 
     }
 

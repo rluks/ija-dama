@@ -79,6 +79,7 @@ import dama.state.Desk;
 import dama.state.Figure;
 import dama.state.Position;
 import dama.state.Settings;
+import javax.swing.SwingConstants;
 
 
 
@@ -192,6 +193,7 @@ public class InternalFrameDemo extends JFrame
 
         //texty s informacemi
         lblInfo = new JLabel("Not playing.");
+        lblInfo.setHorizontalAlignment(SwingConstants.CENTER);
         desktop.setLayer(lblInfo, 1);
         lblInfo.setBounds(105, 10, 295, 30);
         desktop.add(lblInfo);
@@ -203,7 +205,8 @@ public class InternalFrameDemo extends JFrame
 
         //napoveda
         this.LNapoveda = new JLabel("No help requested...");
-        this.LNapoveda.setBounds(541, 15, 194, 20);
+        LNapoveda.setHorizontalAlignment(SwingConstants.CENTER);
+        this.LNapoveda.setBounds(502, 15, 260, 30);
         desktop.add(LNapoveda);
 
         this.BNapoveda = new JButton("Help!");
@@ -218,20 +221,17 @@ public class InternalFrameDemo extends JFrame
 
                     Turn helpTurn = AI.AIMove(deskForHelp, playerColor, aiStochasticity);
 
-                    String helpText;
                     if(helpTurn != null)
                     {
-                        //helpText = helpTurn.origin.getStrLowerCase() + " -> " + helpTurn.destination.getStrLowerCase();
+                        LNapoveda.setText("Marked figures can move!");
                         ZobrazNapovedu();
                     }else{
-                        helpText = "Stalemate!";
+                        LNapoveda.setText("Stalemate!");
                     }
-
-                    //LNapoveda.setText(helpText);
                 }
             }
         });
-        this.BNapoveda.setBounds(461, 15, 70, 20);
+        this.BNapoveda.setBounds(422, 15, 70, 20);
         this.BNapoveda.setEnabled(false);
         desktop.add(this.BNapoveda);
 
@@ -1041,7 +1041,7 @@ public class InternalFrameDemo extends JFrame
     }
 
     public void clearHelp(){
-        this.LNapoveda.setIcon(null);
+        this.LNapoveda.setText("No help requested...");
     }
 
 
