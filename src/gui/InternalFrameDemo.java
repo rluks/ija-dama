@@ -673,7 +673,7 @@ public class InternalFrameDemo extends JFrame
             JButton btnNewButton = new JButton("OK");
             GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
             gbc_btnNewButton.gridx = 0;
-            gbc_btnNewButton.gridy = 1;
+            gbc_btnNewButton.gridy = 2;
             this.fail.getContentPane().add(btnNewButton, gbc_btnNewButton);
             btnNewButton.setActionCommand("failOK");
             btnNewButton.addActionListener(this);
