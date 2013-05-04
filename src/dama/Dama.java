@@ -38,6 +38,7 @@ public class Dama extends Thread{
 
     //vlakno hry
     public Settings settings;
+    String currentPlayerAIHumanSettings;
 
     public Vector<Turn> ouputTurns;    //sem hra uklada provedene tahy - pouzije se v pripade ulozeni hry
     public Vector<Turn> loadedTurns;//zde jsou ulozeny tahy v pripade nacteni hry
@@ -119,33 +120,15 @@ public class Dama extends Thread{
                 gameSetAndRuning = true;
                 System.out.println("Hra: tah cislo: " + tahCislo + " ,bezi s timto nastavenim: " + this.settings.getSettingsString());
 
-                if(this.loadedTurns != null){
-                    if(this.loadedTurns.size() > 0){
-                        System.out.println("Hra: V loadedTurns zbyva " + this.loadedTurns.size() + " tahu");
-                    }
-                }
-
                 //vypinaci cast
                 checkGUIShutdown(gui);
                 if(allDone){System.out.println("Hra: Dama terminated, allDone!!");return;}
 
-                //stridani barev hracu
-                if (this.playerColor != 'W' && this.playerColor != 'B'){//prvni kolo
-                    this.playerColor = 'W';
-                }else if (this.playerColor == 'W'){
-                    this.playerColor = 'B';
-                }else if (this.playerColor == 'B'){
-                    this.playerColor = 'W';
-                }else{
-                    System.out.println("Hra: neco je spatne s barvami hracu!");
-                }
+                switchPlayerColors();
 
-                String currentPlayerAIHumanSettings = getAIorHumanSettingsForCurrentPlayerColor(this.playerColor);
+                this.currentPlayerAIHumanSettings = getAIorHumanSettingsForCurrentPlayerColor(this.playerColor);
 
-                //tisk informaci
-                System.out.println("Hra: "+ Output.getPlayerColorString(this.playerColor)+ " will play!");
-                String infoText = (currentPlayerAIHumanSettings == "AI")? "Hra: it's "+ Output.getPlayerColorString(this.playerColor)+ " AI turn!" : "Hra: it's "+ Output.getPlayerColorString(this.playerColor)+ "players turn!";
-                gui.setInfoText(infoText);
+                printAndSetInfo();
 
                 //vykresleni desky
                 Check.isMustTake(desk, this.playerColor);
@@ -154,6 +137,8 @@ public class Dama extends Thread{
 
                 //ulozeny tah
                 if(this.loadedTurns != null && this.loadedTurns.size() > 0){
+                	
+                	System.out.println("Hra: V loadedTurns zbyva " + this.loadedTurns.size() + " tahu");
 
                     Turn loadedTurn = new Turn(this.loadedTurns.firstElement());
                     this.turn = loadedTurn;
@@ -304,7 +289,26 @@ public class Dama extends Thread{
     }
 
 
-    /**
+    private void printAndSetInfo() {
+        System.out.println("Hra: "+ Output.getPlayerColorString(this.playerColor)+ " will play!");
+        String infoText = (currentPlayerAIHumanSettings == "AI")? "Hra: it's "+ Output.getPlayerColorString(this.playerColor)+ " AI turn!" : "Hra: it's "+ Output.getPlayerColorString(this.playerColor)+ "players turn!";
+        gui.setInfoText(infoText);	
+	}
+
+	private void switchPlayerColors() {
+    	
+        if (this.playerColor != 'W' && this.playerColor != 'B'){//prvni kolo
+            this.playerColor = 'W';
+        }else if (this.playerColor == 'W'){
+            this.playerColor = 'B';
+        }else if (this.playerColor == 'B'){
+            this.playerColor = 'W';
+        }else{
+            System.out.println("Hra: neco je spatne s barvami hracu!");
+        }		
+	}
+
+	/**
      * Kontrola jestli se GUI zavrelo
      * @param gui instance InternalFrameDemo
      */
