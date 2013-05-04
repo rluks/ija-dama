@@ -39,33 +39,31 @@ public class Dama extends Thread{
 
     //staticke
     public static Dama dama;
-    //protected static int clickCount = 0; //po dvou klicich posilame tah hre
     protected static Turn turnInput;
 
     //vlakno hry
-    public Settings settings;
-    String currentPlayerAIHumanSettings;
+    protected Settings settings;
+    protected String currentPlayerAIHumanSettings;
 
-    public Vector<Turn> ouputTurns;    //sem hra uklada provedene tahy - pouzije se v pripade ulozeni hry
-    public Vector<Turn> loadedTurns;//zde jsou ulozeny tahy v pripade nacteni hry
+    protected Vector<Turn> ouputTurns;    //sem hra uklada provedene tahy - pouzije se v pripade ulozeni hry
+    protected Vector<Turn> loadedTurns;//zde jsou ulozeny tahy v pripade nacteni hry
 
-    public Turn turn;
-    public Desk desk;
-    public char playerColor;
+    protected Turn turn;
+    protected Desk desk;
+    protected char playerColor;
     protected int tahCislo = 0;
     protected boolean wtake;
     protected boolean btake;
     protected boolean wbtake;
     protected Turn wturn;
     protected Turn bturn;
-    private int aiStochasticity = 5; //nahodnost AI tahu
-    public boolean allDone = false; //ukonceni behu
-    public boolean pleaseWait = false; //pozastaveni behu
-    //public int pocaitadlo_tahu=1;
+    protected int aiStochasticity = 5; //nahodnost AI tahu
+    protected boolean allDone = false; //ukonceni behu
+    protected boolean pleaseWait = false; //pozastaveni behu
 
-    public boolean gameSetAndRuning = false; //hra byla nastavena a uz se provadi tahy, atd.
-    InternalFrameDemo gui;
-    public boolean invalidTurn = false;
+    protected boolean gameSetAndRuning = false; //hra byla nastavena a uz se provadi tahy, atd.
+    protected InternalFrameDemo gui;
+    protected boolean invalidTurn = false;
 
     /**
      * Konstruktor vlakna hry
@@ -141,48 +139,29 @@ public class Dama extends Thread{
                 gui.updateDesk(this.desk);
                 //this.desk.printSimpleBoard();
 
-                //ulozeny tah
-                if(this.loadedTurns != null && this.loadedTurns.size() > 0){
+
+                //ziskani dalsiho tahu
+                if(this.loadedTurns != null && this.loadedTurns.size() > 0){//nactene tahy
 
                     System.out.println("Hra: V loadedTurns zbyva " + this.loadedTurns.size() + " tahu");
 
                     Turn loadedTurn = new Turn(this.loadedTurns.firstElement());
                     this.turn = loadedTurn;
-                    System.out.println("Hra: nacteny tah:  " + loadedTurn.getTurnString());
-                    if(Moves.isTurnValid(loadedTurn, desk)){
-                        System.out.println("Hra: Nacteny tah je validni, provadim...");
 
-                        if(Check.isMustTake(desk, this.playerColor)){//Take
-                            System.out.println("Hra: nacteny tah - " + Output.getPlayerColorString(this.playerColor) + ", take() vraci:" + Moves.Take(desk, loadedTurn));
-                            wbtake = true;
+                    this.loadedTurns.remove(0);
 
-                        }else{//Move
-                            System.out.println("Hra: nacteny tah - " + Output.getPlayerColorString(this.playerColor) + ", MOVE() vraci:" + Moves.Move(desk, loadedTurn));
-                            wbtake = false;
-                        }
-
-                        this.turn = new Turn(loadedTurn);
-                        this.loadedTurns.remove(0);
-                        desk.clearMustTakeFlag();
-
-                    }else{
-                        System.out.println("Hra: Nacteny tah NENI validni!");
-                        gui.createFail("Nacteny tah NENI validni!");
-                        //return;
-                    }
                 }else if(currentPlayerAIHumanSettings == "AI"){//AI
 
-                    System.out.println("Hra: it's "+ Output.getPlayerColorString(this.playerColor)+ " AI turn!");
+                        System.out.println("Hra: it's "+ Output.getPlayerColorString(this.playerColor)+ " AI turn!");
 
-                    try {Thread.sleep(this.settings.aiWait);} catch (InterruptedException e) {e.printStackTrace();}
+                        try {Thread.sleep(this.settings.aiWait);} catch (InterruptedException e) {e.printStackTrace();}
 
-                    this.turn = AI.AIMove(desk, this.playerColor, this.aiStochasticity);
-                    if(this.turn == null){
-                        System.out.println("Hra: AIMove() vratilo null");
-                        gui.createFail("AI Move failed. It's probably stalemate!");
-                        //return;
-                    }
-                    this.desk.clearMustTakeFlag();
+                        this.turn = AI.AIMove(new Desk(this.desk), this.playerColor, this.aiStochasticity);
+                        if(this.turn == null){
+                            System.out.println("Hra: AIMove() vratilo null");
+                            gui.createFail("AI Move failed. It's probably stalemate!");
+                            //return;
+                        }
 
                 }else{//Human
 
@@ -200,24 +179,73 @@ public class Dama extends Thread{
                         //TODO napoveda
                         this.pleaseWait = true;
                     }
-
-                    //vypinaci cast
-                    checkGUIShutdown(gui);
-                    if(allDone){System.out.println("Hra: Dama terminated, allDone!!");return;}
-
-                    //zpracovani tahu
-                    System.out.println("Hra: " + Output.getPlayerColorString(this.playerColor) + " is playing...");
-                    if(Check.isMustTake(desk, this.playerColor)){//Take
-                        System.out.println("================================BRANI=============================");
-                        System.out.println("Hra: tah " + Output.getPlayerColorString(this.playerColor) + ", take() vraci:" + Moves.Take(desk, turn));
-                        wbtake = true;
-
-                    }else{//Move
-                        System.out.println("Hra: tah " + Output.getPlayerColorString(this.playerColor) + ", MOVE() vraci:" + Moves.Move(desk, turn));
-                        wbtake = false;
-                    }
-                    desk.clearMustTakeFlag();
                 }
+
+
+                //ulozeny tah
+                /*
+                if(this.loadedTurns != null && this.loadedTurns.size() > 0){
+                    System.out.println("Hra: V loadedTurns zbyva " + this.loadedTurns.size() + " tahu");
+                    Turn loadedTurn = new Turn(this.loadedTurns.firstElement());
+                    this.turn = loadedTurn;
+                    System.out.println("Hra: nacteny tah:  " + loadedTurn.getTurnString());
+                    if(Moves.isTurnValid(loadedTurn, desk)){
+                        System.out.println("Hra: Nacteny tah je validni, provadim...");
+                        if(Check.isMustTake(desk, this.playerColor)){//Take
+                            System.out.println("Hra: nacteny tah - " + Output.getPlayerColorString(this.playerColor) + ", take() vraci:" + Moves.Take(desk, loadedTurn));
+                            wbtake = true;
+                        }else{//Move
+                            System.out.println("Hra: nacteny tah - " + Output.getPlayerColorString(this.playerColor) + ", MOVE() vraci:" + Moves.Move(desk, loadedTurn));
+                            wbtake = false;
+                        }
+                        this.turn = new Turn(loadedTurn);
+                        this.loadedTurns.remove(0);
+                        desk.clearMustTakeFlag();
+                    }else{
+                        System.out.println("Hra: Nacteny tah NENI validni!");
+                        gui.createFail("Nacteny tah NENI validni!");
+                        //return;
+                    }
+                }else if(currentPlayerAIHumanSettings == "AI"){//AI
+                    System.out.println("Hra: it's "+ Output.getPlayerColorString(this.playerColor)+ " AI turn!");
+                    try {Thread.sleep(this.settings.aiWait);} catch (InterruptedException e) {e.printStackTrace();}
+                    this.turn = AI.AIMove(desk, this.playerColor, this.aiStochasticity);
+                    if(this.turn == null){
+                        System.out.println("Hra: AIMove() vratilo null");
+                        gui.createFail("AI Move failed. It's probably stalemate!");
+                        //return;
+                    }
+                    this.desk.clearMustTakeFlag();
+                }else{//Human
+                    this.turn = (this.playerColor == 'W') ? Turn.TurnWhite(pEmpty, pEmpty) : Turn.TurnBlack(pEmpty, pEmpty);
+                    //cekani na tah od cloveka
+                    this.pleaseWait = true;
+                    try {Thread.sleep(300);} catch (InterruptedException e) {e.printStackTrace();}
+                    synchronized(this){ while(pleaseWait){ try { System.out.println("Hra: sleeping..."); wait();} catch (Exception e) { e.printStackTrace(); } }  }
+                    while(this.invalidTurn){
+                        synchronized(this){ while(pleaseWait){ try { System.out.println("Hra: sleeping..."); wait();} catch (Exception e) { e.printStackTrace(); } }  }
+                        gui.setInfoText("Nevalidni tah!");
+                        gui.clearAura();
+                        //TODO napoveda
+                        this.pleaseWait = true;
+                    }
+                }*/
+
+                //vypinaci cast
+                checkGUIShutdown(gui);
+                if(allDone){System.out.println("Hra: Dama terminated, allDone!!");return;}
+
+                //zpracovani tahu
+                System.out.println("Hra: " + Output.getPlayerColorString(this.playerColor) + " is playing...");
+                if(Check.isMustTake(this.desk, this.playerColor)){//Take
+                    System.out.println("Hra: tah " + Output.getPlayerColorString(this.playerColor) + ", take() vraci:" + Moves.Take(this.desk, this.turn));
+                    wbtake = true;
+
+                }else{//Move
+                    System.out.println("Hra: tah " + Output.getPlayerColorString(this.playerColor) + ", MOVE() vraci:" + Moves.Move(this.desk, this.turn));
+                    wbtake = false;
+                }
+                desk.clearMustTakeFlag();
 
                 //zmena na damy
                 Check.isPieceToDame(desk);
@@ -447,6 +475,8 @@ public class Dama extends Thread{
         dama.start();
     }
 
+
+
     /**
      * Uspi vlakno hry
      */
@@ -463,6 +493,8 @@ public class Dama extends Thread{
             return false;
         }
     }
+
+
 
     /**
      * Probudi vlakno hry
@@ -482,6 +514,8 @@ public class Dama extends Thread{
         }
     }
 
+
+
     /**
      * Zastavi vlakno hry
      * @return
@@ -500,6 +534,8 @@ public class Dama extends Thread{
         }
     }
 
+
+
     /**
      * Kontrola jestli bezi vlakno hry
      * @return
@@ -515,6 +551,8 @@ public class Dama extends Thread{
             return false;
         }
     }
+
+
 
     /**
      * Kontrola jestli uz se hraje (zda bylo vse nastaveno)
@@ -534,6 +572,8 @@ public class Dama extends Thread{
             return false;
         }
     }
+
+
 
     public static boolean setInvalidTurn(boolean invalidturn) {
         System.out.println("setInvalidTurn: davam hre vedet ze byl nevalidni tah...");
@@ -570,6 +610,8 @@ public class Dama extends Thread{
         }
     }
 
+
+
     /**
      * Uklada tah do vlakna hry
      * @param turn instance tridy
@@ -592,6 +634,8 @@ public class Dama extends Thread{
 
     }
 
+
+
     public static boolean setLoadedTurns(Vector<Turn> loadedTurns){
 
         System.out.println("setTurn: ukladam nactene tahy do vlakna hry...");
@@ -607,6 +651,8 @@ public class Dama extends Thread{
             return false;
         }
     }
+
+
 
     /**
      * Z vlakna hry ziska desku
@@ -659,18 +705,35 @@ public class Dama extends Thread{
         }
     }
 
+
+    /**
+     * Nastavi vychozi pozici na Position danou parametrem
+     * @param pos
+     */
     public static void setTurnInputOrigin(Position pos) {
         Dama.turnInput.origin = pos;
     }
 
+    /**
+     * Nastavi cilovou pozici na Position danou parametrem
+     * @param pos
+     */
     public static void setTurnInputDestination(Position pos) {
         Dama.turnInput.destination = pos;
     }
 
+    /**
+     * Nastavi do Damy vstupni Turn
+     * @param turn
+     */
     public static void setTurnInput(Turn turn) {
         Dama.turnInput = turn;
     }
 
+    /**
+     * Ziskani hodnoty vstupniho Turn
+     * @return
+     */
     public static Turn getTurnInput() {
         return Dama.turnInput;
     }
