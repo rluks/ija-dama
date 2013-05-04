@@ -174,7 +174,7 @@ public class Dama extends Thread{
                         synchronized(this){ while(pleaseWait){ try { System.out.println("Hra: sleeping..."); wait();} catch (Exception e) { e.printStackTrace(); } }  }
                         gui.setInfoText("Nevalidni tah!");
                         gui.clearAura();
-                        //TODO napoveda
+                        gui.ZobrazNapovedu();
                         this.pleaseWait = true;
                     }
                 }
