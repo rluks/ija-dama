@@ -487,7 +487,7 @@ public class InternalFrameDemo extends JFrame
 
         this.inFrNewGameSett = new NewGameSettings();
         desktop.setLayer(inFrNewGameSett, 1);
-        inFrNewGameSett.setLocation(512, 91);
+        inFrNewGameSett.setLocation(110, 50);
         inFrNewGameSett.setVisible(true);
 
         JButton btnStartgame = new JButton("StartGame");
@@ -624,7 +624,7 @@ public class InternalFrameDemo extends JFrame
 
         this.inFrNewP2PGameSett = new NewP2PGameSettings();
         desktop.setLayer(inFrNewP2PGameSett, 1);
-        inFrNewP2PGameSett.setLocation(33, 11);
+        inFrNewP2PGameSett.setLocation(110, 50);
         inFrNewP2PGameSett.setVisible(true);
 
         JButton btnStartP2Pgame = new JButton("StartP2PGame");

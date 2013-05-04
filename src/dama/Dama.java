@@ -230,13 +230,11 @@ public class Dama extends Thread{
                 this.invalidTurn = false;
 
                 setWBTurn();
-
+                setWBtake();
+                
                 this.ouputTurns.addElement(new Turn(this.turn));
-
                 boolean victory = Check.isVictory(desk);               
                 
-                setWBtake();
-
                 printNotation();  
 
                 //ukonceni hry pri vitezstvi
