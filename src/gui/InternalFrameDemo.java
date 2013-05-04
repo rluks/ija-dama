@@ -338,6 +338,7 @@ public class InternalFrameDemo extends JFrame
                 this.pole_napovedy[row][col]=new JLabel("");
                 this.pole_napovedy[row][col].setBounds(x_sachovnice+10+(col*50), y_sachovnice+10+350-(row*50),50,50);
                 desktop.add(this.pole_napovedy[row][col]);
+                desktop.setLayer(this.pole_napovedy[row][col], 3);
             }
 
     }
