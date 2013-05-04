@@ -37,6 +37,7 @@ public class LoadGame extends JInternalFrame
 
         this.TFCesta = new JTextField();
         this.TFCesta.setBounds(54, 11, 231, 20);
+        //this.TFCesta.setText(".\\examples");
         getContentPane().add(this.TFCesta);
         //this.cesta.setColumns(10);
 
@@ -69,7 +70,7 @@ public class LoadGame extends JInternalFrame
                   JFileChooser c = new JFileChooser(".\\examples");
                   FileNameExtensionFilter xmlfilter = new FileNameExtensionFilter("xml files (*.xml)", "xml");
                   c.setFileFilter(xmlfilter);
-                  FileNameExtensionFilter xmlfilter2 = new FileNameExtensionFilter("standast notation (.txt)", "txt");
+                  FileNameExtensionFilter xmlfilter2 = new FileNameExtensionFilter("standart notation (.txt)", "txt");
                   c.setFileFilter(xmlfilter2);
 
                   int rVal = c.showOpenDialog(LoadGame.this);

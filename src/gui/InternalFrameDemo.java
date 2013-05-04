@@ -95,7 +95,7 @@ public class InternalFrameDemo extends JFrame
     protected NewGameSettings inFrNewGameSett;
     protected NewP2PGameSettings inFrNewP2PGameSett;
     protected Settings settings;
-    
+
     //menu
     protected JMenuItem menuItemSave;
 
@@ -142,7 +142,7 @@ public class InternalFrameDemo extends JFrame
     protected ImageIcon imIcCernyPesak;
     protected ImageIcon imIcCernaDama;
     protected ImageIcon imIcRuna;
-    
+
     protected ImageIcon imIcWhiteBox;
     protected ImageIcon imIcBlackBox;
 
@@ -184,8 +184,8 @@ public class InternalFrameDemo extends JFrame
         desktop.setLayer(lblInfo, 1);
         lblInfo.setBounds(105, 10, 295, 30);
         desktop.add(lblInfo);
-        
-        
+
+
         this.lblPlayercolor = new JLabel("");
         this.lblPlayercolor.setBounds(25, 10, 45, 30);
         desktop.add(this.lblPlayercolor);
@@ -465,7 +465,28 @@ public class InternalFrameDemo extends JFrame
         {
             SaveGameButtonXml();
         }else if("victoryOK".equals(e.getActionCommand())){
-        	Dama.wakeUpGameThread();
+            Dama.wakeUpGameThread();
+        }
+        else if ("savegamebuttonNot".equals(e.getActionCommand()))
+        {
+            String notace=TAVypisNotace.getText();
+
+            String cesta=inFrLoadGame.GetPath();
+            if (!cesta.endsWith(".txt")) cesta=cesta+".txt";
+            System.out.println("Cesta: \"" + cesta + "\"");
+            inFrLoadGame.dispose();
+            try
+            {
+                Output.printStringToFile(notace, cesta);
+            }
+            catch (Exception e1)
+            {
+                // TODO Auto-generated catch block
+                System.out.println("Nepodarilo se ulozit hru");
+                e1.printStackTrace();
+            }
+
+
         }
         else{
             System.out.println("Neznama akce: " + e.getActionCommand());
@@ -567,6 +588,7 @@ public class InternalFrameDemo extends JFrame
         inFrLoadGame.dispose();
         Dama.XmlToVector(cesta);
         Dama.wakeUpGameThread();
+        this.menuItemSave.setEnabled(true);
     }
 
 
@@ -649,7 +671,7 @@ public class InternalFrameDemo extends JFrame
             }else{
                 System.out.println("gui: ukladanim nastaveni do NOVE...");
                 Dama.setSettings(this.settings);
-                
+
                 System.out.println("gui: povoluji akce...");
                 this.BSubmitCommand.setEnabled(true);
                 this.BNapoveda.setEnabled(true);
@@ -883,7 +905,7 @@ public class InternalFrameDemo extends JFrame
 
         TAVypisNotace.setText(predchozi_obsah + tah + ". " + p0 + w + p1);
     }
-    
+
     /**
      * Fce prida to textarea tah cerneho v notaci
      * pouziti: cerny tahnul
