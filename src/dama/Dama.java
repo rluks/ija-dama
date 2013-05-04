@@ -226,43 +226,18 @@ public class Dama extends Thread{
 
                 //cisteni
                 gui.clearAura();
-                gui.clearHelp();
-                
+                gui.clearHelp();             
                 this.invalidTurn = false;
 
-                //ukladani tahu pro vypis notace
                 setWBTurn();
-                /*
-                if(this.playerColor == 'W'){
-                    this.wturn = this.turn;
-                }else if(this.playerColor == 'B'){
-                    this.bturn = this.turn;
-                }else{
-                    System.out.println("Hra: neco je spatne s barvami hracu!");
-                }
-                */
 
                 this.ouputTurns.addElement(new Turn(this.turn));
 
                 boolean victory = Check.isVictory(desk);               
                 
-                if(this.playerColor == 'W'){
-                    wtake = wbtake;
-                }else if(this.playerColor == 'B'){
-                    btake = wbtake;
-                }else{
-                    System.out.println("Hra: neco je spatne s barvami hracu!");
-                }
+                setWBtake();
 
-                //tisk notace
-                if(this.playerColor == 'B'){
-                    System.out.println("Hra: oba hraci hrali");
-                    gui.NotationNewLineLastBlack(bturn, btake);
-                }else if(this.playerColor == 'W'){
-                    tahCislo++;
-                    System.out.println("Hra: hral bily");
-                    gui.NotationNewLineLastWhite(wturn, wtake, this.tahCislo);
-                }          
+                printNotation();  
 
                 //ukonceni hry pri vitezstvi
                 if(victory){
@@ -292,7 +267,37 @@ public class Dama extends Thread{
     }
 
 
-    /**
+	/**
+	 * Vytiskne do gui notaci a zvysi pocitadlo tahu
+	 */
+	private void printNotation() {
+		
+        if(this.playerColor == 'B'){
+            System.out.println("Hra: oba hraci hrali");
+            gui.NotationNewLineLastBlack(bturn, btake);
+        }else if(this.playerColor == 'W'){
+            tahCislo++;
+            System.out.println("Hra: hral bily");
+            gui.NotationNewLineLastWhite(wturn, wtake, this.tahCislo);
+        }   	
+	}
+
+	/**
+     * Metoda ulozi flag o tom jestli se bralo do wtake nebo btake
+     * dle barvy hrace na tahu
+     */
+    private void setWBtake() {
+    	
+        if(this.playerColor == 'W'){
+            wtake = wbtake;
+        }else if(this.playerColor == 'B'){
+            btake = wbtake;
+        }else{
+            System.out.println("Hra: neco je spatne s barvami hracu!");
+        }	
+	}
+
+	/**
      * Metoda ulozi posledni provedeny tah do wturn nebo bturn
      * dle barvy hrace na tahu
      */
