@@ -107,6 +107,7 @@ public class InternalFrameDemo extends JFrame
 
     //texty s informacemi
     protected JLabel lblInfo;
+    protected JLabel lblPlayercolor;
 
     //napoveda
     protected JLabel LNapoveda;
@@ -138,6 +139,9 @@ public class InternalFrameDemo extends JFrame
     protected ImageIcon imIcCernyPesak;
     protected ImageIcon imIcCernaDama;
     protected ImageIcon imIcRuna;
+    
+    protected ImageIcon imIcWhiteBox;
+    protected ImageIcon imIcBlackBox;
 
     public InternalFrameDemo() {
         super("InternalFrameDemo");
@@ -164,6 +168,8 @@ public class InternalFrameDemo extends JFrame
         this.imIcCernyPesak = new ImageIcon(InternalFrameDemo.class.getResource("/gui/images/figurky/cerny_pesak.png"));
         this.imIcCernaDama = new ImageIcon(InternalFrameDemo.class.getResource("/gui/images/figurky/cerna_dama.png"));
         this.imIcRuna = new ImageIcon(InternalFrameDemo.class.getResource("/gui/images/runa.png"));
+        this.imIcWhiteBox = new ImageIcon(InternalFrameDemo.class.getResource("/gui/images/whitebox.png"));
+        this.imIcBlackBox = new ImageIcon(InternalFrameDemo.class.getResource("/gui/images/blackbox.png"));
 
         //menu
         setJMenuBar(createMenuBar());
@@ -173,8 +179,13 @@ public class InternalFrameDemo extends JFrame
         //texty s informacemi
         lblInfo = new JLabel("Not playing.");
         desktop.setLayer(lblInfo, 1);
-        lblInfo.setBounds(107, 10, 295, 30);
+        lblInfo.setBounds(105, 10, 295, 30);
         desktop.add(lblInfo);
+        
+        
+        this.lblPlayercolor = new JLabel("");
+        this.lblPlayercolor.setBounds(25, 10, 45, 30);
+        desktop.add(this.lblPlayercolor);
 
         //napoveda
         this.LNapoveda = new JLabel("No help requested...");
@@ -783,9 +794,12 @@ public class InternalFrameDemo extends JFrame
 
         desk.clearMustTakeFlag();
         String barva;
-        if (Dama.getPlayerColor()=='W') barva="WHITE's";
+        char playerColor = Dama.getPlayerColor();
+        if (playerColor=='W') barva="WHITE's";
         else barva="BLACK's";
         this.lblInfo.setText("Playboard is ready for " + barva + " turn.");
+        ImageIcon colorbox = (playerColor=='W') ? this.imIcWhiteBox : this.imIcBlackBox;
+        this.lblPlayercolor.setIcon(colorbox);
 
     }
 
@@ -833,7 +847,27 @@ public class InternalFrameDemo extends JFrame
         if (wtake) w="x";
         else w="-";
 
-        TAVypisNotace.setText(predchozi_obsah + tah + ". " + p0 + w + p1 + "\n");
+        TAVypisNotace.setText(predchozi_obsah + tah + ". " + p0 + w + p1);
+    }
+    
+    /**
+     * Fce prida to textarea tah bileho v notaci
+     * pouziti: bily vyhraje a cerny uz netahne
+     * @param wturn    tah bileho
+     * @param wtake    indikator jestli bily bral
+     * @param tah      poradove cislo tahu
+     */
+    public void NotationNewLineLastBlack(Turn bturn, boolean btake)
+    {
+        String predchozi_obsah=TAVypisNotace.getText();
+
+        String p0=bturn.origin.getStrLowerCase();
+        String p1=bturn.destination.getStrLowerCase();
+        String w;
+        if (btake) w="x";
+        else w="-";
+
+        TAVypisNotace.setText(predchozi_obsah + " " + p0 + w + p1 + "\n");
     }
 
     public void pullThePlug() {
