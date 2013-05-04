@@ -307,7 +307,7 @@ public class InternalFrameDemo extends JFrame
                 }
 
                 Turn turn=new Turn(barva, pos1, pos2);
-                Dama.notaceInput(turn);
+                Dama.input(turn);
                 return;
             }
         });

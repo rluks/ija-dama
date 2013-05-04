@@ -536,26 +536,13 @@ public class Dama extends Thread{
     }
 
     /**
-     * Zpracuje vstup od textove ramecku od notace a posila ho dal
-     */
-    public static void notaceInput(Turn turn){
-
-        ///zpracovani
-
-
-        Dama.input(turn);
-    }
-
-    /**
      * Jednotny vstup tahu pro vlakno hry
      */
     public static void input(Turn turn)
     {
-        //Turn zaloha_turn=new Turn(turn.playerColor, turn.origin, turn.destination);
 
         if(Moves.isTurnValid(turn, Dama.getDesk()))
         {
-            //Dama.setTurn(zaloha_turn);
             Dama.setInvalidTurn(false);
             Dama.wakeUpGameThread();
         }
