@@ -128,17 +128,14 @@ public class Dama extends Thread{
                 checkGUIShutdown(gui);
                 if(allDone){System.out.println("Hra: Dama terminated, allDone!!");return;}
 
+                //zmeny pro kazde kolo
                 switchPlayerColors();
-
                 this.currentPlayerAIHumanSettings = getAIorHumanSettingsForCurrentPlayerColor(this.playerColor);
-
                 printAndSetInfo();
 
                 //vykresleni desky
                 Check.isMustTake(desk, this.playerColor);
                 gui.updateDesk(this.desk);
-                //this.desk.printSimpleBoard();
-
 
                 //ziskani dalsiho tahu
                 if(this.loadedTurns != null && this.loadedTurns.size() > 0){//nactene tahy
@@ -150,10 +147,11 @@ public class Dama extends Thread{
 
                     this.loadedTurns.remove(0);
 
-                }else if(currentPlayerAIHumanSettings == "AI"){//AI
+                }else if(this.currentPlayerAIHumanSettings == "AI"){//AI
 
                         System.out.println("Hra: it's "+ Output.getPlayerColorString(this.playerColor)+ " AI turn!");
 
+                        //rychlost AI
                         try {Thread.sleep(this.settings.aiWait);} catch (InterruptedException e) {e.printStackTrace();}
 
                         this.turn = AI.AIMove(new Desk(this.desk), this.playerColor, this.aiStochasticity);
@@ -181,69 +179,32 @@ public class Dama extends Thread{
                     }
                 }
 
-
-                //ulozeny tah
-                /*
-                if(this.loadedTurns != null && this.loadedTurns.size() > 0){
-                    System.out.println("Hra: V loadedTurns zbyva " + this.loadedTurns.size() + " tahu");
-                    Turn loadedTurn = new Turn(this.loadedTurns.firstElement());
-                    this.turn = loadedTurn;
-                    System.out.println("Hra: nacteny tah:  " + loadedTurn.getTurnString());
-                    if(Moves.isTurnValid(loadedTurn, desk)){
-                        System.out.println("Hra: Nacteny tah je validni, provadim...");
-                        if(Check.isMustTake(desk, this.playerColor)){//Take
-                            System.out.println("Hra: nacteny tah - " + Output.getPlayerColorString(this.playerColor) + ", take() vraci:" + Moves.Take(desk, loadedTurn));
-                            wbtake = true;
-                        }else{//Move
-                            System.out.println("Hra: nacteny tah - " + Output.getPlayerColorString(this.playerColor) + ", MOVE() vraci:" + Moves.Move(desk, loadedTurn));
-                            wbtake = false;
-                        }
-                        this.turn = new Turn(loadedTurn);
-                        this.loadedTurns.remove(0);
-                        desk.clearMustTakeFlag();
-                    }else{
-                        System.out.println("Hra: Nacteny tah NENI validni!");
-                        gui.createFail("Nacteny tah NENI validni!");
-                        //return;
-                    }
-                }else if(currentPlayerAIHumanSettings == "AI"){//AI
-                    System.out.println("Hra: it's "+ Output.getPlayerColorString(this.playerColor)+ " AI turn!");
-                    try {Thread.sleep(this.settings.aiWait);} catch (InterruptedException e) {e.printStackTrace();}
-                    this.turn = AI.AIMove(desk, this.playerColor, this.aiStochasticity);
-                    if(this.turn == null){
-                        System.out.println("Hra: AIMove() vratilo null");
-                        gui.createFail("AI Move failed. It's probably stalemate!");
-                        //return;
-                    }
-                    this.desk.clearMustTakeFlag();
-                }else{//Human
-                    this.turn = (this.playerColor == 'W') ? Turn.TurnWhite(pEmpty, pEmpty) : Turn.TurnBlack(pEmpty, pEmpty);
-                    //cekani na tah od cloveka
-                    this.pleaseWait = true;
-                    try {Thread.sleep(300);} catch (InterruptedException e) {e.printStackTrace();}
-                    synchronized(this){ while(pleaseWait){ try { System.out.println("Hra: sleeping..."); wait();} catch (Exception e) { e.printStackTrace(); } }  }
-                    while(this.invalidTurn){
-                        synchronized(this){ while(pleaseWait){ try { System.out.println("Hra: sleeping..."); wait();} catch (Exception e) { e.printStackTrace(); } }  }
-                        gui.setInfoText("Nevalidni tah!");
-                        gui.clearAura();
-                        //TODO napoveda
-                        this.pleaseWait = true;
-                    }
-                }*/
-
                 //vypinaci cast
                 checkGUIShutdown(gui);
                 if(allDone){System.out.println("Hra: Dama terminated, allDone!!");return;}
 
                 //zpracovani tahu
+                boolean executedTurn;
                 System.out.println("Hra: " + Output.getPlayerColorString(this.playerColor) + " is playing...");
                 if(Check.isMustTake(this.desk, this.playerColor)){//Take
-                    System.out.println("Hra: tah " + Output.getPlayerColorString(this.playerColor) + ", take() vraci:" + Moves.Take(this.desk, this.turn));
+                    executedTurn = Moves.Take(this.desk, this.turn);
+                    System.out.println("Hra: tah " + Output.getPlayerColorString(this.playerColor) + ", take() vraci:" + executedTurn);
                     wbtake = true;
 
                 }else{//Move
-                    System.out.println("Hra: tah " + Output.getPlayerColorString(this.playerColor) + ", MOVE() vraci:" + Moves.Move(this.desk, this.turn));
+                    executedTurn = Moves.Move(this.desk, this.turn);
+                    System.out.println("Hra: tah " + Output.getPlayerColorString(this.playerColor) + ", MOVE() vraci:" + executedTurn);
                     wbtake = false;
+                }
+
+                executedTurn = false;
+
+                //kontrola
+                if(executedTurn){
+                    System.out.println("Tah " + this.turn.getTurnString() + " byl proveden");
+                }else{
+                    System.out.println("Tah " + this.turn.getTurnString() + " NEBYL proveden");
+                    this.gui.createFail("Tah " + this.turn.getTurnString() + " NEBYL proveden");
                 }
                 desk.clearMustTakeFlag();
 
@@ -252,8 +213,8 @@ public class Dama extends Thread{
 
                 //vykresleni desky
                 gui.updateDesk(this.desk);
-                //this.desk.printSimpleBoard();
 
+                //kontrola
                 if(this.playerColor != this.turn.playerColor){
                     System.out.println("Hra: barva hrace v tahu a v this.playerColor si neodpovida!");
                     return;
@@ -264,16 +225,14 @@ public class Dama extends Thread{
                 gui.clearHelp();
                 this.invalidTurn = false;
 
+                //nastavovani promennych pro (a) tisk
                 setWBTurn();
                 setWBtake();
-
                 this.ouputTurns.addElement(new Turn(this.turn));
-                boolean victory = Check.isVictory(desk);
-
                 printNotation();
 
                 //ukonceni hry pri vitezstvi
-                if(victory){
+                if(Check.isVictory(desk)){
                     System.out.println("Hra: Konec hry, dalsi hrac uz nehraje.");
                     try {
                         System.out.println("Hra: Konec hry, tisknu xml s tahy.");
@@ -282,7 +241,6 @@ public class Dama extends Thread{
                         e1.printStackTrace();
                         gui.createFail("Failed to save file!");
                     }
-                    //Dama.stopGameThread();
                     gui.setInfoText("!!! Victory !!!");
                     gui.createVictory();
                     this.pleaseWait = true;
