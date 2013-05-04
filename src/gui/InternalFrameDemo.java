@@ -472,24 +472,7 @@ public class InternalFrameDemo extends JFrame
         }
         else if ("savegamebuttonNot".equals(e.getActionCommand()))
         {
-            String notace=TAVypisNotace.getText();
-
-            String cesta=inFrLoadGame.GetPath();
-            if (!cesta.endsWith(".txt")) cesta=cesta+".txt";
-            System.out.println("Cesta: \"" + cesta + "\"");
-            inFrLoadGame.dispose();
-            try
-            {
-                Output.printStringToFile(notace, cesta);
-            }
-            catch (Exception e1)
-            {
-                // TODO Auto-generated catch block
-                System.out.println("Nepodarilo se ulozit hru");
-                e1.printStackTrace();
-            }
-
-
+            SaveGameButtonNot();
         }
         else{
             System.out.println("Neznama akce: " + e.getActionCommand());
@@ -583,13 +566,47 @@ public class InternalFrameDemo extends JFrame
             e1.printStackTrace();
         }
     }
+    public void SaveGameButtonNot()
+    {
+        String notace=TAVypisNotace.getText();
+        String cesta=inFrLoadGame.GetPath();
+        if (!cesta.endsWith(".txt")) cesta=cesta+".txt";
+        System.out.println("Cesta: \"" + cesta + "\"");
+        inFrLoadGame.dispose();
+        try
+        {
+            Output.printStringToFile(notace, cesta);
+        }
+        catch (Exception e1)
+        {
+            // TODO Auto-generated catch block
+            System.out.println("Nepodarilo se ulozit hru");
+            e1.printStackTrace();
+        }
+    }
     public void LoadGameButton()
     {
         System.out.println("Tlacitko load!");
         String cesta=inFrLoadGame.GetPath();
         System.out.println("Cesta: \"" + cesta + "\"");
         inFrLoadGame.dispose();
-        Dama.XmlToVector(cesta);
+        if (cesta.endsWith(".xml"))
+        {
+            System.out.println("XML MOTAFAKA!!");
+            Dama.XmlToVector(cesta);
+        }
+        else if (cesta.endsWith(".txt"))
+        {
+            System.out.println("NOTACE BIATCH!!");
+            //Dama.NotToVector(cesta);
+
+            //pak smazat return
+            return;
+        }
+        else
+        {
+            System.out.println("Da fuk is dis sith?! (extention not txt of xml)");
+        }
         Dama.wakeUpGameThread();
         this.menuItemSave.setEnabled(true);
     }

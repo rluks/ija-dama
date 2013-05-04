@@ -289,12 +289,12 @@ public class Dama extends Thread{
 
                 //tisk notace
                 if(this.playerColor == 'B'){
-                    System.out.println("Hra: oba hraci hrali");                   
+                    System.out.println("Hra: oba hraci hrali");
                     gui.NotationNewLineLastBlack(bturn, btake);
                 }else if(this.playerColor == 'W'){
-                	tahCislo++;
-                	System.out.println("Hra: hral bily");
-                	gui.NotationNewLineLastWhite(wturn, wtake, this.tahCislo);
+                    tahCislo++;
+                    System.out.println("Hra: hral bily");
+                    gui.NotationNewLineLastWhite(wturn, wtake, this.tahCislo);
                 }
                 /*
                 if(this.playerColor == 'B'){
@@ -866,6 +866,11 @@ public class Dama extends Thread{
 
         if (Dama.setLoadedTurns(TurnVector))return true;
         return false;
+    }
+
+    public boolean NotToVector(String cesta)
+    {
+        return true;
     }
 
 
