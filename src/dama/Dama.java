@@ -140,8 +140,6 @@ public class Dama extends Thread{
                     System.out.println("Hra: neco je spatne s barvami hracu!");
                 }
 
-                //try {Thread.sleep(50);} catch (InterruptedException e) {e.printStackTrace();}
-
                 String currentPlayerAIHumanSettings = getAIorHumanSettingsForCurrentPlayerColor(this.playerColor);
 
                 //tisk informaci
@@ -165,33 +163,11 @@ public class Dama extends Thread{
 
                         if(Check.isMustTake(desk, this.playerColor)){//Take
                             System.out.println("Hra: nacteny tah - " + Output.getPlayerColorString(this.playerColor) + ", take() vraci:" + Moves.Take(desk, loadedTurn));
-
-                            //
                             wbtake = true;
                             
-                            /*
-	                        if(this.playerColor == 'W'){
-	                            wtake = true;
-	                        }else if(this.playerColor == 'B'){
-	                            btake = true;
-	                        }else{
-	                            System.out.println("Hra: nactena hra - neco je spatne s barvami hracu!");
-	                        }
-	                        */
-
                         }else{//Move
                             System.out.println("Hra: nacteny tah - " + Output.getPlayerColorString(this.playerColor) + ", MOVE() vraci:" + Moves.Move(desk, loadedTurn));
-
                             wbtake = false;
-                            /*
-                            if(this.playerColor == 'W'){
-                                wtake = false;
-                            }else if(this.playerColor == 'B'){
-                                btake = false;
-                            }else{
-                                System.out.println("Hra: nactena hra - neco je spatne s barvami hracu!");
-                            }
-                            */
                         }
 
                         this.turn = new Turn(loadedTurn);
@@ -229,7 +205,7 @@ public class Dama extends Thread{
                     while(this.invalidTurn){
                     	synchronized(this){ while(pleaseWait){ try { System.out.println("Hra: sleeping..."); wait();} catch (Exception e) { e.printStackTrace(); } }  }
                     	gui.setInfoText("Nevalidni tah!");
-                    	//gui.createFail("Nevalidni tah"); TODO napoveda
+                    	//TODO napoveda
                     	this.pleaseWait = true;
                     }
 
@@ -242,31 +218,11 @@ public class Dama extends Thread{
                     if(Check.isMustTake(desk, this.playerColor)){//Take
                         System.out.println("================================BRANI=============================");
                         System.out.println("Hra: tah " + Output.getPlayerColorString(this.playerColor) + ", take() vraci:" + Moves.Take(desk, turn));
-
                         wbtake = true;
-                        /*
-                        if(this.playerColor == 'W'){
-                            wtake = true;
-                        }else if(this.playerColor == 'B'){
-                            btake = true;
-                        }else{
-                            System.out.println("Hra: neco je spatne s barvami hracu!");
-                        }
-                        */
 
                     }else{//Move
                         System.out.println("Hra: tah " + Output.getPlayerColorString(this.playerColor) + ", MOVE() vraci:" + Moves.Move(desk, turn));
-
                         wbtake = false;
-                        /*
-                        if(this.playerColor == 'W'){
-                            wtake = false;
-                        }else if(this.playerColor == 'B'){
-                            btake = false;
-                        }else{
-                            System.out.println("Hra: neco je spatne s barvami hracu!");
-                        }
-                        */
                     }
                     desk.clearMustTakeFlag();
                 }
@@ -300,8 +256,7 @@ public class Dama extends Thread{
 
                 this.ouputTurns.addElement(new Turn(this.turn));
 
-                boolean victory = Check.isVictory(desk);
-                
+                boolean victory = Check.isVictory(desk);               
                 
                 if(this.playerColor == 'W'){
                     wtake = wbtake;
@@ -319,17 +274,7 @@ public class Dama extends Thread{
                     tahCislo++;
                     System.out.println("Hra: hral bily");
                     gui.NotationNewLineLastWhite(wturn, wtake, this.tahCislo);
-                }
-                /*
-                if(this.playerColor == 'B'){
-                    System.out.println("Hra: oba hraci hrali");
-                    tahCislo++;
-                    gui.NotationNewLine(wturn, wtake, bturn, btake, tahCislo);
-                }else if(this.playerColor == 'W' && victory){
-                    tahCislo++;
-                    gui.NotationNewLineLastWhite(wturn, wtake, tahCislo); //zkracena notace
-                }
-                */               
+                }          
 
                 //ukonceni hry pri vitezstvi
                 if(victory){
@@ -338,15 +283,14 @@ public class Dama extends Thread{
                         System.out.println("Hra: Konec hry, tisknu xml s tahy.");
                         Output.printStringToFile(Output.getXmlFromSettingsAndTurnVector(this.settings, this.ouputTurns), "examples\\katafalka.xml");
                     } catch (Exception e1) {
-                        // TODO Auto-generated catch block
                         e1.printStackTrace();
+                        gui.createFail("Failed to save file!");
                     }
                     //Dama.stopGameThread();
                     gui.setInfoText("!!! Victory !!!");
                     gui.createVictory();
                     this.pleaseWait = true;
                     synchronized(this){ while(pleaseWait){ try { System.out.println("Hra: sleeping..."); wait();} catch (Exception e) { e.printStackTrace(); } }  }
-                    //try {Thread.sleep(4000);} catch (InterruptedException e) {e.printStackTrace();}
                     gui.setVisible(false);
                     Dama.startingGameThread();
                     return;
@@ -362,7 +306,7 @@ public class Dama extends Thread{
 
     /**
      * Kontrola jestli se GUI zavrelo
-     * @param isGUIvisible gui.isVisible;//TODO zmena
+     * @param gui instance InternalFrameDemo
      */
     private void checkGUIShutdown(InternalFrameDemo gui){
 
@@ -471,7 +415,7 @@ public class Dama extends Thread{
     public static boolean sleepGameThread(){
         System.out.println("sleepGameThread: pokousim se uspat hru...");
 
-        if(dama != null){//TODO tyhle kontroly delat v jedine fci
+        if(dama != null){
             synchronized (dama){
                 dama.pleaseWait = true;
             }

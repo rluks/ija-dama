@@ -561,11 +561,13 @@ public class InternalFrameDemo extends JFrame
         }
         catch (Exception e1)
         {
-            // TODO Auto-generated catch block
             System.out.println("Nepodarilo se ulozit hru");
+            this.createFail("Failed to save game in XML!");
             e1.printStackTrace();
         }
     }
+    
+    
     public void SaveGameButtonNot()
     {
         String notace=TAVypisNotace.getText();
@@ -579,11 +581,13 @@ public class InternalFrameDemo extends JFrame
         }
         catch (Exception e1)
         {
-            // TODO Auto-generated catch block
             System.out.println("Nepodarilo se ulozit hru");
+            this.createFail("Failed to save game in notation!");
             e1.printStackTrace();
         }
     }
+    
+    
     public void LoadGameButton()
     {
         System.out.println("Tlacitko load!");

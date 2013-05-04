@@ -120,7 +120,7 @@ public class NewP2PGameSettings extends JInternalFrame {
         String whiteStr = "Human";
         String blackStr = "Human";
 
-        //TODO check hodnoty
+        //TODO check hodnoty filter v Input
 
         try {Double.parseDouble(remotePortStr);
         }catch (NumberFormatException e) {
