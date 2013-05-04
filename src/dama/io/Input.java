@@ -16,6 +16,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import dama.Dama;
+import dama.operations.Moves;
 import dama.state.Position;
 import dama.state.Settings;
 
@@ -308,6 +309,26 @@ public class Input
         if (!Dama.setSettings(set)) return false;
         if (!Dama.setLoadedTurns(TurnVector))return false;
         return true;
+    }
+
+    /**
+    * Jednotny vstup tahu pro vlakno hry
+    */
+    public static void inputTurn(Turn turn)
+    {
+
+        if(Moves.isTurnValid(turn, Dama.getDesk()))
+        {
+            Dama.setInvalidTurn(false);
+            Dama.wakeUpGameThread();
+        }
+        else
+        {
+            System.out.println("Dama.input: nevalidni tah, nastavime napovedu");
+            Dama.setInvalidTurn(true);
+            try {Thread.sleep(200);} catch (InterruptedException e) {e.printStackTrace();}
+            Dama.wakeUpGameThread();
+        }
     }
 
 

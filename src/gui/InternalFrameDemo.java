@@ -307,7 +307,7 @@ public class InternalFrameDemo extends JFrame
                 }
 
                 Turn turn=new Turn(barva, pos1, pos2);
-                Dama.input(turn);
+                Input.inputTurn(turn);
                 return;
             }
         });
@@ -872,7 +872,7 @@ public class InternalFrameDemo extends JFrame
             if(InternalFrameDemo.clickCount == 2){
                 Dama.setTurnInputDestination(pos);
 
-                Dama.input(Dama.getTurnInput());
+                Input.inputTurn(Dama.getTurnInput());
 
                 InternalFrameDemo.clickCount = 0;
 

@@ -535,26 +535,6 @@ public class Dama extends Thread{
         }
     }
 
-    /**
-     * Jednotny vstup tahu pro vlakno hry
-     */
-    public static void input(Turn turn)
-    {
-
-        if(Moves.isTurnValid(turn, Dama.getDesk()))
-        {
-            Dama.setInvalidTurn(false);
-            Dama.wakeUpGameThread();
-        }
-        else
-        {
-            System.out.println("Dama.input: nevalidni tah, nastavime napovedu");
-            Dama.setInvalidTurn(true);
-            try {Thread.sleep(200);} catch (InterruptedException e) {e.printStackTrace();}
-            Dama.wakeUpGameThread();
-        }
-    }
-
     public static boolean setInvalidTurn(boolean invalidturn) {
         System.out.println("setInvalidTurn: davam hre vedet ze byl nevalidni tah...");
 
