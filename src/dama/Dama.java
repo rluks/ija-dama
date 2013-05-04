@@ -313,7 +313,10 @@ public class Dama extends Thread{
                     }
                     //Dama.stopGameThread();
                     gui.setInfoText("!!! Victory !!!");
-                    try {Thread.sleep(4000);} catch (InterruptedException e) {e.printStackTrace();}
+                    gui.createVictory();
+                    this.pleaseWait = true;
+                    synchronized(this){ while(pleaseWait){ try { System.out.println("Hra: sleeping..."); wait();} catch (Exception e) { e.printStackTrace(); } }  }
+                    //try {Thread.sleep(4000);} catch (InterruptedException e) {e.printStackTrace();}
                     gui.setVisible(false);
                     Dama.startingGameThread();
                     return;

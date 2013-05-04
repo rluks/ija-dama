@@ -168,7 +168,7 @@ public class InternalFrameDemo extends JFrame
         //menu
         setJMenuBar(createMenuBar());
 
-        createVictory();
+        //createVictory();
 
         //texty s informacemi
         lblInfo = new JLabel("Not playing.");
@@ -469,6 +469,8 @@ public class InternalFrameDemo extends JFrame
                 e1.printStackTrace();
             }
 
+        }else if("victoryOK".equals(e.getActionCommand())){
+        	Dama.wakeUpGameThread();
         }
         else{
             System.out.println("Neznama akce: " + e.getActionCommand());
