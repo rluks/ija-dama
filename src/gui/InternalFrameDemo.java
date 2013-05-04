@@ -74,6 +74,7 @@ import dama.io.Output;
 import dama.io.Turn;
 import dama.operations.AI;
 import dama.operations.Check;
+import dama.operations.Moves;
 import dama.state.Desk;
 import dama.state.Figure;
 import dama.state.Position;
@@ -126,6 +127,7 @@ public class InternalFrameDemo extends JFrame
 
     //pole labelu na obrazky  figurek
     protected JLabel[][] pole_figurek;
+    protected JLabel[][] pole_napovedy;
     protected JLabel lblAura;    //oznaceni mysi
     protected JLabel lblRuna;    //figurky s mustTakeFlag = true
 
@@ -154,6 +156,8 @@ public class InternalFrameDemo extends JFrame
     protected ImageIcon imIcWhiteBox;
     protected ImageIcon imIcBlackBox;
 
+    protected ImageIcon imIcSeal;    //lachtan
+
     public InternalFrameDemo() {
         super("InternalFrameDemo");
 
@@ -181,6 +185,7 @@ public class InternalFrameDemo extends JFrame
         this.imIcRuna = new ImageIcon(InternalFrameDemo.class.getResource("/gui/images/runa.png"));
         this.imIcWhiteBox = new ImageIcon(InternalFrameDemo.class.getResource("/gui/images/whitebox.png"));
         this.imIcBlackBox = new ImageIcon(InternalFrameDemo.class.getResource("/gui/images/blackbox.png"));
+        this.imIcSeal = new ImageIcon(InternalFrameDemo.class.getResource("/gui/images/seal.png"));
 
         //menu
         setJMenuBar(createMenuBar());
@@ -214,13 +219,15 @@ public class InternalFrameDemo extends JFrame
                     Turn helpTurn = AI.AIMove(deskForHelp, playerColor, aiStochasticity);
 
                     String helpText;
-                    if(helpTurn != null){
-                        helpText = helpTurn.origin.getStrLowerCase() + " -> " + helpTurn.destination.getStrLowerCase();
+                    if(helpTurn != null)
+                    {
+                        //helpText = helpTurn.origin.getStrLowerCase() + " -> " + helpTurn.destination.getStrLowerCase();
+                        ZobrazNapovedu();
                     }else{
                         helpText = "Stalemate!";
                     }
 
-                    LNapoveda.setText(helpText);
+                    //LNapoveda.setText(helpText);
                 }
             }
         });
@@ -320,34 +327,17 @@ public class InternalFrameDemo extends JFrame
         this.TFPrikaz.setColumns(10);
 
         pole_figurek=new JLabel[8][8];
+        pole_napovedy=new JLabel[8][8];
         for (int row=0; row<8; row++)
             for (int col=0; col<8; col++)
             {
-                //String pom="R" + row + ":C" + col;
-
                 this.pole_figurek[row][col]=new JLabel("");
                 this.pole_figurek[row][col].setBounds(x_sachovnice+10+(col*50), y_sachovnice+10+350-(row*50),50,50);
                 desktop.add(this.pole_figurek[row][col]);
-                /*
-                //bile figurky na sude radky a sude sloupce (sude vzhledem k indexu do pole)
-                if ( ((row==0) || (row==2)) && (col%2==0) )
-                    this.pole_figurek[row][col].setIcon(new ImageIcon(InternalFrameDemo.class.getResource("/gui/images/figurky/bily_pesak.png")));
 
-                //bile figurky na lichy radek a liche sloupce (liche vzhledem k indexu do pole)
-                else if ( (row==1) && (col%2==1) )
-                    this.pole_figurek[row][col].setIcon(new ImageIcon(InternalFrameDemo.class.getResource("/gui/images/figurky/bily_pesak.png")));
-
-                //cerne figurky na lichych radcich a lichych sloupcich (liche vzhledem k indexu do pole)
-                else if ( ((row==5) || (row==7)) && (col%2==1) )
-                    this.pole_figurek[row][col].setIcon(new ImageIcon(InternalFrameDemo.class.getResource("/gui/images/figurky/cerny_pesak.png")));
-
-                //cerne figurky na sudem radku a sudych sloupcich (sude vzhledem k indexu do pole)
-                else if ( (row==6) && (col%2==0) )
-                    this.pole_figurek[row][col].setIcon(new ImageIcon(InternalFrameDemo.class.getResource("/gui/images/figurky/cerny_pesak.png")));
-
-                //vsecha ostatni pole jsou prazdna (null)
-                else this.pole_figurek[row][col]=null;
-                */
+                this.pole_napovedy[row][col]=new JLabel("");
+                this.pole_napovedy[row][col].setBounds(x_sachovnice+10+(col*50), y_sachovnice+10+350-(row*50),50,50);
+                desktop.add(this.pole_napovedy[row][col]);
             }
 
     }
@@ -894,6 +884,7 @@ public class InternalFrameDemo extends JFrame
     {
         this.lblInfo.setText("Refreshing playboard, please wait...");
         if (!Check.isMustTake(desk, Dama.getPlayerColor())) this.lblRuna.setIcon(null);
+        SmazNapovedu();
 
         Figure[][] this_board=desk.getState();
         for (int row=0; row<8; row++)
@@ -939,6 +930,35 @@ public class InternalFrameDemo extends JFrame
         this.lblPlayercolor.setIcon(colorbox);
 
     }
+
+    public void ZobrazNapovedu()
+    {
+        Desk desk = Dama.getDesk();
+        char natahu=Dama.getPlayerColor();
+        Figure[][] this_board=desk.getState();
+        boolean brani=Check.isMustTake(desk, natahu);
+        desk.clearMustTakeFlag();
+
+        for(int row=0; row<8; row++)
+            for(int col=0; col<8; col++)
+                if ((this_board[row][col]!=null) && (this_board[row][col].color==natahu))
+                {
+                    Position pos=new Position(row, col);
+                    if ((brani)&&(Moves.canTake(pos, desk)))
+                        this.pole_napovedy[row][col].setIcon(imIcRuna);
+                    else if ((Moves.canMove(pos, desk))&&(!brani))
+                        this.pole_napovedy[row][col].setIcon(imIcSeal);
+
+                }
+    }
+
+    public void SmazNapovedu()
+    {
+        for(int row=0; row<8; row++)
+            for(int col=0; col<8; col++)
+                this.pole_napovedy[row][col].setIcon(null);
+    }
+
 
     /**
      * Fce prida to textarea dalsi tah v notaci
