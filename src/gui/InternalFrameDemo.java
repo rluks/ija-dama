@@ -168,7 +168,7 @@ public class InternalFrameDemo extends JFrame
         //menu
         setJMenuBar(createMenuBar());
 
-        createVictory();
+        //createVictory();
 
         //texty s informacemi
         lblInfo = new JLabel("Not playing.");
@@ -444,31 +444,11 @@ public class InternalFrameDemo extends JFrame
         }
         else if ("loadgamebutton".equals(e.getActionCommand()))
         {
-            System.out.println("Tlacitko load!");
-            String cesta=inFrLoadGame.GetPath();
-            System.out.println("Cesta: \"" + cesta + "\"");
-            inFrLoadGame.dispose();
-            Dama.XmlToVector(cesta);
-            Dama.wakeUpGameThread();
+            LoadGameButton();
         }
-        else if ("savegamebutton".equals(e.getActionCommand()))
+        else if ("savegamebuttonXml".equals(e.getActionCommand()))
         {
-            System.out.println("Tlacitko save!");
-            String cesta=inFrLoadGame.GetPath();
-            System.out.println("Cesta: \"" + cesta + "\"");
-            inFrLoadGame.dispose();
-            String xml = Output.getXmlFromSettingsAndTurnVector(Dama.getSettings(), Dama.getOutputTurns());
-
-            try
-            {
-                Output.printStringToFile(xml, cesta+".xml");
-            }
-            catch (Exception e1)
-            {
-                // TODO Auto-generated catch block
-                e1.printStackTrace();
-            }
-
+            SaveGameButtonXml();
         }
         else{
             System.out.println("Neznama akce: " + e.getActionCommand());
@@ -507,12 +487,30 @@ public class InternalFrameDemo extends JFrame
         inFrLoadGame.setLocation(100, 100);
         inFrLoadGame.setVisible(true);
 
+        JButton btnLoadgame2;
         JButton btnLoadgame = new JButton("OK");
-        btnLoadgame.setBounds(294, 39, 80, 20);
+        btnLoadgame.setBounds(294, 39, 140, 20);
 
         inFrLoadGame.getContentPane().add(btnLoadgame);
-        if (nazevOkna=="Load game") btnLoadgame.setActionCommand("loadgamebutton");
-        else btnLoadgame.setActionCommand("savegamebutton");
+        if (nazevOkna=="Load game")
+        {
+            btnLoadgame.setText("Load");
+            btnLoadgame.setActionCommand("loadgamebutton");
+        }
+        else
+        {
+            btnLoadgame.setText("Save in XML");
+            btnLoadgame.setActionCommand("savegamebuttonXml");
+
+            System.out.println("Tlacitko");
+            btnLoadgame2 = new JButton("Save in notation");
+            btnLoadgame2.setBounds(294, 60, 140, 20);
+            btnLoadgame2.setActionCommand("savegamebuttonNot");
+            btnLoadgame2.addActionListener(this);
+            inFrLoadGame.getContentPane().add(btnLoadgame2);
+            System.out.println("/Tlacitko");
+
+        }
         btnLoadgame.addActionListener(this);
 
         desktop.add(inFrLoadGame);
@@ -522,7 +520,36 @@ public class InternalFrameDemo extends JFrame
         }
         catch (java.beans.PropertyVetoException e) {}
 
-        System.out.println("\t/create LG");
+        //System.out.println("\t/create LG");
+    }
+
+    public void SaveGameButtonXml()
+    {
+        System.out.println("Tlacitko save!");
+        String cesta=inFrLoadGame.GetPath();
+        if (!cesta.endsWith(".xml")) cesta=cesta+".xml";
+        System.out.println("Cesta: \"" + cesta + "\"");
+        inFrLoadGame.dispose();
+        try
+        {
+            String xml = Output.getXmlFromSettingsAndTurnVector(Dama.getSettings(), Dama.getOutputTurns());
+            Output.printStringToFile(xml, cesta);
+        }
+        catch (Exception e1)
+        {
+            // TODO Auto-generated catch block
+            System.out.println("Nepodarilo se ulozit hru");
+            e1.printStackTrace();
+        }
+    }
+    public void LoadGameButton()
+    {
+        System.out.println("Tlacitko load!");
+        String cesta=inFrLoadGame.GetPath();
+        System.out.println("Cesta: \"" + cesta + "\"");
+        inFrLoadGame.dispose();
+        Dama.XmlToVector(cesta);
+        Dama.wakeUpGameThread();
     }
 
 
