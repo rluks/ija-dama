@@ -95,6 +95,9 @@ public class InternalFrameDemo extends JFrame
     protected NewGameSettings inFrNewGameSett;
     protected NewP2PGameSettings inFrNewP2PGameSett;
     protected Settings settings;
+    
+    //menu
+    protected JMenuItem menuItemSave;
 
     //vnitrni ramec
     protected Victory victory;
@@ -107,6 +110,7 @@ public class InternalFrameDemo extends JFrame
 
     //texty s informacemi
     protected JLabel lblInfo;
+    protected JLabel lblPlayercolor;
 
     //napoveda
     protected JLabel LNapoveda;
@@ -138,6 +142,9 @@ public class InternalFrameDemo extends JFrame
     protected ImageIcon imIcCernyPesak;
     protected ImageIcon imIcCernaDama;
     protected ImageIcon imIcRuna;
+    
+    protected ImageIcon imIcWhiteBox;
+    protected ImageIcon imIcBlackBox;
 
     public InternalFrameDemo() {
         super("InternalFrameDemo");
@@ -164,6 +171,8 @@ public class InternalFrameDemo extends JFrame
         this.imIcCernyPesak = new ImageIcon(InternalFrameDemo.class.getResource("/gui/images/figurky/cerny_pesak.png"));
         this.imIcCernaDama = new ImageIcon(InternalFrameDemo.class.getResource("/gui/images/figurky/cerna_dama.png"));
         this.imIcRuna = new ImageIcon(InternalFrameDemo.class.getResource("/gui/images/runa.png"));
+        this.imIcWhiteBox = new ImageIcon(InternalFrameDemo.class.getResource("/gui/images/whitebox.png"));
+        this.imIcBlackBox = new ImageIcon(InternalFrameDemo.class.getResource("/gui/images/blackbox.png"));
 
         //menu
         setJMenuBar(createMenuBar());
@@ -173,8 +182,13 @@ public class InternalFrameDemo extends JFrame
         //texty s informacemi
         lblInfo = new JLabel("Not playing.");
         desktop.setLayer(lblInfo, 1);
-        lblInfo.setBounds(107, 10, 295, 30);
+        lblInfo.setBounds(105, 10, 295, 30);
         desktop.add(lblInfo);
+        
+        
+        this.lblPlayercolor = new JLabel("");
+        this.lblPlayercolor.setBounds(25, 10, 45, 30);
+        desktop.add(this.lblPlayercolor);
 
         //napoveda
         this.LNapoveda = new JLabel("No help requested...");
@@ -372,13 +386,14 @@ public class InternalFrameDemo extends JFrame
         menu.add(menuItem);
 
         //ulozeni probihajici hry
-        menuItem = new JMenuItem("Save game");
-        menuItem.setMnemonic(KeyEvent.VK_S);
-        menuItem.setAccelerator(KeyStroke.getKeyStroke(
+        menuItemSave = new JMenuItem("Save game");
+        menuItemSave.setMnemonic(KeyEvent.VK_S);
+        menuItemSave.setAccelerator(KeyStroke.getKeyStroke(
                 KeyEvent.VK_S, ActionEvent.ALT_MASK));
-        menuItem.setActionCommand("save");
-        menuItem.addActionListener(this);
-        menu.add(menuItem);
+        menuItemSave.setActionCommand("save");
+        menuItemSave.addActionListener(this);
+        menuItemSave.setEnabled(false);
+        menu.add(menuItemSave);
 
         //prehravani partii
         menuItem = new JMenuItem("Player");
@@ -449,6 +464,8 @@ public class InternalFrameDemo extends JFrame
         else if ("savegamebuttonXml".equals(e.getActionCommand()))
         {
             SaveGameButtonXml();
+        }else if("victoryOK".equals(e.getActionCommand())){
+        	Dama.wakeUpGameThread();
         }
         else{
             System.out.println("Neznama akce: " + e.getActionCommand());
@@ -630,10 +647,13 @@ public class InternalFrameDemo extends JFrame
 
                 this.dispose();
             }else{
-                System.out.println("ukladanim nastaveni do NOVE...");
+                System.out.println("gui: ukladanim nastaveni do NOVE...");
                 Dama.setSettings(this.settings);
+                
+                System.out.println("gui: povoluji akce...");
                 this.BSubmitCommand.setEnabled(true);
                 this.BNapoveda.setEnabled(true);
+                this.menuItemSave.setEnabled(true);
                 Dama.wakeUpGameThread();
 
                 this.inFrNewGameSett.setVisible(false);
@@ -808,9 +828,12 @@ public class InternalFrameDemo extends JFrame
 
         desk.clearMustTakeFlag();
         String barva;
-        if (Dama.getPlayerColor()=='W') barva="WHITE's";
+        char playerColor = Dama.getPlayerColor();
+        if (playerColor=='W') barva="WHITE's";
         else barva="BLACK's";
         this.lblInfo.setText("Playboard is ready for " + barva + " turn.");
+        ImageIcon colorbox = (playerColor=='W') ? this.imIcWhiteBox : this.imIcBlackBox;
+        this.lblPlayercolor.setIcon(colorbox);
 
     }
 
@@ -858,7 +881,26 @@ public class InternalFrameDemo extends JFrame
         if (wtake) w="x";
         else w="-";
 
-        TAVypisNotace.setText(predchozi_obsah + tah + ". " + p0 + w + p1 + "\n");
+        TAVypisNotace.setText(predchozi_obsah + tah + ". " + p0 + w + p1);
+    }
+    
+    /**
+     * Fce prida to textarea tah cerneho v notaci
+     * pouziti: cerny tahnul
+     * @param bturn    tah cerneho
+     * @param btake    indikator jestli cerny bral
+     */
+    public void NotationNewLineLastBlack(Turn bturn, boolean btake)
+    {
+        String predchozi_obsah=TAVypisNotace.getText();
+
+        String p0=bturn.origin.getStrLowerCase();
+        String p1=bturn.destination.getStrLowerCase();
+        String w;
+        if (btake) w="x";
+        else w="-";
+
+        TAVypisNotace.setText(predchozi_obsah + " " + p0 + w + p1 + "\n");
     }
 
     public void pullThePlug() {

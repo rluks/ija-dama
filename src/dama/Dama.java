@@ -131,7 +131,7 @@ public class Dama extends Thread{
             //smycka vlastni hry
             while(true){
                 gameSetAndRuning = true;
-                System.out.println("Hra: bezi s timto nastavenim: " + this.settings.getSettingsString());
+                System.out.println("Hra: tah cislo: " + tahCislo + " ,bezi s timto nastavenim: " + this.settings.getSettingsString());
 
                 if(this.loadedTurns != null){
                     if(this.loadedTurns.size() > 0){
@@ -293,6 +293,15 @@ public class Dama extends Thread{
 
                 //tisk notace
                 if(this.playerColor == 'B'){
+                    System.out.println("Hra: oba hraci hrali");                   
+                    gui.NotationNewLineLastBlack(bturn, btake);
+                }else if(this.playerColor == 'W'){
+                	tahCislo++;
+                	System.out.println("Hra: hral bily");
+                	gui.NotationNewLineLastWhite(wturn, wtake, this.tahCislo);
+                }
+                /*
+                if(this.playerColor == 'B'){
                     System.out.println("Hra: oba hraci hrali");
                     tahCislo++;
                     gui.NotationNewLine(wturn, wtake, bturn, btake, tahCislo);
@@ -300,6 +309,7 @@ public class Dama extends Thread{
                     tahCislo++;
                     gui.NotationNewLineLastWhite(wturn, wtake, tahCislo); //zkracena notace
                 }
+                */
 
                 //ukonceni hry pri vitezstvi
                 if(victory){
@@ -313,7 +323,10 @@ public class Dama extends Thread{
                     }
                     //Dama.stopGameThread();
                     gui.setInfoText("!!! Victory !!!");
-                    try {Thread.sleep(4000);} catch (InterruptedException e) {e.printStackTrace();}
+                    gui.createVictory();
+                    this.pleaseWait = true;
+                    synchronized(this){ while(pleaseWait){ try { System.out.println("Hra: sleeping..."); wait();} catch (Exception e) { e.printStackTrace(); } }  }
+                    //try {Thread.sleep(4000);} catch (InterruptedException e) {e.printStackTrace();}
                     gui.setVisible(false);
                     Dama.startingGameThread();
                     return;
