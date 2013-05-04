@@ -82,22 +82,6 @@ public class Dama extends Thread{
 
     public void run(){
 
-        /*
-        System.out.println("====================================================");
-        System.out.println("====================================================");
-        System.out.println("====================================================");
-        if (!XmlToVector("C:\\Users\\HAL\\workspace\\ija-dama\\turnvector.xml"))
-            System.out.println("\n\nXML to vector se posralo!!!\n");
-        else System.out.println("\n\nXML to vector DOBRY!!!\n");
-        System.out.println("=======================KONEC=====================");
-        System.out.println("=======================KONEC========================");
-        System.out.println("=======================KONEC========================");
-        */
-
-
-
-
-
         //inicializace
 
         System.out.println("Hra: Uspavam se");
@@ -207,7 +191,8 @@ public class Dama extends Thread{
 
                     }else{
                         System.out.println("Hra: Nacteny tah NENI validni!");
-                        return;//TODO hlaska v gui
+                        gui.createFail("Nacteny tah NENI validni!");
+                        //return;
                     }
                 }else if(currentPlayerAIHumanSettings == "AI"){//AI
 
@@ -218,7 +203,8 @@ public class Dama extends Thread{
                     this.turn = AI.AIMove(desk, this.playerColor, this.aiStochasticity);
                     if(this.turn == null){
                         System.out.println("Hra: AIMove() vratilo null");
-                        return;//TODO dodelat kdyz vrati null
+                        gui.createFail("AI Move selhal!");
+                        //return;//TODO dodelat kdyz vrati null
                     }
                     this.desk.clearMustTakeFlag();
 
@@ -234,7 +220,7 @@ public class Dama extends Thread{
                     while(this.invalidTurn){
                     	synchronized(this){ while(pleaseWait){ try { System.out.println("Hra: sleeping..."); wait();} catch (Exception e) { e.printStackTrace(); } }  }
                     	gui.setInfoText("Nevalidni tah!");
-                    	//gui.
+                    	gui.createFail("Nevalidni tah");
                     	this.pleaseWait = true;
                     }
 
@@ -800,7 +786,7 @@ public class Dama extends Thread{
             if (p2pEn.equals("yes")) set=new Settings(w, b, p2pLoc, p2pRemIp, p2pRemP, ai);
             else if (p2pEn.equals("no")) set=new Settings(w, b, null, null, 0, ai);
             else return false;
-            Dama.setSettings(set);
+            if (!Dama.setSettings(set)) return false;
 
             /// nacteni jednotlivych tahu
             NodeList nList = doc.getElementsByTagName("turn");

@@ -58,7 +58,7 @@ public class NewP2PGameSettings extends JInternalFrame {
     private JTextField txtRemotePort;
 
     public NewP2PGameSettings() {
-        super("New P2P Game Settings #" + (++openFrameCount),
+        super("New P2P Game Settings",
               true, //resizable
               true, //closable
               false, //maximizable

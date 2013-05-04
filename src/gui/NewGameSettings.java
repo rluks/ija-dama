@@ -62,7 +62,7 @@ public class NewGameSettings extends JInternalFrame {
     private JTextField txtAiWait;
 
     public NewGameSettings() {
-        super("New Game Settings #" + (++openFrameCount),
+        super("New Game Settings",
               true, //resizable
               true, //closable
               false, //maximizable
