@@ -1,10 +1,10 @@
 package dama;
 
+import gui.Gui;
+
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.Vector;
-
-import gui.InternalFrameDemo;
 
 import dama.io.Output;
 import dama.io.Turn;
@@ -14,20 +14,6 @@ import dama.operations.Moves;
 import dama.state.Desk;
 import dama.state.Position;
 import dama.state.Settings;
-
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.DocumentBuilder;
-import org.w3c.dom.Document;
-import org.w3c.dom.NodeList;
-import org.w3c.dom.Node;
-import org.w3c.dom.Element;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.nio.MappedByteBuffer;
-import java.nio.channels.FileChannel;
-import java.nio.charset.Charset;
 
 /**
  * Hra Dáma v Javě
@@ -62,7 +48,7 @@ public class Dama extends Thread{
     protected boolean pleaseWait = false; //pozastaveni behu
 
     protected boolean gameSetAndRuning = false; //hra byla nastavena a uz se provadi tahy, atd.
-    protected InternalFrameDemo gui;
+    protected Gui gui;
     protected boolean invalidTurn = false;
 
     /**
@@ -72,7 +58,7 @@ public class Dama extends Thread{
     Dama(String name){
         super(name);
 
-        gui = new InternalFrameDemo();
+        gui = new Gui();
         gui.setVisible(true);
         gui.addWindowListener( new WindowAdapter() {
             @Override
@@ -328,9 +314,9 @@ public class Dama extends Thread{
 
     /**
      * Kontrola jestli se GUI zavrelo
-     * @param gui instance InternalFrameDemo
+     * @param gui instance Gui
      */
-    private void checkGUIShutdown(InternalFrameDemo gui){
+    private void checkGUIShutdown(Gui gui){
 
         if(!gui.isVisible()){
             System.out.println("Hra: GUI zavreno - vypinam program.");

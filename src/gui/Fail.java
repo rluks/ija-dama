@@ -9,7 +9,6 @@ import java.net.URL;
 import javax.swing.ImageIcon;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
-import javax.swing.JTextArea;
 import java.awt.TextArea;
 
 

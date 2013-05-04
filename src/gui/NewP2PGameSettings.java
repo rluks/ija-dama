@@ -108,7 +108,7 @@ public class NewP2PGameSettings extends JInternalFrame {
      */
     public Settings getSettings(){
 
-        JRadioButton local = InternalFrameDemo.getSelection(this.local);
+        JRadioButton local = Gui.getSelection(this.local);
 
         if(local == null || this.txtRemoteip.getText().trim().equals("") || this.txtRemotePort.getText().trim().equals("")){return null;}
 

@@ -1,11 +1,5 @@
 package dama;
 
-import java.util.Vector;
-
-import dama.io.Turn;
-import dama.state.Position;
-import dama.state.Settings;
-
 /**
  * Romanova main na prototypovani
  * @author Roman Lukš
@@ -59,27 +53,27 @@ public class Roman {
         Dama.wakeUpGameThread();
         */
 
+        /*
+        Vector<Turn> lt = new Vector<Turn>();
+        Position o = Position.positionStrToPositionLowerCase("c3");
+        Position d = Position.positionStrToPositionLowerCase("b4");
+        Turn t = new Turn('W', o, d);
+        System.out.println(t.getTurnString());
+        lt.add(t);
+
+        o = Position.positionStrToPositionLowerCase("b6");
+        d = Position.positionStrToPositionLowerCase("c5");
+        t = new Turn('B', o, d);
+        System.out.println(t.getTurnString());
+        lt.add(t);
+
+        o = Position.positionStrToPositionLowerCase("b4");
+        d = Position.positionStrToPositionLowerCase("a5");
+        t = new Turn('W', o, d);
+        System.out.println(t.getTurnString());
+        lt.add(t);
+
+        */
+
     }
 }
-
-/*
-Vector<Turn> lt = new Vector<Turn>();
-Position o = Position.positionStrToPositionLowerCase("c3");
-Position d = Position.positionStrToPositionLowerCase("b4");
-Turn t = new Turn('W', o, d);
-System.out.println(t.getTurnString());
-lt.add(t);
-
-o = Position.positionStrToPositionLowerCase("b6");
-d = Position.positionStrToPositionLowerCase("c5");
-t = new Turn('B', o, d);
-System.out.println(t.getTurnString());
-lt.add(t);
-
-o = Position.positionStrToPositionLowerCase("b4");
-d = Position.positionStrToPositionLowerCase("a5");
-t = new Turn('W', o, d);
-System.out.println(t.getTurnString());
-lt.add(t);
-
-*/

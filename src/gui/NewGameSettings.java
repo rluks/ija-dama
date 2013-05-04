@@ -117,8 +117,8 @@ public class NewGameSettings extends JInternalFrame {
      */
     public Settings getSettings(){
 
-        JRadioButton white = InternalFrameDemo.getSelection(this.white);
-        JRadioButton black = InternalFrameDemo.getSelection(this.black);
+        JRadioButton white = Gui.getSelection(this.white);
+        JRadioButton black = Gui.getSelection(this.black);
         if(white == null || black == null){return null;}
 
         if(this.txtAiWait.getText().trim().equals("")){return null;}

@@ -35,7 +35,6 @@ import java.awt.Button;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
-import java.awt.Image;
 import java.awt.Label;
 import java.awt.MouseInfo;
 import java.awt.Point;
@@ -49,8 +48,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.Enumeration;
 
 import javax.swing.AbstractButton;
@@ -67,6 +64,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.KeyStroke;
+import javax.swing.SwingConstants;
 
 import dama.Dama;
 import dama.io.Input;
@@ -79,7 +77,6 @@ import dama.state.Desk;
 import dama.state.Figure;
 import dama.state.Position;
 import dama.state.Settings;
-import javax.swing.SwingConstants;
 
 
 
@@ -89,7 +86,7 @@ import javax.swing.SwingConstants;
  * @author Pavel Hála
  *
  */
-public class InternalFrameDemo extends JFrame
+public class Gui extends JFrame
                                implements ActionListener, MouseListener {
     /**
      *
@@ -159,8 +156,8 @@ public class InternalFrameDemo extends JFrame
 
     protected ImageIcon imIcSeal;    //lachtan
 
-    public InternalFrameDemo() {
-        super("InternalFrameDemo");
+    public Gui() {
+        super("Gui");
 
         //Nastaveni okna
         int inset = 50;
@@ -177,16 +174,16 @@ public class InternalFrameDemo extends JFrame
         addMouseListener(this);
 
         //obrazky
-        this.imIcAura = new ImageIcon(InternalFrameDemo.class.getResource("/gui/images/aura.png"));
-        this.imIcSachovnice = new ImageIcon(InternalFrameDemo.class.getResource("/gui/images/sachovnice_420px_yellow.png"));
-        this.imIcBilyPesak = new ImageIcon(InternalFrameDemo.class.getResource("/gui/images/figurky/bily_pesak.png"));
-        this.imIcBilaDama = new ImageIcon(InternalFrameDemo.class.getResource("/gui/images/figurky/bila_dama.png"));
-        this.imIcCernyPesak = new ImageIcon(InternalFrameDemo.class.getResource("/gui/images/figurky/cerny_pesak.png"));
-        this.imIcCernaDama = new ImageIcon(InternalFrameDemo.class.getResource("/gui/images/figurky/cerna_dama.png"));
-        this.imIcRuna = new ImageIcon(InternalFrameDemo.class.getResource("/gui/images/runa.png"));
-        this.imIcWhiteBox = new ImageIcon(InternalFrameDemo.class.getResource("/gui/images/whitebox.png"));
-        this.imIcBlackBox = new ImageIcon(InternalFrameDemo.class.getResource("/gui/images/blackbox.png"));
-        this.imIcSeal = new ImageIcon(InternalFrameDemo.class.getResource("/gui/images/seal.png"));
+        this.imIcAura = new ImageIcon(Gui.class.getResource("/gui/images/aura.png"));
+        this.imIcSachovnice = new ImageIcon(Gui.class.getResource("/gui/images/sachovnice_420px_yellow.png"));
+        this.imIcBilyPesak = new ImageIcon(Gui.class.getResource("/gui/images/figurky/bily_pesak.png"));
+        this.imIcBilaDama = new ImageIcon(Gui.class.getResource("/gui/images/figurky/bila_dama.png"));
+        this.imIcCernyPesak = new ImageIcon(Gui.class.getResource("/gui/images/figurky/cerny_pesak.png"));
+        this.imIcCernaDama = new ImageIcon(Gui.class.getResource("/gui/images/figurky/cerna_dama.png"));
+        this.imIcRuna = new ImageIcon(Gui.class.getResource("/gui/images/runa.png"));
+        this.imIcWhiteBox = new ImageIcon(Gui.class.getResource("/gui/images/whitebox.png"));
+        this.imIcBlackBox = new ImageIcon(Gui.class.getResource("/gui/images/blackbox.png"));
+        this.imIcSeal = new ImageIcon(Gui.class.getResource("/gui/images/seal.png"));
 
         //menu
         setJMenuBar(createMenuBar());
@@ -775,7 +772,7 @@ public class InternalFrameDemo extends JFrame
         JFrame.setDefaultLookAndFeelDecorated(true);
 
         //Create and set up the window.
-        InternalFrameDemo frame = new InternalFrameDemo();
+        Gui frame = new Gui();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         //Display the window.
@@ -818,7 +815,7 @@ public class InternalFrameDemo extends JFrame
             }
             case InputEvent.BUTTON3_MASK: {
                 System.out.println("That's the RIGHT button");
-                InternalFrameDemo.setClickCount(0);
+                Gui.setClickCount(0);
                 this.clearAura();
                 break;
             }
@@ -851,21 +848,21 @@ public class InternalFrameDemo extends JFrame
 
         if(Dama.isGameSetAndRunning()){
 
-            InternalFrameDemo.clickCount++;
+            Gui.clickCount++;
             System.out.println("mouseInput:" + pos.getStr());
 
-            if(InternalFrameDemo.clickCount == 1){
+            if(Gui.clickCount == 1){
                 Dama.setTurnInput(Dama.getTurn());
 
                 Dama.setTurnInputOrigin(pos);
             }
 
-            if(InternalFrameDemo.clickCount == 2){
+            if(Gui.clickCount == 2){
                 Dama.setTurnInputDestination(pos);
 
                 Input.inputTurn(Dama.getTurnInput());
 
-                InternalFrameDemo.clickCount = 0;
+                Gui.clickCount = 0;
 
                 this.clearAura();
             }
@@ -873,7 +870,7 @@ public class InternalFrameDemo extends JFrame
     }
 
     public static void setClickCount(int count){
-        InternalFrameDemo.clickCount = count;
+        Gui.clickCount = count;
         System.out.println("setClickCount:" + count);
     }
 
