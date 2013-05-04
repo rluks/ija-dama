@@ -851,11 +851,10 @@ public class InternalFrameDemo extends JFrame
     }
     
     /**
-     * Fce prida to textarea tah bileho v notaci
-     * pouziti: bily vyhraje a cerny uz netahne
-     * @param wturn    tah bileho
-     * @param wtake    indikator jestli bily bral
-     * @param tah      poradove cislo tahu
+     * Fce prida to textarea tah cerneho v notaci
+     * pouziti: cerny tahnul
+     * @param bturn    tah cerneho
+     * @param btake    indikator jestli cerny bral
      */
     public void NotationNewLineLastBlack(Turn bturn, boolean btake)
     {
