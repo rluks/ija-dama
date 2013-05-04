@@ -95,7 +95,7 @@ public class InternalFrameDemo extends JFrame
     protected NewGameSettings inFrNewGameSett;
     protected NewP2PGameSettings inFrNewP2PGameSett;
     protected Settings settings;
-    
+
     //menu
     protected JMenuItem menuItemSave;
 
@@ -142,7 +142,7 @@ public class InternalFrameDemo extends JFrame
     protected ImageIcon imIcCernyPesak;
     protected ImageIcon imIcCernaDama;
     protected ImageIcon imIcRuna;
-    
+
     protected ImageIcon imIcWhiteBox;
     protected ImageIcon imIcBlackBox;
 
@@ -184,8 +184,8 @@ public class InternalFrameDemo extends JFrame
         desktop.setLayer(lblInfo, 1);
         lblInfo.setBounds(105, 10, 295, 30);
         desktop.add(lblInfo);
-        
-        
+
+
         this.lblPlayercolor = new JLabel("");
         this.lblPlayercolor.setBounds(25, 10, 45, 30);
         desktop.add(this.lblPlayercolor);
@@ -459,33 +459,34 @@ public class InternalFrameDemo extends JFrame
         }
         else if ("loadgamebutton".equals(e.getActionCommand()))
         {
-            System.out.println("Tlacitko load!");
-            String cesta=inFrLoadGame.GetPath();
-            System.out.println("Cesta: \"" + cesta + "\"");
-            inFrLoadGame.dispose();
-            Dama.XmlToVector(cesta);
+            LoadGameButton();
+        }
+        else if ("savegamebuttonXml".equals(e.getActionCommand()))
+        {
+            SaveGameButtonXml();
+        }else if("victoryOK".equals(e.getActionCommand())){
             Dama.wakeUpGameThread();
         }
-        else if ("savegamebutton".equals(e.getActionCommand()))
+        else if ("savegamebuttonNot".equals(e.getActionCommand()))
         {
-            System.out.println("Tlacitko save!");
+            String notace=TAVypisNotace.getText();
+
             String cesta=inFrLoadGame.GetPath();
+            if (!cesta.endsWith(".txt")) cesta=cesta+".txt";
             System.out.println("Cesta: \"" + cesta + "\"");
             inFrLoadGame.dispose();
-            String xml = Output.getXmlFromSettingsAndTurnVector(Dama.getSettings(), Dama.getOutputTurns());
-
             try
             {
-                Output.printStringToFile(xml, cesta+".xml");
+                Output.printStringToFile(notace, cesta);
             }
             catch (Exception e1)
             {
                 // TODO Auto-generated catch block
+                System.out.println("Nepodarilo se ulozit hru");
                 e1.printStackTrace();
             }
 
-        }else if("victoryOK".equals(e.getActionCommand())){
-        	Dama.wakeUpGameThread();
+
         }
         else{
             System.out.println("Neznama akce: " + e.getActionCommand());
@@ -524,12 +525,30 @@ public class InternalFrameDemo extends JFrame
         inFrLoadGame.setLocation(100, 100);
         inFrLoadGame.setVisible(true);
 
+        JButton btnLoadgame2;
         JButton btnLoadgame = new JButton("OK");
-        btnLoadgame.setBounds(294, 39, 80, 20);
+        btnLoadgame.setBounds(294, 39, 140, 20);
 
         inFrLoadGame.getContentPane().add(btnLoadgame);
-        if (nazevOkna=="Load game") btnLoadgame.setActionCommand("loadgamebutton");
-        else btnLoadgame.setActionCommand("savegamebutton");
+        if (nazevOkna=="Load game")
+        {
+            btnLoadgame.setText("Load");
+            btnLoadgame.setActionCommand("loadgamebutton");
+        }
+        else
+        {
+            btnLoadgame.setText("Save in XML");
+            btnLoadgame.setActionCommand("savegamebuttonXml");
+
+            System.out.println("Tlacitko");
+            btnLoadgame2 = new JButton("Save in notation");
+            btnLoadgame2.setBounds(294, 60, 140, 20);
+            btnLoadgame2.setActionCommand("savegamebuttonNot");
+            btnLoadgame2.addActionListener(this);
+            inFrLoadGame.getContentPane().add(btnLoadgame2);
+            System.out.println("/Tlacitko");
+
+        }
         btnLoadgame.addActionListener(this);
 
         desktop.add(inFrLoadGame);
@@ -539,7 +558,37 @@ public class InternalFrameDemo extends JFrame
         }
         catch (java.beans.PropertyVetoException e) {}
 
-        System.out.println("\t/create LG");
+        //System.out.println("\t/create LG");
+    }
+
+    public void SaveGameButtonXml()
+    {
+        System.out.println("Tlacitko save!");
+        String cesta=inFrLoadGame.GetPath();
+        if (!cesta.endsWith(".xml")) cesta=cesta+".xml";
+        System.out.println("Cesta: \"" + cesta + "\"");
+        inFrLoadGame.dispose();
+        try
+        {
+            String xml = Output.getXmlFromSettingsAndTurnVector(Dama.getSettings(), Dama.getOutputTurns());
+            Output.printStringToFile(xml, cesta);
+        }
+        catch (Exception e1)
+        {
+            // TODO Auto-generated catch block
+            System.out.println("Nepodarilo se ulozit hru");
+            e1.printStackTrace();
+        }
+    }
+    public void LoadGameButton()
+    {
+        System.out.println("Tlacitko load!");
+        String cesta=inFrLoadGame.GetPath();
+        System.out.println("Cesta: \"" + cesta + "\"");
+        inFrLoadGame.dispose();
+        Dama.XmlToVector(cesta);
+        Dama.wakeUpGameThread();
+        this.menuItemSave.setEnabled(true);
     }
 
 
@@ -622,7 +671,7 @@ public class InternalFrameDemo extends JFrame
             }else{
                 System.out.println("gui: ukladanim nastaveni do NOVE...");
                 Dama.setSettings(this.settings);
-                
+
                 System.out.println("gui: povoluji akce...");
                 this.BSubmitCommand.setEnabled(true);
                 this.BNapoveda.setEnabled(true);
@@ -856,7 +905,7 @@ public class InternalFrameDemo extends JFrame
 
         TAVypisNotace.setText(predchozi_obsah + tah + ". " + p0 + w + p1);
     }
-    
+
     /**
      * Fce prida to textarea tah cerneho v notaci
      * pouziti: cerny tahnul

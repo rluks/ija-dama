@@ -30,18 +30,19 @@ public class LoadGame extends JInternalFrame
 
             System.out.println("\t\tKonstruktor LG");
 
-           this.setSize(400,120);
+           this.setSize(450,120);
            this.title=nazevOkna;
 
         getContentPane().setLayout(null);
 
         this.TFCesta = new JTextField();
         this.TFCesta.setBounds(54, 11, 231, 20);
+        //this.TFCesta.setText(".\\examples");
         getContentPane().add(this.TFCesta);
         //this.cesta.setColumns(10);
 
         this.BtBrowse = new JButton("Browse");
-        this.BtBrowse.setBounds(294, 11, 80, 20);
+        this.BtBrowse.setBounds(294, 11, 140, 20);
         this.BtBrowse.addActionListener(new OpenL());
         getContentPane().add(this.BtBrowse);
 
@@ -65,14 +66,18 @@ public class LoadGame extends JInternalFrame
       {
             public void actionPerformed(ActionEvent e)
             {
+                  //System.out.println("Action listener:" + e.getActionCommand());
                   JFileChooser c = new JFileChooser(".\\examples");
                   FileNameExtensionFilter xmlfilter = new FileNameExtensionFilter("xml files (*.xml)", "xml");
                   c.setFileFilter(xmlfilter);
+                  FileNameExtensionFilter xmlfilter2 = new FileNameExtensionFilter("standart notation (.txt)", "txt");
+                  c.setFileFilter(xmlfilter2);
 
                   int rVal = c.showOpenDialog(LoadGame.this);
                   if (rVal == JFileChooser.APPROVE_OPTION)
                   {
-                        TFCesta.setText(c.getCurrentDirectory().toString() + "\\" + c.getSelectedFile().getName());
+                        //TFCesta.setText(c.getCurrentDirectory().toString() + "\\" + c.getSelectedFile().getName());
+                      TFCesta.setText((String)c.getSelectedFile().getAbsolutePath());
                   }
             }
       }
