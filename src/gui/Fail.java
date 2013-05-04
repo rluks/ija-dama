@@ -21,10 +21,10 @@ public class Fail extends JInternalFrame {
 
 
     /**
-	 * 
-	 */
-	private static final long serialVersionUID = -3655108386637594154L;
-	static int openFrameCount = 0;
+    *
+    */
+    private static final long serialVersionUID = -3655108386637594154L;
+    static int openFrameCount = 0;
     static final int xOffset = 30, yOffset = 30;
 
     public Fail(String text) {
@@ -35,33 +35,33 @@ public class Fail extends JInternalFrame {
               false);//iconifiable
 
 
-        setSize(300,352);
+        setSize(300,350);
         setLocation(xOffset*openFrameCount, yOffset*openFrameCount);
-        
-		try {
-			URL url;
-			url = new URL("file", "localhost", "src/gui/images/bbf.gif");
-			ImageIcon ii = new ImageIcon(url);
-			
-			GridBagLayout gridBagLayout = new GridBagLayout();
-			gridBagLayout.columnWidths = new int[]{284, 0};
-			gridBagLayout.rowHeights = new int[]{271, 0, 0};
-			gridBagLayout.columnWeights = new double[]{0.0, Double.MIN_VALUE};
-			gridBagLayout.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
-			getContentPane().setLayout(gridBagLayout);
-			
-			JLabel label = new JLabel(ii);
-			GridBagConstraints gbc_label = new GridBagConstraints();
-			gbc_label.insets = new Insets(0, 0, 5, 0);
-			gbc_label.fill = GridBagConstraints.BOTH;
-			gbc_label.gridx = 0;
-			gbc_label.gridy = 0;
-			getContentPane().add(label, gbc_label);	  
-		
-		} catch (MalformedURLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		
+
+        try {
+            URL url;
+            url = new URL("file", "localhost", "src/gui/images/bbf.gif");
+            ImageIcon ii = new ImageIcon(url);
+
+            GridBagLayout gridBagLayout = new GridBagLayout();
+            gridBagLayout.columnWidths = new int[]{284, 0};
+            gridBagLayout.rowHeights = new int[]{271, 0, 0};
+            gridBagLayout.columnWeights = new double[]{0.0, Double.MIN_VALUE};
+            gridBagLayout.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
+            getContentPane().setLayout(gridBagLayout);
+
+            JLabel label = new JLabel(ii);
+            GridBagConstraints gbc_label = new GridBagConstraints();
+            gbc_label.insets = new Insets(0, 0, 5, 0);
+            gbc_label.fill = GridBagConstraints.BOTH;
+            gbc_label.gridx = 0;
+            gbc_label.gridy = 0;
+            getContentPane().add(label, gbc_label);
+
+        } catch (MalformedURLException e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+        }
+
     }
 }

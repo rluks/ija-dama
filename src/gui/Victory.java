@@ -32,7 +32,7 @@ public class Victory extends JInternalFrame {
               false);//iconifiable
 
 
-        setSize(500,500);
+        setSize(180,100);
         setLocation(xOffset*openFrameCount, yOffset*openFrameCount);
         getContentPane().setLayout(new GridLayout(0, 1, 0, 0));
 
