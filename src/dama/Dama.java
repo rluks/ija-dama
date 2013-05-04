@@ -57,6 +57,7 @@ public class Dama extends Thread{
 
     public boolean gameSetAndRuning = false; //hra byla nastavena a uz se provadi tahy, atd.
     InternalFrameDemo gui;
+	public boolean invalidTurn = false;
 
     /**
      * Konstruktor vlakna hry
@@ -226,9 +227,16 @@ public class Dama extends Thread{
                     this.turn = (this.playerColor == 'W') ? Turn.TurnWhite(pEmpty, pEmpty) : Turn.TurnBlack(pEmpty, pEmpty);
 
                     //cekani na tah od cloveka
-                    Dama.sleepGameThread();
+                    this.pleaseWait = true;
                     try {Thread.sleep(300);} catch (InterruptedException e) {e.printStackTrace();}
                     synchronized(this){ while(pleaseWait){ try { System.out.println("Hra: sleeping..."); wait();} catch (Exception e) { e.printStackTrace(); } }  }
+                    
+                    while(this.invalidTurn){
+                    	synchronized(this){ while(pleaseWait){ try { System.out.println("Hra: sleeping..."); wait();} catch (Exception e) { e.printStackTrace(); } }  }
+                    	gui.setInfoText("Nevalidni tah!");
+                    	//gui.
+                    	this.pleaseWait = true;
+                    }
 
                     //vypinaci cast
                     checkGUIShutdown(gui);
@@ -277,6 +285,8 @@ public class Dama extends Thread{
                 //cisteni
                 gui.clearAura();
                 gui.clearHelp();
+                
+                this.invalidTurn = false;
 
                 //ukladani tahu pro vypis notace
                 if(this.playerColor == 'W'){
@@ -309,7 +319,7 @@ public class Dama extends Thread{
                     tahCislo++;
                     gui.NotationNewLineLastWhite(wturn, wtake, tahCislo); //zkracena notace
                 }
-                */
+                */               
 
                 //ukonceni hry pri vitezstvi
                 if(victory){
@@ -586,15 +596,33 @@ public class Dama extends Thread{
         if(Moves.isTurnValid(turn, Dama.getDesk()))
         {
             //Dama.setTurn(zaloha_turn);
+        	Dama.setInvalidTurn(false);
             Dama.wakeUpGameThread();
         }
         else
         {
-            System.out.println("Dama.input: nevalidni tah, neposilam ho dal.");
+            System.out.println("Dama.input: nevalidni tah, nastavime napovedu");
+            Dama.setInvalidTurn(true);
+            Dama.wakeUpGameThread();
         }
     }
 
-    /**
+    public static boolean setInvalidTurn(boolean invalidturn) {
+        System.out.println("setInvalidTurn: davam hre vedet ze byl nevalidni tah...");
+
+        if(dama != null){
+            synchronized (dama){
+                dama.invalidTurn  = invalidturn;
+                dama.notify();
+            }
+            return true;
+        }else{
+            System.out.println("setInvalidTurn: hra neexistuje!");
+            return false;
+        }
+    }
+
+	/**
      * Uklada nastaveni do vlakna hry
      * @param settings instance tridy Settings s nastavenim hry
      * @return vraci false pokud hra neexistuje
@@ -647,7 +675,7 @@ public class Dama extends Thread{
             }
             return true;
         }else{
-            System.out.println("setTurn: hra neexistuje!");
+            System.out.println("setLoadedTurns: hra neexistuje!");
             return false;
         }
     }

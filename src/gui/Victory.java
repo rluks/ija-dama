@@ -35,6 +35,7 @@ import java.awt.GridLayout;
 
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
+import javax.swing.SwingConstants;
 
 
 /**
@@ -57,7 +58,7 @@ public class Victory extends JInternalFrame {
     public Victory() {
         super("Victory",
               false, //resizable
-              true, //closable
+              false, //closable
               false, //maximizable
               false);//iconifiable
 
@@ -67,6 +68,7 @@ public class Victory extends JInternalFrame {
         getContentPane().setLayout(new GridLayout(0, 1, 0, 0));
 
         lblText = new JLabel("!!! Victory !!!");
+        lblText.setHorizontalAlignment(SwingConstants.CENTER);
         getContentPane().add(lblText);
 
     }
