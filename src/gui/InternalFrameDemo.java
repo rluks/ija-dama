@@ -590,19 +590,17 @@ public class InternalFrameDemo extends JFrame
         if (cesta.endsWith(".xml"))
         {
             System.out.println("XML MOTAFAKA!!");
-            Dama.XmlToVector(cesta);
+            if (!Dama.XmlToVector(cesta)) return;
         }
         else if (cesta.endsWith(".txt"))
         {
             System.out.println("NOTACE BIATCH!!");
-            //Dama.NotToVector(cesta);
-
-            //pak smazat return
-            return;
+            if (!Dama.NotToVector(cesta)) return;
         }
         else
         {
             System.out.println("Da fuk is dis sith?! (extention not txt of xml)");
+            return;
         }
         Dama.wakeUpGameThread();
         this.menuItemSave.setEnabled(true);

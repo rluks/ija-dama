@@ -22,6 +22,12 @@ import org.w3c.dom.NodeList;
 import org.w3c.dom.Node;
 import org.w3c.dom.Element;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.MappedByteBuffer;
+import java.nio.channels.FileChannel;
+import java.nio.charset.Charset;
 
 /**
  * Hra Dáma v Javě
@@ -57,7 +63,7 @@ public class Dama extends Thread{
 
     public boolean gameSetAndRuning = false; //hra byla nastavena a uz se provadi tahy, atd.
     InternalFrameDemo gui;
-	public boolean invalidTurn = false;
+    public boolean invalidTurn = false;
 
     /**
      * Konstruktor vlakna hry
@@ -230,12 +236,12 @@ public class Dama extends Thread{
                     this.pleaseWait = true;
                     try {Thread.sleep(300);} catch (InterruptedException e) {e.printStackTrace();}
                     synchronized(this){ while(pleaseWait){ try { System.out.println("Hra: sleeping..."); wait();} catch (Exception e) { e.printStackTrace(); } }  }
-                    
+
                     while(this.invalidTurn){
-                    	synchronized(this){ while(pleaseWait){ try { System.out.println("Hra: sleeping..."); wait();} catch (Exception e) { e.printStackTrace(); } }  }
-                    	gui.setInfoText("Nevalidni tah!");
-                    	//gui.
-                    	this.pleaseWait = true;
+                        synchronized(this){ while(pleaseWait){ try { System.out.println("Hra: sleeping..."); wait();} catch (Exception e) { e.printStackTrace(); } }  }
+                        gui.setInfoText("Nevalidni tah!");
+                        //gui.
+                        this.pleaseWait = true;
                     }
 
                     //vypinaci cast
@@ -285,7 +291,7 @@ public class Dama extends Thread{
                 //cisteni
                 gui.clearAura();
                 gui.clearHelp();
-                
+
                 this.invalidTurn = false;
 
                 //ukladani tahu pro vypis notace
@@ -319,7 +325,7 @@ public class Dama extends Thread{
                     tahCislo++;
                     gui.NotationNewLineLastWhite(wturn, wtake, tahCislo); //zkracena notace
                 }
-                */               
+                */
 
                 //ukonceni hry pri vitezstvi
                 if(victory){
@@ -596,7 +602,7 @@ public class Dama extends Thread{
         if(Moves.isTurnValid(turn, Dama.getDesk()))
         {
             //Dama.setTurn(zaloha_turn);
-        	Dama.setInvalidTurn(false);
+            Dama.setInvalidTurn(false);
             Dama.wakeUpGameThread();
         }
         else
@@ -622,7 +628,7 @@ public class Dama extends Thread{
         }
     }
 
-	/**
+    /**
      * Uklada nastaveni do vlakna hry
      * @param settings instance tridy Settings s nastavenim hry
      * @return vraci false pokud hra neexistuje
@@ -882,8 +888,121 @@ public class Dama extends Thread{
         return false;
     }
 
-    public boolean NotToVector(String cesta)
+    public static boolean NotToVector(String cesta)
     {
+        Vector<Turn> TurnVector=new Vector<Turn>();
+        //File fXmlFile = new File(cesta);
+        String string="";
+        FileInputStream stream;
+
+        try
+        {
+            stream = new FileInputStream(new File(cesta));
+            FileChannel fc = stream.getChannel();
+            MappedByteBuffer bb = fc.map(FileChannel.MapMode.READ_ONLY, 0, fc.size());
+            /* Instead of using default, pass in a decoder. */
+            string = Charset.defaultCharset().decode(bb).toString();
+            stream.close();
+        }
+        catch (Exception e)
+        {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            return false;
+        }
+        /*
+        System.out.println("===============================");
+        System.out.println("Obsah souboru:\n" + string);
+        */
+        System.out.println("===============================");
+
+        int pozice=0;
+        int predchozi_pozice=0;
+        while(pozice!=-1)
+        {
+            predchozi_pozice=pozice;
+            pozice=string.indexOf("\n", pozice);
+
+            //System.out.println("Pozice: " + predchozi_pozice+ "->" + pozice);
+
+
+            if (pozice!=-1)
+            {
+                String radek=string.substring(predchozi_pozice, pozice);
+                //System.out.println("Pozice: " + predchozi_pozice+ "->" + pozice + " : " + radek);
+                pozice=pozice+"\n".length();
+
+                int tecka=radek.indexOf(".");
+                if (tecka==-1) return false;
+                else tecka=tecka+2;
+
+                radek=radek.substring(tecka);
+                //System.out.println(radek);
+
+                int mezera=radek.indexOf(" ");
+                if (mezera==-1) return false;
+                else mezera=mezera+1;
+
+                String t1=radek.substring(0, mezera-1);
+                String t2=radek.substring(mezera);
+                if ( (t1.length()!=5)||(t2.length()!=5) ) return false;
+
+                char natahu='W';
+
+                for (int i=0; i<2; i++)
+                {
+                    String tah;
+                    if (i==0) tah=t1;
+                    else tah=t2;
+
+                    char c=tah.charAt(2);
+                    if (!((c=='-') ||(c=='x'))) return false;
+                    String p1s=tah.substring(0,2);
+                    String p2s=tah.substring(3,5);
+                    //System.out.println(p1s + "->" + p2s);
+                    Position p1=Position.positionStrToPositionLowerCase(p1s);
+                    Position p2=Position.positionStrToPositionLowerCase(p2s);
+                    if ( (p1==null)||(p2==null) ) return false;
+
+                    Turn turn=new Turn(natahu, p1, p2);
+                    TurnVector.add(turn);
+
+                    natahu='B';
+                }
+
+            }
+            else if (string.substring(predchozi_pozice).equals("")) break;
+            else
+            {
+                String radek=string.substring(predchozi_pozice);
+
+                int tecka=radek.indexOf(".");
+                if (tecka==-1) return false;
+                else tecka=tecka+2;
+                radek=radek.substring(tecka);
+                if (radek.length()!=5) return false;
+
+                char c=radek.charAt(2);
+                if (!((c=='-') ||(c=='x'))) return false;
+                String p1s=radek.substring(0,2);
+                String p2s=radek.substring(3,5);
+                //System.out.println(p1s + "->" + p2s);
+                Position p1=Position.positionStrToPositionLowerCase(p1s);
+                Position p2=Position.positionStrToPositionLowerCase(p2s);
+                if ( (p1==null)||(p2==null) ) return false;
+
+                Turn turn=new Turn('W', p1, p2);
+                TurnVector.add(turn);
+
+            }
+            //System.out.println("-----------------------");
+        }
+        //System.out.println("=============K=================");
+
+
+        Settings set=new Settings("human", "human", null, null, 0, 0);
+        if (!Dama.setSettings(set)) return false;
+        if (!Dama.setLoadedTurns(TurnVector))return false;
         return true;
     }
 
