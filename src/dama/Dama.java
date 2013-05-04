@@ -48,6 +48,7 @@ public class Dama extends Thread{
     protected int tahCislo = 0;
     protected boolean wtake;
     protected boolean btake;
+    protected boolean wbtake;
     protected Turn wturn;
     protected Turn bturn;
     private int aiStochasticity = 5; //nahodnost AI tahu
@@ -165,17 +166,24 @@ public class Dama extends Thread{
                         if(Check.isMustTake(desk, this.playerColor)){//Take
                             System.out.println("Hra: nacteny tah - " + Output.getPlayerColorString(this.playerColor) + ", take() vraci:" + Moves.Take(desk, loadedTurn));
 
-                        if(this.playerColor == 'W'){
-                            wtake = true;
-                        }else if(this.playerColor == 'B'){
-                            btake = true;
-                        }else{
-                            System.out.println("Hra: nactena hra - neco je spatne s barvami hracu!");
-                        }
+                            //
+                            wbtake = true;
+                            
+                            /*
+	                        if(this.playerColor == 'W'){
+	                            wtake = true;
+	                        }else if(this.playerColor == 'B'){
+	                            btake = true;
+	                        }else{
+	                            System.out.println("Hra: nactena hra - neco je spatne s barvami hracu!");
+	                        }
+	                        */
 
                         }else{//Move
                             System.out.println("Hra: nacteny tah - " + Output.getPlayerColorString(this.playerColor) + ", MOVE() vraci:" + Moves.Move(desk, loadedTurn));
 
+                            wbtake = false;
+                            /*
                             if(this.playerColor == 'W'){
                                 wtake = false;
                             }else if(this.playerColor == 'B'){
@@ -183,6 +191,7 @@ public class Dama extends Thread{
                             }else{
                                 System.out.println("Hra: nactena hra - neco je spatne s barvami hracu!");
                             }
+                            */
                         }
 
                         this.turn = new Turn(loadedTurn);
@@ -203,8 +212,8 @@ public class Dama extends Thread{
                     this.turn = AI.AIMove(desk, this.playerColor, this.aiStochasticity);
                     if(this.turn == null){
                         System.out.println("Hra: AIMove() vratilo null");
-                        gui.createFail("AI Move selhal!");
-                        //return;//TODO dodelat kdyz vrati null
+                        gui.createFail("AI Move failed. It's probably stalemate!");
+                        //return;
                     }
                     this.desk.clearMustTakeFlag();
 
@@ -220,7 +229,7 @@ public class Dama extends Thread{
                     while(this.invalidTurn){
                     	synchronized(this){ while(pleaseWait){ try { System.out.println("Hra: sleeping..."); wait();} catch (Exception e) { e.printStackTrace(); } }  }
                     	gui.setInfoText("Nevalidni tah!");
-                    	gui.createFail("Nevalidni tah");
+                    	//gui.createFail("Nevalidni tah"); TODO napoveda
                     	this.pleaseWait = true;
                     }
 
@@ -234,6 +243,8 @@ public class Dama extends Thread{
                         System.out.println("================================BRANI=============================");
                         System.out.println("Hra: tah " + Output.getPlayerColorString(this.playerColor) + ", take() vraci:" + Moves.Take(desk, turn));
 
+                        wbtake = true;
+                        /*
                         if(this.playerColor == 'W'){
                             wtake = true;
                         }else if(this.playerColor == 'B'){
@@ -241,10 +252,13 @@ public class Dama extends Thread{
                         }else{
                             System.out.println("Hra: neco je spatne s barvami hracu!");
                         }
+                        */
 
                     }else{//Move
                         System.out.println("Hra: tah " + Output.getPlayerColorString(this.playerColor) + ", MOVE() vraci:" + Moves.Move(desk, turn));
 
+                        wbtake = false;
+                        /*
                         if(this.playerColor == 'W'){
                             wtake = false;
                         }else if(this.playerColor == 'B'){
@@ -252,6 +266,7 @@ public class Dama extends Thread{
                         }else{
                             System.out.println("Hra: neco je spatne s barvami hracu!");
                         }
+                        */
                     }
                     desk.clearMustTakeFlag();
                 }
@@ -286,6 +301,15 @@ public class Dama extends Thread{
                 this.ouputTurns.addElement(new Turn(this.turn));
 
                 boolean victory = Check.isVictory(desk);
+                
+                
+                if(this.playerColor == 'W'){
+                    wtake = wbtake;
+                }else if(this.playerColor == 'B'){
+                    btake = wbtake;
+                }else{
+                    System.out.println("Hra: neco je spatne s barvami hracu!");
+                }
 
                 //tisk notace
                 if(this.playerColor == 'B'){
