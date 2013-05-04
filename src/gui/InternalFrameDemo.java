@@ -95,6 +95,9 @@ public class InternalFrameDemo extends JFrame
     protected NewGameSettings inFrNewGameSett;
     protected NewP2PGameSettings inFrNewP2PGameSett;
     protected Settings settings;
+    
+    //menu
+    protected JMenuItem menuItemSave;
 
     //vnitrni ramec
     protected Victory victory;
@@ -383,13 +386,14 @@ public class InternalFrameDemo extends JFrame
         menu.add(menuItem);
 
         //ulozeni probihajici hry
-        menuItem = new JMenuItem("Save game");
-        menuItem.setMnemonic(KeyEvent.VK_S);
-        menuItem.setAccelerator(KeyStroke.getKeyStroke(
+        menuItemSave = new JMenuItem("Save game");
+        menuItemSave.setMnemonic(KeyEvent.VK_S);
+        menuItemSave.setAccelerator(KeyStroke.getKeyStroke(
                 KeyEvent.VK_S, ActionEvent.ALT_MASK));
-        menuItem.setActionCommand("save");
-        menuItem.addActionListener(this);
-        menu.add(menuItem);
+        menuItemSave.setActionCommand("save");
+        menuItemSave.addActionListener(this);
+        menuItemSave.setEnabled(false);
+        menu.add(menuItemSave);
 
         //prehravani partii
         menuItem = new JMenuItem("Player");
@@ -616,10 +620,13 @@ public class InternalFrameDemo extends JFrame
 
                 this.dispose();
             }else{
-                System.out.println("ukladanim nastaveni do NOVE...");
+                System.out.println("gui: ukladanim nastaveni do NOVE...");
                 Dama.setSettings(this.settings);
+                
+                System.out.println("gui: povoluji akce...");
                 this.BSubmitCommand.setEnabled(true);
                 this.BNapoveda.setEnabled(true);
+                this.menuItemSave.setEnabled(true);
                 Dama.wakeUpGameThread();
 
                 this.inFrNewGameSett.setVisible(false);
