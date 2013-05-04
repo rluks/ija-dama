@@ -16,6 +16,7 @@ public class Roman {
     public static void main(String[] args) {
 
         //TODO presun obrazku do slozky lib
+    	//TODO prejmenovat internalframedemo na gui
         System.out.println("ROMAN");
         
         Dama.startingGameThread();

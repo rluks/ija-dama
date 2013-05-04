@@ -231,6 +231,8 @@ public class Dama extends Thread{
                 this.invalidTurn = false;
 
                 //ukladani tahu pro vypis notace
+                setWBTurn();
+                /*
                 if(this.playerColor == 'W'){
                     this.wturn = this.turn;
                 }else if(this.playerColor == 'B'){
@@ -238,6 +240,7 @@ public class Dama extends Thread{
                 }else{
                     System.out.println("Hra: neco je spatne s barvami hracu!");
                 }
+                */
 
                 this.ouputTurns.addElement(new Turn(this.turn));
 
@@ -289,12 +292,33 @@ public class Dama extends Thread{
     }
 
 
-    private void printAndSetInfo() {
+    /**
+     * Metoda ulozi posledni provedeny tah do wturn nebo bturn
+     * dle barvy hrace na tahu
+     */
+    private void setWBTurn() {
+    	
+        if(this.playerColor == 'W'){
+            this.wturn = this.turn;
+        }else if(this.playerColor == 'B'){
+            this.bturn = this.turn;
+        }else{
+            System.out.println("Hra: neco je spatne s barvami hracu!");
+        }		
+	}
+
+	/**
+	 * Tisk informaci o tom kdo je na tahu do konzole a do gui
+	 */
+	private void printAndSetInfo() {
         System.out.println("Hra: "+ Output.getPlayerColorString(this.playerColor)+ " will play!");
         String infoText = (currentPlayerAIHumanSettings == "AI")? "Hra: it's "+ Output.getPlayerColorString(this.playerColor)+ " AI turn!" : "Hra: it's "+ Output.getPlayerColorString(this.playerColor)+ "players turn!";
         gui.setInfoText(infoText);	
 	}
 
+	/**
+	 * Prohazuje barvy hracu
+	 */
 	private void switchPlayerColors() {
     	
         if (this.playerColor != 'W' && this.playerColor != 'B'){//prvni kolo
