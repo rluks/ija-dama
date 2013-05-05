@@ -308,7 +308,7 @@ public class Input
         //System.out.println("=============K=================");
 
 
-        Settings set=new Settings("human", "human", null, null, 0, 0);
+        Settings set=new Settings("human", "human", null, null, 0, 0);//pri nacteni z notace se pouzije implicitni nastaveni
         if (setSettings) if (!Dama.setSettings(set)) return false;
         if (!Dama.setLoadedTurns(TurnVector))return false;
         return true;
