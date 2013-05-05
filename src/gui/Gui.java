@@ -582,7 +582,10 @@ public class Gui extends JFrame
             System.out.println("Da fuk is dis sith?! (extention not txt of xml)");
             return;
         }
-        Dama.wakeUpGameThread();
+        //Dama.stopGameThread();
+        //Dama.wakeUpGameThread();
+        //Dama.startingGameThread();
+        Dama.startGame();
         this.menuItemSave.setEnabled(true);
         this.BSubmitCommand.setEnabled(true);
     }
@@ -683,6 +686,9 @@ public class Gui extends JFrame
 
                 try {Thread.sleep(50);} catch (InterruptedException e) {e.printStackTrace();}
 
+
+                Dama.startGame();
+
                 Dama.wakeUpGameThread();
 
                 this.dispose();
@@ -694,6 +700,8 @@ public class Gui extends JFrame
                 this.BSubmitCommand.setEnabled(true);
                 this.BNapoveda.setEnabled(true);
                 this.menuItemSave.setEnabled(true);
+
+                Dama.startGame();
                 Dama.wakeUpGameThread();
 
                 this.inFrNewGameSett.setVisible(false);
@@ -1022,6 +1030,9 @@ public class Gui extends JFrame
         this.lblInfo.setText(text);
     }
 
+    /**
+     * Vycisti hraci desku od zeleneho oznaceni
+     */
     public void clearAura(){
         this.lblAura.setIcon(null);
     }
