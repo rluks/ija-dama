@@ -629,25 +629,8 @@ public class Dama extends Thread{
         }
     }
 
-
     /**
-     * Nastavi vychozi pozici na Position danou parametrem
-     * @param pos
-     */
-    public static void setTurnInputOrigin(Position pos) {
-        Dama.turnInput.origin = pos;
-    }
-
-    /**
-     * Nastavi cilovou pozici na Position danou parametrem
-     * @param pos
-     */
-    public static void setTurnInputDestination(Position pos) {
-        Dama.turnInput.destination = pos;
-    }
-
-    /**
-     * Nastavi do Damy vstupni Turn
+     * Nastavi do vlakna hry vstupni Turn
      * @param turn
      */
     public static void setTurnInput(Turn turn) {
@@ -655,7 +638,7 @@ public class Dama extends Thread{
     }
 
     /**
-     * Ziskani hodnoty vstupniho Turn
+     * Ziskani hodnoty vstupniho Turn z vlakna hry
      * @return
      */
     public static Turn getTurnInput() {

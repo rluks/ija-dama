@@ -849,15 +849,15 @@ public class Gui extends JFrame
             System.out.println("mouseInput:" + pos.getStr());
 
             if(Gui.clickCount == 1){
-                Dama.setTurnInput(Dama.getTurn());
+                this.turn = new Turn(Dama.getTurn());
 
-                Dama.setTurnInputOrigin(pos);
+                this.turn.origin = new Position(pos);
             }
 
             if(Gui.clickCount == 2){
-                Dama.setTurnInputDestination(pos);
+                this.turn.destination = new Position(pos);
 
-                Input.inputTurn(Dama.getTurnInput());
+                Input.inputTurn(this.turn);
 
                 Gui.clickCount = 0;
 
