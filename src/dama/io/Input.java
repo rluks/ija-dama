@@ -32,9 +32,10 @@ public class Input
      * @param cesta     string s cestou k souboru
      * @return             vraci true pokud je xml validni a podarilo se jej konvertovat na vektor tahu a ulozit
      */
-    public static boolean XmlToVector (String cesta)
+    public static boolean XmlToVector (String cesta, boolean setSettings)
     {
         Vector<Turn> TurnVector=new Vector<Turn>();
+        Settings set;
 
         try
         {
@@ -52,7 +53,7 @@ public class Input
             String p2pLoc="";
             String p2pRemIp="";
             int    p2pRemP=0;
-            Settings set;
+
 
             /// nacteni settings
             NodeList nSettings = doc.getElementsByTagName("settings");
@@ -94,10 +95,9 @@ public class Input
 
             }
 
-            if (p2pEn.equals("yes")) set=new Settings(w, b, p2pLoc, p2pRemIp, p2pRemP, ai);
-            else if (p2pEn.equals("no")) set=new Settings(w, b, null, null, 0, ai);
+            if ( (p2pEn.equals("no")) || (p2pEn.equals("yes")) ) set=new Settings(w, b, null, null, 0, ai);
             else return false;
-            if (!Dama.setSettings(set)) return false;
+
 
             /// nacteni jednotlivych tahu
             NodeList nList = doc.getElementsByTagName("turn");
@@ -175,11 +175,12 @@ public class Input
             return false;
         }
 
-        if (Dama.setLoadedTurns(TurnVector))return true;
-        return false;
+        if (setSettings)if (!Dama.setSettings(set)) return false;
+        if (!Dama.setLoadedTurns(TurnVector))return false;
+        return true;
     }
 
-    public static boolean NotToVector(String cesta)
+    public static boolean NotToVector(String cesta, boolean setSettings)
     {
         Vector<Turn> TurnVector=new Vector<Turn>();
         //File fXmlFile = new File(cesta);
@@ -308,7 +309,7 @@ public class Input
 
 
         Settings set=new Settings("human", "human", null, null, 0, 0);
-        if (!Dama.setSettings(set)) return false;
+        if (setSettings) if (!Dama.setSettings(set)) return false;
         if (!Dama.setLoadedTurns(TurnVector))return false;
         return true;
     }

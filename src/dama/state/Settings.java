@@ -12,7 +12,7 @@ public class Settings {
     public String white;
     public String black;
 
-    public String local;
+    public String local; //barva hrace na tomto pocitaci "White" nebo "Black"
     public String remoteIP;
     public int remotePort;
 
@@ -48,10 +48,10 @@ public class Settings {
      */
     public String getSettingsString(){
         if(this.local != null && this.remoteIP != null && this.remotePort != 0){//sitova hra
-            System.out.println("White Player: " + this.white + "| Black Player: " + this.black + " (LocalPlayer: " + this.local + ", RemotePlayer: " + this.remoteIP + ":" + this.remotePort + " |aiWait: " + this.aiWait + ")");
+            //System.out.println("White Player: " + this.white + "| Black Player: " + this.black + " (LocalPlayer: " + this.local + ", RemotePlayer: " + this.remoteIP + ":" + this.remotePort + " |aiWait: " + this.aiWait + ")");
             return "White Player: " + this.white + "| Black Player: " + this.black + " (LocalPlayer: " + this.local + ", RemotePlayer: " + this.remoteIP + ":" + this.remotePort + " |aiWait: " + this.aiWait + ")";
         }else{//lokalni hra
-            System.out.println("White Player: " + this.white + "| Black Player: " + this.black + " |aiWait: " + this.aiWait + ")");
+            //System.out.println("White Player: " + this.white + "| Black Player: " + this.black + " |aiWait: " + this.aiWait + ")");
             return "White Player: " + this.white + "| Black Player: " + this.black + " |aiWait: " + this.aiWait + ")";
         }
     }
