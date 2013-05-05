@@ -64,6 +64,8 @@ public class Gui extends JFrame
 
     JDesktopPane desktop;
 
+    //mys
+    protected boolean mouseEnabled = true;
     protected static int clickCount = 0; //po dvou klicich posilame tah hre
 
     //nastaveni hry
@@ -72,6 +74,7 @@ public class Gui extends JFrame
     protected Settings settings;
 
     //menu
+    protected JMenu menu;
     protected JMenuItem menuItemSave;
 
     //vnitrni ramec
@@ -317,7 +320,7 @@ public class Gui extends JFrame
         JMenuBar menuBar = new JMenuBar();
 
         //Menu
-        JMenu menu = new JMenu("Menu");
+        menu = new JMenu("Menu");
         menu.setMnemonic(KeyEvent.VK_D);
         menuBar.add(menu);
 
@@ -429,7 +432,11 @@ public class Gui extends JFrame
             SaveGameButtonXml();
         }else if("victoryOK".equals(e.getActionCommand())){
             this.setVisible(false);
-            //Dama.stopGameThread();
+            Dama.wakeUpGameThread();
+            Dama.startingGameThread();
+            this.dispose();
+        }else if("failOK".equals(e.getActionCommand())){
+            this.setVisible(false);
             Dama.wakeUpGameThread();
             Dama.startingGameThread();
             this.dispose();
@@ -566,15 +573,21 @@ public class Gui extends JFrame
         else if (cesta.endsWith(".txt"))
         {
             System.out.println("NOTACE BIATCH!!");
-            if (!Input.NotToVector(cesta)) return;
+            boolean test = Input.NotToVector(cesta);
+            System.out.println("NotToVector vraci " + test);
+            if (!test) return;
         }
         else
         {
             System.out.println("Da fuk is dis sith?! (extention not txt of xml)");
             return;
         }
-        Dama.wakeUpGameThread();
+        //Dama.stopGameThread();
+        //Dama.wakeUpGameThread();
+        //Dama.startingGameThread();
+        Dama.startGame();
         this.menuItemSave.setEnabled(true);
+        this.BSubmitCommand.setEnabled(true);
     }
 
 
@@ -603,7 +616,7 @@ public class Gui extends JFrame
     public void createVictory(){
 
         this.victory = new Victory();
-        desktop.setLayer(this.victory, 1);
+        desktop.setLayer(this.victory, 5);
         this.victory.setLocation(200, 200);
         this.victory.setVisible(true);
 
@@ -627,7 +640,7 @@ public class Gui extends JFrame
     public void createFail(String string) {
 
            this.fail = new Fail(string);
-           desktop.setLayer(this.fail, 1);
+           desktop.setLayer(this.fail, 5);
            this.fail.setLocation(200, 100);
            this.fail.setVisible(true);
 
@@ -673,6 +686,9 @@ public class Gui extends JFrame
 
                 try {Thread.sleep(50);} catch (InterruptedException e) {e.printStackTrace();}
 
+
+                Dama.startGame();
+
                 Dama.wakeUpGameThread();
 
                 this.dispose();
@@ -684,6 +700,8 @@ public class Gui extends JFrame
                 this.BSubmitCommand.setEnabled(true);
                 this.BNapoveda.setEnabled(true);
                 this.menuItemSave.setEnabled(true);
+
+                Dama.startGame();
                 Dama.wakeUpGameThread();
 
                 this.inFrNewGameSett.setVisible(false);
@@ -752,45 +770,51 @@ public class Gui extends JFrame
         frame.setVisible(true);
     }
 
+    public void setMouse(boolean value){
+        this.mouseEnabled = value;
+    }
+
     //Zpracuje klik tlacitka a posle zvolenou pozici na desce dale
     public void mouseClicked(MouseEvent e)
     {
-        switch(e.getModifiers()) {
-            case InputEvent.BUTTON1_MASK: {
-                System.out.println("That's the LEFT button");
-                Point p = getLocationOnScreen();
-                PointerInfo a = MouseInfo.getPointerInfo();
-                Point b = a.getLocation();
+        if(this.mouseEnabled){
+            switch(e.getModifiers()) {
+                case InputEvent.BUTTON1_MASK: {
+                    System.out.println("That's the LEFT button");
+                    Point p = getLocationOnScreen();
+                    PointerInfo a = MouseInfo.getPointerInfo();
+                    Point b = a.getLocation();
 
-                int x = (int) b.getX() - p.x - x_offset;
-                int y = (int) b.getY() - p.y - y_offset;
-                if ( (x>=(x_sachovnice+10)) && (y>=y_sachovnice+11) && (x<=(x_sachovnice+409)) && (y<=(y_sachovnice+410)) )
-                {
-                    int sx = (x - 10 - x_sachovnice);
-                    int sy = y - 11 - y_sachovnice;
-                     sx = sx/50;
-                     sy = 7 - sy/50;
+                    int x = (int) b.getX() - p.x - x_offset;
+                    int y = (int) b.getY() - p.y - y_offset;
+                    if ( (x>=(x_sachovnice+10)) && (y>=y_sachovnice+11) && (x<=(x_sachovnice+409)) && (y<=(y_sachovnice+410)) )
+                    {
+                        int sx = (x - 10 - x_sachovnice);
+                        int sy = y - 11 - y_sachovnice;
+                        sx = sx/50;
+                        sy = 7 - sy/50;
 
-                     System.out.println(sx + ":" + sy);
+                        System.out.println(sx + ":" + sy);
 
-                Position pos = new Position(sy, sx);
-                this.mouseInput(pos);
+                    Position pos = new Position(sy, sx);
+                    this.mouseInput(pos);
 
-                this.lblAura.setIcon(this.imIcAura);
-                this.lblAura.setBounds(x_sachovnice+10+(sx*50), y_sachovnice+10+350-(sy*50),50,50);
+                    this.lblAura.setIcon(this.imIcAura);
+                    this.lblAura.setBounds(x_sachovnice+10+(sx*50), y_sachovnice+10+350-(sy*50),50,50);
 
+                    }
+                break;
                 }
-            break;
-            }
-            case InputEvent.BUTTON2_MASK: {
-                System.out.println("That's the MIDDLE button");
-                break;
-            }
-            case InputEvent.BUTTON3_MASK: {
-                System.out.println("That's the RIGHT button");
-                Gui.setClickCount(0);
-                this.clearAura();
-                break;
+                case InputEvent.BUTTON2_MASK: {
+                    System.out.println("That's the MIDDLE button");
+                    break;
+                }
+                case InputEvent.BUTTON3_MASK: {
+                    System.out.println("That's the RIGHT button");
+                    Gui.setClickCount(0);
+                    this.clearAura();
+                    break;
+                }
             }
         }
     }
@@ -1006,6 +1030,9 @@ public class Gui extends JFrame
         this.lblInfo.setText(text);
     }
 
+    /**
+     * Vycisti hraci desku od zeleneho oznaceni
+     */
     public void clearAura(){
         this.lblAura.setIcon(null);
     }
@@ -1014,6 +1041,17 @@ public class Gui extends JFrame
         this.LNapoveda.setText("No help requested...");
     }
 
+    public void setMenu(boolean value){
+        this.menu.setEnabled(value);
+    }
+
+    public void setHelpButton(boolean value){
+        this.BNapoveda.setEnabled(value);
+    }
+
+    public void setSubmitButton(boolean value){
+        this.BSubmitCommand.setEnabled(value);
+    }
 
 
 

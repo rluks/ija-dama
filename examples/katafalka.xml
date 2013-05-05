@@ -1,8 +1,8 @@
 <Dama>
 	<settings>
-		<white>AI</white>
-		<black>AI</black>
-		<AI>300</AI>
+		<white>human</white>
+		<black>human</black>
+		<AI>0</AI>
 		<P2P enabled="no">
 			<local></local>
 			<remoteIP></remoteIP>
