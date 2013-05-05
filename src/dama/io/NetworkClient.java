@@ -19,14 +19,16 @@ public class NetworkClient
 
             OutputStream out = connectionToTheServer.getOutputStream();
             PrintStream ps = new PrintStream(out, true); // Second param: auto-flush on write = true
-            String odesilam="Cau servere";
+            String odesilam="a3-b4";
             ps.println(odesilam);
             System.out.println("Client: posilam: \"" + odesilam + "\"");
 
             InputStream in = connectionToTheServer.getInputStream();
             BufferedReader br = new BufferedReader(new InputStreamReader(in));
             String line = br.readLine();
-            System.out.println("Klient: od serveru prislo: \"" + line + "\"");
+            Turn turn=Turn.NotStringToTurn(line, 'W');
+            if (turn==null)System.out.println("Klient: od serveru prislo: \"" + line + "\" - NEVALIDNI TAH");
+            else System.out.println("Klient: od serveru prislo: \"" + line + "\" - validni tah");
 
             connectionToTheServer.close();
 

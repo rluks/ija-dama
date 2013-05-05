@@ -30,11 +30,13 @@ public class NetworkServer
             InputStream in = connectionToTheClient.getInputStream();
             BufferedReader br = new BufferedReader(new InputStreamReader(in));
             String line = br.readLine();
-            System.out.println("Server: od klienta prislo: \"" + line + "\"");
+            Turn turn=Turn.NotStringToTurn(line, 'W');
+            if (turn==null)System.out.println("Server: od klienta prislo: \"" + line + "\" - NEVALIDNI TAH");
+            else System.out.println("Server: od klienta prislo: \"" + line + "\" - validni tah");
 
             OutputStream out = connectionToTheClient.getOutputStream();
             PrintStream ps = new PrintStream(out, true); // Second param: auto-flush on write = true
-            String odesilam="Cau cliente";
+            String odesilam="b6-c5";
             ps.println(odesilam);
             System.out.println("Server: posilam: \"" + odesilam + "\"");
 
