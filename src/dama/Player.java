@@ -139,6 +139,8 @@ public class Player extends Thread{
             return false;
         }
     }
+
+
     public static boolean setLoadedTurns(Vector<Turn> loadedTurns){
 
         System.out.println("Player: setTurn: ukladam nactene tahy do vlakna prehravace...");
@@ -157,7 +159,7 @@ public class Player extends Thread{
     /**
      * Uklada nastaveni do vlakna prehravace
      * @param settings instance tridy Settings s nastavenim prehravace
-     * @return vraci false pokud hra neexistuje
+     * @return vraci false pokud prehravac neexistuje
      */
     public static boolean setSettings(Settings settings){
         System.out.println("Player: setSettings: ukladam nastaveni...");
@@ -176,7 +178,7 @@ public class Player extends Thread{
     /**
      * Uklada tah do vlakna prehravace
      * @param turn instance tridy
-     * @return vraci false pokud hra neexistuje
+     * @return vraci false pokud prehravac neexistuje
      */
     public static boolean setTurn(Turn turn){
 
@@ -202,6 +204,8 @@ public class Player extends Thread{
     public static void setTurnInput(Turn turn) {
         Player.turnInput = turn;
     }
+
+
     /**
      * Uspi vlakno prehravace
      * @return vraci false pokud prehravac neexistuje
@@ -219,6 +223,8 @@ public class Player extends Thread{
             return false;
         }
     }
+
+
     /**
      * Do vlakna prehravace zapise ze bylo ulozeno settings a pripadne loadedTurns
      * a muze se tim padem zacit hrat
@@ -294,6 +300,8 @@ public class Player extends Thread{
     protected char playerColor;
     protected int tahCislo = 0;
 
+    protected int waitTime = 300;
+
     protected boolean wtake;
     protected boolean btake;
     protected boolean wbtake;
@@ -328,7 +336,6 @@ public class Player extends Thread{
     }
 
 
-
     /**
      * Kontrola jestli se GUI zavrelo
      * @param gui2 instance Gui
@@ -338,11 +345,8 @@ public class Player extends Thread{
         if(!gui2.isVisible()){
             System.out.println("Player: GUI zavreno - nastavuji allDone na true.");
             this.allDone = true;
-            //gui.pullThePlug();
-            //System.exit(0);
         }
     }
-
 
 
     private String getAIorHumanSettingsForCurrentPlayerColor(char playerColor){
@@ -354,6 +358,7 @@ public class Player extends Thread{
             return "";
         }
     }
+
 
     /**
      * Tisk informaci o tom kdo je na tahu do konzole a do gui
@@ -435,6 +440,11 @@ public class Player extends Thread{
 
                     gui.setMouse(false);
                     gui.setSubmitButton(false);
+
+                    //rychlost prehravani
+                    try {Thread.sleep(this.waitTime);} catch (InterruptedException e) {
+                        System.out.println("Hra: prerusen spanek rychlosti prehravani.");
+                    }
 
                     Turn loadedTurn = new Turn(this.loadedTurns.firstElement());
                     this.turn = loadedTurn;

@@ -337,6 +337,309 @@ public class Input
     }
 
     /**
+     * Vraci obsah notace jako Vector<Turn>
+     * @param cesta
+     * @param obsahSouboru
+     * @return
+     */
+    public static Vector<Turn> notToVector(String cesta, String obsahSouboru)
+    {
+        Vector<Turn> TurnVector=new Vector<Turn>();
+        String string="";
+        FileInputStream stream;
+
+        if (obsahSouboru!=null)string=obsahSouboru;
+        else
+        {
+            try
+            {
+                stream = new FileInputStream(new File(cesta));
+                FileChannel fc = stream.getChannel();
+                MappedByteBuffer bb = fc.map(FileChannel.MapMode.READ_ONLY, 0, fc.size());
+                /* Instead of using default, pass in a decoder. */
+                string = Charset.defaultCharset().decode(bb).toString();
+                stream.close();
+            }
+            catch (Exception e)
+            {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+                return null;
+            }
+        }
+
+        int pozice=0;
+        int predchozi_pozice=0;
+
+        int pocitadlo_tahu=1;
+        while(pozice!=-1)
+        {
+            predchozi_pozice=pozice;
+            pozice=string.indexOf("\n", pozice);
+
+
+            if (pozice!=-1)
+            {
+                String radek=string.substring(predchozi_pozice, pozice);
+                pozice=pozice+"\n".length();
+
+                int tecka=radek.indexOf(".");
+                if (tecka==-1) return null;
+                else tecka=tecka+2;
+
+                String numero=radek.substring(0, tecka-2);
+                if (pocitadlo_tahu!=Integer.parseInt(numero))return null;
+                else pocitadlo_tahu++;
+
+                radek=radek.substring(tecka);
+
+                int mezera=radek.indexOf(" ");
+                if (mezera==-1) return null;
+                else mezera=mezera+1;
+
+                String t1=radek.substring(0, mezera-1);
+                String t2=radek.substring(mezera);
+
+                char natahu='W';
+
+                for (int i=0; i<2; i++)
+                {
+                    String tah;
+                    if (i==0) tah=t1;
+                    else tah=t2;
+                    Turn turn=Turn.NotStringToTurn(tah, natahu);
+                    TurnVector.add(turn);
+
+                    natahu='B';
+                }
+
+            }
+            else if (string.substring(predchozi_pozice).equals("")) break;
+            else
+            {
+                String radek=string.substring(predchozi_pozice);
+
+                int tecka=radek.indexOf(".");
+                if (tecka==-1) return null;
+                else tecka=tecka+2;
+
+                String numero=radek.substring(0, tecka-2);
+                if (pocitadlo_tahu!=Integer.parseInt(numero))return null;
+
+                radek=radek.substring(tecka);
+                Turn turn=Turn.NotStringToTurn(radek, 'W');
+                TurnVector.add(turn);
+
+            }
+        }
+
+        return TurnVector;
+    }
+
+
+    /**
+     * Vraci z xml instanci Settings
+     * @param cesta
+     * @param obsahSouboru
+     * @return
+     */
+    public static Settings xmlToSettings (String cesta, String obsahSouboru)
+    {
+        Settings set;
+
+        try
+        {
+            File fXmlFile;
+            DocumentBuilderFactory dbFactory;
+            DocumentBuilder dBuilder;
+            Document doc;
+            if (obsahSouboru==null)
+            {
+                fXmlFile = new File(cesta);
+                dbFactory = DocumentBuilderFactory.newInstance();
+                dBuilder = dbFactory.newDocumentBuilder();
+                doc = dBuilder.parse(fXmlFile);
+            }
+            else
+            {
+                dbFactory = DocumentBuilderFactory.newInstance();
+                dBuilder = dbFactory.newDocumentBuilder();
+                InputSource is = new InputSource(new StringReader(obsahSouboru));
+                doc=dBuilder.parse(is);
+            }
+
+
+            doc.getDocumentElement().normalize();
+
+            //promenny pro setting
+            String w="";
+            String b="";
+            int    ai=0;
+            String p2pEn="";
+            String p2pLoc="";
+            String p2pRemIp="";
+            int    p2pRemP=0;
+
+
+            /// nacteni settings
+            NodeList nSettings = doc.getElementsByTagName("settings");
+            if (nSettings.getLength()!=1)
+            {
+                System.out.println("!!setings nenalezeny!!");
+                return null;
+            }
+            Node nNodeS = nSettings.item(0);
+            if (nNodeS.getNodeType() == Node.ELEMENT_NODE)
+            {
+                Element eElementS = (Element) nNodeS;
+                w=eElementS.getElementsByTagName("white").item(0).getTextContent();
+                b=eElementS.getElementsByTagName("black").item(0).getTextContent();
+                String ais=eElementS.getElementsByTagName("AI").item(0).getTextContent();
+                ai = Integer.parseInt(ais);
+                System.out.println("Bily: " + w +"; cerny: " + b + "; ai speed: " + ai);
+            }
+
+            NodeList nSettingsP = doc.getElementsByTagName("P2P");
+            if (nSettingsP.getLength()!=1)
+            {
+                System.out.println("!!setings P2P nenalezeny!!");
+                return null;
+            }
+            Node nNodeSP = nSettingsP.item(0);
+            if (nNodeSP.getNodeType() == Node.ELEMENT_NODE)
+            {
+                Element eElementSP = (Element) nNodeSP;
+                p2pEn=eElementSP.getAttribute("enabled");
+                if (p2pEn.equals("yes"))
+                {
+                    p2pLoc=eElementSP.getElementsByTagName("local").item(0).getTextContent();
+                    p2pRemIp=eElementSP.getElementsByTagName("remoteIP").item(0).getTextContent();
+                    String p2pRemPS=eElementSP.getElementsByTagName("remotePort").item(0).getTextContent();
+                    p2pRemP = Integer.parseInt(p2pRemPS);
+                }
+                System.out.println("P2P enable:" + p2pEn + "; local: " + p2pLoc + "; remIP: " + p2pRemIp + "; remPort: " + p2pRemP);
+
+            }
+
+            if ( (p2pEn.equals("no")) || (p2pEn.equals("yes")) ) set=new Settings(w, b, null, null, 0, ai, null);
+            else return null;
+
+            return set;
+        }
+        catch (Exception e)
+        {
+                System.out.println("!!!!!!!!!!!Exception!!!!!!!!!!!!!!!!!");
+                e.printStackTrace();
+                return null;
+        }
+    }
+
+    /**
+     * Vraci z xml Vector<Turn>
+     * @param cesta
+     * @param obsahSouboru
+     * @return
+     */
+    public static Vector<Turn> xmlToVector (String cesta, String obsahSouboru)
+    {
+        Vector<Turn> TurnVector=new Vector<Turn>();
+
+        try
+        {
+            File fXmlFile;
+            DocumentBuilderFactory dbFactory;
+            DocumentBuilder dBuilder;
+            Document doc;
+            if (obsahSouboru==null)
+            {
+                fXmlFile = new File(cesta);
+                dbFactory = DocumentBuilderFactory.newInstance();
+                dBuilder = dbFactory.newDocumentBuilder();
+                doc = dBuilder.parse(fXmlFile);
+            }
+            else
+            {
+                dbFactory = DocumentBuilderFactory.newInstance();
+                dBuilder = dbFactory.newDocumentBuilder();
+                InputSource is = new InputSource(new StringReader(obsahSouboru));
+                doc=dBuilder.parse(is);
+            }
+
+
+            doc.getDocumentElement().normalize();
+
+            /// nacteni jednotlivych tahu
+            NodeList nList = doc.getElementsByTagName("turn");
+            char natahu = 'W';
+            for (int temp = 0; temp < nList.getLength(); temp++)
+            {
+                Node nNode = nList.item(temp);
+                if (nNode.getNodeType() == Node.ELEMENT_NODE)
+                {
+                    Element eElement = (Element) nNode;
+
+                    //barva hrace na tahu
+                    String pom=eElement.getAttribute("player_color");
+                    if (pom.length()!=1) return null;
+                    char p=pom.charAt(0);
+                    if (natahu==p)
+                    {
+                        if (natahu=='W') natahu='B';
+                        /*if (natahu=='B') natahu='W';
+                        else return false;
+                        */
+                        else natahu='W';
+                    }
+                    else
+                    {
+                        System.out.println("Spatny poradi hracu");
+                        return null;
+                    }
+
+                    //origin pozice
+                    pom=eElement.getElementsByTagName("origin_row").item(0).getTextContent();
+                    if (pom.length()!=1) return null;
+                    int o_r = (int)((char)pom.charAt(0)-(char)'0');
+                    if ( (o_r>7)||(o_r<0) ) return null;
+
+                    pom=eElement.getElementsByTagName("origin_col").item(0).getTextContent();
+                    if (pom.length()!=1) return null;
+                    int o_c = (int)((char)pom.charAt(0)-(char)'0');
+                    if ( (o_c>7)||(o_c<0) ) return null;
+
+                    Position o=new Position(o_r, o_c);
+
+                    //destination pozice
+                    pom=eElement.getElementsByTagName("destination_row").item(0).getTextContent();
+                    if (pom.length()!=1) return null;
+                    int d_r = (int)((char)pom.charAt(0)-(char)'0');
+                    if ( (d_r>7)||(d_r<0) ) return null;
+
+                    pom=eElement.getElementsByTagName("destination_col").item(0).getTextContent();
+                    if (pom.length()!=1) return null;
+                    int d_c = (int)((char)pom.charAt(0)-(char)'0');
+                    if ( (d_c>7)||(d_c<0) ) return null;
+
+                    Position d=new Position(d_r, d_c);
+
+                    Turn turn = new Turn(p, o, d);
+
+                    TurnVector.add(turn);
+                }
+
+            }
+        }
+        catch (Exception e)
+        {
+            System.out.println("!!!!!!!!!!!Exception!!!!!!!!!!!!!!!!!");
+            e.printStackTrace();
+            return null;
+        }
+
+        return TurnVector;
+    }
+
+    /**
     * Jednotny vstup tahu pro vlakno hry
     */
     public static void inputTurn(Turn turn)
