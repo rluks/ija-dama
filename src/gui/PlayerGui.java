@@ -311,7 +311,7 @@ public class PlayerGui extends JFrame
             this.dispose();
         }
         else{
-            System.out.println("Neznama akce: " + e.getActionCommand());
+            System.out.println("PlayerGui: Neznama akce: " + e.getActionCommand());
         }
     }
 
@@ -321,7 +321,7 @@ public class PlayerGui extends JFrame
      */
     protected void createLoadGameFrame(String nazevOkna)
     {
-        System.out.println("\tcreate LG");
+        System.out.println("PlayerGui: \tcreate LG");
 
         this.inFrLoadGame=new LoadGame(nazevOkna);
         desktop.setLayer(inFrLoadGame, 5);
@@ -343,13 +343,13 @@ public class PlayerGui extends JFrame
             btnLoadgame.setText("Save in XML");
             btnLoadgame.setActionCommand("savegamebuttonXml");
 
-            System.out.println("Tlacitko");
+            System.out.println("PlayerGui: Tlacitko");
             btnLoadgame2 = new JButton("Save in notation");
             btnLoadgame2.setBounds(294, 60, 140, 20);
             btnLoadgame2.setActionCommand("savegamebuttonNot");
             btnLoadgame2.addActionListener(this);
             inFrLoadGame.getContentPane().add(btnLoadgame2);
-            System.out.println("/Tlacitko");
+            System.out.println("PlayerGui: /Tlacitko");
 
         }
         btnLoadgame.addActionListener(this);
@@ -361,7 +361,7 @@ public class PlayerGui extends JFrame
         }
         catch (java.beans.PropertyVetoException e) {}
 
-        //System.out.println("\t/create LG");
+        //System.out.println("PlayerGui: \t/create LG");
     }
 
     public void createVictory(){
@@ -417,9 +417,9 @@ public class PlayerGui extends JFrame
     {
         if(Dama.isGameSetAndRunning()){
 
-            System.out.println("Tlacitko load!");
+            System.out.println("PlayerGui: Tlacitko load!");
             String cesta=inFrLoadGame.GetPath();
-            System.out.println("Cesta: \"" + cesta + "\"");
+            System.out.println("PlayerGui: Cesta: \"" + cesta + "\"");
             inFrLoadGame.dispose();
 
             Dama.stopGameThread();
@@ -433,19 +433,19 @@ public class PlayerGui extends JFrame
 
             if (cesta.endsWith(".xml"))
             {
-                System.out.println("XML MOTAFAKA!!");
-                if (!Input.XmlToVector(cesta, true)) return;
+                System.out.println("PlayerGui: XML MOTAFAKA!!");
+                if (!Input.XmlToVector(cesta, true, null)) return;
             }
             else if (cesta.endsWith(".txt"))
             {
-                System.out.println("NOTACE BIATCH!!");
-                boolean test = Input.NotToVector(cesta, true);
-                System.out.println("NotToVector vraci " + test);
+                System.out.println("PlayerGui: NOTACE BIATCH!!");
+                boolean test = Input.NotToVector(cesta, true, null);
+                System.out.println("PlayerGui: NotToVector vraci " + test);
                 if (!test) return;
             }
             else
             {
-                System.out.println("Da fuk is dis sith?! (extention not txt of xml)");
+                System.out.println("PlayerGui: Da fuk is dis sith?! (extention not txt of xml)");
                 return;
             }
 
@@ -454,25 +454,25 @@ public class PlayerGui extends JFrame
             Dama.wakeUpGameThread();
 
         }else{
-            System.out.println("Tlacitko load!");
+            System.out.println("PlayerGui: Tlacitko load!");
             String cesta=inFrLoadGame.GetPath();
-            System.out.println("Cesta: \"" + cesta + "\"");
+            System.out.println("PlayerGui: Cesta: \"" + cesta + "\"");
             inFrLoadGame.dispose();
             if (cesta.endsWith(".xml"))
             {
-                System.out.println("XML MOTAFAKA!!");
-                if (!Input.XmlToVector(cesta, true)) return;
+                System.out.println("PlayerGui: XML MOTAFAKA!!");
+                if (!Input.XmlToVector(cesta, true, null)) return;
             }
             else if (cesta.endsWith(".txt"))
             {
-                System.out.println("NOTACE BIATCH!!");
-                boolean test = Input.NotToVector(cesta, true);
-                System.out.println("NotToVector vraci " + test);
+                System.out.println("PlayerGui: NOTACE BIATCH!!");
+                boolean test = Input.NotToVector(cesta, true, null);
+                System.out.println("PlayerGui: NotToVector vraci " + test);
                 if (!test) return;
             }
             else
             {
-                System.out.println("Da fuk is dis sith?! (extention not txt of xml)");
+                System.out.println("PlayerGui: Da fuk is dis sith?! (extention not txt of xml)");
                 return;
             }
             Dama.startGame();
@@ -512,7 +512,7 @@ public class PlayerGui extends JFrame
         if(this.mouseEnabled){
             switch(e.getModifiers()) {
                 case InputEvent.BUTTON1_MASK: {
-                    System.out.println("That's the LEFT button");
+                    System.out.println("PlayerGui: That's the LEFT button");
                     Point p = getLocationOnScreen();
                     PointerInfo a = MouseInfo.getPointerInfo();
                     Point b = a.getLocation();
@@ -538,11 +538,11 @@ public class PlayerGui extends JFrame
                 break;
                 }
                 case InputEvent.BUTTON2_MASK: {
-                    System.out.println("That's the MIDDLE button");
+                    System.out.println("PlayerGui: That's the MIDDLE button");
                     break;
                 }
                 case InputEvent.BUTTON3_MASK: {
-                    System.out.println("That's the RIGHT button");
+                    System.out.println("PlayerGui: That's the RIGHT button");
                     PlayerGui.setClickCount(0);
                     this.clearAura();
                     break;
@@ -578,7 +578,7 @@ public class PlayerGui extends JFrame
         if(Dama.isGameSetAndRunning()){
 
             PlayerGui.clickCount++;
-            System.out.println("mouseInput:" + pos.getStr());
+            System.out.println("PlayerGui: mouseInput:" + pos.getStr());
 
             if(PlayerGui.clickCount == 1){
                 this.turn = new Turn(Dama.getTurn());
@@ -600,7 +600,7 @@ public class PlayerGui extends JFrame
 
     public static void setClickCount(int count){
         PlayerGui.clickCount = count;
-        System.out.println("setClickCount:" + count);
+        System.out.println("PlayerGui: setClickCount:" + count);
     }
 
     /**
