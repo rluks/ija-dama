@@ -155,18 +155,24 @@ public class Dama extends Thread{
 
                     this.turn = (this.playerColor == 'W') ? Turn.TurnWhite(pEmpty, pEmpty) : Turn.TurnBlack(pEmpty, pEmpty);
 
-                    //cekani na tah od cloveka
-                    this.pleaseWait = true;
-                    //try {Thread.sleep(300);} catch (InterruptedException e) {e.printStackTrace();}
-                    synchronized(this){ while(pleaseWait){ try { System.out.println("Hra: sleeping..."); wait();} catch (Exception e) { e.printStackTrace(); } }  }
+                    boolean validTurn = false;
 
-                    while(this.invalidTurn){
+                    while(!validTurn){
                         gui.clearAura();
-                        synchronized(this){ while(pleaseWait){ try { System.out.println("Hra: sleeping..."); wait();} catch (Exception e) { e.printStackTrace(); } }  }
-                        gui.setInfoText("Nevalidni tah!");
-                        gui.clearAura();
-                        gui.ZobrazNapovedu();
                         this.pleaseWait = true;
+                        synchronized(this){ while(pleaseWait){ try { System.out.println("Hra: sleeping, waiting for human..."); wait();} catch (Exception e) { e.printStackTrace(); } }  }
+
+                        validTurn = Moves.isTurnValid(this.turn, this.desk);
+                        if(validTurn){
+                            System.out.println("Hra: tah je validni");
+                            validTurn = true;
+                        }else{
+                            System.out.println("Hra: tah NENI validni");
+                            validTurn = false;
+                            gui.setInfoText("Nevalidni tah!");
+                            gui.clearAura();
+                            gui.ZobrazNapovedu();
+                        }
                     }
                 }
 
@@ -264,11 +270,11 @@ public class Dama extends Thread{
     private void printNotation() {
 
         if(this.playerColor == 'B'){
-            System.out.println("Hra: oba hraci hrali");
+            //System.out.println("Hra: oba hraci hrali");
             gui.NotationNewLineLastBlack(bturn, btake);
         }else if(this.playerColor == 'W'){
             tahCislo++;
-            System.out.println("Hra: hral bily");
+            //System.out.println("Hra: hral bily");
             gui.NotationNewLineLastWhite(wturn, wtake, this.tahCislo);
         }
     }
