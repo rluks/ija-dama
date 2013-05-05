@@ -169,6 +169,13 @@ public class Dama extends Thread{
                 checkGUIShutdown(gui);
                 if(allDone){System.out.println("Hra: Dama terminated, allDone!!");return;}
 
+                //kontrola
+                if(this.turn == null){
+                    System.out.println("Ziskany tah je null");
+                    this.gui.createFail("Ziskany tah je null");
+                    return;
+                }
+
                 //zpracovani tahu
                 boolean executedTurn;
                 System.out.println("Hra: " + Output.getPlayerColorString(this.playerColor) + " is playing...");
@@ -189,6 +196,7 @@ public class Dama extends Thread{
                 }else{
                     System.out.println("Tah " + this.turn.getTurnString() + " NEBYL proveden");
                     this.gui.createFail("Tah " + this.turn.getTurnString() + " NEBYL proveden");
+                    return;
                 }
                 desk.clearMustTakeFlag();
 
@@ -201,6 +209,7 @@ public class Dama extends Thread{
                 //kontrola
                 if(this.playerColor != this.turn.playerColor){
                     System.out.println("Hra: barva hrace v tahu a v this.playerColor si neodpovida!");
+                    gui.createFail("barva hrace v tahu a v this.playerColor si neodpovida!");
                     return;
                 }
 
@@ -227,10 +236,9 @@ public class Dama extends Thread{
                     }
                     gui.setInfoText("!!! Victory !!!");
                     gui.createVictory();
+                    gui.setMenu(false);
                     this.pleaseWait = true;
                     synchronized(this){ while(pleaseWait){ try { System.out.println("Hra: sleeping..."); wait();} catch (Exception e) { e.printStackTrace(); } }  }
-                    //gui.setVisible(false);
-                    //Dama.startingGameThread();
                     return;
                 }
 

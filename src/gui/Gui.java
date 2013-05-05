@@ -72,6 +72,7 @@ public class Gui extends JFrame
     protected Settings settings;
 
     //menu
+    protected JMenu menu;
     protected JMenuItem menuItemSave;
 
     //vnitrni ramec
@@ -317,7 +318,7 @@ public class Gui extends JFrame
         JMenuBar menuBar = new JMenuBar();
 
         //Menu
-        JMenu menu = new JMenu("Menu");
+        menu = new JMenu("Menu");
         menu.setMnemonic(KeyEvent.VK_D);
         menuBar.add(menu);
 
@@ -429,7 +430,11 @@ public class Gui extends JFrame
             SaveGameButtonXml();
         }else if("victoryOK".equals(e.getActionCommand())){
             this.setVisible(false);
-            //Dama.stopGameThread();
+            Dama.wakeUpGameThread();
+            Dama.startingGameThread();
+            this.dispose();
+        }else if("failOK".equals(e.getActionCommand())){
+            this.setVisible(false);
             Dama.wakeUpGameThread();
             Dama.startingGameThread();
             this.dispose();
@@ -566,7 +571,9 @@ public class Gui extends JFrame
         else if (cesta.endsWith(".txt"))
         {
             System.out.println("NOTACE BIATCH!!");
-            if (!Input.NotToVector(cesta)) return;
+            boolean test = Input.NotToVector(cesta);
+            System.out.println("NotToVector vraci " + test);
+            if (!test) return;
         }
         else
         {
@@ -603,7 +610,7 @@ public class Gui extends JFrame
     public void createVictory(){
 
         this.victory = new Victory();
-        desktop.setLayer(this.victory, 1);
+        desktop.setLayer(this.victory, 5);
         this.victory.setLocation(200, 200);
         this.victory.setVisible(true);
 
@@ -627,7 +634,7 @@ public class Gui extends JFrame
     public void createFail(String string) {
 
            this.fail = new Fail(string);
-           desktop.setLayer(this.fail, 1);
+           desktop.setLayer(this.fail, 5);
            this.fail.setLocation(200, 100);
            this.fail.setVisible(true);
 
@@ -1012,6 +1019,10 @@ public class Gui extends JFrame
 
     public void clearHelp(){
         this.LNapoveda.setText("No help requested...");
+    }
+
+    public void setMenu(boolean value){
+        this.menu.setEnabled(value);
     }
 
 
