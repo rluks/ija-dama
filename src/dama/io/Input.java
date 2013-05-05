@@ -2,6 +2,7 @@ package dama.io;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.StringReader;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
 import java.nio.charset.Charset;
@@ -14,6 +15,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.xml.sax.InputSource;
 
 import dama.Dama;
 import dama.operations.Moves;
@@ -32,17 +34,33 @@ public class Input
      * @param cesta     string s cestou k souboru
      * @return             vraci true pokud je xml validni a podarilo se jej konvertovat na vektor tahu a ulozit
      */
-    public static boolean XmlToVector (String cesta, boolean setSettings)
+    public static boolean XmlToVector (String cesta, boolean setSettings, String obsahSouboru)
     {
         Vector<Turn> TurnVector=new Vector<Turn>();
         Settings set;
 
         try
         {
-            File fXmlFile = new File(cesta);
-            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            Document doc = dBuilder.parse(fXmlFile);
+            File fXmlFile;
+            DocumentBuilderFactory dbFactory;
+            DocumentBuilder dBuilder;
+            Document doc;
+            if (obsahSouboru==null)
+            {
+                fXmlFile = new File(cesta);
+                dbFactory = DocumentBuilderFactory.newInstance();
+                dBuilder = dbFactory.newDocumentBuilder();
+                doc = dBuilder.parse(fXmlFile);
+            }
+            else
+            {
+                dbFactory = DocumentBuilderFactory.newInstance();
+                dBuilder = dbFactory.newDocumentBuilder();
+                InputSource is = new InputSource(new StringReader(obsahSouboru));
+                doc=dBuilder.parse(is);
+            }
+
+
             doc.getDocumentElement().normalize();
 
             //promenny pro setting
@@ -95,7 +113,7 @@ public class Input
 
             }
 
-            if ( (p2pEn.equals("no")) || (p2pEn.equals("yes")) ) set=new Settings(w, b, null, null, 0, ai);
+            if ( (p2pEn.equals("no")) || (p2pEn.equals("yes")) ) set=new Settings(w, b, null, null, 0, ai, null);
             else return false;
 
 
@@ -180,27 +198,31 @@ public class Input
         return true;
     }
 
-    public static boolean NotToVector(String cesta, boolean setSettings)
+    public static boolean NotToVector(String cesta, boolean setSettings, String obsahSouboru)
     {
         Vector<Turn> TurnVector=new Vector<Turn>();
         //File fXmlFile = new File(cesta);
         String string="";
         FileInputStream stream;
 
-        try
+        if (obsahSouboru!=null)string=obsahSouboru;
+        else
         {
-            stream = new FileInputStream(new File(cesta));
-            FileChannel fc = stream.getChannel();
-            MappedByteBuffer bb = fc.map(FileChannel.MapMode.READ_ONLY, 0, fc.size());
-            /* Instead of using default, pass in a decoder. */
-            string = Charset.defaultCharset().decode(bb).toString();
-            stream.close();
-        }
-        catch (Exception e)
-        {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-            return false;
+            try
+            {
+                stream = new FileInputStream(new File(cesta));
+                FileChannel fc = stream.getChannel();
+                MappedByteBuffer bb = fc.map(FileChannel.MapMode.READ_ONLY, 0, fc.size());
+                /* Instead of using default, pass in a decoder. */
+                string = Charset.defaultCharset().decode(bb).toString();
+                stream.close();
+            }
+            catch (Exception e)
+            {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+                return false;
+            }
         }
         /*
         System.out.println("===============================");
@@ -308,7 +330,7 @@ public class Input
         //System.out.println("=============K=================");
 
 
-        Settings set=new Settings("human", "human", null, null, 0, 0);//pri nacteni z notace se pouzije implicitni nastaveni
+        Settings set=new Settings("human", "human", null, null, 0, 0, null);//pri nacteni z notace se pouzije implicitni nastaveni
         if (setSettings) if (!Dama.setSettings(set)) return false;
         if (!Dama.setLoadedTurns(TurnVector))return false;
         return true;
