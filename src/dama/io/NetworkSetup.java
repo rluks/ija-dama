@@ -4,12 +4,17 @@ import gui.Gui;
 
 import java.awt.Color;
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.nio.MappedByteBuffer;
+import java.nio.channels.FileChannel;
+import java.nio.charset.Charset;
 import java.util.Vector;
 
 import dama.Dama;
@@ -26,8 +31,9 @@ public class NetworkSetup
             System.out.println("GUI:Starting the game...");
             gui.lblInfo.setText(gui.settings.getSettingsString());
             //Dama.startingGameThread(gui.settings);
-            gui.inFrNewP2PGameSett.padding.setForeground(Color.GREEN);
-            gui.inFrNewP2PGameSett.padding.setText("Waititing for connection!");
+            //gui.inFrNewP2PGameSett.padding.setForeground(Color.GREEN);
+            //gui.inFrNewP2PGameSett.padding.setText("Waititing for connection!");
+
             gui.inFrNewP2PGameSett.setVisible(false);
             gui.inFrNewP2PGameSett.dispose();
         }
@@ -88,6 +94,26 @@ public class NetworkSetup
                     else typ='x';
                     System.out.println("Server - soubor: \"" + line + "\"" + "; typ= \'" + typ + "\'");
 
+                    String obsahSouboru="";
+
+                    System.out.println("Server - pred nactenim souboru");
+                    while((line=br.readLine()) != null)
+                    {
+                        //line=br.readLine();
+                        //System.out.println("Server - line: \"" + line + "\"");
+                        obsahSouboru+=line;
+                        if (obsahSouboru.endsWith("KONEC"))
+                        {
+                            obsahSouboru=obsahSouboru.replace("KONEC", "\n");
+                            break;
+                        }
+                        obsahSouboru+="\n";
+                    }
+                    System.out.println("\nServer - PO! nactenim souboru");
+
+                    System.out.println("Server ================");
+                    System.out.println(obsahSouboru);
+                    System.out.println("Server ================");
 
                 }
 
@@ -141,8 +167,19 @@ public class NetworkSetup
                     System.out.println("Klient - Nacist soubor: \"" + cesta + "\"");
                     ps.println(cesta);
 
+                    FileInputStream  stream = new FileInputStream(new File(cesta));
+                    FileChannel fc = stream.getChannel();
+                    MappedByteBuffer bb = fc.map(FileChannel.MapMode.READ_ONLY, 0, fc.size());
+                    /* Instead of using default, pass in a decoder. */
+                    String obsahSouboru = Charset.defaultCharset().decode(bb).toString();
+                    stream.close();
 
-
+                    ps.println(obsahSouboru+"KONEC");
+                    /*
+                    System.out.println("Klient ================");
+                    System.out.println(obsahSouboru);
+                    System.out.println("Klient ================");
+                    */
                 }
 
 
