@@ -18,6 +18,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
 import java.util.Enumeration;
+import java.util.Vector;
 
 import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
@@ -36,6 +37,7 @@ import javax.swing.KeyStroke;
 import javax.swing.SwingConstants;
 
 import dama.Dama;
+import dama.Player;
 import dama.io.Input;
 import dama.io.Turn;
 import dama.operations.Check;
@@ -43,6 +45,7 @@ import dama.operations.Moves;
 import dama.state.Desk;
 import dama.state.Figure;
 import dama.state.Position;
+import dama.state.Settings;
 
 
 
@@ -113,6 +116,8 @@ public class PlayerGui extends JFrame
     protected ImageIcon imIcBlackBox;
 
     protected ImageIcon imIcSeal;    //lachtan
+
+    private Settings settings;
 
 
     public PlayerGui() {
@@ -229,7 +234,7 @@ public class PlayerGui extends JFrame
 
                 Position pos1=Position.positionStrToPositionLowerCase(string.substring(0, 2));
                 Position pos2=Position.positionStrToPositionLowerCase(string.substring(3, 5));
-                char barva=Dama.getPlayerColor();
+                char barva=Player.getPlayerColor();
                 //neni rozehrana hra, takze se nic delat nebude
                 if (!( (barva=='B') || (barva=='W') )) return;
                 if ( (pos1==null) || (pos2==null) )
@@ -301,13 +306,13 @@ public class PlayerGui extends JFrame
             LoadGameButton();
         }else if("victoryOK".equals(e.getActionCommand())){
             this.setVisible(false);
-            Dama.wakeUpGameThread();
-            Dama.startingGameThread();
+            Player.wakeUpGameThread();
+            Player.startingPlayerThread();
             this.dispose();
         }else if("failOK".equals(e.getActionCommand())){
             this.setVisible(false);
-            Dama.wakeUpGameThread();
-            Dama.startingGameThread();
+            Player.wakeUpGameThread();
+            Player.startingPlayerThread();
             this.dispose();
         }
         else{
@@ -415,33 +420,45 @@ public class PlayerGui extends JFrame
      */
     public void LoadGameButton()
     {
-        if(Dama.isGameSetAndRunning()){
+        Vector<Turn> loadedTurns = null;
+        if(Player.isGameSetAndRunning()){
 
             System.out.println("PlayerGui: Tlacitko load!");
             String cesta=inFrLoadGame.GetPath();
             System.out.println("PlayerGui: Cesta: \"" + cesta + "\"");
             inFrLoadGame.dispose();
 
-            Dama.stopGameThread();
-            Dama.interruptGameThread();
+            Player.stopGameThread();
+            Player.interruptGameThread();
 
             this.dispose();
 
 
-            Dama.startingGameThread();
+            Player.startingPlayerThread();
             try {Thread.sleep(50);} catch (InterruptedException e) {e.printStackTrace();}
 
             if (cesta.endsWith(".xml"))
             {
                 System.out.println("PlayerGui: XML MOTAFAKA!!");
-                if (!Input.XmlToVector(cesta, true, null)) return;
+                //if (!Input.XmlToVector(cesta, true, null)) return;
+                this.settings = Input.xmlToSettings(cesta, null);
+                loadedTurns = Input.xmlToVector(cesta, null);
+
+                if(this.settings == null || loadedTurns == null){
+                    return;
+                }
             }
             else if (cesta.endsWith(".txt"))
             {
                 System.out.println("PlayerGui: NOTACE BIATCH!!");
-                boolean test = Input.NotToVector(cesta, true, null);
-                System.out.println("PlayerGui: NotToVector vraci " + test);
-                if (!test) return;
+                //boolean test = Input.NotToVector(cesta, true, null);
+                //if (!test) return;
+                loadedTurns = Input.notToVector(cesta, null);
+                this.settings = new Settings("human", "human", null, null, 0, 0, null);//pri nacteni z notace se pouzije implicitni nastaveni
+
+                if(this.settings == null || loadedTurns == null){
+                    return;
+                }
             }
             else
             {
@@ -449,9 +466,12 @@ public class PlayerGui extends JFrame
                 return;
             }
 
+            Player.setLoadedTurns(loadedTurns);
+            Player.setSettings(this.settings);
+
             try {Thread.sleep(50);} catch (InterruptedException e) {e.printStackTrace();}
-            Dama.startGame();
-            Dama.wakeUpGameThread();
+            Player.startGame();
+            Player.wakeUpGameThread();
 
         }else{
             System.out.println("PlayerGui: Tlacitko load!");
@@ -461,22 +481,39 @@ public class PlayerGui extends JFrame
             if (cesta.endsWith(".xml"))
             {
                 System.out.println("PlayerGui: XML MOTAFAKA!!");
-                if (!Input.XmlToVector(cesta, true, null)) return;
+                //if (!Input.XmlToVector(cesta, true, null)) return;
+                this.settings = Input.xmlToSettings(cesta, null);
+                loadedTurns = Input.xmlToVector(cesta, null);
+
+                if(this.settings == null || loadedTurns == null){
+                    return;
+                }
             }
             else if (cesta.endsWith(".txt"))
             {
                 System.out.println("PlayerGui: NOTACE BIATCH!!");
-                boolean test = Input.NotToVector(cesta, true, null);
-                System.out.println("PlayerGui: NotToVector vraci " + test);
-                if (!test) return;
+                //boolean test = Input.NotToVector(cesta, true, null);
+                //System.out.println("PlayerGui: NotToVector vraci " + test);
+                //if (!test) return;
+                this.settings = new Settings("human", "human", null, null, 0, 0, null);//pri nacteni z notace se pouzije implicitni nastaveni
+                loadedTurns = Input.notToVector(cesta, null);
+
+                if(this.settings == null || loadedTurns == null){
+                    return;
+                }
             }
             else
             {
                 System.out.println("PlayerGui: Da fuk is dis sith?! (extention not txt of xml)");
                 return;
             }
-            Dama.startGame();
-            Dama.wakeUpGameThread();
+
+            Player.setLoadedTurns(loadedTurns);
+            Player.setSettings(this.settings);
+
+            try {Thread.sleep(50);} catch (InterruptedException e) {e.printStackTrace();}
+            Player.startGame();
+            Player.wakeUpGameThread();
             this.BSubmitCommand.setEnabled(true);
         }
     }
@@ -575,13 +612,13 @@ public class PlayerGui extends JFrame
      */
     public void mouseInput(Position pos){
 
-        if(Dama.isGameSetAndRunning()){
+        if(Player.isGameSetAndRunning()){
 
             PlayerGui.clickCount++;
             System.out.println("PlayerGui: mouseInput:" + pos.getStr());
 
             if(PlayerGui.clickCount == 1){
-                this.turn = new Turn(Dama.getTurn());
+                this.turn = new Turn(Player.getTurn());
 
                 this.turn.origin = new Position(pos);
             }
@@ -610,7 +647,7 @@ public class PlayerGui extends JFrame
     public void updateDesk(Desk desk)
     {
         this.lblInfo.setText("Refreshing playboard, please wait...");
-        if (!Check.isMustTake(desk, Dama.getPlayerColor())) this.lblRuna.setIcon(null);
+        if (!Check.isMustTake(desk, Player.getPlayerColor())) this.lblRuna.setIcon(null);
         SmazNapovedu();
 
         Figure[][] this_board=desk.getState();
@@ -649,7 +686,7 @@ public class PlayerGui extends JFrame
 
         desk.clearMustTakeFlag();
         String barva;
-        char playerColor = Dama.getPlayerColor();
+        char playerColor = Player.getPlayerColor();
         if (playerColor=='W') barva="WHITE's";
         else barva="BLACK's";
         this.lblInfo.setText("Playboard is ready for " + barva + " turn.");
@@ -660,8 +697,8 @@ public class PlayerGui extends JFrame
 
     public void ZobrazNapovedu()
     {
-        Desk desk = Dama.getDesk();
-        char natahu=Dama.getPlayerColor();
+        Desk desk = Player.getDesk();
+        char natahu=Player.getPlayerColor();
         Figure[][] this_board=desk.getState();
         boolean brani=Check.isMustTake(desk, natahu);
         desk.clearMustTakeFlag();
