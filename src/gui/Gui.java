@@ -17,6 +17,13 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.PrintStream;
+import java.net.ServerSocket;
+import java.net.Socket;
 import java.util.Enumeration;
 
 import javax.swing.AbstractButton;
@@ -127,6 +134,12 @@ public class Gui extends JFrame
     protected ImageIcon imIcBlackBox;
 
     protected ImageIcon imIcSeal;    //lachtan
+
+    //nejak sitove veci
+    ServerSocket server;
+    Socket connectionToTheClient;
+    Socket connectionToTheServer;
+
 
     public Gui() {
         super("Gui");
@@ -569,12 +582,12 @@ public class Gui extends JFrame
         if (cesta.endsWith(".xml"))
         {
             System.out.println("XML MOTAFAKA!!");
-            if (!Input.XmlToVector(cesta)) return;
+            if (!Input.XmlToVector(cesta, true)) return;
         }
         else if (cesta.endsWith(".txt"))
         {
             System.out.println("NOTACE BIATCH!!");
-            boolean test = Input.NotToVector(cesta);
+            boolean test = Input.NotToVector(cesta, true);
             System.out.println("NotToVector vraci " + test);
             if (!test) return;
         }
@@ -718,7 +731,6 @@ public class Gui extends JFrame
     /**
      * prozatim neupdatovana funkce pro nastaveni a spousteni P2P hry
      */
-    @Deprecated
     protected void startP2Pgame(){
 
         this.settings = this.inFrNewP2PGameSett.getSettings();
@@ -731,11 +743,92 @@ public class Gui extends JFrame
 
             this.inFrNewP2PGameSett.setVisible(false);
             this.inFrNewP2PGameSett.dispose();
+            //try {Thread.sleep(1000);} catch (InterruptedException e) {e.printStackTrace();}
 
-        }else{
+        }
+        else
+        {
             System.out.println("Configure settings!");
             this.lblInfo.setText("Configure settings!");
+            return;
         }
+
+        if (!((this.settings.remotePort>0) && this.settings.remotePort<=65535))
+        {
+            System.out.println("Port out of range (1 - 65535)");
+            this.lblInfo.setText("Port out of range (1 - 65535)");
+            return;
+        }
+
+        //server
+        if ((this.settings.local==null) && (this.settings.remoteIP==null))
+        {
+
+            this.lblInfo.setText("Waiting for connection...");
+            try
+            {
+                System.out.println("Server");
+                this.lblInfo.setText("Waiting for connection...");
+
+                this.server = new ServerSocket(this.settings.remotePort);
+                this.server.setSoTimeout(30000);
+                this.connectionToTheClient = this.server.accept();
+
+                this.lblInfo.setText("Connection established!");
+                System.out.println("Server po accept - connection established!");
+
+                //server ceka, ze klient mu posle svoji barvu
+                InputStream in = connectionToTheClient.getInputStream();
+                BufferedReader br = new BufferedReader(new InputStreamReader(in));
+                String line = br.readLine();
+
+                if (line.equals("White")) this.settings.local="Black";
+                else this.settings.local="White";
+                System.out.println("Barva klienta: \"" + line + "\"; server: \"" + this.settings.local + "\"");
+
+
+
+
+
+
+            }
+            catch ( java.io.InterruptedIOException e )
+            {
+                this.lblInfo.setText("Connection timeout (30sec)!");
+                System.out.println("Timed Out (30 sec)!");
+            }
+            catch (Exception e)
+            {
+                System.out.println("Sitova chyba");
+            }
+
+        }
+        //client
+        else
+        {
+            try
+            {
+                System.out.println("Client");
+                this.lblInfo.setText("Connecting...");
+
+                this.connectionToTheServer = new Socket(this.settings.remoteIP, this.settings.remotePort);
+
+                this.lblInfo.setText("Connection established!");
+                System.out.println("Klient se pripojil - connection established!");
+
+                //klient posle svoji barvu
+                OutputStream out = connectionToTheServer.getOutputStream();
+                PrintStream ps = new PrintStream(out, true); // Second param: auto-flush on write = true
+                //String odesilam="a3-b4";
+                ps.println(this.settings.local);
+                //System.out.println("Client: posilam: \"" + odesilam + "\"");
+            }
+            catch (Exception e)
+            {
+                System.out.println("Sitova chyba");
+            }
+        }
+
     }
 
 

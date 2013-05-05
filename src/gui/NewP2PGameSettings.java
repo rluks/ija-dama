@@ -22,6 +22,7 @@ public class NewP2PGameSettings extends JInternalFrame {
     static int openFrameCount = 0;
     static final int xOffset = 30, yOffset = 30;
 
+    ButtonGroup typ;
     ButtonGroup local;
     private JTextField txtRemoteip;
     private JTextField txtRemotePort;
@@ -37,6 +38,20 @@ public class NewP2PGameSettings extends JInternalFrame {
 
         setLocation(xOffset*openFrameCount, yOffset*openFrameCount);
         getContentPane().setLayout(new GridLayout(0, 1, 0, 0));
+
+        JRadioButton rdbtnListen = new JRadioButton("Listen on port (fill only port)");
+        getContentPane().add(rdbtnListen);
+
+        JRadioButton rdbtnConnectTo = new JRadioButton("Connect to other PC (fill all)");
+        getContentPane().add(rdbtnConnectTo);
+
+        this.typ = new ButtonGroup();
+        this.typ.add(rdbtnConnectTo);
+        this.typ.add(rdbtnListen);
+
+
+
+
 
         //local
         JLabel lblLocalMachine = new JLabel("Player on Local Machine:");
@@ -61,7 +76,7 @@ public class NewP2PGameSettings extends JInternalFrame {
         getContentPane().add(txtRemoteip);
         txtRemoteip.setColumns(10);
 
-        JLabel lblRemoteMachinePort = new JLabel("Remote Machine Port:");
+        JLabel lblRemoteMachinePort = new JLabel("Remote Machine Port/Listening port:");
         getContentPane().add(lblRemoteMachinePort);
 
 
@@ -77,28 +92,53 @@ public class NewP2PGameSettings extends JInternalFrame {
      */
     public Settings getSettings(){
 
+        JRadioButton typ= Gui.getSelection(this.typ);
+
+        if (typ==null)
+        {
+            System.out.println("Nebyl vybran typ sitoveho blabolu");
+            return null;
+        }
+
         JRadioButton local = Gui.getSelection(this.local);
+        
 
-        if(local == null || this.txtRemoteip.getText().trim().equals("") || this.txtRemotePort.getText().trim().equals("")){return null;}
-
-        String remoteIP = this.txtRemoteip.getText();
+        if (this.txtRemotePort.getText().trim().equals("")) return null;
+     
         String remotePortStr = this.txtRemotePort.getText();
 
-        String localStr = local.getText();
-
-        String whiteStr = "Human";
-        String blackStr = "Human";
+        //String whiteStr = "Human";
+        //String blackStr = "Human";
 
         //TODO check hodnoty filter v Input
 
-        try {Double.parseDouble(remotePortStr);
-        }catch (NumberFormatException e) {
+        try
+        {
+            Double.parseDouble(remotePortStr);
+        }
+        catch (NumberFormatException e) 
+        {
             return null;
         }
 
         int remotePort = (int)((Double.parseDouble(remotePortStr)));
 
-        Settings sett = new Settings(whiteStr, blackStr, localStr, remoteIP, remotePort, 0);
+        Settings sett;
+        if (typ.getText().equals("Listen on port (fill only port)"))
+        {
+            sett=new Settings("Human", "Human", null, null, remotePort, 0);
+        }
+        else if (typ.getText().equals("Connect to other PC (fill all)"))
+        {
+        	if(local == null || this.txtRemoteip.getText().trim().equals("")) return null;
+
+            String remoteIP = this.txtRemoteip.getText();
+            String localStr = local.getText();
+        	
+        	sett= new Settings("Human", "Human", localStr, remoteIP, remotePort, 0);
+        }
+        else return null;
+
         return sett;
     }
 }
