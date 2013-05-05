@@ -229,8 +229,8 @@ public class Dama extends Thread{
                     gui.createVictory();
                     this.pleaseWait = true;
                     synchronized(this){ while(pleaseWait){ try { System.out.println("Hra: sleeping..."); wait();} catch (Exception e) { e.printStackTrace(); } }  }
-                    gui.setVisible(false);
-                    Dama.startingGameThread();
+                    //gui.setVisible(false);
+                    //Dama.startingGameThread();
                     return;
                 }
 
