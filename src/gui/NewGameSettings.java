@@ -104,7 +104,7 @@ public class NewGameSettings extends JInternalFrame {
 
         int aiWait = (int)((Double.parseDouble(aiWaitStr)));
 
-        Settings sett = new Settings(whiteStr, blackStr, null, null, 0, aiWait);
+        Settings sett = new Settings(whiteStr, blackStr, null, null, 0, aiWait, null);
         return sett;
     }
 }

@@ -1,11 +1,17 @@
 package gui;
 
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.ButtonGroup;
+import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import dama.state.Settings;
 
@@ -26,6 +32,8 @@ public class NewP2PGameSettings extends JInternalFrame {
     ButtonGroup local;
     private JTextField txtRemoteip;
     private JTextField txtRemotePort;
+    private JTextField txtCesta;
+    private JButton    btnCesta;
 
     public NewP2PGameSettings() {
         super("New P2P Game Settings",
@@ -39,19 +47,15 @@ public class NewP2PGameSettings extends JInternalFrame {
         setLocation(xOffset*openFrameCount, yOffset*openFrameCount);
         getContentPane().setLayout(new GridLayout(0, 1, 0, 0));
 
+        JLabel lblPopisekPeer=new JLabel("Type of peer:");
+        getContentPane().add(lblPopisekPeer);
         JRadioButton rdbtnListen = new JRadioButton("Listen on port (fill only port)");
         getContentPane().add(rdbtnListen);
-
         JRadioButton rdbtnConnectTo = new JRadioButton("Connect to other PC (fill all)");
         getContentPane().add(rdbtnConnectTo);
-
         this.typ = new ButtonGroup();
         this.typ.add(rdbtnConnectTo);
         this.typ.add(rdbtnListen);
-
-
-
-
 
         //local
         JLabel lblLocalMachine = new JLabel("Player on Local Machine:");
@@ -79,11 +83,46 @@ public class NewP2PGameSettings extends JInternalFrame {
         JLabel lblRemoteMachinePort = new JLabel("Remote Machine Port/Listening port:");
         getContentPane().add(lblRemoteMachinePort);
 
-
         txtRemotePort = new JTextField();
         txtRemotePort.setText("55555");//49152 – 65535: Dynamic and/or Private Ports
         getContentPane().add(txtRemotePort);
         txtRemotePort.setColumns(10);
+
+        JLabel lblPopisekCesta=new JLabel("Path to saved game:");
+        getContentPane().add(lblPopisekCesta);
+
+        this.txtCesta=new JTextField();
+        this.txtCesta.setText("");
+        getContentPane().add(txtCesta);
+
+        this.btnCesta=new JButton();
+        this.btnCesta.setText("Browse");
+        getContentPane().add(btnCesta);
+        btnCesta.addActionListener(new OpenL());
+
+        JLabel padding=new JLabel("");
+        getContentPane().add(padding);
+
+    }
+
+    class OpenL implements ActionListener
+    {
+          public void actionPerformed(ActionEvent e)
+          {
+                //System.out.println("Action listener:" + e.getActionCommand());
+                JFileChooser c = new JFileChooser(".\\examples");
+                FileNameExtensionFilter xmlfilter = new FileNameExtensionFilter("xml files (*.xml)", "xml");
+                c.setFileFilter(xmlfilter);
+                FileNameExtensionFilter xmlfilter2 = new FileNameExtensionFilter("standart notation (.txt)", "txt");
+                c.setFileFilter(xmlfilter2);
+
+                int rVal = c.showOpenDialog(NewP2PGameSettings.this);
+                if (rVal == JFileChooser.APPROVE_OPTION)
+                {
+                      //TFCesta.setText(c.getCurrentDirectory().toString() + "\\" + c.getSelectedFile().getName());
+                    txtCesta.setText((String)c.getSelectedFile().getAbsolutePath());
+                }
+          }
     }
 
     /**
@@ -101,10 +140,10 @@ public class NewP2PGameSettings extends JInternalFrame {
         }
 
         JRadioButton local = Gui.getSelection(this.local);
-        
+
 
         if (this.txtRemotePort.getText().trim().equals("")) return null;
-     
+
         String remotePortStr = this.txtRemotePort.getText();
 
         //String whiteStr = "Human";
@@ -116,7 +155,7 @@ public class NewP2PGameSettings extends JInternalFrame {
         {
             Double.parseDouble(remotePortStr);
         }
-        catch (NumberFormatException e) 
+        catch (NumberFormatException e)
         {
             return null;
         }
@@ -126,16 +165,19 @@ public class NewP2PGameSettings extends JInternalFrame {
         Settings sett;
         if (typ.getText().equals("Listen on port (fill only port)"))
         {
-            sett=new Settings("Human", "Human", null, null, remotePort, 0);
+            sett=new Settings("Human", "Human", null, null, remotePort, 0, null);
         }
         else if (typ.getText().equals("Connect to other PC (fill all)"))
         {
-        	if(local == null || this.txtRemoteip.getText().trim().equals("")) return null;
+            if(local == null || this.txtRemoteip.getText().trim().equals("")) return null;
 
             String remoteIP = this.txtRemoteip.getText();
             String localStr = local.getText();
-        	
-        	sett= new Settings("Human", "Human", localStr, remoteIP, remotePort, 0);
+            String cesta;
+            if (txtCesta.equals(""))cesta=null;
+            else cesta=txtCesta.getText();
+
+            sett= new Settings("Human", "Human", localStr, remoteIP, remotePort, 0, cesta);
         }
         else return null;
 

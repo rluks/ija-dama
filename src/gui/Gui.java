@@ -25,6 +25,7 @@ import java.io.PrintStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Enumeration;
+import java.util.Vector;
 
 import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
@@ -767,7 +768,10 @@ public class Gui extends JFrame
             this.lblInfo.setText("Waiting for connection...");
             try
             {
-                System.out.println("Server");
+                Vector<Turn> lt=new Vector<Turn>();
+            	Dama.setLoadedTurns(lt);
+            	
+            	System.out.println("Server");
                 this.lblInfo.setText("Waiting for connection...");
 
                 this.server = new ServerSocket(this.settings.remotePort);
@@ -819,9 +823,10 @@ public class Gui extends JFrame
                 //klient posle svoji barvu
                 OutputStream out = connectionToTheServer.getOutputStream();
                 PrintStream ps = new PrintStream(out, true); // Second param: auto-flush on write = true
-                //String odesilam="a3-b4";
                 ps.println(this.settings.local);
-                //System.out.println("Client: posilam: \"" + odesilam + "\"");
+                
+                
+                
             }
             catch (Exception e)
             {
