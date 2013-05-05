@@ -272,11 +272,21 @@ public class PlayerGui extends JFrame
         this.TFPrikaz.setColumns(10);
 
         JButton btnPlay = new JButton("");
+        btnPlay.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+                Player.wakeUpPlayerThread();
+            }
+        });
         btnPlay.setBounds(535, 35, 30, 20);
         btnPlay.setIcon(this.imIcPlay);
         desktop.add(btnPlay);
 
         JButton btnStop = new JButton("");
+        btnStop.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                Player.sleepPlayerThread();
+            }
+        });
         btnStop.setBounds(580, 35, 30, 20);
         btnStop.setIcon(this.imIcStop);
         desktop.add(btnStop);
@@ -352,12 +362,12 @@ public class PlayerGui extends JFrame
             LoadGameButton();
         }else if("victoryOK".equals(e.getActionCommand())){
             this.setVisible(false);
-            Player.wakeUpGameThread();
+            Player.wakeUpPlayerThread();
             Player.startingPlayerThread();
             this.dispose();
         }else if("failOK".equals(e.getActionCommand())){
             this.setVisible(false);
-            Player.wakeUpGameThread();
+            Player.wakeUpPlayerThread();
             Player.startingPlayerThread();
             this.dispose();
         }
@@ -474,7 +484,7 @@ public class PlayerGui extends JFrame
             System.out.println("PlayerGui: Cesta: \"" + cesta + "\"");
             inFrLoadGame.dispose();
 
-            Player.stopGameThread();
+            Player.stopThread();
             Player.interruptGameThread();
 
             this.dispose();
@@ -516,8 +526,8 @@ public class PlayerGui extends JFrame
             Player.setSettings(this.settings);
 
             try {Thread.sleep(50);} catch (InterruptedException e) {e.printStackTrace();}
-            Player.startGame();
-            Player.wakeUpGameThread();
+            Player.startPlayer();
+            Player.wakeUpPlayerThread();
 
         }else{
             System.out.println("PlayerGui: Tlacitko load!");
@@ -558,8 +568,8 @@ public class PlayerGui extends JFrame
             Player.setSettings(this.settings);
 
             try {Thread.sleep(50);} catch (InterruptedException e) {e.printStackTrace();}
-            Player.startGame();
-            Player.wakeUpGameThread();
+            Player.startPlayer();
+            Player.wakeUpPlayerThread();
             this.BSubmitCommand.setEnabled(true);
         }
     }

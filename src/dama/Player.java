@@ -210,7 +210,7 @@ public class Player extends Thread{
      * Uspi vlakno prehravace
      * @return vraci false pokud prehravac neexistuje
      */
-    public static boolean sleepGameThread(){
+    public static boolean sleepPlayerThread(){
         System.out.println("Player: sleepGameThread: pokousim se uspat hru...");
 
         if(player != null){
@@ -230,7 +230,7 @@ public class Player extends Thread{
      * a muze se tim padem zacit hrat
      * @return vraci false pokud prehravac neexistuje
      */
-    public static boolean startGame(){
+    public static boolean startPlayer(){
         System.out.println("Player: startGame: povoluji beh smycky prehravace...");
 
         if(player != null){
@@ -258,7 +258,7 @@ public class Player extends Thread{
      * Zastavi vlakno prehravace
      * @return vraci false pokud prehravac neexistuje
      */
-    public static boolean stopGameThread(){
+    public static boolean stopThread(){
         System.out.println("Player: stopGameThread: zastavuji vlakno prehravace...");
 
         if(player != null){
@@ -275,7 +275,7 @@ public class Player extends Thread{
      * Probudi vlakno prehravace
     * @return vraci false pokud prehravac neexistuje
      */
-    public static boolean wakeUpGameThread(){
+    public static boolean wakeUpPlayerThread(){
         System.out.println("Player: wakeUpGameThread: probouzim hru...");
 
         if(player != null){
@@ -419,6 +419,8 @@ public class Player extends Thread{
             while(true){
                 gameSetAndRuning = true;
                 System.out.println("Player: tah cislo: " + tahCislo + " ,bezi s timto nastavenim: " + this.settings.getSettingsString());
+
+                synchronized(this){ while(pleaseWait){ try { System.out.println("Player: sleeping at beginning of playing..."); wait();} catch (Exception e) { e.printStackTrace(); } }  }
 
                 //vypinaci cast
                 checkGUIShutdown(gui);
