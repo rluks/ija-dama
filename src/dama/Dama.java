@@ -79,8 +79,9 @@ public class Dama extends Thread{
 
         //inicializace
 
-        System.out.println("Hra: Uspavam se");
-        Dama.sleepGameThread();
+        System.out.println("Hra: Uspavam se, cekam na vlozeni nastaveni, eventuelne loadedTurns, probud me a startgame.");
+        //Dama.sleepGameThread();
+        this.pleaseWait = true;
 
         //smycka nastaveni hry
         while(true)
@@ -88,7 +89,7 @@ public class Dama extends Thread{
 
             //try {Thread.sleep(200);} catch (InterruptedException e) {e.printStackTrace();}
 
-            synchronized(this){ while(pleaseWait){ try { System.out.println("Hra: sleeping..."); wait();} catch (Exception e) { e.printStackTrace(); } }  }
+            synchronized(this){ while(pleaseWait){ try { System.out.println("Hra: sleeping before startGame..."); wait();} catch (Exception e) { e.printStackTrace(); } }  }
 
             //vypinaci cast
             checkGUIShutdown(gui);
@@ -102,6 +103,7 @@ public class Dama extends Thread{
             this.desk = new Desk();
             gui.updateDesk(desk);
             //this.desk.printSimpleBoard();
+            gui.setMenuItemSave(true);
 
             System.out.println("Hra: Tisknu nastaveni");
             System.out.println(this.settings.getXML());
@@ -166,11 +168,14 @@ public class Dama extends Thread{
 
                     gui.setMouse(true);
                     gui.setSubmitButton(true);
+                    gui.setHelpButton(true);
 
                     while(!validTurn){
                         gui.clearAura();
                         this.pleaseWait = true;
-                        synchronized(this){ while(pleaseWait){ try { System.out.println("Hra: sleeping, waiting for human..."); wait();} catch (Exception e) { e.printStackTrace(); } }  }
+                        synchronized(this){ while(pleaseWait){ try { System.out.println("Hra: sleeping, waiting for human..."); wait();} catch (Exception e) {
+                            System.out.println("Hra: prerusen spanek pri tahu cloveka.");
+                            /*e.printStackTrace();*/ } } }
 
                         //vypinaci cast
                         checkGUIShutdown(gui);

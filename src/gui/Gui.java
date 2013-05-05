@@ -576,33 +576,97 @@ public class Gui extends JFrame
 
     public void LoadGameButton()
     {
-        System.out.println("Tlacitko load!");
-        String cesta=inFrLoadGame.GetPath();
-        System.out.println("Cesta: \"" + cesta + "\"");
-        inFrLoadGame.dispose();
-        if (cesta.endsWith(".xml"))
-        {
-            System.out.println("XML MOTAFAKA!!");
-            if (!Input.XmlToVector(cesta, true)) return;
+        if(Dama.isGameSetAndRunning()){
+
+            System.out.println("Tlacitko load!");
+            String cesta=inFrLoadGame.GetPath();
+            System.out.println("Cesta: \"" + cesta + "\"");
+            inFrLoadGame.dispose();
+
+            Dama.stopGameThread();
+            Dama.interruptGameThread();
+
+            this.dispose();
+
+
+            Dama.startingGameThread();
+            try {Thread.sleep(50);} catch (InterruptedException e) {e.printStackTrace();}
+
+            if (cesta.endsWith(".xml"))
+            {
+                System.out.println("XML MOTAFAKA!!");
+                if (!Input.XmlToVector(cesta, true)) return;
+            }
+            else if (cesta.endsWith(".txt"))
+            {
+                System.out.println("NOTACE BIATCH!!");
+                boolean test = Input.NotToVector(cesta, true);
+                System.out.println("NotToVector vraci " + test);
+                if (!test) return;
+            }
+            else
+            {
+                System.out.println("Da fuk is dis sith?! (extention not txt of xml)");
+                return;
+            }
+
+            try {Thread.sleep(50);} catch (InterruptedException e) {e.printStackTrace();}
+            Dama.startGame();
+            Dama.wakeUpGameThread();
+            //this.menuItemSave.setEnabled(true);
+            //this.BSubmitCommand.setEnabled(true);
+
+
+            /*
+            System.out.println("hra BEZELA spoustim...");
+            Dama.interruptGameThread();
+            Dama.stopGameThread();
+            this.dispose();
+
+            try {Thread.sleep(300);} catch (InterruptedException e) {e.printStackTrace();}
+
+            Dama.startingGameThread();
+
+            try {Thread.sleep(50);} catch (InterruptedException e) {e.printStackTrace();}
+
+            Dama.setSettings(this.settings);
+
+            try {Thread.sleep(50);} catch (InterruptedException e) {e.printStackTrace();}
+
+
+            Dama.startGame();
+
+            Dama.wakeUpGameThread();
+            */
+
+
+        }else{
+            System.out.println("Tlacitko load!");
+            String cesta=inFrLoadGame.GetPath();
+            System.out.println("Cesta: \"" + cesta + "\"");
+            inFrLoadGame.dispose();
+            if (cesta.endsWith(".xml"))
+            {
+                System.out.println("XML MOTAFAKA!!");
+                if (!Input.XmlToVector(cesta, true)) return;
+            }
+            else if (cesta.endsWith(".txt"))
+            {
+                System.out.println("NOTACE BIATCH!!");
+                boolean test = Input.NotToVector(cesta, true);
+                System.out.println("NotToVector vraci " + test);
+                if (!test) return;
+            }
+            else
+            {
+                System.out.println("Da fuk is dis sith?! (extention not txt of xml)");
+                return;
+            }
+            Dama.startGame();
+            Dama.wakeUpGameThread();
+            this.menuItemSave.setEnabled(true);
+            this.BSubmitCommand.setEnabled(true);
         }
-        else if (cesta.endsWith(".txt"))
-        {
-            System.out.println("NOTACE BIATCH!!");
-            boolean test = Input.NotToVector(cesta, true);
-            System.out.println("NotToVector vraci " + test);
-            if (!test) return;
-        }
-        else
-        {
-            System.out.println("Da fuk is dis sith?! (extention not txt of xml)");
-            return;
-        }
-        //Dama.stopGameThread();
-        //Dama.wakeUpGameThread();
-        //Dama.startingGameThread();
-        Dama.startGame();
-        this.menuItemSave.setEnabled(true);
-        this.BSubmitCommand.setEnabled(true);
     }
 
 
@@ -1159,6 +1223,10 @@ public class Gui extends JFrame
 
     public void setSubmitButton(boolean value){
         this.BSubmitCommand.setEnabled(value);
+    }
+
+    public void setMenuItemSave(boolean value){
+        this.menuItemSave.setEnabled(value);
     }
 
 
