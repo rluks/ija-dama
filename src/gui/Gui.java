@@ -43,6 +43,7 @@ import javax.swing.KeyStroke;
 import javax.swing.SwingConstants;
 
 import dama.Dama;
+import dama.Player;
 import dama.io.Input;
 import dama.io.Output;
 import dama.io.Turn;
@@ -426,8 +427,11 @@ public class Gui extends JFrame
 
             System.out.println("/Save game");
 
-        }else if ("Player".equals(e.getActionCommand())){
-            System.out.println("Neimplementovano");
+        }else if ("player".equals(e.getActionCommand())){
+            //PlayerGui p = new PlayerGui();
+            //p.setBounds(100, 50, 800, 600);
+            //p.setVisible(true);
+            Player.startingPlayerThread();
         }else if ("About".equals(e.getActionCommand())){
             System.out.println("Neimplementovano");
         }else if ("quit".equals(e.getActionCommand())){
@@ -487,6 +491,10 @@ public class Gui extends JFrame
     }
 
 
+    /**
+     * Vytvori vnitrni ramec pro nacitani drive ulozene hry
+     * @param nazevOkna
+     */
     protected void createLoadGameFrame(String nazevOkna)
     {
         System.out.println("\tcreate LG");
@@ -532,6 +540,9 @@ public class Gui extends JFrame
         //System.out.println("\t/create LG");
     }
 
+    /**
+     * Reakce na tlacitko v inFrLoadGame
+     */
     public void SaveGameButtonXml()
     {
         System.out.println("Tlacitko save!");
@@ -552,7 +563,9 @@ public class Gui extends JFrame
         }
     }
 
-
+    /**
+     * Reakce na tlacitko v inFrLoadGame
+     */
     public void SaveGameButtonNot()
     {
         String notace=TAVypisNotace.getText();
@@ -572,7 +585,9 @@ public class Gui extends JFrame
         }
     }
 
-
+    /**
+     * Reakce na tlacitko v inFrLoadGame
+     */
     public void LoadGameButton()
     {
         if(Dama.isGameSetAndRunning()){
