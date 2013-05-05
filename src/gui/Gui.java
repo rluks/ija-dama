@@ -428,7 +428,11 @@ public class Gui extends JFrame
         {
             SaveGameButtonXml();
         }else if("victoryOK".equals(e.getActionCommand())){
+            this.setVisible(false);
+            //Dama.stopGameThread();
             Dama.wakeUpGameThread();
+            Dama.startingGameThread();
+            this.dispose();
         }
         else if ("savegamebuttonNot".equals(e.getActionCommand()))
         {
