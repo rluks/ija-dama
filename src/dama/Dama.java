@@ -170,7 +170,9 @@ public class Dama extends Thread{
                     while(!validTurn){
                         gui.clearAura();
                         this.pleaseWait = true;
-                        synchronized(this){ while(pleaseWait){ try { System.out.println("Hra: sleeping, waiting for human..."); wait();} catch (Exception e) { e.printStackTrace(); } }  }
+                        synchronized(this){ while(pleaseWait){ try { System.out.println("Hra: sleeping, waiting for human..."); wait();} catch (Exception e) {
+                            System.out.println("Hra: prerusen spanek pri tahu cloveka.");
+                            /*e.printStackTrace();*/ } } }
 
                         //vypinaci cast
                         checkGUIShutdown(gui);
