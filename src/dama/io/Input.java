@@ -647,7 +647,6 @@ public class Input
 
         if(Moves.isTurnValid(turn, Dama.getDesk()))
         {
-            //Dama.setInvalidTurn(false);
             Dama.setTurn(turn);
             Dama.wakeUpGameThread();
         }
@@ -655,7 +654,6 @@ public class Input
         {
             System.out.println("inputTurn: nevalidni tah, hra MUSI nastavit napovedu");
             Dama.setTurn(turn);
-            //Dama.setInvalidTurn(true);
             //try {Thread.sleep(200);} catch (InterruptedException e) {e.printStackTrace();}
             Dama.wakeUpGameThread();
         }

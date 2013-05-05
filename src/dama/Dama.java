@@ -184,10 +184,10 @@ public class Dama extends Thread{
                         validTurn = Moves.isTurnValid(this.turn, this.desk);
                         if(validTurn){
                             System.out.println("Hra: tah je validni");
-                            validTurn = true;
+                            //validTurn = true;
                         }else{
                             System.out.println("Hra: tah NENI validni");
-                            validTurn = false;
+                            //validTurn = false;
                             gui.setInfoText("Nevalidni tah!");
                             gui.clearAura();
                             gui.ZobrazNapovedu();
@@ -202,7 +202,7 @@ public class Dama extends Thread{
                 //kontrola
                 if(this.turn == null){
                     System.out.println("Ziskany tah je null");
-                    this.gui.createFail("Ziskany tah je null");
+                    this.gui.createFail("Ziskany tah je null");//TODO jo asi to byl pat, takze to nejak udelej
                     return;
                 }
 
@@ -528,21 +528,6 @@ public class Dama extends Thread{
                 return false;
             }
         }else{
-            return false;
-        }
-    }
-
-    public static boolean setInvalidTurn(boolean invalidturn) {
-        System.out.println("setInvalidTurn: davam hre vedet ze byl nevalidni tah...");
-
-        if(dama != null){
-            synchronized (dama){
-                dama.invalidTurn  = invalidturn;
-                dama.notify();
-            }
-            return true;
-        }else{
-            System.out.println("setInvalidTurn: hra neexistuje!");
             return false;
         }
     }

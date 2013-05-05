@@ -73,6 +73,8 @@ public class Player extends Thread{
             return player.turn;
         }
     }
+
+
     /**
      * Ziskani hodnoty vstupniho Turn z vlakna prehravace
      * @return
@@ -80,7 +82,9 @@ public class Player extends Thread{
     public static Turn getTurnInput() {
         return Player.turnInput;
     }
-    public static boolean interruptGameThread(){
+
+
+    public static boolean interruptPlayerThread(){
 
         if(player != null){
             if(player.isAlive()){
@@ -93,6 +97,8 @@ public class Player extends Thread{
             return false;
         }
     }
+
+
     /**
      * Kontrola jestli uz se hraje (zda bylo vse nastaveno a probiha smycka prehravace)
      */
@@ -110,6 +116,8 @@ public class Player extends Thread{
             return false;
         }
     }
+
+
     /**
      * Kontrola jestli bezi vlakno prehravace
      * @return vraci false pokud prehravac neexistuje
@@ -122,20 +130,6 @@ public class Player extends Thread{
                 return false;
             }
         }else{
-            return false;
-        }
-    }
-    public static boolean setInvalidTurn(boolean invalidturn) {
-        System.out.println("Player: setInvalidTurn: davam hre vedet ze byl nevalidni tah...");
-
-        if(player != null){
-            synchronized (player){
-                player.invalidTurn  = invalidturn;
-                player.notify();
-            }
-            return true;
-        }else{
-            System.out.println("Player: setInvalidTurn: hra neexistuje!");
             return false;
         }
     }
@@ -210,7 +204,7 @@ public class Player extends Thread{
      * Uspi vlakno prehravace
      * @return vraci false pokud prehravac neexistuje
      */
-    public static boolean sleepGameThread(){
+    public static boolean sleepPlayerThread(){
         System.out.println("Player: sleepGameThread: pokousim se uspat hru...");
 
         if(player != null){
@@ -230,7 +224,7 @@ public class Player extends Thread{
      * a muze se tim padem zacit hrat
      * @return vraci false pokud prehravac neexistuje
      */
-    public static boolean startGame(){
+    public static boolean startPlayer(){
         System.out.println("Player: startGame: povoluji beh smycky prehravace...");
 
         if(player != null){
@@ -258,7 +252,7 @@ public class Player extends Thread{
      * Zastavi vlakno prehravace
      * @return vraci false pokud prehravac neexistuje
      */
-    public static boolean stopGameThread(){
+    public static boolean stopThread(){
         System.out.println("Player: stopGameThread: zastavuji vlakno prehravace...");
 
         if(player != null){
@@ -275,7 +269,7 @@ public class Player extends Thread{
      * Probudi vlakno prehravace
     * @return vraci false pokud prehravac neexistuje
      */
-    public static boolean wakeUpGameThread(){
+    public static boolean wakeUpPlayerThread(){
         System.out.println("Player: wakeUpGameThread: probouzim hru...");
 
         if(player != null){
@@ -419,6 +413,8 @@ public class Player extends Thread{
             while(true){
                 gameSetAndRuning = true;
                 System.out.println("Player: tah cislo: " + tahCislo + " ,bezi s timto nastavenim: " + this.settings.getSettingsString());
+
+                synchronized(this){ while(pleaseWait){ try { System.out.println("Player: sleeping at beginning of playing..."); wait();} catch (Exception e) { e.printStackTrace(); } }  }
 
                 //vypinaci cast
                 checkGUIShutdown(gui);

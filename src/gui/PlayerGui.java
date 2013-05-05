@@ -36,7 +36,6 @@ import javax.swing.JTextPane;
 import javax.swing.KeyStroke;
 import javax.swing.SwingConstants;
 
-import dama.Dama;
 import dama.Player;
 import dama.io.Input;
 import dama.io.Turn;
@@ -115,9 +114,16 @@ public class PlayerGui extends JFrame
     protected ImageIcon imIcWhiteBox;
     protected ImageIcon imIcBlackBox;
 
+
+    protected ImageIcon imIcPlay;
+    protected ImageIcon imIcStop;
+    protected ImageIcon imIcBack;
+    protected ImageIcon imIcForward;
+
     protected ImageIcon imIcSeal;    //lachtan
 
     private Settings settings;
+    private JTextField txtWaittime;
 
 
     public PlayerGui() {
@@ -152,6 +158,15 @@ public class PlayerGui extends JFrame
         this.imIcWhiteBox = new ImageIcon(PlayerGui.class.getResource("/gui/images/whitebox.png"));
         this.imIcBlackBox = new ImageIcon(PlayerGui.class.getResource("/gui/images/blackbox.png"));
         this.imIcSeal = new ImageIcon(PlayerGui.class.getResource("/gui/images/seal.png"));
+
+        this.imIcPlay = new ImageIcon(Gui.class.getResource("/gui/images/play.png"));
+        this.imIcStop = new ImageIcon(Gui.class.getResource("/gui/images/stop.png"));
+        this.imIcBack = new ImageIcon(Gui.class.getResource("/gui/images/back.png"));
+        this.imIcForward = new ImageIcon(Gui.class.getResource("/gui/images/forward.png"));
+
+                JButton btnOkspeed = new JButton("ok");
+                btnOkspeed.setBounds(670, 67, 65, 20);
+                desktop.add(btnOkspeed);
 
         //texty s informacemi
         lblInfo = new JLabel("Not playing.");
@@ -215,7 +230,7 @@ public class PlayerGui extends JFrame
         //notace
         this.TAVypisNotace = new TextArea();
         TAVypisNotace.setEditable(false);
-        this.TAVypisNotace.setBounds(535, 80, 200, 350);
+        this.TAVypisNotace.setBounds(535, 124, 200, 350);
         desktop.add(this.TAVypisNotace);
 
         this.BSubmitCommand = new Button("OK");
@@ -248,13 +263,55 @@ public class PlayerGui extends JFrame
                 return;
             }
         });
-        this.BSubmitCommand.setBounds(670, 440, 65, 20);
+        this.BSubmitCommand.setBounds(671, 480, 65, 20);
         desktop.add(BSubmitCommand);
 
         this.TFPrikaz = new JTextField();
-        this.TFPrikaz.setBounds(535, 440, 130, 20);
+        this.TFPrikaz.setBounds(535, 480, 130, 20);
         desktop.add(this.TFPrikaz);
         this.TFPrikaz.setColumns(10);
+
+        JButton btnPlay = new JButton("");
+        btnPlay.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+                Player.interruptPlayerThread();
+                Player.wakeUpPlayerThread();
+            }
+        });
+        btnPlay.setBounds(535, 35, 30, 20);
+        btnPlay.setIcon(this.imIcPlay);
+        desktop.add(btnPlay);
+
+        JButton btnStop = new JButton("");
+        btnStop.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                Player.sleepPlayerThread();
+            }
+        });
+        btnStop.setBounds(580, 35, 30, 20);
+        btnStop.setIcon(this.imIcStop);
+        desktop.add(btnStop);
+
+        JButton btnStepback = new JButton("");
+        btnStepback.setBounds(665, 36, 30, 20);
+        btnStepback.setIcon(this.imIcBack);
+        desktop.add(btnStepback);
+
+        JButton btnStepforward = new JButton("");
+        btnStepforward.setBounds(705, 35, 30, 20);
+        btnStepforward.setIcon(this.imIcForward);
+        desktop.add(btnStepforward);
+
+        JLabel lblWaitingTime = new JLabel("Wait time:");
+        lblWaitingTime.setBounds(515, 67, 80, 20);
+        desktop.add(lblWaitingTime);
+
+        txtWaittime = new JTextField();
+        txtWaittime.setText("waitTime");
+        txtWaittime.setBounds(580, 67, 80, 20);
+        desktop.setLayer(txtWaittime, 0);
+        desktop.add(txtWaittime);
+        txtWaittime.setColumns(10);
 
         pole_figurek=new JLabel[8][8];
         pole_napovedy=new JLabel[8][8];
@@ -306,12 +363,12 @@ public class PlayerGui extends JFrame
             LoadGameButton();
         }else if("victoryOK".equals(e.getActionCommand())){
             this.setVisible(false);
-            Player.wakeUpGameThread();
+            Player.wakeUpPlayerThread();
             Player.startingPlayerThread();
             this.dispose();
         }else if("failOK".equals(e.getActionCommand())){
             this.setVisible(false);
-            Player.wakeUpGameThread();
+            Player.wakeUpPlayerThread();
             Player.startingPlayerThread();
             this.dispose();
         }
@@ -428,8 +485,8 @@ public class PlayerGui extends JFrame
             System.out.println("PlayerGui: Cesta: \"" + cesta + "\"");
             inFrLoadGame.dispose();
 
-            Player.stopGameThread();
-            Player.interruptGameThread();
+            Player.stopThread();
+            Player.interruptPlayerThread();
 
             this.dispose();
 
@@ -470,8 +527,8 @@ public class PlayerGui extends JFrame
             Player.setSettings(this.settings);
 
             try {Thread.sleep(50);} catch (InterruptedException e) {e.printStackTrace();}
-            Player.startGame();
-            Player.wakeUpGameThread();
+            Player.startPlayer();
+            Player.wakeUpPlayerThread();
 
         }else{
             System.out.println("PlayerGui: Tlacitko load!");
@@ -512,8 +569,8 @@ public class PlayerGui extends JFrame
             Player.setSettings(this.settings);
 
             try {Thread.sleep(50);} catch (InterruptedException e) {e.printStackTrace();}
-            Player.startGame();
-            Player.wakeUpGameThread();
+            Player.startPlayer();
+            Player.wakeUpPlayerThread();
             this.BSubmitCommand.setEnabled(true);
         }
     }
