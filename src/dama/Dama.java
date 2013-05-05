@@ -237,6 +237,9 @@ public class Dama extends Thread{
                     gui.setInfoText("!!! Victory !!!");
                     gui.createVictory();
                     gui.setMenu(false);
+                    gui.setHelpButton(false);
+                    gui.setSubmitButton(false);
+                    gui.setMouse(false);
                     this.pleaseWait = true;
                     synchronized(this){ while(pleaseWait){ try { System.out.println("Hra: sleeping..."); wait();} catch (Exception e) { e.printStackTrace(); } }  }
                     return;
