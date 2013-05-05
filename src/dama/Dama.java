@@ -44,8 +44,11 @@ public class Dama extends Thread{
     protected Turn wturn;
     protected Turn bturn;
     protected int aiStochasticity = 5; //nahodnost AI tahu
+
+    protected boolean startGame = false;    //po vlozeni settings, a pripadne loadedTurns tohle povolit
     protected boolean allDone = false; //ukonceni behu
     protected boolean pleaseWait = false; //pozastaveni behu
+
 
     protected boolean gameSetAndRuning = false; //hra byla nastavena a uz se provadi tahy, atd.
     protected Gui gui;
@@ -91,7 +94,8 @@ public class Dama extends Thread{
             checkGUIShutdown(gui);
             if(allDone){System.out.println("Hra: Dama terminated, allDone!!");return;}
 
-            if(this.settings == null){
+
+            if(this.startGame == false){
                 continue;
             }
 
@@ -141,11 +145,11 @@ public class Dama extends Thread{
                         try {Thread.sleep(this.settings.aiWait);} catch (InterruptedException e) {e.printStackTrace();}
 
                         this.turn = AI.AIMove(new Desk(this.desk), this.playerColor, this.aiStochasticity);
-                        if(this.turn == null){
+                        /*if(this.turn == null){
                             System.out.println("Hra: AIMove() vratilo null");
                             gui.createFail("AI Move failed. It's probably stalemate!");
                             //return;
-                        }
+                        }*/
 
                 }else{//Human
 
@@ -153,10 +157,11 @@ public class Dama extends Thread{
 
                     //cekani na tah od cloveka
                     this.pleaseWait = true;
-                    try {Thread.sleep(300);} catch (InterruptedException e) {e.printStackTrace();}
+                    //try {Thread.sleep(300);} catch (InterruptedException e) {e.printStackTrace();}
                     synchronized(this){ while(pleaseWait){ try { System.out.println("Hra: sleeping..."); wait();} catch (Exception e) { e.printStackTrace(); } }  }
 
                     while(this.invalidTurn){
+                        gui.clearAura();
                         synchronized(this){ while(pleaseWait){ try { System.out.println("Hra: sleeping..."); wait();} catch (Exception e) { e.printStackTrace(); } }  }
                         gui.setInfoText("Nevalidni tah!");
                         gui.clearAura();
@@ -375,6 +380,7 @@ public class Dama extends Thread{
 
     /**
      * Uspi vlakno hry
+     * @return vraci false pokud hra neexistuje
      */
     public static boolean sleepGameThread(){
         System.out.println("sleepGameThread: pokousim se uspat hru...");
@@ -394,6 +400,7 @@ public class Dama extends Thread{
 
     /**
      * Probudi vlakno hry
+    * @return vraci false pokud hra neexistuje
      */
     public static boolean wakeUpGameThread(){
         System.out.println("wakeUpGameThread: probouzim hru...");
@@ -414,7 +421,7 @@ public class Dama extends Thread{
 
     /**
      * Zastavi vlakno hry
-     * @return
+     * @return vraci false pokud hra neexistuje
      */
     public static boolean stopGameThread(){
         System.out.println("stopGameThread: zastavuji vlakno hry...");
@@ -426,6 +433,25 @@ public class Dama extends Thread{
             return true;
         }else{
             System.out.println("stopGameThread: hra neexistuje!");
+            return false;
+        }
+    }
+
+    /**
+     * Do vlakna hry zapise ze bylo ulozeno settings a pripadne loadedTurns
+     * a muze se tim padem zacit hrat
+     * @return vraci false pokud hra neexistuje
+     */
+    public static boolean startGame(){
+        System.out.println("startGame: povoluji beh smycky vlastni hry...");
+
+        if(dama != null){
+            if(dama.isAlive()){
+                dama.startGame = true;
+            }
+            return true;
+        }else{
+            System.out.println("startGame: hra neexistuje!");
             return false;
         }
     }
@@ -448,10 +474,8 @@ public class Dama extends Thread{
         }
     }
 
-
-
     /**
-     * Kontrola jestli uz se hraje (zda bylo vse nastaveno)
+     * Kontrola jestli uz se hraje (zda bylo vse nastaveno a probiha smycka hry)
      * @return
      */
     public static boolean isGameSetAndRunning(){
@@ -468,8 +492,6 @@ public class Dama extends Thread{
             return false;
         }
     }
-
-
 
     public static boolean setInvalidTurn(boolean invalidturn) {
         System.out.println("setInvalidTurn: davam hre vedet ze byl nevalidni tah...");
