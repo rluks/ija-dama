@@ -3,6 +3,7 @@ package gui;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -14,6 +15,7 @@ import javax.swing.JTextField;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import dama.state.Settings;
+import java.awt.Color;
 
 /**
  * Trida vytvarejici vnitrni ramec s nastavenim nove P2P hry
@@ -34,6 +36,7 @@ public class NewP2PGameSettings extends JInternalFrame {
     private JTextField txtRemotePort;
     private JTextField txtCesta;
     private JButton    btnCesta;
+    public JLabel        padding;
 
     public NewP2PGameSettings() {
         super("New P2P Game Settings",
@@ -88,7 +91,7 @@ public class NewP2PGameSettings extends JInternalFrame {
         getContentPane().add(txtRemotePort);
         txtRemotePort.setColumns(10);
 
-        JLabel lblPopisekCesta=new JLabel("Path to saved game:");
+        JLabel lblPopisekCesta=new JLabel("Path to saved game (optional):");
         getContentPane().add(lblPopisekCesta);
 
         this.txtCesta=new JTextField();
@@ -100,8 +103,9 @@ public class NewP2PGameSettings extends JInternalFrame {
         getContentPane().add(btnCesta);
         btnCesta.addActionListener(new OpenL());
 
-        JLabel padding=new JLabel("");
-        getContentPane().add(padding);
+        this.padding=new JLabel("");
+        this.padding.setForeground(Color.RED);
+        getContentPane().add(this.padding);
 
     }
 
@@ -136,14 +140,18 @@ public class NewP2PGameSettings extends JInternalFrame {
         if (typ==null)
         {
             System.out.println("Nebyl vybran typ sitoveho blabolu");
+            padding.setText("Choose peer type!");
             return null;
         }
 
         JRadioButton local = Gui.getSelection(this.local);
 
 
-        if (this.txtRemotePort.getText().trim().equals("")) return null;
-
+        if (this.txtRemotePort.getText().trim().equals(""))
+        {
+            padding.setText("Fill port number!");
+            return null;
+        }
         String remotePortStr = this.txtRemotePort.getText();
 
         //String whiteStr = "Human";
@@ -157,6 +165,7 @@ public class NewP2PGameSettings extends JInternalFrame {
         }
         catch (NumberFormatException e)
         {
+            padding.setText("Invalid port number");
             return null;
         }
 
@@ -169,17 +178,40 @@ public class NewP2PGameSettings extends JInternalFrame {
         }
         else if (typ.getText().equals("Connect to other PC (fill all)"))
         {
-            if(local == null || this.txtRemoteip.getText().trim().equals("")) return null;
-
+            if(local == null || this.txtRemoteip.getText().trim().equals(""))
+            {
+                padding.setText("Choose your color and/or fill remote IP!");
+                return null;
+            }
             String remoteIP = this.txtRemoteip.getText();
             String localStr = local.getText();
-            String cesta;
-            if (txtCesta.equals(""))cesta=null;
-            else cesta=txtCesta.getText();
+            String cesta=txtCesta.getText();
+            if (cesta.equals(""))cesta=null;
+            else
+            {
+                if (!((cesta.endsWith(".txt") || cesta.endsWith(".xml"))))
+                {
+                    System.out.println("Soubor neni .txt nebo .xml");
+                    padding.setText("Choose \".txt\", \".xml\" or no file at all!");
+                    return null;
+                }
+                File f = new File(cesta);
+                if(!f.exists())
+                {
+                    System.out.println("Soubor neexistuje");
+                    padding.setText("Unable to open file(probably doesnt exist)!");
+                    return null;
+                }
+
+            }
 
             sett= new Settings("Human", "Human", localStr, remoteIP, remotePort, 0, cesta);
         }
-        else return null;
+        else
+        {
+            padding.setText("Unexpected error.");
+            return null;
+        }
 
         return sett;
     }

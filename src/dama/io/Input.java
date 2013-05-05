@@ -205,7 +205,7 @@ public class Input
         String string="";
         FileInputStream stream;
 
-        if (obsahSouboru!=null)string=obsahSouboru;
+        if (obsahSouboru!=null) string=obsahSouboru;
         else
         {
             try

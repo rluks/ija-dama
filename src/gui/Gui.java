@@ -17,15 +17,9 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.PrintStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Enumeration;
-import java.util.Vector;
 
 import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
@@ -46,6 +40,7 @@ import javax.swing.SwingConstants;
 import dama.Dama;
 import dama.Player;
 import dama.io.Input;
+import dama.io.NetworkSetup;
 import dama.io.Output;
 import dama.io.Turn;
 import dama.operations.AI;
@@ -79,8 +74,8 @@ public class Gui extends JFrame
 
     //nastaveni hry
     protected NewGameSettings inFrNewGameSett;
-    protected NewP2PGameSettings inFrNewP2PGameSett;
-    protected Settings settings;
+    public NewP2PGameSettings inFrNewP2PGameSett;
+    public Settings settings;
 
     //menu
     protected JMenu menu;
@@ -97,7 +92,7 @@ public class Gui extends JFrame
     protected Turn turn;
 
     //texty s informacemi
-    protected JLabel lblInfo;
+    public JLabel lblInfo;
     protected JLabel lblPlayercolor;
 
     //napoveda
@@ -138,9 +133,9 @@ public class Gui extends JFrame
     protected ImageIcon imIcSeal;    //lachtan
 
     //nejak sitove veci
-    ServerSocket server;
-    Socket connectionToTheClient;
-    Socket connectionToTheServer;
+    public ServerSocket server;
+    public Socket connectionToTheClient;
+    public Socket connectionToTheServer;
 
 
     public Gui() {
@@ -440,7 +435,7 @@ public class Gui extends JFrame
         }else if ("startgame".equals(e.getActionCommand())){        //tlacitka ve vnitrnich ramcich
             startgame();
         }else if ("startP2Pgame".equals(e.getActionCommand())){
-            startP2Pgame();
+            NetworkSetup.startP2Pgame(this);
         }
         else if ("loadgamebutton".equals(e.getActionCommand()))
         {
@@ -811,138 +806,7 @@ public class Gui extends JFrame
     /**
      * prozatim neupdatovana funkce pro nastaveni a spousteni P2P hry
      */
-    protected void startP2Pgame(){
 
-        this.settings = this.inFrNewP2PGameSett.getSettings();
-
-        if(this.settings != null){
-            System.out.println("GUI:Starting the game...");
-            this.lblInfo.setText(this.settings.getSettingsString());
-
-            //Dama.startingGameThread(this.settings);
-
-            this.inFrNewP2PGameSett.setVisible(false);
-            this.inFrNewP2PGameSett.dispose();
-            //try {Thread.sleep(1000);} catch (InterruptedException e) {e.printStackTrace();}
-
-        }
-        else
-        {
-            System.out.println("Configure settings!");
-            this.lblInfo.setText("Configure settings!");
-            return;
-        }
-
-        if (!((this.settings.remotePort>0) && this.settings.remotePort<=65535))
-        {
-            System.out.println("Port out of range (1 - 65535)");
-            this.lblInfo.setText("Port out of range (1 - 65535)");
-            return;
-        }
-
-        //server
-        if ((this.settings.local==null) && (this.settings.remoteIP==null))
-        {
-
-            this.lblInfo.setText("Waiting for connection...");
-            try
-            {
-                Vector<Turn> lt=new Vector<Turn>();
-                Dama.setLoadedTurns(lt);
-
-                System.out.println("Server");
-                this.lblInfo.setText("Waiting for connection...");
-
-                this.server = new ServerSocket(this.settings.remotePort);
-                this.server.setSoTimeout(30000);
-                this.connectionToTheClient = this.server.accept();
-
-                this.lblInfo.setText("Server - Connection established!");
-                System.out.println("Server po accept - connection established!");
-
-                //server ceka, ze klient mu posle svoji barvu
-                InputStream in = connectionToTheClient.getInputStream();
-                BufferedReader br = new BufferedReader(new InputStreamReader(in));
-                String line = br.readLine();
-                if (line.equals("White")) this.settings.local="Black";
-                else this.settings.local="White";
-                System.out.println("Server - Barva klienta: \"" + line + "\"; server: \"" + this.settings.local + "\"");
-
-                //soubor
-                line = br.readLine();
-                if (line.equals("no file"))
-                {
-                    System.out.println("Server - nebude se nic nacitat");
-                }
-                else
-                {
-                    System.out.println("Server - soubor: \"" + line + "\"");
-
-
-                }
-
-
-
-
-
-
-            }
-            catch ( java.io.InterruptedIOException e )
-            {
-                this.lblInfo.setText("Connection timeout (30sec)!");
-                System.out.println("Server - Timed Out (30 sec)!");
-            }
-            catch (Exception e)
-            {
-                System.out.println("Server - Sitova chyba");
-            }
-
-        }
-        //client
-        else
-        {
-            try
-            {
-                System.out.println("Klient");
-
-                this.lblInfo.setText("Klient - Connecting...");
-
-                this.connectionToTheServer = new Socket(this.settings.remoteIP, this.settings.remotePort);
-
-                this.lblInfo.setText("Klient - Connection established!");
-                System.out.println("Klient se pripojil - connection established!");
-
-                //klient posle svoji barvu
-                OutputStream out = connectionToTheServer.getOutputStream();
-                PrintStream ps = new PrintStream(out, true); // Second param: auto-flush on write = true
-                ps.println(this.settings.local);
-
-
-                //pokud se ma navist pozice ze souboru, posle se obsah souboru
-                String cesta=this.settings.ClientCestaKSouboru;
-                if ((cesta==null)||(cesta.equals("")))
-                {
-                    System.out.println("Klient - Nebyl zadan soubor - NP");
-                    ps.println("no file");
-                }
-                else
-                {
-                    System.out.println("Klient - Nacist soubor: \"" + cesta + "\"");
-                    ps.println(cesta);
-
-
-
-                }
-
-
-            }
-            catch (Exception e)
-            {
-                System.out.println("Klient - Sitova chyba");
-            }
-        }
-
-    }
 
 
     /**
