@@ -18,6 +18,8 @@ public class Settings {
 
     public int aiWait;
 
+    public String ClientCestaKSouboru=null;
+
     protected String xml;
 
     /**
@@ -29,7 +31,7 @@ public class Settings {
      * @param remotePort int s cislem portu vzdaleneho klienta, nesitova hra? 0
      * @param aiWait pocet milisekund jak dlouho bude AI cekat pred svym tahem, nesitova hra? 0
      */
-    public Settings(String white, String black, String local, String remoteIP, int remotePort, int aiWait){
+    public Settings(String white, String black, String local, String remoteIP, int remotePort, int aiWait, String cesta){
 
         this.white = white;
         this.black = black;
@@ -39,6 +41,8 @@ public class Settings {
         this.remotePort = remotePort;
 
         this.aiWait = aiWait;
+
+        this.ClientCestaKSouboru=cesta;
 
     }
 

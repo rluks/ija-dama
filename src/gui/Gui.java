@@ -25,6 +25,7 @@ import java.io.PrintStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Enumeration;
+import java.util.Vector;
 
 import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
@@ -609,12 +610,12 @@ public class Gui extends JFrame
             if (cesta.endsWith(".xml"))
             {
                 System.out.println("XML MOTAFAKA!!");
-                if (!Input.XmlToVector(cesta, true)) return;
+                if (!Input.XmlToVector(cesta, true, null)) return;
             }
             else if (cesta.endsWith(".txt"))
             {
                 System.out.println("NOTACE BIATCH!!");
-                boolean test = Input.NotToVector(cesta, true);
+                boolean test = Input.NotToVector(cesta, true, null);
                 System.out.println("NotToVector vraci " + test);
                 if (!test) return;
             }
@@ -662,12 +663,12 @@ public class Gui extends JFrame
             if (cesta.endsWith(".xml"))
             {
                 System.out.println("XML MOTAFAKA!!");
-                if (!Input.XmlToVector(cesta, true)) return;
+                if (!Input.XmlToVector(cesta, true, null)) return;
             }
             else if (cesta.endsWith(".txt"))
             {
                 System.out.println("NOTACE BIATCH!!");
-                boolean test = Input.NotToVector(cesta, true);
+                boolean test = Input.NotToVector(cesta, true, null);
                 System.out.println("NotToVector vraci " + test);
                 if (!test) return;
             }
@@ -846,6 +847,9 @@ public class Gui extends JFrame
             this.lblInfo.setText("Waiting for connection...");
             try
             {
+                Vector<Turn> lt=new Vector<Turn>();
+                Dama.setLoadedTurns(lt);
+
                 System.out.println("Server");
                 this.lblInfo.setText("Waiting for connection...");
 
@@ -853,17 +857,29 @@ public class Gui extends JFrame
                 this.server.setSoTimeout(30000);
                 this.connectionToTheClient = this.server.accept();
 
-                this.lblInfo.setText("Connection established!");
+                this.lblInfo.setText("Server - Connection established!");
                 System.out.println("Server po accept - connection established!");
 
                 //server ceka, ze klient mu posle svoji barvu
                 InputStream in = connectionToTheClient.getInputStream();
                 BufferedReader br = new BufferedReader(new InputStreamReader(in));
                 String line = br.readLine();
-
                 if (line.equals("White")) this.settings.local="Black";
                 else this.settings.local="White";
-                System.out.println("Barva klienta: \"" + line + "\"; server: \"" + this.settings.local + "\"");
+                System.out.println("Server - Barva klienta: \"" + line + "\"; server: \"" + this.settings.local + "\"");
+
+                //soubor
+                line = br.readLine();
+                if (line.equals("no file"))
+                {
+                    System.out.println("Server - nebude se nic nacitat");
+                }
+                else
+                {
+                    System.out.println("Server - soubor: \"" + line + "\"");
+
+
+                }
 
 
 
@@ -874,11 +890,11 @@ public class Gui extends JFrame
             catch ( java.io.InterruptedIOException e )
             {
                 this.lblInfo.setText("Connection timeout (30sec)!");
-                System.out.println("Timed Out (30 sec)!");
+                System.out.println("Server - Timed Out (30 sec)!");
             }
             catch (Exception e)
             {
-                System.out.println("Sitova chyba");
+                System.out.println("Server - Sitova chyba");
             }
 
         }
@@ -887,24 +903,42 @@ public class Gui extends JFrame
         {
             try
             {
-                System.out.println("Client");
-                this.lblInfo.setText("Connecting...");
+                System.out.println("Klient");
+
+                this.lblInfo.setText("Klient - Connecting...");
 
                 this.connectionToTheServer = new Socket(this.settings.remoteIP, this.settings.remotePort);
 
-                this.lblInfo.setText("Connection established!");
+                this.lblInfo.setText("Klient - Connection established!");
                 System.out.println("Klient se pripojil - connection established!");
 
                 //klient posle svoji barvu
                 OutputStream out = connectionToTheServer.getOutputStream();
                 PrintStream ps = new PrintStream(out, true); // Second param: auto-flush on write = true
-                //String odesilam="a3-b4";
                 ps.println(this.settings.local);
-                //System.out.println("Client: posilam: \"" + odesilam + "\"");
+
+
+                //pokud se ma navist pozice ze souboru, posle se obsah souboru
+                String cesta=this.settings.ClientCestaKSouboru;
+                if ((cesta==null)||(cesta.equals("")))
+                {
+                    System.out.println("Klient - Nebyl zadan soubor - NP");
+                    ps.println("no file");
+                }
+                else
+                {
+                    System.out.println("Klient - Nacist soubor: \"" + cesta + "\"");
+                    ps.println(cesta);
+
+
+
+                }
+
+
             }
             catch (Exception e)
             {
-                System.out.println("Sitova chyba");
+                System.out.println("Klient - Sitova chyba");
             }
         }
 
