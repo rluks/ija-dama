@@ -234,8 +234,6 @@ public class Input
                 if (pocitadlo_tahu!=Integer.parseInt(numero))return false;
                 else pocitadlo_tahu++;
 
-
-
                 radek=radek.substring(tecka);
                 //System.out.println(radek);
 
@@ -245,7 +243,7 @@ public class Input
 
                 String t1=radek.substring(0, mezera-1);
                 String t2=radek.substring(mezera);
-                if ( (t1.length()!=5)||(t2.length()!=5) ) return false;
+                //if ( (t1.length()!=5)||(t2.length()!=5) ) return false;
 
                 char natahu='W';
 
@@ -254,7 +252,7 @@ public class Input
                     String tah;
                     if (i==0) tah=t1;
                     else tah=t2;
-
+                    /*
                     char c=tah.charAt(2);
                     if (!((c=='-') ||(c=='x'))) return false;
                     String p1s=tah.substring(0,2);
@@ -265,6 +263,8 @@ public class Input
                     if ( (p1==null)||(p2==null) ) return false;
 
                     Turn turn=new Turn(natahu, p1, p2);
+                    */
+                    Turn turn=Turn.NotStringToTurn(tah, natahu);
                     TurnVector.add(turn);
 
                     natahu='B';
@@ -285,8 +285,8 @@ public class Input
                 if (pocitadlo_tahu!=Integer.parseInt(numero))return false;
 
                 radek=radek.substring(tecka);
+                /*
                 if (radek.length()!=5) return false;
-
                 char c=radek.charAt(2);
                 if (!((c=='-') ||(c=='x'))) return false;
                 String p1s=radek.substring(0,2);
@@ -297,6 +297,8 @@ public class Input
                 if ( (p1==null)||(p2==null) ) return false;
 
                 Turn turn=new Turn('W', p1, p2);
+                */
+                Turn turn=Turn.NotStringToTurn(radek, 'W');
                 TurnVector.add(turn);
 
             }

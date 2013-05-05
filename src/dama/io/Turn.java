@@ -70,4 +70,23 @@ public class Turn {
 
         return s;
     }
+
+    public static Turn NotStringToTurn(String string, char natahu)
+    {
+        if (string.length()!=5) return null;
+        char c=string.charAt(2);
+        if (!((c=='-') ||(c=='x'))) return null;
+        String p1s=string.substring(0,2);
+        String p2s=string.substring(3,5);
+        //System.out.println(p1s + "->" + p2s);
+        Position p1=Position.positionStrToPositionLowerCase(p1s);
+        Position p2=Position.positionStrToPositionLowerCase(p2s);
+        if ( (p1==null)||(p2==null) ) return null;
+
+        Turn turn=new Turn(natahu, p1, p2);
+        return turn;
+    }
+
+
+
 }
