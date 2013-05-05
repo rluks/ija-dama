@@ -143,6 +143,7 @@ public class Gui extends JFrame
         //Make dragging a little faster but perhaps uglier.
         desktop.setDragMode(JDesktopPane.OUTLINE_DRAG_MODE);
 
+        this.setMouse(false);
         addMouseListener(this);
 
         //obrazky
@@ -457,7 +458,7 @@ public class Gui extends JFrame
     protected void createNewGameSettingsFrame() {
 
         this.inFrNewGameSett = new NewGameSettings();
-        desktop.setLayer(inFrNewGameSett, 1);
+        desktop.setLayer(inFrNewGameSett, 5);
         inFrNewGameSett.setLocation(110, 50);
         inFrNewGameSett.setVisible(true);
 
@@ -598,7 +599,7 @@ public class Gui extends JFrame
     protected void createNewP2PGameSettingsFrame() {
 
         this.inFrNewP2PGameSett = new NewP2PGameSettings();
-        desktop.setLayer(inFrNewP2PGameSett, 1);
+        desktop.setLayer(inFrNewP2PGameSett, 5);
         inFrNewP2PGameSett.setLocation(110, 50);
         inFrNewP2PGameSett.setVisible(true);
 
@@ -674,9 +675,11 @@ public class Gui extends JFrame
 
             if(Dama.isGameSetAndRunning()){
                 System.out.println("hra BEZELA spoustim...");
+                Dama.interruptGameThread();
                 Dama.stopGameThread();
+                this.dispose();
 
-                try {Thread.sleep(50);} catch (InterruptedException e) {e.printStackTrace();}
+                try {Thread.sleep(300);} catch (InterruptedException e) {e.printStackTrace();}
 
                 Dama.startingGameThread();
 
@@ -690,8 +693,6 @@ public class Gui extends JFrame
                 Dama.startGame();
 
                 Dama.wakeUpGameThread();
-
-                this.dispose();
             }else{
                 System.out.println("gui: ukladanim nastaveni do NOVE...");
                 Dama.setSettings(this.settings);
@@ -743,13 +744,18 @@ public class Gui extends JFrame
      */
     protected void quit() {
 
+        System.out.println("Quit v menu, ukoncuji...");
+        System.exit(0);
+
+
+        /*
         this.setVisible(false);
 
         Dama.wakeUpGameThread();//probudi aby vedelo ze je zastaveno
         //Dama.stopGameThread();
         //System.exit(0);
         pullThePlug();
-        this.dispose();
+        this.dispose();*/
     }
 
 
@@ -770,6 +776,10 @@ public class Gui extends JFrame
         frame.setVisible(true);
     }
 
+    /**
+     * Povoluje a zakazuje kliknuti mysi
+     * @param value boolean
+     */
     public void setMouse(boolean value){
         this.mouseEnabled = value;
     }
