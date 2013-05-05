@@ -73,6 +73,8 @@ public class Player extends Thread{
             return player.turn;
         }
     }
+
+
     /**
      * Ziskani hodnoty vstupniho Turn z vlakna prehravace
      * @return
@@ -80,7 +82,9 @@ public class Player extends Thread{
     public static Turn getTurnInput() {
         return Player.turnInput;
     }
-    public static boolean interruptGameThread(){
+
+
+    public static boolean interruptPlayerThread(){
 
         if(player != null){
             if(player.isAlive()){
@@ -93,6 +97,8 @@ public class Player extends Thread{
             return false;
         }
     }
+
+
     /**
      * Kontrola jestli uz se hraje (zda bylo vse nastaveno a probiha smycka prehravace)
      */
@@ -110,6 +116,8 @@ public class Player extends Thread{
             return false;
         }
     }
+
+
     /**
      * Kontrola jestli bezi vlakno prehravace
      * @return vraci false pokud prehravac neexistuje
@@ -122,20 +130,6 @@ public class Player extends Thread{
                 return false;
             }
         }else{
-            return false;
-        }
-    }
-    public static boolean setInvalidTurn(boolean invalidturn) {
-        System.out.println("Player: setInvalidTurn: davam hre vedet ze byl nevalidni tah...");
-
-        if(player != null){
-            synchronized (player){
-                player.invalidTurn  = invalidturn;
-                player.notify();
-            }
-            return true;
-        }else{
-            System.out.println("Player: setInvalidTurn: hra neexistuje!");
             return false;
         }
     }

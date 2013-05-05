@@ -274,6 +274,7 @@ public class PlayerGui extends JFrame
         JButton btnPlay = new JButton("");
         btnPlay.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
+                Player.interruptPlayerThread();
                 Player.wakeUpPlayerThread();
             }
         });
@@ -485,7 +486,7 @@ public class PlayerGui extends JFrame
             inFrLoadGame.dispose();
 
             Player.stopThread();
-            Player.interruptGameThread();
+            Player.interruptPlayerThread();
 
             this.dispose();
 

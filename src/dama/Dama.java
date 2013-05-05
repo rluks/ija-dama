@@ -532,21 +532,6 @@ public class Dama extends Thread{
         }
     }
 
-    public static boolean setInvalidTurn(boolean invalidturn) {
-        System.out.println("setInvalidTurn: davam hre vedet ze byl nevalidni tah...");
-
-        if(dama != null){
-            synchronized (dama){
-                dama.invalidTurn  = invalidturn;
-                dama.notify();
-            }
-            return true;
-        }else{
-            System.out.println("setInvalidTurn: hra neexistuje!");
-            return false;
-        }
-    }
-
     /**
      * Uklada nastaveni do vlakna hry
      * @param settings instance tridy Settings s nastavenim hry
