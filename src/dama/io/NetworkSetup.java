@@ -2,7 +2,7 @@ package dama.io;
 
 import gui.Gui;
 
-import java.awt.Color;
+//import java.awt.Color;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -96,26 +96,41 @@ public class NetworkSetup
 
                     String obsahSouboru="";
 
-                    System.out.println("Server - pred nactenim souboru");
+                    //System.out.println("Server - pred nactenim souboru");
                     while((line=br.readLine()) != null)
                     {
-                        //line=br.readLine();
-                        //System.out.println("Server - line: \"" + line + "\"");
                         obsahSouboru+=line;
                         if (obsahSouboru.endsWith("KONEC"))
                         {
-                            obsahSouboru=obsahSouboru.replace("KONEC", "\n");
+                            obsahSouboru=obsahSouboru.replace("KONEC", "");
                             break;
                         }
                         obsahSouboru+="\n";
                     }
+                    /*
                     System.out.println("\nServer - PO! nactenim souboru");
-
                     System.out.println("Server ================");
                     System.out.println(obsahSouboru);
                     System.out.println("Server ================");
+                    */
+
+                    boolean pom=false;
+                    if (typ=='t') pom=Input.NotToVector(null, true, obsahSouboru);
+                    else pom=Input.XmlToVector(null, true, obsahSouboru);
+                    System.out.println("Server - vysledek nacteni hry ze souboru: " + pom);
+
+                    if (pom==false)
+                    {
+                        gui.lblInfo.setText("Server - error on loading saved game!");
+                        return;
+                    }
 
                 }
+
+                Dama.startGame();
+                Dama.wakeUpGameThread();
+                //gui.menuItemSave.setEnabled(true);
+                //gui.BSubmitCommand.setEnabled(true);
 
 
 
@@ -180,7 +195,28 @@ public class NetworkSetup
                     System.out.println(obsahSouboru);
                     System.out.println("Klient ================");
                     */
+
+                    char typ;
+                    if (cesta.endsWith(".txt")) typ='t';
+                    else typ='x';
+
+                    obsahSouboru=obsahSouboru.replace("KONEC", "\n");
+                    boolean pom=false;
+                    if (typ=='t') pom=Input.NotToVector(null, true, obsahSouboru);
+                    else pom=Input.XmlToVector(null, true, obsahSouboru);
+                    System.out.println("Klient - vysledek nacteni hry ze souboru: " + pom);
+
+                    if (pom==false)
+                    {
+                        gui.lblInfo.setText("Klient - error on loading saved game!");
+                        return;
+                    }
                 }
+
+                Dama.startGame();
+                Dama.wakeUpGameThread();
+                //gui.menuItemSave.setEnabled(true);
+                //gui.BSubmitCommand.setEnabled(true);
 
 
             }
