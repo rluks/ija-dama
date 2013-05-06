@@ -58,10 +58,10 @@ public class Dama extends Thread{
      * Konstruktor vlakna hry
      * @param name
      */
-    Dama(String name){
+    Dama(String name, int x, int y){
         super(name);
 
-        gui = new Gui();
+        gui = new Gui(x,y);
         gui.setVisible(true);
         gui.addWindowListener( new WindowAdapter() {
             @Override
@@ -384,7 +384,7 @@ public class Dama extends Thread{
         // TODO javadoc
         // TODO k try-catch blokum dat do catch osetreni,zotaveni z chyb
 
-        Dama.startingGameThread();
+        Dama.startingGameThread(50,50);
 
     }
 
@@ -392,10 +392,10 @@ public class Dama extends Thread{
     /**
      * Spusti nove vlakno hry
      */
-    public static void startingGameThread(){
+    public static void startingGameThread(int x,  int y){
 
         System.out.println("startingGameThread...");
-        dama = new Dama("DamaVlakno");
+        dama = new Dama("DamaVlakno", x, y);
         dama.start();
     }
 
