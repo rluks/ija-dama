@@ -158,8 +158,6 @@ public class NewP2PGameSettings extends JInternalFrame {
         }
         String remotePortStr = this.txtRemotePort.getText();
 
-        //TODO check hodnoty filter v Input
-
         try
         {
             Double.parseDouble(remotePortStr);
