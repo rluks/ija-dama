@@ -240,6 +240,22 @@ public class Player extends Thread{
         }
     }
 
+    public static boolean setSkipHuman(boolean value) {
+        System.out.println("Player: setSkipHuman: " + value + " ...");
+
+        if(player != null){
+            synchronized (player){
+                player.skipHuman = value;
+                player.notify();
+            }
+            return true;
+        }else{
+            System.out.println("Player: setSkipHuman: hra neexistuje!");
+            return false;
+        }
+
+    }
+
     /**
      * Nastavi do vlakna prehravace o kolik se ma posunout v tazich
      * @param indexdelta
@@ -252,7 +268,7 @@ public class Player extends Thread{
 
                 int stepIndex = Player.getStepIndex();
 
-                if ((stepIndex >= 0 && indexdelta > 0 && stepIndex+indexdelta < Player.getLoadedTurnsSize()) || (indexdelta < 0 && stepIndex-indexdelta > 0)){
+                if ((indexdelta > 0 && stepIndex+indexdelta < Player.getLoadedTurnsSize()) || (indexdelta < 0 && stepIndex+indexdelta > 0)){
                     player.stepIndex += indexdelta;
                     System.out.println("Player: setIndexChange: zmena " + stepIndex + " o " + indexdelta + " na " + Player.getStepIndex());
                     player.notify();
@@ -324,6 +340,8 @@ public class Player extends Thread{
         player = new Player("PlayerVlakno");
         player.start();
     }
+
+
     /**
      * Zastavi vlakno prehravace
      * @return vraci false pokud prehravac neexistuje
@@ -341,6 +359,8 @@ public class Player extends Thread{
             return false;
         }
     }
+
+
     /**
      * Probudi vlakno prehravace
     * @return vraci false pokud prehravac neexistuje
@@ -388,6 +408,7 @@ public class Player extends Thread{
     protected boolean gameSetAndRuning = false; //hra byla nastavena a uz se provadi tahy, atd.
     protected PlayerGui gui;
     protected boolean invalidTurn = false;
+    protected boolean skipHuman = false;
 
     /**
      * Konstruktor vlakna prehravace
@@ -478,7 +499,8 @@ public class Player extends Thread{
 
             this.desk = new Desk();
             gui.updateDesk(desk);
-            gui.setMouse(false);
+            //gui.setMouse(false);
+            gui.setPlayerButtons(true);
 
             System.out.println("Player: Tisknu nastaveni");
             System.out.println(this.settings.getXML());
@@ -489,6 +511,9 @@ public class Player extends Thread{
             if(this.loadedTurns != null && this.loadedTurns.size() > 0){
                 System.out.println("Player: V loadedTurns je ulozeno " + this.loadedTurns.size() + " tahu");
                 this.stepIndex = this.loadedTurns.size()-1;
+
+                gui.setWantturn(Integer.toString(this.stepIndex));
+
                 System.out.println("Player: index posledniho tahu " + this.stepIndex);
             }
 
@@ -509,13 +534,14 @@ public class Player extends Thread{
                 this.currentPlayerAIHumanSettings = getAIorHumanSettingsForCurrentPlayerColor(this.playerColor);
                 printAndSetInfo();
                 this.index++;
+                //this.skipHuman = false;
 
                 //vykresleni desky
                 Check.isMustTake(desk, this.playerColor);
                 gui.updateDesk(this.desk);
 
                 //ziskani dalsiho tahu
-                if(this.loadedTurns != null && this.loadedTurns.size() > 0 && this.index <= this.stepIndex/*this.loadedTurns.size()*/){//nactene tahy
+                if(this.loadedTurns != null && this.loadedTurns.size() > 0 && this.index <= this.stepIndex/*this.loadedTurns.size()-1*/){//nactene tahy
 
                     //System.out.println("Player: V loadedTurns je ulozeno " + this.loadedTurns.size() + " tahu");
 
@@ -527,11 +553,14 @@ public class Player extends Thread{
                         System.out.println("Player: prerusen spanek pri cekani na waittime.");
                     }
 
-                    //Turn loadedTurn = new Turn(this.loadedTurns.firstElement());
-                    Turn loadedTurn = new Turn(this.loadedTurns.elementAt(this.index));
-                    this.turn = loadedTurn;
-
-                    //this.loadedTurns.remove(0);
+                    if(this.index <= this.loadedTurns.size()-1){
+                        Turn loadedTurn = new Turn(this.loadedTurns.elementAt(this.index));
+                        this.turn = loadedTurn;
+                    }else{
+                        System.out.println("Player: dalsi tah uz nemam!");
+                        gui.createFail("dalsi tah uz nemam");
+                        return;
+                    }
 
                 }else{//Human
 
@@ -553,19 +582,21 @@ public class Player extends Thread{
                         checkGUIShutdown(gui);
                         if(allDone){System.out.println("Player: Dama terminated, allDone!!");return;}
 
+                        if(this.skipHuman){break;}
+
                         validTurn = Moves.isTurnValid(this.turn, this.desk);
                         if(validTurn){
                             System.out.println("Player: tah je validni");
-                            validTurn = true;
                         }else{
                             System.out.println("Player: tah NENI validni");
-                            validTurn = false;
                             gui.setInfoText("Nevalidni tah!");
                             gui.clearAura();
                             gui.ZobrazNapovedu();
                         }
                     }
                 }
+
+                if(this.skipHuman){continue;}
 
                 //kontrola
                 if(this.turn == null){
@@ -635,7 +666,7 @@ public class Player extends Thread{
                     gui.createVictory();
                     gui.setMenu(false);
                     gui.setSubmitButton(false);
-                    gui.setMouse(false);
+                    //gui.setMouse(false);
                     this.pleaseWait = true;
                     synchronized(this){ while(pleaseWait){ try { System.out.println("Player: sleeping..."); wait();} catch (Exception e) { e.printStackTrace(); } }  }
                     return;

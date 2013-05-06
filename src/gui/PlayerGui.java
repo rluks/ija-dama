@@ -5,23 +5,21 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.Label;
-import java.awt.MouseInfo;
-import java.awt.Point;
-import java.awt.PointerInfo;
+
 import java.awt.TextArea;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.InputEvent;
+
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
-import java.util.Enumeration;
+
+import java.util.Locale;
 import java.util.Vector;
 
-import javax.swing.AbstractButton;
-import javax.swing.ButtonGroup;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDesktopPane;
@@ -30,7 +28,7 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JRadioButton;
+
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.KeyStroke;
@@ -72,6 +70,7 @@ public class PlayerGui extends JFrame
     protected Victory victory;
     protected Fail fail;
     protected LoadGame inFrLoadGame;
+    protected Selection inFrSelection;
 
     //menu
     protected JMenu menu;
@@ -91,9 +90,9 @@ public class PlayerGui extends JFrame
 
     //deska
     private int x_sachovnice = 40;
-    private int x_offset = 5;
+    //private int x_offset = 5;
     private int y_sachovnice = 80;
-    private int y_offset = 50;
+    //private int y_offset = 50;
 
     //notace
     protected JTextField TFPrikaz;
@@ -122,8 +121,17 @@ public class PlayerGui extends JFrame
 
     protected ImageIcon imIcSeal;    //lachtan
 
-    private Settings settings;
-    private JTextField txtWaittime;
+    protected Settings settings;
+
+    //ovladani
+    protected JTextField txtWaittime;
+    protected JLabel lblWantturn;
+
+    protected JButton btnPlay;
+    protected JButton btnStop;
+    protected JButton btnStepback;
+    protected JButton btnStepforward;
+    protected JButton btnOkspeed;
 
 
     public PlayerGui() {
@@ -141,7 +149,7 @@ public class PlayerGui extends JFrame
         //Make dragging a little faster but perhaps uglier.
         desktop.setDragMode(JDesktopPane.OUTLINE_DRAG_MODE);
 
-        this.setMouse(false);
+        //this.setMouse(false);
         addMouseListener(this);
 
         //menu
@@ -164,33 +172,12 @@ public class PlayerGui extends JFrame
         this.imIcBack = new ImageIcon(Gui.class.getResource("/gui/images/back.png"));
         this.imIcForward = new ImageIcon(Gui.class.getResource("/gui/images/forward.png"));
 
-        JButton btnOkspeed = new JButton("ok");
-        btnOkspeed.addActionListener(new ActionListener() {
-                    public void actionPerformed(ActionEvent arg0) {
-
-                        if(txtWaittime.getText().trim().equals("")){return;}
-
-                        String waittimeStr = txtWaittime.getText();
-
-                        try {Integer.parseInt(waittimeStr);
-                        }catch (NumberFormatException e) {
-                            return;
-                        }
-
-                        int waittime = Integer.parseInt(waittimeStr);
-                        Player.setWaitTime(waittime);
-                    }
-                });
-        btnOkspeed.setBounds(670, 67, 65, 20);
-        desktop.add(btnOkspeed);
-
         //texty s informacemi
         lblInfo = new JLabel("Not playing.");
         lblInfo.setHorizontalAlignment(SwingConstants.CENTER);
         desktop.setLayer(lblInfo, 1);
         lblInfo.setBounds(105, 10, 295, 30);
         desktop.add(lblInfo);
-
 
         this.lblPlayercolor = new JLabel("");
         this.lblPlayercolor.setBounds(25, 10, 45, 30);
@@ -256,8 +243,9 @@ public class PlayerGui extends JFrame
             public void actionPerformed(ActionEvent e)
             {
                 String string = TFPrikaz.getText();
+                string = string.toLowerCase(Locale.ENGLISH);
                 TFPrikaz.setText("");
-                if (!Check.isNotationValid(string))//TODO mel by vzit i kdyz se to tam napise v upper case
+                if (!Check.isNotationValid(string))
                 {
                     lblInfo.setText("Invalid move");
                     return;
@@ -289,7 +277,9 @@ public class PlayerGui extends JFrame
         desktop.add(this.TFPrikaz);
         this.TFPrikaz.setColumns(10);
 
-        JButton btnPlay = new JButton("");
+        //ovladani prehravani
+        btnPlay = new JButton("");
+        btnPlay.setEnabled(false);
         btnPlay.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
 
@@ -303,7 +293,8 @@ public class PlayerGui extends JFrame
         btnPlay.setIcon(this.imIcPlay);
         desktop.add(btnPlay);
 
-        JButton btnStop = new JButton("");
+        btnStop = new JButton("");
+        btnStop.setEnabled(false);
         btnStop.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
 
@@ -316,45 +307,77 @@ public class PlayerGui extends JFrame
         btnStop.setIcon(this.imIcStop);
         desktop.add(btnStop);
 
-        JButton btnStepback = new JButton("");
+        btnStepback = new JButton("");
+        btnStepback.setEnabled(false);
         btnStepback.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
 
-                if(!Player.isHumanPlaying()){
+                //if(!Player.isHumanPlaying()){
+                    int stepindex = Player.getStepIndex();
                     Player.setIndexChange(-1);
-                }
+                    setWantturn(Integer.toString(stepindex-1));
+                //}
             }
         });
-        btnStepback.setBounds(665, 36, 30, 20);
+        btnStepback.setBounds(621, 35, 30, 20);
         btnStepback.setIcon(this.imIcBack);
         desktop.add(btnStepback);
 
-        JButton btnStepforward = new JButton("");
+        btnStepforward = new JButton("");
+        btnStepforward.setEnabled(false);
         btnStepforward.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
 
-                if(!Player.isHumanPlaying()){
+                //if(!Player.isHumanPlaying()){
+                    int stepindex = Player.getStepIndex();
                     Player.setIndexChange(1);
-                }
+                    setWantturn(Integer.toString(stepindex+1));
+                    Player.setSkipHuman(true);
+                    Player.wakeUpPlayerThread();
+                //}
             }
         });
-        btnStepforward.setBounds(705, 35, 30, 20);
+        btnStepforward.setBounds(730, 35, 30, 20);
         btnStepforward.setIcon(this.imIcForward);
         desktop.add(btnStepforward);
 
-        JLabel lblWaitingTime = new JLabel("Wait time:");
+        btnOkspeed = new JButton("ok");
+        btnOkspeed.setEnabled(false);
+        btnOkspeed.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+
+                if(txtWaittime.getText().trim().equals("")){return;}
+
+                String waittimeStr = txtWaittime.getText();
+
+                try {Integer.parseInt(waittimeStr);
+                }catch (NumberFormatException e) {
+                    return;
+                }
+
+                int waittime = Integer.parseInt(waittimeStr);
+                Player.setWaitTime(waittime);
+            }
+        });
+        btnOkspeed.setBounds(695, 67, 65, 20);
+        desktop.add(btnOkspeed);
+
+        JLabel lblWaitingTime = new JLabel("Wait time (ms)");
+        lblWaitingTime.setFont(new Font("Tahoma", Font.PLAIN, 11));
         lblWaitingTime.setBounds(515, 67, 80, 20);
         desktop.add(lblWaitingTime);
 
         txtWaittime = new JTextField();
         txtWaittime.setText("300");
-        txtWaittime.setBounds(580, 67, 80, 20);
+        txtWaittime.setBounds(600, 67, 65, 20);
         desktop.setLayer(txtWaittime, 0);
         desktop.add(txtWaittime);
         txtWaittime.setColumns(10);
 
-        JLabel lblWantturn = new JLabel("wantTurn");
-        lblWantturn.setBounds(595, 41, 46, 14);
+        lblWantturn = new JLabel("Target");
+        lblWantturn.setHorizontalAlignment(SwingConstants.CENTER);
+        lblWantturn.setFont(new Font("Tahoma", Font.PLAIN, 11));
+        lblWantturn.setBounds(661, 35, 59, 21);
         desktop.add(lblWantturn);
 
         pole_figurek=new JLabel[8][8];
@@ -387,11 +410,11 @@ public class PlayerGui extends JFrame
         menuBar.add(menu);
 
         //nacteni ulozene hry
-        JMenuItem menuItem = new JMenuItem("Load game");
+        JMenuItem menuItem = new JMenuItem("Selection");
         menuItem.setMnemonic(KeyEvent.VK_L);
         menuItem.setAccelerator(KeyStroke.getKeyStroke(
                 KeyEvent.VK_L, ActionEvent.ALT_MASK));
-        menuItem.setActionCommand("loadgame");
+        menuItem.setActionCommand("selection");
         menuItem.addActionListener(this);
         menu.add(menuItem);
 
@@ -405,6 +428,8 @@ public class PlayerGui extends JFrame
             createLoadGameFrame("Load game");
         }else if("loadgamebutton".equals(e.getActionCommand())){
             LoadGameButton();
+        }else if("selection".equals(e.getActionCommand())){
+            createSelectionFrame();
         }else if("victoryOK".equals(e.getActionCommand())){
             this.setVisible(false);
             Player.wakeUpPlayerThread();
@@ -421,6 +446,35 @@ public class PlayerGui extends JFrame
         }
     }
 
+
+    /**
+     * Vytvori vnitrni ramec pro vyber zda nacitat hru nebo zadat v notaci
+     */
+    protected void createSelectionFrame()
+    {
+        this.inFrSelection = new Selection();
+        desktop.setLayer(inFrSelection, 5);
+        inFrSelection.setLocation(100, 100);
+        inFrSelection.setVisible(true);
+
+        JButton btnLoad = new JButton("Loadgame");
+        this.inFrSelection.getContentPane().add(btnLoad);
+        btnLoad.setActionCommand("loadgame");
+        btnLoad.addActionListener(this);
+
+        JButton btnNotation = new JButton("Insert notation");
+        this.inFrSelection.getContentPane().add(btnNotation);
+        btnNotation.setActionCommand("xxx");
+        btnNotation.addActionListener(this);
+
+        desktop.add(inFrSelection);
+        try
+        {
+            inFrSelection.setSelected(true);
+        }
+        catch (java.beans.PropertyVetoException e) {}
+
+    }
 
     /**
      * Vytvori vnitrni ramec pro nacitani drive ulozene hry
@@ -497,23 +551,23 @@ public class PlayerGui extends JFrame
 
     public void createFail(String string) {
 
-           this.fail = new Fail(string);
-           desktop.setLayer(this.fail, 5);
-           this.fail.setLocation(200, 100);
-           this.fail.setVisible(true);
+        this.fail = new Fail(string);
+        desktop.setLayer(this.fail, 5);
+        this.fail.setLocation(200, 100);
+        this.fail.setVisible(true);
 
-            JButton btnNewButton = new JButton("OK");
-            GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
-            gbc_btnNewButton.gridx = 0;
-            gbc_btnNewButton.gridy = 2;
-            this.fail.getContentPane().add(btnNewButton, gbc_btnNewButton);
-            btnNewButton.setActionCommand("failOK");
-            btnNewButton.addActionListener(this);
+        JButton btnNewButton = new JButton("OK");
+        GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
+        gbc_btnNewButton.gridx = 0;
+        gbc_btnNewButton.gridy = 2;
+        this.fail.getContentPane().add(btnNewButton, gbc_btnNewButton);
+        btnNewButton.setActionCommand("failOK");
+        btnNewButton.addActionListener(this);
 
-            desktop.add(this.fail);
-            try {
-                this.fail.setSelected(true);
-            } catch (java.beans.PropertyVetoException e) {}
+        desktop.add(this.fail);
+        try {
+            this.fail.setSelected(true);
+        } catch (java.beans.PropertyVetoException e) {}
 
     }
 
@@ -594,17 +648,18 @@ public class PlayerGui extends JFrame
         frame.setVisible(true);
     }
 
-    /**
+    /*
      * Povoluje a zakazuje kliknuti mysi
      * @param value boolean
-     */
+     *
     public void setMouse(boolean value){
         this.mouseEnabled = value;
-    }
+    }*/
 
     //Zpracuje klik tlacitka a posle zvolenou pozici na desce dale
     public void mouseClicked(MouseEvent e)
     {
+        /*
         if(this.mouseEnabled){
             switch(e.getModifiers()) {
                 case InputEvent.BUTTON1_MASK: {
@@ -644,7 +699,7 @@ public class PlayerGui extends JFrame
                     break;
                 }
             }
-        }
+        }*/
     }
 
     @Override
@@ -665,10 +720,10 @@ public class PlayerGui extends JFrame
         // TODO Auto-generated method stub
     }
 
-    /**
+    /*
      * Zpracuje vstup od mysi (kliky na sachovnici) a posila ho dal
      * @param pos
-     */
+     *
     public void mouseInput(Position pos){
 
         if(Player.isGameSetAndRunning()){
@@ -693,11 +748,14 @@ public class PlayerGui extends JFrame
             }
         }
     }
+    */
 
+    /*
     public static void setClickCount(int count){
         PlayerGui.clickCount = count;
         System.out.println("PlayerGui: setClickCount:" + count);
     }
+    */
 
     /**
      * Vykresli stav desky
@@ -783,14 +841,14 @@ public class PlayerGui extends JFrame
     }
 
 
-    /**
+    /*
      * Fce prida to textarea dalsi tah v notaci
      * @param wturn    tah bileho
      * @param wtake    indikator jestli bily bral
      * @param bturn    tah cerneho
      * @param btake    indikator jestli cerny bral
      * @param tah      poradove cislo tahu
-     */
+     *
     public void NotationNewLine(Turn wturn, boolean wtake, Turn bturn, boolean btake, int tah)
     {
         String predchozi_obsah=TAVypisNotace.getText();
@@ -808,7 +866,7 @@ public class PlayerGui extends JFrame
         else b="-";
 
         TAVypisNotace.setText(predchozi_obsah + tah + ". " + p0 + w + p1 + " " + p2 + b + p3 + "\n");
-    }
+    }*/
 
     /**
      * Fce prida to textarea tah bileho v notaci
@@ -873,12 +931,23 @@ public class PlayerGui extends JFrame
         this.BSubmitCommand.setEnabled(value);
     }
 
+    public void setWantturn(String text){
+        this.lblWantturn.setText(text);
+    }
 
-    /**
+    public void setPlayerButtons(boolean value){
+        this.btnPlay.setEnabled(value);
+        this.btnStop.setEnabled(value);
+        this.btnStepback.setEnabled(value);
+        this.btnStepforward.setEnabled(value);
+        this.btnOkspeed.setEnabled(value);
+    }
+
+    /*
      * Pomocna funkce na zisk zvolenych radio buttonu
      * @param group skupina radio buttonu
      * @return zvoleny radio button
-     */
+     *
     public static JRadioButton getSelection(ButtonGroup group) {
         for (Enumeration<AbstractButton> e = group.getElements(); e.hasMoreElements();) {
           JRadioButton b = (JRadioButton) e.nextElement();
@@ -887,5 +956,5 @@ public class PlayerGui extends JFrame
           }
         }
         return null;
-    }
+    }*/
 }

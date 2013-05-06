@@ -20,6 +20,7 @@ import java.awt.event.WindowEvent;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Enumeration;
+import java.util.Locale;
 
 import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
@@ -275,8 +276,9 @@ public class Gui extends JFrame
             public void actionPerformed(ActionEvent e)
             {
                 String string = TFPrikaz.getText();
+                string = string.toLowerCase(Locale.ENGLISH);
                 TFPrikaz.setText("");
-                if (!Check.isNotationValid(string))//TODO mel by vzit i kdyz se to tam napise v upper case
+                if (!Check.isNotationValid(string))
                 {
                     lblInfo.setText("Invalid move");
                     return;
