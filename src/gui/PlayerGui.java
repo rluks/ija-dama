@@ -164,9 +164,25 @@ public class PlayerGui extends JFrame
         this.imIcBack = new ImageIcon(Gui.class.getResource("/gui/images/back.png"));
         this.imIcForward = new ImageIcon(Gui.class.getResource("/gui/images/forward.png"));
 
-                JButton btnOkspeed = new JButton("ok");
-                btnOkspeed.setBounds(670, 67, 65, 20);
-                desktop.add(btnOkspeed);
+        JButton btnOkspeed = new JButton("ok");
+        btnOkspeed.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent arg0) {
+
+                        if(txtWaittime.getText().trim().equals("")){return;}
+
+                        String waittimeStr = txtWaittime.getText();
+
+                        try {Integer.parseInt(waittimeStr);
+                        }catch (NumberFormatException e) {
+                            return;
+                        }
+
+                        int waittime = Integer.parseInt(waittimeStr);
+                        Player.setWaitTime(waittime);
+                    }
+                });
+        btnOkspeed.setBounds(670, 67, 65, 20);
+        desktop.add(btnOkspeed);
 
         //texty s informacemi
         lblInfo = new JLabel("Not playing.");
@@ -307,7 +323,7 @@ public class PlayerGui extends JFrame
         desktop.add(lblWaitingTime);
 
         txtWaittime = new JTextField();
-        txtWaittime.setText("waitTime");
+        txtWaittime.setText("300");
         txtWaittime.setBounds(580, 67, 80, 20);
         desktop.setLayer(txtWaittime, 0);
         desktop.add(txtWaittime);
@@ -503,7 +519,6 @@ public class PlayerGui extends JFrame
             return;
         }
 
-
         if(this.settings == null || loadedTurns == null){
             return;
         }
@@ -525,7 +540,6 @@ public class PlayerGui extends JFrame
             Player.startPlayer();
             Player.wakeUpPlayerThread();
 
-
         }else{
 
             Player.setLoadedTurns(loadedTurns);
@@ -537,106 +551,18 @@ public class PlayerGui extends JFrame
 
             this.BSubmitCommand.setEnabled(true);
         }
-
-
-        /*
-        if(Player.isGameSetAndRunning()){
-
-            System.out.println("PlayerGui: Tlacitko load!");
-            String cesta=inFrLoadGame.GetPath();
-            System.out.println("PlayerGui: Cesta: \"" + cesta + "\"");
-            inFrLoadGame.dispose();
-
-            Player.stopThread();
-            Player.interruptPlayerThread();
-
-            this.dispose();
-
-
-            Player.startingPlayerThread();
-            try {Thread.sleep(50);} catch (InterruptedException e) {e.printStackTrace();}
-
-            if (cesta.endsWith(".xml"))
-            {
-                System.out.println("PlayerGui: XML MOTAFAKA!!");
-                this.settings = Input.xmlToSettings(cesta, null);
-                loadedTurns = Input.xmlToVector(cesta, null);
-            }
-            else if (cesta.endsWith(".txt"))
-            {
-                System.out.println("PlayerGui: NOTACE BIATCH!!");
-                loadedTurns = Input.notToVector(cesta, null);
-                this.settings = new Settings("human", "human", null, null, 0, 0, null);//pri nacteni z notace se pouzije implicitni nastaveni
-            }
-            else
-            {
-                System.out.println("PlayerGui: Da fuk is dis sith?! (extention not txt of xml)");
-                return;
-            }
-
-
-            if(this.settings == null || loadedTurns == null){
-                return;
-            }
-
-            Player.setLoadedTurns(loadedTurns);
-            Player.setSettings(this.settings);
-
-            try {Thread.sleep(50);} catch (InterruptedException e) {e.printStackTrace();}
-            Player.startPlayer();
-            Player.wakeUpPlayerThread();
-
-        }else{
-            System.out.println("PlayerGui: Tlacitko load!");
-            String cesta=inFrLoadGame.GetPath();
-            System.out.println("PlayerGui: Cesta: \"" + cesta + "\"");
-            inFrLoadGame.dispose();
-            if (cesta.endsWith(".xml"))
-            {
-                System.out.println("PlayerGui: XML MOTAFAKA!!");
-                this.settings = Input.xmlToSettings(cesta, null);
-                loadedTurns = Input.xmlToVector(cesta, null);
-            }
-            else if (cesta.endsWith(".txt"))
-            {
-                System.out.println("PlayerGui: NOTACE BIATCH!!");
-                this.settings = new Settings("human", "human", null, null, 0, 0, null);//pri nacteni z notace se pouzije implicitni nastaveni
-                loadedTurns = Input.notToVector(cesta, null);
-            }
-            else
-            {
-                System.out.println("PlayerGui: Da fuk is dis sith?! (extention not txt of xml)");
-                return;
-            }
-
-            if(this.settings == null || loadedTurns == null){
-                return;
-            }
-
-            Player.setLoadedTurns(loadedTurns);
-            Player.setSettings(this.settings);
-
-            try {Thread.sleep(50);} catch (InterruptedException e) {e.printStackTrace();}
-            Player.startPlayer();
-            Player.wakeUpPlayerThread();
-            this.BSubmitCommand.setEnabled(true);
-        }*/
     }
 
     /**
-     * Create the GUI and show it.  For thread safety,
-     * this method should be invoked from the
-     * event-dispatching thread.
+     * Vytvori GUI a zobrazi ho
      */
     public static void createAndShowGUI() {
-        //Make sure we have nice window decorations.
+
         JFrame.setDefaultLookAndFeelDecorated(true);
 
-        //Create and set up the window.
         PlayerGui frame = new PlayerGui();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        //Display the window.
         frame.setVisible(true);
     }
 

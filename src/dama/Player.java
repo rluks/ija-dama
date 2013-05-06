@@ -192,11 +192,32 @@ public class Player extends Thread{
     }
 
     /**
-     * Nastavi do vlakna prehravace vstupni Turn
+     * Nastavi do staticke promenne turnInput hodnotu turn
      * @param turn
      */
     public static void setTurnInput(Turn turn) {
         Player.turnInput = turn;
+    }
+
+    /**
+     * Nastavi do vlakna prehravace dobu cekani pri prehravani
+     * @param waittime
+     * @return vraci false pokud prehravac neexistuje
+     */
+    public static boolean setWaitTime(int waittime){
+
+        System.out.println("Player: setWaitTime: ukladam dobu cekani " + (double)waittime/1000.0 + "s ...");
+
+        if(player != null){
+            synchronized (player){
+                player.waitTime = waittime;
+                player.notify();
+            }
+            return true;
+        }else{
+            System.out.println("Player: setWaitTime: hra neexistuje!");
+            return false;
+        }
     }
 
 
@@ -309,8 +330,6 @@ public class Player extends Thread{
     protected PlayerGui gui;
     protected boolean invalidTurn = false;
 
-
-
     /**
      * Konstruktor vlakna prehravace
      * @param name
@@ -385,8 +404,7 @@ public class Player extends Thread{
         this.pleaseWait = true;
 
         //smycka nastaveni prehravace
-        while(true)
-        {
+        while(true){
 
             synchronized(this){ while(pleaseWait){ try { System.out.println("Player: sleeping before startGame..."); wait();} catch (Exception e) { e.printStackTrace(); } }  }
 
@@ -394,14 +412,12 @@ public class Player extends Thread{
             checkGUIShutdown(gui);
             if(allDone){System.out.println("Player: Dama terminated, allDone!!");return;}
 
-
             if(this.startGame == false){
                 continue;
             }
 
             this.desk = new Desk();
             gui.updateDesk(desk);
-            //this.desk.printSimpleBoard();
 
             System.out.println("Player: Tisknu nastaveni");
             System.out.println(this.settings.getXML());
@@ -439,7 +455,7 @@ public class Player extends Thread{
 
                     //rychlost prehravani
                     try {Thread.sleep(this.waitTime);} catch (InterruptedException e) {
-                        System.out.println("Hra: prerusen spanek rychlosti prehravani.");
+                        System.out.println("Player: prerusen spanek pri cekani na waittime.");
                     }
 
                     Turn loadedTurn = new Turn(this.loadedTurns.firstElement());
