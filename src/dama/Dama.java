@@ -4,6 +4,12 @@ import gui.Gui;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.PrintStream;
 import java.util.Vector;
 
 import dama.io.Output;
@@ -158,10 +164,14 @@ public class Dama extends Thread{
 
                 }else{//Human
 
-                    //System.out.println("Local: " + this.settings.local);//White Black
+                    System.out.println("Local: \"" + this.settings.local + "\"");//White Black
+                    System.out.println("plcolor: \"" + Output.getPlayerColorString(this.playerColor) + "\"");
+                    System.out.println("p2p: " + this.settings.p2penabled);
 
                     //pri P2P je na tahu hrac na tomto pocitaci
                     if(!this.settings.p2penabled || Output.getPlayerColorString(this.playerColor).equals(this.settings.local)){
+
+                        System.out.println("Hra: P2p tento hrac je na tahu");
 
                         this.turn = (this.playerColor == 'W') ? Turn.TurnWhite(pEmpty, pEmpty) : Turn.TurnBlack(pEmpty, pEmpty);
 
@@ -189,6 +199,31 @@ public class Dama extends Thread{
                                 if(this.settings.p2penabled){
                                     System.out.println("HraP2P: tah je validni, posilam ho souperi.");
 
+                                    String p0=this.turn.origin.getStrLowerCase();
+                                    String p1=this.turn.destination.getStrLowerCase();
+                                    String turnStr = p0 + "-" + p1;
+
+                                    OutputStream out = null;
+
+                                    if (this.settings.connectionToTheClient == null){
+                                        try {
+                                            out = this.settings.connectionToTheServer.getOutputStream();
+                                        } catch (IOException e) {
+                                            // TODO Auto-generated catch block
+                                            e.printStackTrace();
+                                        }
+                                    }else{
+                                        try {
+                                            out = this.settings.connectionToTheClient.getOutputStream();
+                                        } catch (IOException e) {
+                                            // TODO Auto-generated catch block
+                                            e.printStackTrace();
+                                        }
+                                    }
+
+                                    PrintStream ps = new PrintStream(out, true); // Second param: auto-flush on write = true
+                                    ps.println(turnStr);
+
                                 }
                             }else{
                                 System.out.println("Hra: tah NENI validni");
@@ -197,6 +232,43 @@ public class Dama extends Thread{
                                 gui.ZobrazNapovedu();
                             }
                         }//while valid turn
+
+                    }else{//P2p cekani na tah protihrace
+                        System.out.println("Hra: P2p cekani na tah protihrace");
+
+                        gui.setMouse(false);
+                        gui.setSubmitButton(false);
+                        gui.setHelpButton(false);
+
+                        InputStream in = null;
+
+                        if (this.settings.connectionToTheClient == null){
+                            try {
+                                in = this.settings.connectionToTheServer.getInputStream();
+                            } catch (IOException e) {
+                                // TODO Auto-generated catch block
+                                e.printStackTrace();
+                            }
+                        }else{
+                            try {
+                                in = this.settings.connectionToTheClient.getInputStream();
+                            } catch (IOException e) {
+                                // TODO Auto-generated catch block
+                                e.printStackTrace();
+                            }
+                        }
+
+                        BufferedReader br = new BufferedReader(new InputStreamReader(in));
+                        String line = new String();
+                        try {
+                            line = br.readLine();
+                        } catch (IOException e) {
+                            // TODO Auto-generated catch block
+                            e.printStackTrace();
+                        }
+
+                        this.turn = Turn.NotStringToTurn(line, this.playerColor);
+
                     }
                 }
 

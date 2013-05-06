@@ -280,6 +280,7 @@ public class NetworkSetup
         }
 
         Dama.setLoadedTurns(lt);
+        sett.p2penabled = true;
         Dama.setSettings(sett);
         try {Thread.sleep(50);} catch (InterruptedException e) {e.printStackTrace();}
         Dama.startGame();
