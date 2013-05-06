@@ -275,7 +275,9 @@ public class PlayerGui extends JFrame
                 }
 
                 Turn turn=new Turn(barva, pos1, pos2);
-                Input.inputTurn(turn);
+                //Input.inputTurn(turn);
+                Player.inputTurn(turn);
+                Player.wakeUpPlayerThread();
                 return;
             }
         });
@@ -290,30 +292,52 @@ public class PlayerGui extends JFrame
         JButton btnPlay = new JButton("");
         btnPlay.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
-                Player.interruptPlayerThread();
-                Player.wakeUpPlayerThread();
+
+                if(!Player.isHumanPlaying()){
+                    Player.interruptPlayerThread();
+                    Player.wakeUpPlayerThread();
+                }
             }
         });
-        btnPlay.setBounds(535, 35, 30, 20);
+        btnPlay.setBounds(515, 35, 30, 20);
         btnPlay.setIcon(this.imIcPlay);
         desktop.add(btnPlay);
 
         JButton btnStop = new JButton("");
         btnStop.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                Player.sleepPlayerThread();
+
+                if(!Player.isHumanPlaying()){
+                    Player.sleepPlayerThread();
+                }
             }
         });
-        btnStop.setBounds(580, 35, 30, 20);
+        btnStop.setBounds(555, 35, 30, 20);
         btnStop.setIcon(this.imIcStop);
         desktop.add(btnStop);
 
         JButton btnStepback = new JButton("");
+        btnStepback.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+
+                if(!Player.isHumanPlaying()){
+                    Player.setIndexChange(-1);
+                }
+            }
+        });
         btnStepback.setBounds(665, 36, 30, 20);
         btnStepback.setIcon(this.imIcBack);
         desktop.add(btnStepback);
 
         JButton btnStepforward = new JButton("");
+        btnStepforward.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+
+                if(!Player.isHumanPlaying()){
+                    Player.setIndexChange(1);
+                }
+            }
+        });
         btnStepforward.setBounds(705, 35, 30, 20);
         btnStepforward.setIcon(this.imIcForward);
         desktop.add(btnStepforward);
@@ -328,6 +352,10 @@ public class PlayerGui extends JFrame
         desktop.setLayer(txtWaittime, 0);
         desktop.add(txtWaittime);
         txtWaittime.setColumns(10);
+
+        JLabel lblWantturn = new JLabel("wantTurn");
+        lblWantturn.setBounds(595, 41, 46, 14);
+        desktop.add(lblWantturn);
 
         pole_figurek=new JLabel[8][8];
         pole_napovedy=new JLabel[8][8];
