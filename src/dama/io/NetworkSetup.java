@@ -158,13 +158,22 @@ public class NetworkSetup
             }
             catch ( java.io.InterruptedIOException e )    //timeout
             {
+                e.printStackTrace();
                 gui.lblInfo.setText("Connection timeout (60sec)!");
                 System.out.println("Server - Timed Out (60 sec)!");
                 return;
             }
+            catch (IOException e)
+            {
+                e.printStackTrace();
+                gui.lblInfo.setText("Server network IOException! (port is probably allready binded)");
+                System.out.println("Server - Sitova chyba");
+                return;
+            }
             catch (Exception e)
             {
-                gui.lblInfo.setText("Network error!");
+                e.printStackTrace();
+                gui.lblInfo.setText("Server network error!");
                 System.out.println("Server - Sitova chyba");
                 return;
             }
@@ -247,6 +256,7 @@ public class NetworkSetup
             }
             catch (Exception e)
             {
+                e.printStackTrace();
                 System.out.println("Klient - Sitova chyba");
             }
         } ///end of client
@@ -285,14 +295,29 @@ public class NetworkSetup
     {
         try
         {
+
+            if (gui.connectionToTheClient!=null) 
+            {	
+            	OutputStream out = gui.connectionToTheClient.getOutputStream();
+                PrintStream ps = new PrintStream(out, true); // Second param: auto-flush on write = true
+                ps.println("SPOJENI UKONCENO");
+                ps.close();
+            	gui.connectionToTheClient.close();            	
+            }
+            if (gui.connectionToTheServer!=null)
+            {	
+            	OutputStream out = gui.connectionToTheServer.getOutputStream();
+                PrintStream ps = new PrintStream(out, true); // Second param: auto-flush on write = true
+                ps.println("SPOJENI UKONCENO");
+                ps.close();
+                gui.connectionToTheServer.close();            	
+            }	
             if (gui.server!=null) gui.server.close();
-            if (gui.connectionToTheClient!=null) gui.connectionToTheClient.close();
-            if (gui.connectionToTheServer!=null) gui.connectionToTheServer.close();
 
         }
         catch (IOException e)
         {
-            System.out.println("Nepodarilo se zavrit sockety");
+            System.out.println("Nepodarilo se zavrit sockety!");
             e.printStackTrace();
         }
 

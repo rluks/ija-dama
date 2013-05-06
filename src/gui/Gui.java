@@ -175,7 +175,7 @@ public class Gui extends JFrame
         lblInfo = new JLabel("Not playing.");
         lblInfo.setHorizontalAlignment(SwingConstants.CENTER);
         desktop.setLayer(lblInfo, 1);
-        lblInfo.setBounds(105, 10, 295, 30);
+        lblInfo.setBounds(40, 10, 360, 30);
         desktop.add(lblInfo);
 
 
