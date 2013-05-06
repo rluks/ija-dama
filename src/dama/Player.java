@@ -74,14 +74,34 @@ public class Player extends Thread{
         }
     }
 
+    /**
+     * Z vlakna prehravace ziska jestli hraje clovek
+     * @return true hraje clovek, false hraji se ulozene tahy
+     */
+    public static boolean isHumanPlaying(){
+        synchronized (player){
+            return player.human;
+        }
+    }
 
     /**
-     * Ziskani hodnoty vstupniho Turn z vlakna prehravace
+     * Z vlakna prehravace ziska velikost vektoru nactenych tahu
+     */
+    public static int getLoadedTurnsSize(){
+        synchronized (player){
+            return player.loadedTurns.size();
+        }
+    }
+
+
+    /**
+     * Ziskani hodnoty vstupniho Turn ze staticke promenne turnInput
      * @return
      */
     public static Turn getTurnInput() {
         return Player.turnInput;
     }
+
 
 
     public static boolean interruptPlayerThread(){
@@ -192,11 +212,67 @@ public class Player extends Thread{
     }
 
     /**
-     * Nastavi do vlakna prehravace vstupni Turn
+     * Nastavi do staticke promenne turnInput hodnotu turn
      * @param turn
      */
     public static void setTurnInput(Turn turn) {
         Player.turnInput = turn;
+    }
+
+    /**
+     * Nastavi do vlakna prehravace dobu cekani pri prehravani
+     * @param waittime
+     * @return vraci false pokud prehravac neexistuje
+     */
+    public static boolean setWaitTime(int waittime){
+
+        System.out.println("Player: setWaitTime: ukladam dobu cekani " + (double)waittime/1000.0 + "s ...");
+
+        if(player != null){
+            synchronized (player){
+                player.waitTime = waittime;
+                player.notify();
+            }
+            return true;
+        }else{
+            System.out.println("Player: setWaitTime: hra neexistuje!");
+            return false;
+        }
+    }
+
+    /**
+     * Nastavi do vlakna prehravace o kolik se ma posunout v tazich
+     * @param indexdelta
+     * @return vraci false pokud prehravac neexistuje
+     */
+    public static boolean setIndexChange(int indexdelta){
+
+        if(player != null){
+            synchronized (player){
+
+                int stepIndex = Player.getStepIndex();
+
+                if ((stepIndex >= 0 && indexdelta > 0 && stepIndex+indexdelta < Player.getLoadedTurnsSize()) || (indexdelta < 0 && stepIndex-indexdelta > 0)){
+                    player.stepIndex += indexdelta;
+                    System.out.println("Player: setIndexChange: zmena " + stepIndex + " o " + indexdelta + " na " + Player.getStepIndex());
+                    player.notify();
+                }
+            }
+            return true;
+        }else{
+            System.out.println("Player: setIndexChange: hra neexistuje!");
+            return false;
+        }
+    }
+
+    /**
+     * Ziska hodnotu stepIndex z vlakna prehravace
+     * @return integer hodnotu
+     */
+    public static int getStepIndex(){
+        synchronized (player){
+            return player.stepIndex;
+        }
     }
 
 
@@ -294,7 +370,11 @@ public class Player extends Thread{
     protected char playerColor;
     protected int tahCislo = 0;
 
-    protected int waitTime = 300;
+    protected boolean human;//indikace ze se ceka na vstup od cloveka, pouziti pro zamceni play tlacitka
+
+    protected int waitTime = 1000;
+    protected int index = -1;//index pro pohyb ve vektoru tahu
+    protected int stepIndex; //posune se v tazich o pocet kliknuti na tlacitka forward, back
 
     protected boolean wtake;
     protected boolean btake;
@@ -308,8 +388,6 @@ public class Player extends Thread{
     protected boolean gameSetAndRuning = false; //hra byla nastavena a uz se provadi tahy, atd.
     protected PlayerGui gui;
     protected boolean invalidTurn = false;
-
-
 
     /**
      * Konstruktor vlakna prehravace
@@ -385,8 +463,7 @@ public class Player extends Thread{
         this.pleaseWait = true;
 
         //smycka nastaveni prehravace
-        while(true)
-        {
+        while(true){
 
             synchronized(this){ while(pleaseWait){ try { System.out.println("Player: sleeping before startGame..."); wait();} catch (Exception e) { e.printStackTrace(); } }  }
 
@@ -394,14 +471,13 @@ public class Player extends Thread{
             checkGUIShutdown(gui);
             if(allDone){System.out.println("Player: Dama terminated, allDone!!");return;}
 
-
             if(this.startGame == false){
                 continue;
             }
 
             this.desk = new Desk();
             gui.updateDesk(desk);
-            //this.desk.printSimpleBoard();
+            gui.setMouse(false);
 
             System.out.println("Player: Tisknu nastaveni");
             System.out.println(this.settings.getXML());
@@ -409,12 +485,19 @@ public class Player extends Thread{
             Position pEmpty = new Position(-1, -1);
             this.ouputTurns = new Vector<Turn>();
 
+            if(this.loadedTurns != null && this.loadedTurns.size() > 0){
+                System.out.println("Player: V loadedTurns je ulozeno " + this.loadedTurns.size() + " tahu");
+                this.stepIndex = this.loadedTurns.size()-1;
+                System.out.println("Player: index posledniho tahu " + this.stepIndex);
+            }
+
             //smycka vlastni prehravace
             while(true){
                 gameSetAndRuning = true;
-                System.out.println("Player: tah cislo: " + tahCislo + " ,bezi s timto nastavenim: " + this.settings.getSettingsString());
+                System.out.println("Player: tah cislo: " + tahCislo + ", bezi s timto nastavenim: " + this.settings.getSettingsString());
 
-                synchronized(this){ while(pleaseWait){ try { System.out.println("Player: sleeping at beginning of playing..."); wait();} catch (Exception e) { e.printStackTrace(); } }  }
+                synchronized(this){ while(pleaseWait){ try { System.out.println("Player: sleeping at beginning of playing..."); wait();}
+                catch (Exception e) { System.out.println("Player: probuzen"); /*e.printStackTrace();*/ } }  }
 
                 //vypinaci cast
                 checkGUIShutdown(gui);
@@ -424,36 +507,38 @@ public class Player extends Thread{
                 switchPlayerColors();
                 this.currentPlayerAIHumanSettings = getAIorHumanSettingsForCurrentPlayerColor(this.playerColor);
                 printAndSetInfo();
+                this.index++;
 
                 //vykresleni desky
                 Check.isMustTake(desk, this.playerColor);
                 gui.updateDesk(this.desk);
 
                 //ziskani dalsiho tahu
-                if(this.loadedTurns != null && this.loadedTurns.size() > 0){//nactene tahy
+                if(this.loadedTurns != null && this.loadedTurns.size() > 0 && this.index <= this.stepIndex/*this.loadedTurns.size()*/){//nactene tahy
 
-                    System.out.println("Player: V loadedTurns zbyva " + this.loadedTurns.size() + " tahu");
+                    //System.out.println("Player: V loadedTurns je ulozeno " + this.loadedTurns.size() + " tahu");
 
-                    gui.setMouse(false);
+                    this.human = false;
                     gui.setSubmitButton(false);
 
                     //rychlost prehravani
                     try {Thread.sleep(this.waitTime);} catch (InterruptedException e) {
-                        System.out.println("Hra: prerusen spanek rychlosti prehravani.");
+                        System.out.println("Player: prerusen spanek pri cekani na waittime.");
                     }
 
-                    Turn loadedTurn = new Turn(this.loadedTurns.firstElement());
+                    //Turn loadedTurn = new Turn(this.loadedTurns.firstElement());
+                    Turn loadedTurn = new Turn(this.loadedTurns.elementAt(this.index));
                     this.turn = loadedTurn;
 
-                    this.loadedTurns.remove(0);
+                    //this.loadedTurns.remove(0);
 
                 }else{//Human
 
+                    this.human = true;
                     this.turn = (this.playerColor == 'W') ? Turn.TurnWhite(pEmpty, pEmpty) : Turn.TurnBlack(pEmpty, pEmpty);
 
                     boolean validTurn = false;
 
-                    gui.setMouse(true);
                     gui.setSubmitButton(true);
 
                     while(!validTurn){
@@ -493,18 +578,18 @@ public class Player extends Thread{
                 System.out.println("Player: " + Output.getPlayerColorString(this.playerColor) + " is playing...");
                 if(Check.isMustTake(this.desk, this.playerColor)){//Take
                     executedTurn = Moves.Take(this.desk, this.turn);
-                    System.out.println("Player: tah " + Output.getPlayerColorString(this.playerColor) + ", take() vraci:" + executedTurn);
+                    //System.out.println("Player: tah " + Output.getPlayerColorString(this.playerColor) + ", take() vraci:" + executedTurn);
                     wbtake = true;
 
                 }else{//Move
                     executedTurn = Moves.Move(this.desk, this.turn);
-                    System.out.println("Player: tah " + Output.getPlayerColorString(this.playerColor) + ", MOVE() vraci:" + executedTurn);
+                    //System.out.println("Player: tah " + Output.getPlayerColorString(this.playerColor) + ", MOVE() vraci:" + executedTurn);
                     wbtake = false;
                 }
 
                 //kontrola
                 if(executedTurn){
-                    System.out.println("PlayerGui: Tah " + this.turn.getTurnString() + " byl proveden");
+                    //System.out.println("PlayerGui: Tah " + this.turn.getTurnString() + " byl proveden");
                 }else{
                     System.out.println("PlayerGui: Tah " + this.turn.getTurnString() + " NEBYL proveden");
                     this.gui.createFail("Tah " + this.turn.getTurnString() + " NEBYL proveden");
@@ -601,6 +686,27 @@ public class Player extends Thread{
             this.playerColor = 'W';
         }else{
             System.out.println("Player: neco je spatne s barvami hracu!");
+        }
+    }
+
+
+    /**
+    * Jednotny vstup tahu pro vlakno prehravace
+    */
+    public static void inputTurn(Turn turn)
+    {
+
+        if(Moves.isTurnValid(turn, Player.getDesk()))
+        {
+            System.out.println("Player.inputTurn: vkladam tah");
+            Player.setTurn(turn);
+            //Player.wakeUpPlayerThread();
+        }
+        else
+        {
+            System.out.println("Player.inputTurn: nevalidni tah, prehravac MUSI nastavit napovedu");
+            Player.setTurn(turn);
+            //Player.wakeUpPlayerThread();
         }
     }
 }

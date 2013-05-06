@@ -424,9 +424,6 @@ public class Gui extends JFrame
             System.out.println("/Save game");
 
         }else if ("player".equals(e.getActionCommand())){
-            //PlayerGui p = new PlayerGui();
-            //p.setBounds(100, 50, 800, 600);
-            //p.setVisible(true);
             Player.startingPlayerThread();
         }else if ("About".equals(e.getActionCommand())){
             System.out.println("Neimplementovano");
@@ -623,32 +620,6 @@ public class Gui extends JFrame
             try {Thread.sleep(50);} catch (InterruptedException e) {e.printStackTrace();}
             Dama.startGame();
             Dama.wakeUpGameThread();
-            //this.menuItemSave.setEnabled(true);
-            //this.BSubmitCommand.setEnabled(true);
-
-
-            /*
-            System.out.println("hra BEZELA spoustim...");
-            Dama.interruptGameThread();
-            Dama.stopGameThread();
-            this.dispose();
-
-            try {Thread.sleep(300);} catch (InterruptedException e) {e.printStackTrace();}
-
-            Dama.startingGameThread();
-
-            try {Thread.sleep(50);} catch (InterruptedException e) {e.printStackTrace();}
-
-            Dama.setSettings(this.settings);
-
-            try {Thread.sleep(50);} catch (InterruptedException e) {e.printStackTrace();}
-
-
-            Dama.startGame();
-
-            Dama.wakeUpGameThread();
-            */
-
 
         }else{
             System.out.println("Tlacitko load!");
@@ -816,16 +787,6 @@ public class Gui extends JFrame
 
         System.out.println("Quit v menu, ukoncuji...");
         System.exit(0);
-
-
-        /*
-        this.setVisible(false);
-
-        Dama.wakeUpGameThread();//probudi aby vedelo ze je zastaveno
-        //Dama.stopGameThread();
-        //System.exit(0);
-        pullThePlug();
-        this.dispose();*/
     }
 
 

@@ -394,8 +394,6 @@ public class Dama extends Thread{
      */
     public static void startingGameThread(){
 
-        //Dama.stopGameThread();
-
         System.out.println("startingGameThread...");
         dama = new Dama("DamaVlakno");
         dama.start();
