@@ -60,7 +60,7 @@ public class Output {
 
      for(int i = 0; i < turnVector.size(); i++)
      {
-         tmp = turnVector.get(i);
+         tmp = new Turn(turnVector.get(i));
 
          //System.out.println(tmp.getTurnString());
 

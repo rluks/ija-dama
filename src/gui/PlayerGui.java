@@ -36,6 +36,7 @@ import javax.swing.SwingConstants;
 
 import dama.Player;
 import dama.io.Input;
+import dama.io.Output;
 import dama.io.Turn;
 import dama.operations.Check;
 import dama.operations.Moves;
@@ -71,6 +72,7 @@ public class PlayerGui extends JFrame
     protected Fail fail;
     protected LoadGame inFrLoadGame;
     protected Selection inFrSelection;
+    protected InsertNotation inFrInsertNot;
 
     //menu
     protected JMenu menu;
@@ -425,11 +427,16 @@ public class PlayerGui extends JFrame
     //Reakce na menu a na tlacitka ve vnitrnich ramcich
     public void actionPerformed(ActionEvent e) {
         if("loadgame".equals(e.getActionCommand())){
+            this.inFrSelection.dispose();
             createLoadGameFrame("Load game");
         }else if("loadgamebutton".equals(e.getActionCommand())){
             LoadGameButton();
         }else if("selection".equals(e.getActionCommand())){
             createSelectionFrame();
+        }else if("insertnotation".equals(e.getActionCommand())){
+            createInsertNotationFrame();
+        }else if("notationOK".equals(e.getActionCommand())){
+            LoadGameNotation();
         }else if("victoryOK".equals(e.getActionCommand())){
             this.setVisible(false);
             Player.wakeUpPlayerThread();
@@ -464,7 +471,7 @@ public class PlayerGui extends JFrame
 
         JButton btnNotation = new JButton("Insert notation");
         this.inFrSelection.getContentPane().add(btnNotation);
-        btnNotation.setActionCommand("xxx");
+        btnNotation.setActionCommand("insertnotation");
         btnNotation.addActionListener(this);
 
         desktop.add(inFrSelection);
@@ -474,6 +481,41 @@ public class PlayerGui extends JFrame
         }
         catch (java.beans.PropertyVetoException e) {}
 
+    }
+
+    protected void createInsertNotationFrame(){
+
+        this.inFrSelection.dispose();
+        this.inFrInsertNot = new InsertNotation();
+        desktop.setLayer(inFrInsertNot, 5);
+        inFrInsertNot.setLocation(100, 100);
+        inFrInsertNot.setVisible(true);
+
+        JButton btnNotation = new JButton("Insert notation");
+        GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
+        gbc_btnNewButton.gridx = 0;
+        gbc_btnNewButton.gridy = 2;
+        this.inFrInsertNot.getContentPane().add(btnNotation,  gbc_btnNewButton);
+        btnNotation.setActionCommand("notationOK");
+        btnNotation.addActionListener(this);
+
+        /*
+        JButton btnNewButton = new JButton("OK");
+        GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
+        gbc_btnNewButton.gridx = 0;
+        gbc_btnNewButton.gridy = 2;
+        this.fail.getContentPane().add(btnNewButton, gbc_btnNewButton);
+        btnNewButton.setActionCommand("failOK");
+        btnNewButton.addActionListener(this);
+        */
+
+
+        desktop.add(inFrInsertNot);
+        try
+        {
+            inFrInsertNot.setSelected(true);
+        }
+        catch (java.beans.PropertyVetoException e) {}
     }
 
     /**
@@ -569,6 +611,53 @@ public class PlayerGui extends JFrame
             this.fail.setSelected(true);
         } catch (java.beans.PropertyVetoException e) {}
 
+    }
+
+    public void LoadGameNotation(){
+        String notationStr = new String(this.inFrInsertNot.txtrNotation.getText());
+        if(!notationStr.endsWith("\n")){
+            notationStr += "\n";
+        }
+
+        Vector<Turn> loadedTurns = Input.notToVector(null, notationStr);
+
+        this.settings = new Settings("human", "human", null, null, 0, 0, null);//TODO v player??? pri nacteni z notace se pouzije implicitni nastaveni
+
+        if(this.settings == null || loadedTurns == null){
+            System.out.println("settings nebo loadedturns null");
+            return;
+        }
+
+        this.inFrInsertNot.dispose();
+
+        if(Player.isGameSetAndRunning()){
+
+            Player.stopThread();
+            Player.interruptPlayerThread();
+
+            this.dispose();
+
+            Player.startingPlayerThread();
+            try {Thread.sleep(50);} catch (InterruptedException e) {e.printStackTrace();}
+
+            Player.setLoadedTurns(loadedTurns);
+            Player.setSettings(this.settings);
+
+            try {Thread.sleep(50);} catch (InterruptedException e) {e.printStackTrace();}
+            Player.startPlayer();
+            Player.wakeUpPlayerThread();
+
+        }else{
+
+            Player.setLoadedTurns(loadedTurns);
+            Player.setSettings(this.settings);
+
+            try {Thread.sleep(50);} catch (InterruptedException e) {e.printStackTrace();}
+            Player.startPlayer();
+            Player.wakeUpPlayerThread();
+
+            this.BSubmitCommand.setEnabled(true);
+        }
     }
 
     /**

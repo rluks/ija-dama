@@ -2,7 +2,6 @@ package gui;
 
 import java.awt.GridLayout;
 import javax.swing.JInternalFrame;
-import javax.swing.JLabel;
 
 
 /**
@@ -35,8 +34,6 @@ public class Selection extends JInternalFrame {
         setSize(425,430);
         setLocation(xOffset*openFrameCount, yOffset*openFrameCount);
         getContentPane().setLayout(new GridLayout(0, 1, 0, 0));
-
-
 
     }
 }

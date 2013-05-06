@@ -31,7 +31,7 @@ public class Turn
 
     /**
      * Klonovaci funkce
-     * @param turn    tah do ktereho chceme nakopirovat hodnoty puvodniho tahu
+     * @param turn    tah ktery kopirujeme
      */
     public Turn(Turn turn)
     {

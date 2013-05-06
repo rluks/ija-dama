@@ -554,6 +554,7 @@ public class Player extends Thread{
                     }
 
                     if(this.index <= this.loadedTurns.size()-1){
+                        System.out.println("index:" + this.index);
                         Turn loadedTurn = new Turn(this.loadedTurns.elementAt(this.index));
                         this.turn = loadedTurn;
                     }else{
