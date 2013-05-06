@@ -582,9 +582,8 @@ public class Input
     }
 
     /**
-     * V pripade ze fce dostane validni tah, vzbudi tridu dama a preda ji validni tah.
-     * Pokud je tah nevalidni, nikoho nebudi.
-     * @param turn    tah ktery se ma validovat a pripadne predat dame
+     * Posle tah a vzbudi vlakno hry
+     * @param turn    tah ktery se ma validovat a predat dame
      */
     public static void inputTurn(Turn turn)
     {
@@ -595,7 +594,7 @@ public class Input
         }
         else
         {
-            //System.out.println("inputTurn: nevalidni tah, hra MUSI nastavit napovedu");
+            System.out.println("inputTurn: nevalidni tah, hra MUSI nastavit napovedu");
             Dama.setTurn(turn);
             Dama.wakeUpGameThread();
         }

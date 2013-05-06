@@ -54,8 +54,8 @@ public class NetworkSetup
             //gui.inFrNewP2PGameSett.padding.setForeground(Color.GREEN);
             //gui.inFrNewP2PGameSett.padding.setText("Waititing for connection!");
 
-            gui.inFrNewP2PGameSett.setVisible(false);    //odstani se internal frame s nastavenim settingu
-            gui.inFrNewP2PGameSett.dispose();
+            //gui.inFrNewP2PGameSett.setVisible(false);    //odstani se internal frame s nastavenim settingu
+            //gui.inFrNewP2PGameSett.dispose();
         }
         else    //hrac zadal spatne settingy, je mu to sdeleno
         {
@@ -260,6 +260,9 @@ public class NetworkSetup
                 System.out.println("Klient - Sitova chyba");
             }
         } ///end of client
+
+        gui.inFrNewP2PGameSett.setVisible(false);    //odstani se internal frame s nastavenim settingu
+        gui.inFrNewP2PGameSett.dispose();
 
         if(Dama.isGameSetAndRunning())
         {

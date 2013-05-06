@@ -16,6 +16,8 @@ public class Settings {
     public String remoteIP;
     public int remotePort;
 
+    public boolean p2penabled;
+
     public int aiWait;
 
     public String ClientCestaKSouboru=null;
@@ -39,6 +41,8 @@ public class Settings {
         this.local = local;
         this.remoteIP = remoteIP;
         this.remotePort = remotePort;
+
+        this.p2penabled = (local == null) ? false : true;
 
         this.aiWait = aiWait;
 

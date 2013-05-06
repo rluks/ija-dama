@@ -65,6 +65,7 @@ public class Output {
          //System.out.println(tmp.getTurnString());
 
          turn = "";
+         /*
 
          turn += "\t\t<turn player_color=\"";turn += tmp.playerColor;turn += "\">\n";
 
@@ -75,6 +76,8 @@ public class Output {
          turn += "\t\t\t<destination_col>";turn += tmp.destination.col;turn += "</destination_col>\n";
 
          turn += "\t\t</turn>\n";
+         */
+         turn = Output.getTurnString(tmp);
 
          xml += turn;
      }
@@ -85,13 +88,36 @@ public class Output {
     }
 
     /**
+     * Z turn vytvori retezec v xml
+     * @param turn
+     * @return
+     */
+    public static String getTurnString(Turn t){
+        String turnStr = new String();
+
+        turnStr = "";
+
+        turnStr += "\t\t<turn player_color=\"";turnStr += t.playerColor;turnStr += "\">\n";
+
+        turnStr += "\t\t\t<origin_row>";turnStr += t.origin.row;turnStr += "</origin_row>\n";
+        turnStr += "\t\t\t<origin_col>";turnStr += t.origin.col;turnStr += "</origin_col>\n";
+
+        turnStr += "\t\t\t<destination_row>";turnStr += t.destination.row;;turnStr += "</destination_row>\n";
+        turnStr += "\t\t\t<destination_col>";turnStr += t.destination.col;turnStr += "</destination_col>\n";
+
+        turnStr += "\t\t</turn>\n";
+
+        return turnStr;
+    }
+
+    /**
      * Podle charu s barvou vrati string s barvou hrace
      * @param playerColor    char s barvou ('B' nebo 'W')
      * @return                vrati string s barvou
      */
     public static String getPlayerColorString(char playerColor)
     {
-        return (playerColor == 'W') ? "white" : "black";
+        return (playerColor == 'W') ? "White" : "Black";
     }
 
 }

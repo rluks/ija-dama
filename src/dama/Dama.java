@@ -80,14 +80,11 @@ public class Dama extends Thread{
         //inicializace
 
         System.out.println("Hra: Uspavam se, cekam na vlozeni nastaveni, eventuelne loadedTurns, probud me a startgame.");
-        //Dama.sleepGameThread();
         this.pleaseWait = true;
 
         //smycka nastaveni hry
         while(true)
         {
-
-            //try {Thread.sleep(200);} catch (InterruptedException e) {e.printStackTrace();}
 
             synchronized(this){ while(pleaseWait){ try { System.out.println("Hra: sleeping before startGame..."); wait();} catch (Exception e) { e.printStackTrace(); } }  }
 
@@ -102,7 +99,6 @@ public class Dama extends Thread{
 
             this.desk = new Desk();
             gui.updateDesk(desk);
-            //this.desk.printSimpleBoard();
             gui.setMenuItemSave(true);
 
             System.out.println("Hra: Tisknu nastaveni");
@@ -162,36 +158,45 @@ public class Dama extends Thread{
 
                 }else{//Human
 
-                    this.turn = (this.playerColor == 'W') ? Turn.TurnWhite(pEmpty, pEmpty) : Turn.TurnBlack(pEmpty, pEmpty);
+                    //System.out.println("Local: " + this.settings.local);//White Black
 
-                    boolean validTurn = false;
+                    //pri P2P je na tahu hrac na tomto pocitaci
+                    if(!this.settings.p2penabled || Output.getPlayerColorString(this.playerColor).equals(this.settings.local)){
 
-                    gui.setMouse(true);
-                    gui.setSubmitButton(true);
-                    gui.setHelpButton(true);
+                        this.turn = (this.playerColor == 'W') ? Turn.TurnWhite(pEmpty, pEmpty) : Turn.TurnBlack(pEmpty, pEmpty);
 
-                    while(!validTurn){
-                        gui.clearAura();
-                        this.pleaseWait = true;
-                        synchronized(this){ while(pleaseWait){ try { System.out.println("Hra: sleeping, waiting for human..."); wait();} catch (Exception e) {
-                            System.out.println("Hra: prerusen spanek pri tahu cloveka.");
-                            /*e.printStackTrace();*/ } } }
+                        boolean validTurn = false;
 
-                        //vypinaci cast
-                        checkGUIShutdown(gui);
-                        if(allDone){System.out.println("Hra: Dama terminated, allDone!!");return;}
+                        gui.setMouse(true);
+                        gui.setSubmitButton(true);
+                        gui.setHelpButton(true);
 
-                        validTurn = Moves.isTurnValid(this.turn, this.desk);
-                        if(validTurn){
-                            System.out.println("Hra: tah je validni");
-                            //validTurn = true;
-                        }else{
-                            System.out.println("Hra: tah NENI validni");
-                            //validTurn = false;
-                            gui.setInfoText("Nevalidni tah!");
+                        while(!validTurn){
                             gui.clearAura();
-                            gui.ZobrazNapovedu();
-                        }
+                            this.pleaseWait = true;
+                            synchronized(this){ while(pleaseWait){ try { System.out.println("Hra: sleeping, waiting for human..."); wait();} catch (Exception e) {
+                                System.out.println("Hra: prerusen spanek pri tahu cloveka.");
+                                //e.printStackTrace();
+                                } } }
+
+
+                            //vypinaci cast
+                            checkGUIShutdown(gui);
+                            if(allDone){System.out.println("Hra: Dama terminated, allDone!!");return;}
+
+                            validTurn = Moves.isTurnValid(this.turn, this.desk);
+                            if(validTurn){
+                                if(this.settings.p2penabled){
+                                    System.out.println("HraP2P: tah je validni, posilam ho souperi.");
+
+                                }
+                            }else{
+                                System.out.println("Hra: tah NENI validni");
+                                gui.setInfoText("Nevalidni tah!");
+                                gui.clearAura();
+                                gui.ZobrazNapovedu();
+                            }
+                        }//while valid turn
                     }
                 }
 
