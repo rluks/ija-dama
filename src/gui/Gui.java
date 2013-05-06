@@ -17,8 +17,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
-import java.net.ServerSocket;
-import java.net.Socket;
 import java.util.Enumeration;
 import java.util.Locale;
 
@@ -133,10 +131,12 @@ public class Gui extends JFrame
 
     protected ImageIcon imIcSeal;    //lachtan
 
+    /*
     //nejak sitove veci
     public ServerSocket server=null;
     public Socket connectionToTheClient=null;
     public Socket connectionToTheServer=null;
+    */
 
 ///==============================================================================================================
 ///==============================================================================================================

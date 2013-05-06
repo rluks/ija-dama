@@ -36,7 +36,7 @@ public class NetworkSetup
      */
     public static void startP2Pgame(Gui gui)
     {
-        killTheSockets(gui);    //zrusi vsechna predchozi spojeni
+        killTheSockets(gui.settings);    //zrusi vsechna predchozi spojeni
 
         Vector<Turn> lt = new Vector<Turn>();
         Settings sett=gui.inFrNewP2PGameSett.getSettings();
@@ -84,16 +84,16 @@ public class NetworkSetup
                 System.out.println("Server");
                 gui.lblInfo.setText("Waiting for connection...");
 
-                gui.server = new ServerSocket(gui.settings.remotePort);    //hostuje se hra, ceka se na pripojeni hrace max 60sec
-                gui.server.setSoTimeout(60000);
+                sett.server = new ServerSocket(gui.settings.remotePort);    //hostuje se hra, ceka se na pripojeni hrace max 60sec
+                sett.server.setSoTimeout(60000);
 
-                gui.connectionToTheClient = gui.server.accept();    //tady se nekdo konecne pripoji
+                sett.connectionToTheClient = sett.server.accept();    //tady se nekdo konecne pripoji
 
                 gui.lblInfo.setText("Server - Connection established!");
                 System.out.println("Server po accept - connection established!");
 
                 //server ceka, ze klient mu posle svoji barvu
-                InputStream in = gui.connectionToTheClient.getInputStream();        //nastavi se input stream
+                InputStream in = sett.connectionToTheClient.getInputStream();        //nastavi se input stream
                 BufferedReader br = new BufferedReader(new InputStreamReader(in));
 
                 String line = br.readLine();        //prijde string s barvou klienta
@@ -190,13 +190,13 @@ public class NetworkSetup
                 System.out.println("Klient");
                 gui.lblInfo.setText("Klient - Connecting...");
 
-                gui.connectionToTheServer = new Socket(gui.settings.remoteIP, gui.settings.remotePort);    //pripoji se na zadanou adresu a port
+                sett.connectionToTheServer = new Socket(gui.settings.remoteIP, gui.settings.remotePort);    //pripoji se na zadanou adresu a port
 
                 gui.lblInfo.setText("Klient - Connection established!");
                 System.out.println("Klient se pripojil - connection established!");
 
                 //klient posle svoji barvu a nastavi si ji
-                OutputStream out = gui.connectionToTheServer.getOutputStream();
+                OutputStream out = sett.connectionToTheServer.getOutputStream();
                 PrintStream ps = new PrintStream(out, true); // Second param: auto-flush on write = true
                 ps.println(gui.settings.local);
 
@@ -291,28 +291,29 @@ public class NetworkSetup
      * Fce co ukonci vsechna spojeni
      * @param gui odkaz na gui, kde jsou ulozeny sitove promenne
      */
-    public static void killTheSockets(Gui gui)
+    public static void killTheSockets(Settings sett)
     {
+        if (sett==null) return;
         try
         {
 
-            if (gui.connectionToTheClient!=null) 
-            {	
-            	OutputStream out = gui.connectionToTheClient.getOutputStream();
+            if (sett.connectionToTheClient!=null)
+            {
+                OutputStream out = sett.connectionToTheClient.getOutputStream();
                 PrintStream ps = new PrintStream(out, true); // Second param: auto-flush on write = true
                 ps.println("SPOJENI UKONCENO");
                 ps.close();
-            	gui.connectionToTheClient.close();            	
+                sett.connectionToTheClient.close();
             }
-            if (gui.connectionToTheServer!=null)
-            {	
-            	OutputStream out = gui.connectionToTheServer.getOutputStream();
+            if (sett.connectionToTheServer!=null)
+            {
+                OutputStream out = sett.connectionToTheServer.getOutputStream();
                 PrintStream ps = new PrintStream(out, true); // Second param: auto-flush on write = true
                 ps.println("SPOJENI UKONCENO");
                 ps.close();
-                gui.connectionToTheServer.close();            	
-            }	
-            if (gui.server!=null) gui.server.close();
+                sett.connectionToTheServer.close();
+            }
+            if (sett.server!=null) sett.server.close();
 
         }
         catch (IOException e)
