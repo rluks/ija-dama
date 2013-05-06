@@ -198,32 +198,7 @@ public class Dama extends Thread{
                             if(validTurn){
                                 if(this.settings.p2penabled){
                                     System.out.println("HraP2P: tah je validni, posilam ho souperi.");
-
-                                    String p0=this.turn.origin.getStrLowerCase();
-                                    String p1=this.turn.destination.getStrLowerCase();
-                                    String turnStr = p0 + "-" + p1;
-
-                                    OutputStream out = null;
-
-                                    if (this.settings.connectionToTheClient == null){
-                                        try {
-                                            out = this.settings.connectionToTheServer.getOutputStream();
-                                        } catch (IOException e) {
-                                            // TODO Auto-generated catch block
-                                            e.printStackTrace();
-                                        }
-                                    }else{
-                                        try {
-                                            out = this.settings.connectionToTheClient.getOutputStream();
-                                        } catch (IOException e) {
-                                            // TODO Auto-generated catch block
-                                            e.printStackTrace();
-                                        }
-                                    }
-
-                                    PrintStream ps = new PrintStream(out, true); // Second param: auto-flush on write = true
-                                    ps.println(turnStr);
-
+                                    this.sendTurnToOpponent();
                                 }
                             }else{
                                 System.out.println("Hra: tah NENI validni");
@@ -240,35 +215,7 @@ public class Dama extends Thread{
                         gui.setSubmitButton(false);
                         gui.setHelpButton(false);
 
-                        InputStream in = null;
-
-                        if (this.settings.connectionToTheClient == null){
-                            try {
-                                in = this.settings.connectionToTheServer.getInputStream();
-                            } catch (IOException e) {
-                                // TODO Auto-generated catch block
-                                e.printStackTrace();
-                            }
-                        }else{
-                            try {
-                                in = this.settings.connectionToTheClient.getInputStream();
-                            } catch (IOException e) {
-                                // TODO Auto-generated catch block
-                                e.printStackTrace();
-                            }
-                        }
-
-                        BufferedReader br = new BufferedReader(new InputStreamReader(in));
-                        String line = new String();
-                        try {
-                            line = br.readLine();
-                        } catch (IOException e) {
-                            // TODO Auto-generated catch block
-                            e.printStackTrace();
-                        }
-
-                        this.turn = Turn.NotStringToTurn(line, this.playerColor);
-
+                        this.waitForOpponentTurn();
                     }
                 }
 
@@ -359,6 +306,67 @@ public class Dama extends Thread{
         }
     }
 
+
+    private void sendTurnToOpponent() {
+
+        String p0=this.turn.origin.getStrLowerCase();
+        String p1=this.turn.destination.getStrLowerCase();
+        String turnStr = p0 + "-" + p1;
+
+        OutputStream out = null;
+
+        if (this.settings.connectionToTheClient == null){
+            try {
+                out = this.settings.connectionToTheServer.getOutputStream();
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }else{
+            try {
+                out = this.settings.connectionToTheClient.getOutputStream();
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
+
+        PrintStream ps = new PrintStream(out, true); // Second param: auto-flush on write = true
+        ps.println(turnStr);
+    }
+
+    private void waitForOpponentTurn() {
+
+        InputStream in = null;
+
+        if (this.settings.connectionToTheClient == null){
+            try {
+                in = this.settings.connectionToTheServer.getInputStream();
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }else{
+            try {
+                in = this.settings.connectionToTheClient.getInputStream();
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(in));
+        String line = new String();
+        try {
+            line = br.readLine();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        this.turn = Turn.NotStringToTurn(line, this.playerColor);
+
+    }
 
     /**
      * Vytiskne do gui notaci a zvysi pocitadlo tahu
