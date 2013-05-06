@@ -138,8 +138,16 @@ public class Gui extends JFrame
     public Socket connectionToTheClient=null;
     public Socket connectionToTheServer=null;
 
+///==============================================================================================================
+///==============================================================================================================
 
-    public Gui(int insetx, int insety) {
+    /**
+     * Konstruktor hlavniho okna hry
+     * @param insetx    vzdalenost v pixelech od leve hrany obrazovny
+     * @param insety    vzdalenost v pixelech od horni hrany obrazovky
+     */
+    public Gui(int insetx, int insety)
+    {
         super("Gui");
 
         //Nastaveni okna
@@ -152,7 +160,10 @@ public class Gui extends JFrame
         setContentPane(desktop);
 
         //Make dragging a little faster but perhaps uglier.
-        desktop.setDragMode(JDesktopPane.OUTLINE_DRAG_MODE);
+        //desktop.setDragMode(JDesktopPane.OUTLINE_DRAG_MODE);
+
+        //makes drag a little less ugly but perhaps slower
+        desktop.setDragMode(JDesktopPane.LIVE_DRAG_MODE);
 
         this.setMouse(false);
         addMouseListener(this);
@@ -179,7 +190,6 @@ public class Gui extends JFrame
         lblInfo.setBounds(40, 10, 360, 30);
         desktop.add(lblInfo);
 
-
         this.lblPlayercolor = new JLabel("");
         this.lblPlayercolor.setBounds(25, 10, 45, 30);
         desktop.add(this.lblPlayercolor);
@@ -191,11 +201,12 @@ public class Gui extends JFrame
         desktop.add(LNapoveda);
 
         this.BNapoveda = new JButton("Help!");
-        this.BNapoveda.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-
-                if(Dama.isGameSetAndRunning()){
-
+        this.BNapoveda.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent arg0)
+            {
+                if(Dama.isGameSetAndRunning())
+                {
                     Desk deskForHelp = new Desk(Dama.getDesk());
                     char playerColor = Dama.getPlayerColor();
                     int aiStochasticity = 10;
@@ -206,9 +217,9 @@ public class Gui extends JFrame
                     {
                         LNapoveda.setText("Marked figures can move!");
                         ZobrazNapovedu();
-                    }else{
-                        LNapoveda.setText("Stalemate!");
                     }
+                    else LNapoveda.setText("Stalemate!");
+
                 }
             }
         });
@@ -322,8 +333,10 @@ public class Gui extends JFrame
                 desktop.add(this.pole_napovedy[row][col]);
                 desktop.setLayer(this.pole_napovedy[row][col], 3);
             }
+    } ///konec konstruktoru
 
-    }
+///===============================================================================================================
+///===============================================================================================================
 
     /**
      * Vytvori menu
@@ -404,6 +417,7 @@ public class Gui extends JFrame
         return menuBar;
     }
 
+///===============================================================================================================
 
     //Reakce na menu a na tlacitka ve vnitrnich ramcich
     public void actionPerformed(ActionEvent e) {
@@ -413,18 +427,10 @@ public class Gui extends JFrame
             createNewP2PGameSettingsFrame();
         }else if ("loadgame".equals(e.getActionCommand()))
         {
-            System.out.println("LoadGame");
             createLoadGameFrame("Load game");
-            System.out.println("/LoadGame");
-            //this.inFrLoadGame=new LoadGame();
-
         }else if ("save".equals(e.getActionCommand()))
         {
-            System.out.println("Save game");
             createLoadGameFrame("Save game");
-
-            System.out.println("/Save game");
-
         }else if ("player".equals(e.getActionCommand())){
             Player.startingPlayerThread();
         }else if ("About".equals(e.getActionCommand())){
@@ -436,11 +442,9 @@ public class Gui extends JFrame
         }else if ("startP2Pgame".equals(e.getActionCommand())){
             NetworkSetup.startP2Pgame(this);
         }
-        else if ("loadgamebutton".equals(e.getActionCommand()))
-        {
+        else if ("loadgamebutton".equals(e.getActionCommand())){
             LoadGameButton();
-        }
-        else if ("savegamebuttonXml".equals(e.getActionCommand()))
+        }else if ("savegamebuttonXml".equals(e.getActionCommand()))
         {
             SaveGameButtonXml();
         }else if("victoryOK".equals(e.getActionCommand())){
@@ -458,15 +462,14 @@ public class Gui extends JFrame
             Dama.startingGameThread(x,y);
             this.dispose();
         }
-        else if ("savegamebuttonNot".equals(e.getActionCommand()))
-        {
+        else if ("savegamebuttonNot".equals(e.getActionCommand())){
             SaveGameButtonNot();
-        }
-        else{
+        }else{
             System.out.println("Neznama akce: " + e.getActionCommand());
         }
     }
 
+///===============================================================================================================
 
     /**
      * Vytvori vnitrni ramec nastaveni lokalni hry
@@ -489,6 +492,7 @@ public class Gui extends JFrame
         } catch (java.beans.PropertyVetoException e) {}
     }
 
+///===============================================================================================================
 
     /**
      * Vytvori vnitrni ramec pro nacitani drive ulozene hry
@@ -496,8 +500,6 @@ public class Gui extends JFrame
      */
     protected void createLoadGameFrame(String nazevOkna)
     {
-        System.out.println("\tcreate LG");
-
         this.inFrLoadGame=new LoadGame(nazevOkna);
         desktop.setLayer(inFrLoadGame, 5);
         inFrLoadGame.setLocation(100, 100);
@@ -518,14 +520,11 @@ public class Gui extends JFrame
             btnLoadgame.setText("Save in XML");
             btnLoadgame.setActionCommand("savegamebuttonXml");
 
-            System.out.println("Tlacitko");
             btnLoadgame2 = new JButton("Save in notation");
             btnLoadgame2.setBounds(294, 60, 140, 20);
             btnLoadgame2.setActionCommand("savegamebuttonNot");
             btnLoadgame2.addActionListener(this);
             inFrLoadGame.getContentPane().add(btnLoadgame2);
-            System.out.println("/Tlacitko");
-
         }
         btnLoadgame.addActionListener(this);
 
@@ -535,19 +534,17 @@ public class Gui extends JFrame
             inFrLoadGame.setSelected(true);
         }
         catch (java.beans.PropertyVetoException e) {}
-
-        //System.out.println("\t/create LG");
     }
+
+///===============================================================================================================
 
     /**
      * Reakce na tlacitko v inFrLoadGame
      */
     public void SaveGameButtonXml()
     {
-        System.out.println("Tlacitko save!");
         String cesta=inFrLoadGame.GetPath();
         if (!cesta.endsWith(".xml")) cesta=cesta+".xml";
-        System.out.println("Cesta: \"" + cesta + "\"");
         inFrLoadGame.dispose();
         try
         {
@@ -556,11 +553,13 @@ public class Gui extends JFrame
         }
         catch (Exception e1)
         {
-            System.out.println("Nepodarilo se ulozit hru");
+            //System.out.println("Nepodarilo se ulozit hru");
             this.createFail("Failed to save game in XML!");
             e1.printStackTrace();
         }
     }
+
+///===============================================================================================================
 
     /**
      * Reakce na tlacitko v inFrLoadGame
@@ -570,7 +569,6 @@ public class Gui extends JFrame
         String notace=TAVypisNotace.getText();
         String cesta=inFrLoadGame.GetPath();
         if (!cesta.endsWith(".txt")) cesta=cesta+".txt";
-        System.out.println("Cesta: \"" + cesta + "\"");
         inFrLoadGame.dispose();
         try
         {
@@ -578,11 +576,12 @@ public class Gui extends JFrame
         }
         catch (Exception e1)
         {
-            System.out.println("Nepodarilo se ulozit hru");
             this.createFail("Failed to save game in notation!");
             e1.printStackTrace();
         }
     }
+
+///===============================================================================================================
 
     /**
      * Reakce na tlacitko v inFrLoadGame
@@ -591,69 +590,37 @@ public class Gui extends JFrame
     {
         if(Dama.isGameSetAndRunning())
         {
-
-            System.out.println("Tlacitko load!");
             String cesta=inFrLoadGame.GetPath();
-            System.out.println("Cesta: \"" + cesta + "\"");
             inFrLoadGame.dispose();
 
             Dama.stopGameThread();
             Dama.interruptGameThread();
-
             int x=this.getBounds().x;
             int y=this.getBounds().y;
-
             this.dispose();
-
             Dama.startingGameThread(x,y);
+
             try {Thread.sleep(50);} catch (InterruptedException e) {e.printStackTrace();}
 
-            if (cesta.endsWith(".xml"))
-            {
-                System.out.println("XML MOTAFAKA!!");
+            if (cesta.endsWith(".xml")){
                 if (!Input.XmlToVector(cesta, true, null)) return;
-            }
-            else if (cesta.endsWith(".txt"))
-            {
-                System.out.println("NOTACE BIATCH!!");
-                boolean test = Input.NotToVector(cesta, true, null);
-                System.out.println("NotToVector vraci " + test);
-                if (!test) return;
-            }
-            else
-            {
-                System.out.println("Da fuk is dis sith?! (extention not txt of xml)");
-                return;
-            }
+            }else if (cesta.endsWith(".txt")){
+                if (!Input.NotToVector(cesta, true, null)) return;
+            }else return;
 
             try {Thread.sleep(50);} catch (InterruptedException e) {e.printStackTrace();}
             Dama.startGame();
             Dama.wakeUpGameThread();
-
         }
         else
         {
-            System.out.println("Tlacitko load!");
             String cesta=inFrLoadGame.GetPath();
-            System.out.println("Cesta: \"" + cesta + "\"");
             inFrLoadGame.dispose();
-            if (cesta.endsWith(".xml"))
-            {
-                System.out.println("XML MOTAFAKA!!");
+            if (cesta.endsWith(".xml")){
                 if (!Input.XmlToVector(cesta, true, null)) return;
-            }
-            else if (cesta.endsWith(".txt"))
-            {
-                System.out.println("NOTACE BIATCH!!");
-                boolean test = Input.NotToVector(cesta, true, null);
-                System.out.println("NotToVector vraci " + test);
-                if (!test) return;
-            }
-            else
-            {
-                System.out.println("Da fuk is dis sith?! (extention not txt of xml)");
-                return;
-            }
+            }else if (cesta.endsWith(".txt")){
+                if (!Input.NotToVector(cesta, true, null)) return;
+            }else return;
             Dama.startGame();
             Dama.wakeUpGameThread();
             this.menuItemSave.setEnabled(true);
@@ -661,13 +628,13 @@ public class Gui extends JFrame
         }
     }
 
-
+///===============================================================================================================
 
     /**
      * Vytvori vnitrni ramec nastaveni P2P hry
      */
-    protected void createNewP2PGameSettingsFrame() {
-
+    protected void createNewP2PGameSettingsFrame()
+    {
         this.inFrNewP2PGameSett = new NewP2PGameSettings();
         desktop.setLayer(inFrNewP2PGameSett, 5);
         inFrNewP2PGameSett.setLocation(110, 50);
@@ -684,6 +651,11 @@ public class Gui extends JFrame
         } catch (java.beans.PropertyVetoException e) {}
     }
 
+///===============================================================================================================
+
+    /**
+     * Vytvori internal frame s upozornenim ze doslo k viteznemu stavu
+     */
     public void createVictory(){
 
         this.victory = new Victory();
@@ -708,6 +680,12 @@ public class Gui extends JFrame
 
     }
 
+///===============================================================================================================
+
+    /**
+     * Zobrazi internal frame, ktere sdeluje ze doslo k chybe
+     * @param string    nazev fail okna
+     */
     public void createFail(String string) {
 
            this.fail = new Fail(string);
@@ -730,6 +708,7 @@ public class Gui extends JFrame
 
     }
 
+///===============================================================================================================
 
     /**
      * Ziska settings z vnitrniho ramce inFrNewGameSett
@@ -739,103 +718,102 @@ public class Gui extends JFrame
 
         this.settings = this.inFrNewGameSett.getSettings();
 
-        if(this.settings != null){
-            System.out.println("GUI:Starting the game...");
+        if(this.settings != null)
+        {
+            //System.out.println("GUI:Starting the game...");
             this.lblInfo.setText(this.settings.getSettingsString());
 
-            if(Dama.isGameSetAndRunning()){
-                System.out.println("hra BEZELA spoustim...");
+            if(Dama.isGameSetAndRunning())
+            {
+                //System.out.println("hra BEZELA spoustim...");
                 Dama.interruptGameThread();
                 Dama.stopGameThread();
                 int x=this.getBounds().x;
                 int y=this.getBounds().y;
 
                 this.dispose();
-
                 try {Thread.sleep(300);} catch (InterruptedException e) {e.printStackTrace();}
-
                 Dama.startingGameThread(x,y);
-
                 try {Thread.sleep(50);} catch (InterruptedException e) {e.printStackTrace();}
-
                 Dama.setSettings(this.settings);
-
                 try {Thread.sleep(50);} catch (InterruptedException e) {e.printStackTrace();}
-
 
                 Dama.startGame();
-
                 Dama.wakeUpGameThread();
-            }else{
-                System.out.println("gui: ukladanim nastaveni do NOVE...");
+            }
+            else
+            {
+                //System.out.println("gui: ukladanim nastaveni do NOVE...");
                 Dama.setSettings(this.settings);
-
-                System.out.println("gui: povoluji akce...");
+                //System.out.println("gui: povoluji akce...");
                 this.BSubmitCommand.setEnabled(true);
                 this.BNapoveda.setEnabled(true);
                 this.menuItemSave.setEnabled(true);
 
                 Dama.startGame();
                 Dama.wakeUpGameThread();
-
                 this.inFrNewGameSett.setVisible(false);
                 this.inFrNewGameSett.dispose();
             }
-        }else{
-            System.out.println("Configure settings!");
+        }
+        else
+        {
+            //System.out.println("Configure settings!");
             this.lblInfo.setText("Configure settings!");
         }
     }
 
-
-    /**
-     * prozatim neupdatovana funkce pro nastaveni a spousteni P2P hry
-     */
-
-
+///===============================================================================================================
 
     /**
      * Ukonceni hry tlacitkem v menu
      */
-    protected void quit() {
-
+    protected void quit()
+    {
         System.out.println("Quit v menu, ukoncuji...");
         System.exit(0);
     }
 
+///===============================================================================================================
 
     /**
      * Create the GUI and show it.  For thread safety,
      * this method should be invoked from the
      * event-dispatching thread.
      */
-    public static void createAndShowGUI() {
+    public static void createAndShowGUI()
+    {
         //Make sure we have nice window decorations.
         JFrame.setDefaultLookAndFeelDecorated(true);
-
         //Create and set up the window.
         Gui frame = new Gui(50, 50);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
         //Display the window.
         frame.setVisible(true);
     }
+
+///===============================================================================================================
 
     /**
      * Povoluje a zakazuje kliknuti mysi
      * @param value boolean
      */
-    public void setMouse(boolean value){
+    public void setMouse(boolean value)
+    {
         this.mouseEnabled = value;
     }
+
+///===============================================================================================================
 
     //Zpracuje klik tlacitka a posle zvolenou pozici na desce dale
     public void mouseClicked(MouseEvent e)
     {
         if(this.mouseEnabled){
-            switch(e.getModifiers()) {
-                case InputEvent.BUTTON1_MASK: {
-                    System.out.println("That's the LEFT button");
+            switch(e.getModifiers())
+            {
+                case InputEvent.BUTTON1_MASK:
+                {
+                    //System.out.println("That's the LEFT button");
                     Point p = getLocationOnScreen();
                     PointerInfo a = MouseInfo.getPointerInfo();
                     Point b = a.getLocation();
@@ -848,24 +826,24 @@ public class Gui extends JFrame
                         int sy = y - 11 - y_sachovnice;
                         sx = sx/50;
                         sy = 7 - sy/50;
+                        //System.out.println(sx + ":" + sy);
+                        Position pos = new Position(sy, sx);
+                        this.mouseInput(pos);
 
-                        System.out.println(sx + ":" + sy);
-
-                    Position pos = new Position(sy, sx);
-                    this.mouseInput(pos);
-
-                    this.lblAura.setIcon(this.imIcAura);
-                    this.lblAura.setBounds(x_sachovnice+10+(sx*50), y_sachovnice+10+350-(sy*50),50,50);
+                        this.lblAura.setIcon(this.imIcAura);
+                        this.lblAura.setBounds(x_sachovnice+10+(sx*50), y_sachovnice+10+350-(sy*50),50,50);
 
                     }
-                break;
-                }
-                case InputEvent.BUTTON2_MASK: {
-                    System.out.println("That's the MIDDLE button");
                     break;
                 }
-                case InputEvent.BUTTON3_MASK: {
-                    System.out.println("That's the RIGHT button");
+                case InputEvent.BUTTON2_MASK:
+                {
+                    //System.out.println("That's the MIDDLE button");
+                    break;
+                }
+                case InputEvent.BUTTON3_MASK:
+                {
+                    //System.out.println("That's the RIGHT button");
                     Gui.setClickCount(0);
                     this.clearAura();
                     break;
@@ -875,56 +853,55 @@ public class Gui extends JFrame
     }
 
     @Override
-    public void mouseEntered(MouseEvent arg0) {
-        // TODO Auto-generated method stub
-    }
+    public void mouseEntered(MouseEvent arg0) {}
     @Override
-    public void mouseExited(MouseEvent arg0) {
-        // TODO Auto-generated method stub
-    }
+    public void mouseExited(MouseEvent arg0) {}
     @Override
-    public void mouseReleased(MouseEvent arg0) {
-        // TODO Auto-generated method stub
-    }
+    public void mouseReleased(MouseEvent arg0) {}
     @Override
-    public void mousePressed(MouseEvent arg0)
-    {
-        // TODO Auto-generated method stub
-    }
+    public void mousePressed(MouseEvent arg0) {}
+
+///===============================================================================================================
 
     /**
      * Zpracuje vstup od mysi (kliky na sachovnici) a posila ho dal
      * @param pos
      */
-    public void mouseInput(Position pos){
-
-        if(Dama.isGameSetAndRunning()){
-
+    public void mouseInput(Position pos)
+    {
+        if(Dama.isGameSetAndRunning())
+        {
             Gui.clickCount++;
-            System.out.println("mouseInput:" + pos.getStr());
+            //System.out.println("mouseInput:" + pos.getStr());
 
-            if(Gui.clickCount == 1){
+            if(Gui.clickCount == 1)
+            {
                 this.turn = new Turn(Dama.getTurn());
-
                 this.turn.origin = new Position(pos);
             }
-
-            if(Gui.clickCount == 2){
+            if(Gui.clickCount == 2)
+            {
                 this.turn.destination = new Position(pos);
-
                 Input.inputTurn(this.turn);
-
                 Gui.clickCount = 0;
-
                 this.clearAura();
             }
         }
     }
 
-    public static void setClickCount(int count){
+///===============================================================================================================
+
+    /**
+     * Nastavi pocet kliku
+     * @param count    cislo na ktere se ma pocet kliku nastavit
+     */
+    public static void setClickCount(int count)
+    {
         Gui.clickCount = count;
-        System.out.println("setClickCount:" + count);
+        //System.out.println("setClickCount:" + count);
     }
+
+///===============================================================================================================
 
     /**
      * Vykresli stav desky
@@ -981,6 +958,12 @@ public class Gui extends JFrame
 
     }
 
+///===============================================================================================================
+
+    /**
+     * Zobrazi na desce hry napovedu. Pokud dany hrac nemusi brat, vsechny figurky co se muzou pohnout jsou modre oznaceny.
+     * Pokud musi dany hrac brat, cervene se mu oznaci vsechny figurky co mohou brat.
+     */
     public void ZobrazNapovedu()
     {
         Desk desk = Dama.getDesk();
@@ -1002,6 +985,11 @@ public class Gui extends JFrame
                 }
     }
 
+///===============================================================================================================
+
+    /**
+     * Na desce smaze vizualni napovedu (modre a cervene oznaceni figurek).
+     */
     public void SmazNapovedu()
     {
         for(int row=0; row<8; row++)
@@ -1009,6 +997,7 @@ public class Gui extends JFrame
                 this.pole_napovedy[row][col].setIcon(null);
     }
 
+///===============================================================================================================
 
     /**
      * Fce prida to textarea dalsi tah v notaci
@@ -1037,6 +1026,8 @@ public class Gui extends JFrame
         TAVypisNotace.setText(predchozi_obsah + tah + ". " + p0 + w + p1 + " " + p2 + b + p3 + "\n");
     }
 
+///===============================================================================================================
+
     /**
      * Fce prida to textarea tah bileho v notaci
      * pouziti: bily vyhraje a cerny uz netahne
@@ -1057,6 +1048,8 @@ public class Gui extends JFrame
         TAVypisNotace.setText(predchozi_obsah + tah + ". " + p0 + w + p1);
     }
 
+///===============================================================================================================
+
     /**
      * Fce prida to textarea tah cerneho v notaci
      * pouziti: cerny tahnul
@@ -1076,43 +1069,75 @@ public class Gui extends JFrame
         TAVypisNotace.setText(predchozi_obsah + " " + p0 + w + p1 + "\n");
     }
 
-    public void pullThePlug() {
+///===============================================================================================================
+
+    /**
+     * Toto by melo kompletne zabit aplikaci.
+     */
+    public void pullThePlug()
+    {
         WindowEvent wev = new WindowEvent(this, WindowEvent.WINDOW_CLOSING);
         Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(wev);
     }
 
+///===============================================================================================================
+
+    /**
+     * Nastavi label "lblInfo" aby zobrazoval zadany text.
+     * @param text    text ktery chceme aby se zobrazoval v labelu
+     */
     public void setInfoText(String text){
         this.lblInfo.setText(text);
     }
 
+///===============================================================================================================
     /**
      * Vycisti hraci desku od zeleneho oznaceni
      */
     public void clearAura(){
         this.lblAura.setIcon(null);
     }
-
+///===============================================================================================================
+    /**
+     * Label s napovedou da do puvodniho stavu.
+     */
     public void clearHelp(){
         this.LNapoveda.setText("No help requested...");
     }
-
+///===============================================================================================================
+    /**
+     * Nastavi menu na (ne)klikatelne
+     * @param value    boolean urcujici jestli bude enabled nebo disabled
+     */
     public void setMenu(boolean value){
         this.menu.setEnabled(value);
     }
-
+///===============================================================================================================
+    /**
+     * Nastavi tlacitko help na (ne)klikatelne
+     * @param value    boolean urcujici jestli bude enabled nebo disabled
+     */
     public void setHelpButton(boolean value){
         this.BNapoveda.setEnabled(value);
     }
-
+///===============================================================================================================
+    /**
+     * Nastavi tlacitko submit(command inn notation) na (ne)klikatelne
+     * @param value    boolean urcujici jestli bude enabled nebo disabled
+     */
     public void setSubmitButton(boolean value){
         this.BSubmitCommand.setEnabled(value);
     }
-
+///===============================================================================================================
+    /**
+     * Nastavi tlacitko save v menu na (ne)klikatelne
+     * @param value    boolean urcujici jestli bude enable nebo disabled
+     */
     public void setMenuItemSave(boolean value){
         this.menuItemSave.setEnabled(value);
     }
 
-
+///===============================================================================================================
 
     /**
      * Pomocna funkce na zisk zvolenych radio buttonu

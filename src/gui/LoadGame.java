@@ -21,8 +21,7 @@ public class LoadGame extends JInternalFrame
 
     private JTextField TFCesta;
     private JButton BtBrowse;
-    //private JButton BtOk;
-
+    
     /**
      * Konstruktor. Vytvori novy internal frame
      * @param nazevOkna    jak se ma okno jmenovat (pouzivame "Save game" a "Load game")
@@ -34,9 +33,7 @@ public class LoadGame extends JInternalFrame
                   true, //closable
                   false, //maximizable
                   false);//iconifiable
-
-        //System.out.println("\t\tKonstruktor LG");
-
+       
        this.setSize(450,120);        //velikost okna
        this.title=nazevOkna;        //nazev
 
@@ -54,8 +51,6 @@ public class LoadGame extends JInternalFrame
        JLabel popisek = new JLabel("File:");    //jen popisek
        popisek.setBounds(26, 15, 34, 14);
        getContentPane().add(popisek);
-
-       //System.out.println("\t\t/Konstruktor LG");
     }
 
      /**
