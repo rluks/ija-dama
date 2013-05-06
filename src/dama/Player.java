@@ -402,7 +402,8 @@ public class Player extends Thread{
             @Override
             public void windowClosing(WindowEvent we) {
                 System.out.println("PlayerGui: Okno zavreno, ukoncuji...");
-                System.exit(0);
+                return;
+                //System.exit(0);
             }
         } );
     }
