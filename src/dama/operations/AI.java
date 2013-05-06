@@ -13,7 +13,6 @@ import java.util.Random;
  */
 public class AI
 {
-
     /**
      * Provede jeden nahodny tah hrace (velice hloupa a jednoducha umela inteligence)
      * @param desk        odkaz na desku na ktere se provede tah AI
@@ -34,8 +33,6 @@ public class AI
         //nejdriv se poresi, jestli se musi brat - copypasta isMustTake
         if ( Check.isMustTake(desk, natahu) )
         {
-            //System.out.println("Musi se brat!0");
-
             for (row=0; row<Desk.BOARD_SIZE; row++)
                 for (col=0; col<Desk.BOARD_SIZE; col++)
                     if ( (this_board[row][col]!=null) )
@@ -98,7 +95,6 @@ public class AI
         }
 
         //tady se nahodne tahne s nejakou fugurkou - copypasta canMove
-        //System.out.println("Bude se tahnout!0");
         while(true)
         {
             for (row=0; row<Desk.BOARD_SIZE; row++)
@@ -111,7 +107,7 @@ public class AI
 
                         Random generator = new Random();
                         int r = generator.nextInt()%nahodnost;
-                        if (preskoceni<24)
+                        if (preskoceni<25)
                         {
                             if (r==1)
                             {
@@ -119,7 +115,7 @@ public class AI
                                 continue;
                             }
                         }
-                        else if (preskoceni>1000) return null; //doslo k patu
+                        else if (preskoceni>1500) return null; //doslo k patu
 
                         for (int i=1; i<8; i++)
                         {   //po obou uhloprickach jede v obouch smerech a kontroluje jestli muze figurka skocit na danou pozici

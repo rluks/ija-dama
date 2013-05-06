@@ -80,7 +80,7 @@ public class Input
             NodeList nSettings = doc.getElementsByTagName("settings");
             if (nSettings.getLength()!=1)
             {
-                System.out.println("!!setings nenalezeny!!");
+                //System.out.println("!!setings nenalezeny!!");
                 return false;
             }
             Node nNodeS = nSettings.item(0);
@@ -91,13 +91,13 @@ public class Input
                 b=eElementS.getElementsByTagName("black").item(0).getTextContent();
                 String ais=eElementS.getElementsByTagName("AI").item(0).getTextContent();
                 ai = Integer.parseInt(ais);
-                System.out.println("Bily: " + w +"; cerny: " + b + "; ai speed: " + ai);
+                //System.out.println("Bily: " + w +"; cerny: " + b + "; ai speed: " + ai);
             }
 
             NodeList nSettingsP = doc.getElementsByTagName("P2P");
             if (nSettingsP.getLength()!=1)
             {
-                System.out.println("!!setings P2P nenalezeny!!");
+                //System.out.println("!!setings P2P nenalezeny!!");
                 return false;
             }
             Node nNodeSP = nSettingsP.item(0);
@@ -112,7 +112,7 @@ public class Input
                     String p2pRemPS=eElementSP.getElementsByTagName("remotePort").item(0).getTextContent();
                     p2pRemP = Integer.parseInt(p2pRemPS);
                 }
-                System.out.println("P2P enable:" + p2pEn + "; local: " + p2pLoc + "; remIP: " + p2pRemIp + "; remPort: " + p2pRemP);
+                //System.out.println("P2P enable:" + p2pEn + "; local: " + p2pLoc + "; remIP: " + p2pRemIp + "; remPort: " + p2pRemP);
 
             }
 
@@ -137,9 +137,6 @@ public class Input
                     if (natahu==p)
                     {
                         if (natahu=='W') natahu='B';
-                        /*if (natahu=='B') natahu='W';
-                        else return false;
-                        */
                         else natahu='W';
                     }
                     else
@@ -175,19 +172,10 @@ public class Input
                     Position d=new Position(d_r, d_c);
 
                     Turn turn = new Turn(p, o, d);
-
                     TurnVector.add(turn);
-
-                    /*
-                    System.out.println("Hrac : " + p);
-                    System.out.println("Origin: " + o_r + ":" + o_c);
-                    System.out.println("Destination: " + d_r + ":" + d_c);
-                    System.out.println("-----------------------------------");
-                    */
                 }
 
             }
-            //System.out.println("===============================================");
         }
         catch (Exception e)
         {
@@ -211,7 +199,6 @@ public class Input
     public static boolean NotToVector(String cesta, boolean setSettings, String obsahSouboru)
     {
         Vector<Turn> TurnVector=new Vector<Turn>();        //sem se ukladaji nactene tahy
-        //File fXmlFile = new File(cesta);
         String string="";
         FileInputStream stream;
 
@@ -223,13 +210,11 @@ public class Input
                 stream = new FileInputStream(new File(cesta));
                 FileChannel fc = stream.getChannel();
                 MappedByteBuffer bb = fc.map(FileChannel.MapMode.READ_ONLY, 0, fc.size());
-                /* Instead of using default, pass in a decoder. */
                 string = Charset.defaultCharset().decode(bb).toString();
                 stream.close();
             }
             catch (Exception e)
             {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
                 return false;
             }
@@ -254,12 +239,10 @@ public class Input
                 else tecka=tecka+2;
 
                 String numero=radek.substring(0, tecka-2);    //ziska se poradove cislo tahu
-                //System.out.println("#" + numero);
                 if (pocitadlo_tahu!=Integer.parseInt(numero))return false;    //kontrola, jestli jdou poradova cisla spravne za sebou
                 else pocitadlo_tahu++;
 
                 radek=radek.substring(tecka);
-                //System.out.println(radek);
 
                 int mezera=radek.indexOf(" ");
                 if (mezera==-1) return false;
@@ -323,13 +306,11 @@ public class Input
                 stream = new FileInputStream(new File(cesta));
                 FileChannel fc = stream.getChannel();
                 MappedByteBuffer bb = fc.map(FileChannel.MapMode.READ_ONLY, 0, fc.size());
-                /* Instead of using default, pass in a decoder. */
                 string = Charset.defaultCharset().decode(bb).toString();
                 stream.close();
             }
             catch (Exception e)
             {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
                 return null;
             }
@@ -484,7 +465,7 @@ public class Input
                     String p2pRemPS=eElementSP.getElementsByTagName("remotePort").item(0).getTextContent();
                     p2pRemP = Integer.parseInt(p2pRemPS);
                 }
-                System.out.println("P2P enable:" + p2pEn + "; local: " + p2pLoc + "; remIP: " + p2pRemIp + "; remPort: " + p2pRemP);
+                //System.out.println("P2P enable:" + p2pEn + "; local: " + p2pLoc + "; remIP: " + p2pRemIp + "; remPort: " + p2pRemP);
 
             }
 
@@ -532,7 +513,6 @@ public class Input
                 doc=dBuilder.parse(is);
             }
 
-
             doc.getDocumentElement().normalize();
 
             /// nacteni jednotlivych tahu
@@ -552,9 +532,6 @@ public class Input
                     if (natahu==p)
                     {
                         if (natahu=='W') natahu='B';
-                        /*if (natahu=='B') natahu='W';
-                        else return false;
-                        */
                         else natahu='W';
                     }
                     else
@@ -590,10 +567,8 @@ public class Input
                     Position d=new Position(d_r, d_c);
 
                     Turn turn = new Turn(p, o, d);
-
                     TurnVector.add(turn);
                 }
-
             }
         }
         catch (Exception e)
@@ -613,7 +588,6 @@ public class Input
      */
     public static void inputTurn(Turn turn)
     {
-
         if(Moves.isTurnValid(turn, Dama.getDesk()))
         {
             Dama.setTurn(turn);
@@ -621,12 +595,9 @@ public class Input
         }
         else
         {
-            System.out.println("inputTurn: nevalidni tah, hra MUSI nastavit napovedu");
+            //System.out.println("inputTurn: nevalidni tah, hra MUSI nastavit napovedu");
             Dama.setTurn(turn);
-            //try {Thread.sleep(200);} catch (InterruptedException e) {e.printStackTrace();}
             Dama.wakeUpGameThread();
         }
     }
-
-
 }

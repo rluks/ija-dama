@@ -59,8 +59,6 @@ public final class Check {
                 {    //najde figurku hrace, ktery je na tahu
                     if (this_board[row][col].color==turnOf)
                     {
-                        //System.out.println("row: " + row + "; col: " +  col);
-
                         Position pos0 = new Position(row, col);
                         Position pos0_zaloha = new Position(row, col);
                         int i;
