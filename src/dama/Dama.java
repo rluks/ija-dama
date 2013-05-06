@@ -461,7 +461,7 @@ public class Dama extends Thread{
         // TODO javadoc
         // TODO k try-catch blokum dat do catch osetreni,zotaveni z chyb
 
-        Dama.startingGameThread(50,50);
+        Dama.startingGameThread(100,100);
 
     }
 
