@@ -138,12 +138,12 @@ public class Gui extends JFrame
     public Socket connectionToTheServer=null;
 
 
-    public Gui() {
+    public Gui(int insetx, int insety) {
         super("Gui");
 
         //Nastaveni okna
-        int inset = 50;
-        setBounds(inset, inset, 800, 600);
+        //int inset = 50;
+        setBounds(insetx, insety, 800, 600);
 
         //GUI
         desktop = new JDesktopPane();
@@ -444,12 +444,16 @@ public class Gui extends JFrame
         }else if("victoryOK".equals(e.getActionCommand())){
             this.setVisible(false);
             Dama.wakeUpGameThread();
-            Dama.startingGameThread();
+            int x=this.getBounds().x;
+            int y=this.getBounds().y;
+            Dama.startingGameThread(x,y);
             this.dispose();
         }else if("failOK".equals(e.getActionCommand())){
             this.setVisible(false);
             Dama.wakeUpGameThread();
-            Dama.startingGameThread();
+            int x=this.getBounds().x;
+            int y=this.getBounds().y;
+            Dama.startingGameThread(x,y);
             this.dispose();
         }
         else if ("savegamebuttonNot".equals(e.getActionCommand()))
@@ -594,10 +598,12 @@ public class Gui extends JFrame
             Dama.stopGameThread();
             Dama.interruptGameThread();
 
+            int x=this.getBounds().x;
+            int y=this.getBounds().y;
+
             this.dispose();
 
-
-            Dama.startingGameThread();
+            Dama.startingGameThread(x,y);
             try {Thread.sleep(50);} catch (InterruptedException e) {e.printStackTrace();}
 
             if (cesta.endsWith(".xml"))
@@ -739,11 +745,14 @@ public class Gui extends JFrame
                 System.out.println("hra BEZELA spoustim...");
                 Dama.interruptGameThread();
                 Dama.stopGameThread();
+                int x=this.getBounds().x;
+                int y=this.getBounds().y;
+
                 this.dispose();
 
                 try {Thread.sleep(300);} catch (InterruptedException e) {e.printStackTrace();}
 
-                Dama.startingGameThread();
+                Dama.startingGameThread(x,y);
 
                 try {Thread.sleep(50);} catch (InterruptedException e) {e.printStackTrace();}
 
@@ -803,7 +812,7 @@ public class Gui extends JFrame
         JFrame.setDefaultLookAndFeelDecorated(true);
 
         //Create and set up the window.
-        Gui frame = new Gui();
+        Gui frame = new Gui(50, 50);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         //Display the window.

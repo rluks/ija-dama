@@ -257,9 +257,12 @@ public class NetworkSetup
             Dama.stopGameThread();
             Dama.interruptGameThread();
 
+            int x=gui.getBounds().x;
+            int y=gui.getBounds().y;
+
             gui.dispose();
 
-            Dama.startingGameThread();
+            Dama.startingGameThread(x,y);
             try {Thread.sleep(50);} catch (InterruptedException e) {e.printStackTrace();}
         }
 
