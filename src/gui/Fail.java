@@ -21,13 +21,14 @@ import java.awt.TextArea;
 public class Fail extends JInternalFrame {
 
 
-    /**
-    *
-    */
     private static final long serialVersionUID = -3655108386637594154L;
     static int openFrameCount = 0;
     static final int xOffset = 30, yOffset = 30;
 
+    /**
+     * Konstriktor fail okna.
+     * @param text na tuto hodnotu se nastavi nazev okna
+     */
     public Fail(String text) {
         super("Fail !",
               false, //resizable

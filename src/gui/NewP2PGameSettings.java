@@ -143,7 +143,7 @@ public class NewP2PGameSettings extends JInternalFrame {
 
         if (typ==null)
         {
-            System.out.println("Nebyl vybran typ sitoveho blabolu");
+            //System.out.println("Nebyl vybran typ sitoveho klienta");
             padding.setText("Choose peer type!");
             return null;
         }
@@ -157,9 +157,6 @@ public class NewP2PGameSettings extends JInternalFrame {
             return null;
         }
         String remotePortStr = this.txtRemotePort.getText();
-
-        //String whiteStr = "Human";
-        //String blackStr = "Human";
 
         //TODO check hodnoty filter v Input
 
@@ -195,14 +192,14 @@ public class NewP2PGameSettings extends JInternalFrame {
             {
                 if (!((cesta.endsWith(".txt") || cesta.endsWith(".xml"))))
                 {
-                    System.out.println("Soubor neni .txt nebo .xml");
+                    //System.out.println("Soubor neni .txt nebo .xml");
                     padding.setText("Choose \".txt\", \".xml\" or no file at all!");
                     return null;
                 }
                 File f = new File(cesta);
                 if(!f.exists())
                 {
-                    System.out.println("Soubor neexistuje");
+                    //System.out.println("Soubor neexistuje");
                     padding.setText("Unable to open file(probably doesnt exist)!");
                     return null;
                 }
