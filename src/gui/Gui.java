@@ -583,7 +583,8 @@ public class Gui extends JFrame
      */
     public void LoadGameButton()
     {
-        if(Dama.isGameSetAndRunning()){
+        if(Dama.isGameSetAndRunning())
+        {
 
             System.out.println("Tlacitko load!");
             String cesta=inFrLoadGame.GetPath();
@@ -621,7 +622,9 @@ public class Gui extends JFrame
             Dama.startGame();
             Dama.wakeUpGameThread();
 
-        }else{
+        }
+        else
+        {
             System.out.println("Tlacitko load!");
             String cesta=inFrLoadGame.GetPath();
             System.out.println("Cesta: \"" + cesta + "\"");
