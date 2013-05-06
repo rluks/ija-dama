@@ -60,7 +60,7 @@ public class PlayerGui extends JFrame
     /**
     *
     */
-    private static final long serialVersionUID = -7623421489879214535L;
+    private static final long serialVersionUID = -7462267993661194622L;
 
     JDesktopPane desktop;
 
@@ -332,7 +332,7 @@ public class PlayerGui extends JFrame
 
     /**
      * Vytvori menu
-     * @return JMenuBar Menu obsahujici polozky New game, New P2P game, Load game, Save game, Player, About a Quit
+     * @return JMenuBar Menu obsahujici polozku Load game
      */
     protected JMenuBar createMenuBar() {
         JMenuBar menuBar = new JMenuBar();
@@ -376,6 +376,7 @@ public class PlayerGui extends JFrame
             System.out.println("PlayerGui: Neznama akce: " + e.getActionCommand());
         }
     }
+
 
     /**
      * Vytvori vnitrni ramec pro nacitani drive ulozene hry
@@ -478,6 +479,67 @@ public class PlayerGui extends JFrame
     public void LoadGameButton()
     {
         Vector<Turn> loadedTurns = null;
+
+        System.out.println("PlayerGui: Tlacitko load!");
+        String cesta=inFrLoadGame.GetPath();
+        System.out.println("PlayerGui: Cesta: \"" + cesta + "\"");
+        inFrLoadGame.dispose();
+
+        if (cesta.endsWith(".xml"))
+        {
+            System.out.println("PlayerGui: XML!!");
+            this.settings = Input.xmlToSettings(cesta, null);
+            loadedTurns = Input.xmlToVector(cesta, null);
+        }
+        else if (cesta.endsWith(".txt"))
+        {
+            System.out.println("PlayerGui: NOTAC!!");
+            loadedTurns = Input.notToVector(cesta, null);
+            this.settings = new Settings("human", "human", null, null, 0, 0, null);//pri nacteni z notace se pouzije implicitni nastaveni
+        }
+        else
+        {
+            System.out.println("PlayerGui: Da fjuk is dis sith?! (extention not txt of xml)");
+            return;
+        }
+
+
+        if(this.settings == null || loadedTurns == null){
+            return;
+        }
+
+        if(Player.isGameSetAndRunning()){
+
+            Player.stopThread();
+            Player.interruptPlayerThread();
+
+            this.dispose();
+
+            Player.startingPlayerThread();
+            try {Thread.sleep(50);} catch (InterruptedException e) {e.printStackTrace();}
+
+            Player.setLoadedTurns(loadedTurns);
+            Player.setSettings(this.settings);
+
+            try {Thread.sleep(50);} catch (InterruptedException e) {e.printStackTrace();}
+            Player.startPlayer();
+            Player.wakeUpPlayerThread();
+
+
+        }else{
+
+            Player.setLoadedTurns(loadedTurns);
+            Player.setSettings(this.settings);
+
+            try {Thread.sleep(50);} catch (InterruptedException e) {e.printStackTrace();}
+            Player.startPlayer();
+            Player.wakeUpPlayerThread();
+
+            this.BSubmitCommand.setEnabled(true);
+        }
+
+
+        /*
         if(Player.isGameSetAndRunning()){
 
             System.out.println("PlayerGui: Tlacitko load!");
@@ -497,29 +559,23 @@ public class PlayerGui extends JFrame
             if (cesta.endsWith(".xml"))
             {
                 System.out.println("PlayerGui: XML MOTAFAKA!!");
-                //if (!Input.XmlToVector(cesta, true, null)) return;
                 this.settings = Input.xmlToSettings(cesta, null);
                 loadedTurns = Input.xmlToVector(cesta, null);
-
-                if(this.settings == null || loadedTurns == null){
-                    return;
-                }
             }
             else if (cesta.endsWith(".txt"))
             {
                 System.out.println("PlayerGui: NOTACE BIATCH!!");
-                //boolean test = Input.NotToVector(cesta, true, null);
-                //if (!test) return;
                 loadedTurns = Input.notToVector(cesta, null);
                 this.settings = new Settings("human", "human", null, null, 0, 0, null);//pri nacteni z notace se pouzije implicitni nastaveni
-
-                if(this.settings == null || loadedTurns == null){
-                    return;
-                }
             }
             else
             {
                 System.out.println("PlayerGui: Da fuk is dis sith?! (extention not txt of xml)");
+                return;
+            }
+
+
+            if(this.settings == null || loadedTurns == null){
                 return;
             }
 
@@ -538,30 +594,22 @@ public class PlayerGui extends JFrame
             if (cesta.endsWith(".xml"))
             {
                 System.out.println("PlayerGui: XML MOTAFAKA!!");
-                //if (!Input.XmlToVector(cesta, true, null)) return;
                 this.settings = Input.xmlToSettings(cesta, null);
                 loadedTurns = Input.xmlToVector(cesta, null);
-
-                if(this.settings == null || loadedTurns == null){
-                    return;
-                }
             }
             else if (cesta.endsWith(".txt"))
             {
                 System.out.println("PlayerGui: NOTACE BIATCH!!");
-                //boolean test = Input.NotToVector(cesta, true, null);
-                //System.out.println("PlayerGui: NotToVector vraci " + test);
-                //if (!test) return;
                 this.settings = new Settings("human", "human", null, null, 0, 0, null);//pri nacteni z notace se pouzije implicitni nastaveni
                 loadedTurns = Input.notToVector(cesta, null);
-
-                if(this.settings == null || loadedTurns == null){
-                    return;
-                }
             }
             else
             {
                 System.out.println("PlayerGui: Da fuk is dis sith?! (extention not txt of xml)");
+                return;
+            }
+
+            if(this.settings == null || loadedTurns == null){
                 return;
             }
 
@@ -572,7 +620,7 @@ public class PlayerGui extends JFrame
             Player.startPlayer();
             Player.wakeUpPlayerThread();
             this.BSubmitCommand.setEnabled(true);
-        }
+        }*/
     }
 
     /**
