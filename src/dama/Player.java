@@ -11,7 +11,6 @@ import dama.io.Turn;
 import dama.operations.Check;
 import dama.operations.Moves;
 import dama.state.Desk;
-import dama.state.Position;
 import dama.state.Settings;
 
 /**
@@ -74,15 +73,15 @@ public class Player extends Thread{
         }
     }
 
-    /**
+    /*
      * Z vlakna prehravace ziska jestli hraje clovek
      * @return true hraje clovek, false hraji se ulozene tahy
-     */
+     *
     public static boolean isHumanPlaying(){
         synchronized (player){
             return player.human;
         }
-    }
+    }*/
 
     /**
      * Z vlakna prehravace ziska velikost vektoru nactenych tahu
@@ -390,7 +389,7 @@ public class Player extends Thread{
     protected char playerColor;
     protected int tahCislo = 0;
 
-    protected boolean human;//indikace ze se ceka na vstup od cloveka, pouziti pro zamceni play tlacitka
+    //protected boolean human;//indikace ze se ceka na vstup od cloveka, pouziti pro zamceni play tlacitka
 
     protected int waitTime = 1000;
     protected int index = -1;//index pro pohyb ve vektoru tahu
@@ -443,6 +442,7 @@ public class Player extends Thread{
     }
 
 
+    /*
     private String getAIorHumanSettingsForCurrentPlayerColor(char playerColor){
         if(playerColor == 'W'){
             return this.settings.white;
@@ -452,14 +452,14 @@ public class Player extends Thread{
             return "";
         }
     }
-
+    */
 
     /**
      * Tisk informaci o tom kdo je na tahu do konzole a do gui
      */
     private void printAndSetInfo() {
         System.out.println("Player: "+ Output.getPlayerColorString(this.playerColor)+ " will play!");
-        String infoText = (currentPlayerAIHumanSettings == "AI")? "Player: it's "+ Output.getPlayerColorString(this.playerColor)+ " AI turn!" : "Player: it's "+ Output.getPlayerColorString(this.playerColor)+ "players turn!";
+        String infoText = "Player: it's "+ Output.getPlayerColorString(this.playerColor)+ "players turn!";
         gui.setInfoText(infoText);
     }
 
@@ -499,22 +499,20 @@ public class Player extends Thread{
 
             this.desk = new Desk();
             gui.updateDesk(desk);
-            //gui.setMouse(false);
             gui.setPlayerButtons(true);
 
             System.out.println("Player: Tisknu nastaveni");
             System.out.println(this.settings.getXML());
 
-            Position pEmpty = new Position(-1, -1);
             this.ouputTurns = new Vector<Turn>();
 
             if(this.loadedTurns != null && this.loadedTurns.size() > 0){
                 System.out.println("Player: V loadedTurns je ulozeno " + this.loadedTurns.size() + " tahu");
+
                 this.stepIndex = this.loadedTurns.size()-1;
+                System.out.println("Player: index posledniho tahu " + this.stepIndex);
 
                 gui.setWantturn(Integer.toString(this.stepIndex));
-
-                System.out.println("Player: index posledniho tahu " + this.stepIndex);
             }
 
             //smycka vlastni prehravace
@@ -523,7 +521,7 @@ public class Player extends Thread{
                 System.out.println("Player: tah cislo: " + tahCislo + ", bezi s timto nastavenim: " + this.settings.getSettingsString());
 
                 synchronized(this){ while(pleaseWait){ try { System.out.println("Player: sleeping at beginning of playing..."); wait();}
-                catch (Exception e) { System.out.println("Player: probuzen"); /*e.printStackTrace();*/ } }  }
+                catch (Exception e) { System.out.println("Player: probuzen"); } }  }
 
                 //vypinaci cast
                 checkGUIShutdown(gui);
@@ -531,22 +529,17 @@ public class Player extends Thread{
 
                 //zmeny pro kazde kolo
                 switchPlayerColors();
-                this.currentPlayerAIHumanSettings = getAIorHumanSettingsForCurrentPlayerColor(this.playerColor);
                 printAndSetInfo();
                 this.index++;
-                //this.skipHuman = false;
 
                 //vykresleni desky
                 Check.isMustTake(desk, this.playerColor);
                 gui.updateDesk(this.desk);
 
                 //ziskani dalsiho tahu
-                if(this.loadedTurns != null && this.loadedTurns.size() > 0 && this.index <= this.stepIndex/*this.loadedTurns.size()-1*/){//nactene tahy
+                if(this.loadedTurns != null && this.loadedTurns.size() > 0){// && this.index <= this.stepIndex/*this.loadedTurns.size()-1*/){//nactene tahy
 
                     //System.out.println("Player: V loadedTurns je ulozeno " + this.loadedTurns.size() + " tahu");
-
-                    this.human = false;
-                    gui.setSubmitButton(false);
 
                     //rychlost prehravani
                     try {Thread.sleep(this.waitTime);} catch (InterruptedException e) {
@@ -562,42 +555,7 @@ public class Player extends Thread{
                         gui.createFail("dalsi tah uz nemam");
                         return;
                     }
-
-                }else{//Human
-
-                    this.human = true;
-                    this.turn = (this.playerColor == 'W') ? Turn.TurnWhite(pEmpty, pEmpty) : Turn.TurnBlack(pEmpty, pEmpty);
-
-                    boolean validTurn = false;
-
-                    gui.setSubmitButton(true);
-
-                    while(!validTurn){
-                        gui.clearAura();
-                        this.pleaseWait = true;
-                        synchronized(this){ while(pleaseWait){ try { System.out.println("Player: sleeping, waiting for human..."); wait();} catch (Exception e) {
-                            System.out.println("Player: prerusen spanek pri tahu cloveka.");
-                            /*e.printStackTrace();*/ } } }
-
-                        //vypinaci cast
-                        checkGUIShutdown(gui);
-                        if(allDone){System.out.println("Player: Dama terminated, allDone!!");return;}
-
-                        if(this.skipHuman){break;}
-
-                        validTurn = Moves.isTurnValid(this.turn, this.desk);
-                        if(validTurn){
-                            System.out.println("Player: tah je validni");
-                        }else{
-                            System.out.println("Player: tah NENI validni");
-                            gui.setInfoText("Nevalidni tah!");
-                            gui.clearAura();
-                            gui.ZobrazNapovedu();
-                        }
-                    }
                 }
-
-                if(this.skipHuman){continue;}
 
                 //kontrola
                 if(this.turn == null){
@@ -611,12 +569,9 @@ public class Player extends Thread{
                 System.out.println("Player: " + Output.getPlayerColorString(this.playerColor) + " is playing...");
                 if(Check.isMustTake(this.desk, this.playerColor)){//Take
                     executedTurn = Moves.Take(this.desk, this.turn);
-                    //System.out.println("Player: tah " + Output.getPlayerColorString(this.playerColor) + ", take() vraci:" + executedTurn);
                     wbtake = true;
-
                 }else{//Move
                     executedTurn = Moves.Move(this.desk, this.turn);
-                    //System.out.println("Player: tah " + Output.getPlayerColorString(this.playerColor) + ", MOVE() vraci:" + executedTurn);
                     wbtake = false;
                 }
 
@@ -643,10 +598,6 @@ public class Player extends Thread{
                     return;
                 }
 
-                //cisteni
-                gui.clearAura();
-                this.invalidTurn = false;
-
                 //nastavovani promennych pro (a) tisk
                 setWBTurn();
                 setWBtake();
@@ -664,10 +615,8 @@ public class Player extends Thread{
                         gui.createFail("Failed to save file!");
                     }
                     gui.setInfoText("!!! Victory !!!");
-                    gui.createVictory();
+                    gui.createFail("Victory!!!");
                     gui.setMenu(false);
-                    gui.setSubmitButton(false);
-                    //gui.setMouse(false);
                     this.pleaseWait = true;
                     synchronized(this){ while(pleaseWait){ try { System.out.println("Player: sleeping..."); wait();} catch (Exception e) { e.printStackTrace(); } }  }
                     return;

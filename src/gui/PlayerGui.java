@@ -1,6 +1,5 @@
 package gui;
 
-import java.awt.Button;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
@@ -12,11 +11,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import java.awt.event.KeyEvent;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
 
-import java.util.Locale;
 import java.util.Vector;
 
 
@@ -36,7 +32,6 @@ import javax.swing.SwingConstants;
 
 import dama.Player;
 import dama.io.Input;
-import dama.io.Output;
 import dama.io.Turn;
 import dama.operations.Check;
 import dama.operations.Moves;
@@ -54,7 +49,7 @@ import dama.state.Settings;
  *
  */
 public class PlayerGui extends JFrame
-                               implements ActionListener, MouseListener {
+                               implements ActionListener {
 
     /**
     *
@@ -68,7 +63,7 @@ public class PlayerGui extends JFrame
     protected static int clickCount = 0; //po dvou klicich posilame tah hre
 
     //vnitrni ramec
-    protected Victory victory;
+    //protected Victory victory;
     protected Fail fail;
     protected LoadGame inFrLoadGame;
     protected Selection inFrSelection;
@@ -92,17 +87,13 @@ public class PlayerGui extends JFrame
 
     //deska
     private int x_sachovnice = 40;
-    //private int x_offset = 5;
     private int y_sachovnice = 80;
-    //private int y_offset = 50;
 
     //notace
-    protected JTextField TFPrikaz;
     protected TextArea TAVypisNotace;
-    protected Button BSubmitCommand;
 
     //obrazky
-    protected ImageIcon imIcAura;
+    //protected ImageIcon imIcAura;
     protected ImageIcon imIcSachovnice;
 
     protected ImageIcon imIcBilyPesak;
@@ -148,17 +139,13 @@ public class PlayerGui extends JFrame
         desktop.setBackground(Color.LIGHT_GRAY);
         setContentPane(desktop);
 
-        //Make dragging a little faster but perhaps uglier.
         desktop.setDragMode(JDesktopPane.OUTLINE_DRAG_MODE);
-
-        //this.setMouse(false);
-        addMouseListener(this);
 
         //menu
         setJMenuBar(createMenuBar());
 
         //obrazky
-        this.imIcAura = new ImageIcon(PlayerGui.class.getResource("/gui/images/aura.png"));
+        //this.imIcAura = new ImageIcon(PlayerGui.class.getResource("/gui/images/aura.png"));
         this.imIcSachovnice = new ImageIcon(PlayerGui.class.getResource("/gui/images/sachovnice_420px_yellow.png"));
         this.imIcBilyPesak = new ImageIcon(PlayerGui.class.getResource("/gui/images/figurky/bily_pesak.png"));
         this.imIcBilaDama = new ImageIcon(PlayerGui.class.getResource("/gui/images/figurky/bila_dama.png"));
@@ -191,7 +178,6 @@ public class PlayerGui extends JFrame
         BGSachovnice.setIcon(this.imIcSachovnice);
 
         BGSachovnice.setBounds(x_sachovnice, y_sachovnice, 420, 420);
-        BGSachovnice.addMouseListener(this);
         desktop.add(BGSachovnice);
         desktop.setLayer(BGSachovnice, -1);
 
@@ -238,57 +224,14 @@ public class PlayerGui extends JFrame
         this.TAVypisNotace.setBounds(535, 124, 200, 350);
         desktop.add(this.TAVypisNotace);
 
-        this.BSubmitCommand = new Button("OK");
-        BSubmitCommand.setEnabled(false);
-        BSubmitCommand.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent e)
-            {
-                String string = TFPrikaz.getText();
-                string = string.toLowerCase(Locale.ENGLISH);
-                TFPrikaz.setText("");
-                if (!Check.isNotationValid(string))
-                {
-                    lblInfo.setText("Invalid move");
-                    return;
-                }
-
-                Position pos1=Position.positionStrToPositionLowerCase(string.substring(0, 2));
-                Position pos2=Position.positionStrToPositionLowerCase(string.substring(3, 5));
-                char barva=Player.getPlayerColor();
-                //neni rozehrana hra, takze se nic delat nebude
-                if (!( (barva=='B') || (barva=='W') )) return;
-                if ( (pos1==null) || (pos2==null) )
-                {
-                    lblInfo.setText("Invalid move");
-                    return;
-                }
-
-                Turn turn=new Turn(barva, pos1, pos2);
-                //Input.inputTurn(turn);
-                Player.inputTurn(turn);
-                Player.wakeUpPlayerThread();
-                return;
-            }
-        });
-        this.BSubmitCommand.setBounds(671, 480, 65, 20);
-        desktop.add(BSubmitCommand);
-
-        this.TFPrikaz = new JTextField();
-        this.TFPrikaz.setBounds(535, 480, 130, 20);
-        desktop.add(this.TFPrikaz);
-        this.TFPrikaz.setColumns(10);
-
         //ovladani prehravani
         btnPlay = new JButton("");
         btnPlay.setEnabled(false);
         btnPlay.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
 
-                if(!Player.isHumanPlaying()){
-                    Player.interruptPlayerThread();
-                    Player.wakeUpPlayerThread();
-                }
+                Player.interruptPlayerThread();
+                Player.wakeUpPlayerThread();
             }
         });
         btnPlay.setBounds(515, 35, 30, 20);
@@ -300,9 +243,7 @@ public class PlayerGui extends JFrame
         btnStop.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
 
-                if(!Player.isHumanPlaying()){
-                    Player.sleepPlayerThread();
-                }
+                Player.sleepPlayerThread();
             }
         });
         btnStop.setBounds(555, 35, 30, 20);
@@ -314,11 +255,9 @@ public class PlayerGui extends JFrame
         btnStepback.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
 
-                //if(!Player.isHumanPlaying()){
-                    int stepindex = Player.getStepIndex();
-                    Player.setIndexChange(-1);
-                    setWantturn(Integer.toString(stepindex-1));
-                //}
+                int stepindex = Player.getStepIndex();
+                Player.setIndexChange(-1);
+                setWantturn(Integer.toString(stepindex-1));
             }
         });
         btnStepback.setBounds(621, 35, 30, 20);
@@ -330,13 +269,11 @@ public class PlayerGui extends JFrame
         btnStepforward.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
 
-                //if(!Player.isHumanPlaying()){
-                    int stepindex = Player.getStepIndex();
-                    Player.setIndexChange(1);
-                    setWantturn(Integer.toString(stepindex+1));
-                    Player.setSkipHuman(true);
-                    Player.wakeUpPlayerThread();
-                //}
+                int stepindex = Player.getStepIndex();
+                Player.setIndexChange(1);
+                setWantturn(Integer.toString(stepindex+1));
+                Player.setSkipHuman(true);
+                Player.wakeUpPlayerThread();
             }
         });
         btnStepforward.setBounds(730, 35, 30, 20);
@@ -384,9 +321,8 @@ public class PlayerGui extends JFrame
 
         pole_figurek=new JLabel[8][8];
         pole_napovedy=new JLabel[8][8];
-        for (int row=0; row<8; row++)
-            for (int col=0; col<8; col++)
-            {
+        for (int row=0; row<8; row++){
+            for (int col=0; col<8; col++){
                 this.pole_figurek[row][col]=new JLabel("");
                 this.pole_figurek[row][col].setBounds(x_sachovnice+10+(col*50), y_sachovnice+10+350-(row*50),50,50);
                 desktop.add(this.pole_figurek[row][col]);
@@ -396,12 +332,12 @@ public class PlayerGui extends JFrame
                 desktop.add(this.pole_napovedy[row][col]);
                 desktop.setLayer(this.pole_napovedy[row][col], 3);
             }
-
+        }
     }
 
     /**
-     * Vytvori menu
-     * @return JMenuBar Menu obsahujici polozku Load game
+     * Vytvori menu prehravace
+     * @return JMenuBar Menu
      */
     protected JMenuBar createMenuBar() {
         JMenuBar menuBar = new JMenuBar();
@@ -483,6 +419,9 @@ public class PlayerGui extends JFrame
 
     }
 
+    /**
+     * Vytvori vnitrni ramec pro vlozeni notace (textarea a tlactiko, ktere startuje prehravani)
+     */
     protected void createInsertNotationFrame(){
 
         this.inFrSelection.dispose();
@@ -499,17 +438,6 @@ public class PlayerGui extends JFrame
         btnNotation.setActionCommand("notationOK");
         btnNotation.addActionListener(this);
 
-        /*
-        JButton btnNewButton = new JButton("OK");
-        GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
-        gbc_btnNewButton.gridx = 0;
-        gbc_btnNewButton.gridy = 2;
-        this.fail.getContentPane().add(btnNewButton, gbc_btnNewButton);
-        btnNewButton.setActionCommand("failOK");
-        btnNewButton.addActionListener(this);
-        */
-
-
         desktop.add(inFrInsertNot);
         try
         {
@@ -524,7 +452,6 @@ public class PlayerGui extends JFrame
      */
     protected void createLoadGameFrame(String nazevOkna)
     {
-        System.out.println("PlayerGui: \tcreate LG");
 
         this.inFrLoadGame=new LoadGame(nazevOkna);
         desktop.setLayer(inFrLoadGame, 5);
@@ -564,33 +491,12 @@ public class PlayerGui extends JFrame
         }
         catch (java.beans.PropertyVetoException e) {}
 
-        //System.out.println("PlayerGui: \t/create LG");
     }
 
-    public void createVictory(){
-
-        this.victory = new Victory();
-        desktop.setLayer(this.victory, 5);
-        this.victory.setLocation(200, 200);
-        this.victory.setVisible(true);
-
-        JButton btnOK = new JButton("OK");
-        this.victory.getContentPane().add(btnOK);
-        btnOK.setActionCommand("victoryOK");
-        btnOK.addActionListener(this);
-
-        JButton btnSave = new JButton("Save game");
-        this.victory.getContentPane().add(btnSave);
-        btnSave.setActionCommand("save");
-        btnSave.addActionListener(this);
-
-        desktop.add(this.victory);
-        try {
-            this.victory.setSelected(true);
-        } catch (java.beans.PropertyVetoException e) {}
-
-    }
-
+    /**
+     * Vytvori vnitrni ramec s hlaskou danou parametrem
+     * @param string
+     */
     public void createFail(String string) {
 
         this.fail = new Fail(string);
@@ -613,6 +519,9 @@ public class PlayerGui extends JFrame
 
     }
 
+    /**
+     * Reakce na tlacitko v inFrInsertNot
+     */
     public void LoadGameNotation(){
         String notationStr = new String(this.inFrInsertNot.txtrNotation.getText());
         if(!notationStr.endsWith("\n")){
@@ -621,7 +530,7 @@ public class PlayerGui extends JFrame
 
         Vector<Turn> loadedTurns = Input.notToVector(null, notationStr);
 
-        this.settings = new Settings("human", "human", null, null, 0, 0, null);//TODO v player??? pri nacteni z notace se pouzije implicitni nastaveni
+        this.settings = new Settings("human", "human", null, null, 0, 0, null);//pri nacteni z notace se pouzije implicitni nastaveni
 
         if(this.settings == null || loadedTurns == null){
             System.out.println("settings nebo loadedturns null");
@@ -655,8 +564,6 @@ public class PlayerGui extends JFrame
             try {Thread.sleep(50);} catch (InterruptedException e) {e.printStackTrace();}
             Player.startPlayer();
             Player.wakeUpPlayerThread();
-
-            this.BSubmitCommand.setEnabled(true);
         }
     }
 
@@ -720,7 +627,6 @@ public class PlayerGui extends JFrame
             Player.startPlayer();
             Player.wakeUpPlayerThread();
 
-            this.BSubmitCommand.setEnabled(true);
         }
     }
 
@@ -736,115 +642,6 @@ public class PlayerGui extends JFrame
 
         frame.setVisible(true);
     }
-
-    /*
-     * Povoluje a zakazuje kliknuti mysi
-     * @param value boolean
-     *
-    public void setMouse(boolean value){
-        this.mouseEnabled = value;
-    }*/
-
-    //Zpracuje klik tlacitka a posle zvolenou pozici na desce dale
-    public void mouseClicked(MouseEvent e)
-    {
-        /*
-        if(this.mouseEnabled){
-            switch(e.getModifiers()) {
-                case InputEvent.BUTTON1_MASK: {
-                    System.out.println("PlayerGui: That's the LEFT button");
-                    Point p = getLocationOnScreen();
-                    PointerInfo a = MouseInfo.getPointerInfo();
-                    Point b = a.getLocation();
-
-                    int x = (int) b.getX() - p.x - x_offset;
-                    int y = (int) b.getY() - p.y - y_offset;
-                    if ( (x>=(x_sachovnice+10)) && (y>=y_sachovnice+11) && (x<=(x_sachovnice+409)) && (y<=(y_sachovnice+410)) )
-                    {
-                        int sx = (x - 10 - x_sachovnice);
-                        int sy = y - 11 - y_sachovnice;
-                        sx = sx/50;
-                        sy = 7 - sy/50;
-
-                        System.out.println(sx + ":" + sy);
-
-                    Position pos = new Position(sy, sx);
-                    this.mouseInput(pos);
-
-                    this.lblAura.setIcon(this.imIcAura);
-                    this.lblAura.setBounds(x_sachovnice+10+(sx*50), y_sachovnice+10+350-(sy*50),50,50);
-
-                    }
-                break;
-                }
-                case InputEvent.BUTTON2_MASK: {
-                    System.out.println("PlayerGui: That's the MIDDLE button");
-                    break;
-                }
-                case InputEvent.BUTTON3_MASK: {
-                    System.out.println("PlayerGui: That's the RIGHT button");
-                    PlayerGui.setClickCount(0);
-                    this.clearAura();
-                    break;
-                }
-            }
-        }*/
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent arg0) {
-        // TODO Auto-generated method stub
-    }
-    @Override
-    public void mouseExited(MouseEvent arg0) {
-        // TODO Auto-generated method stub
-    }
-    @Override
-    public void mouseReleased(MouseEvent arg0) {
-        // TODO Auto-generated method stub
-    }
-    @Override
-    public void mousePressed(MouseEvent arg0)
-    {
-        // TODO Auto-generated method stub
-    }
-
-    /*
-     * Zpracuje vstup od mysi (kliky na sachovnici) a posila ho dal
-     * @param pos
-     *
-    public void mouseInput(Position pos){
-
-        if(Player.isGameSetAndRunning()){
-
-            PlayerGui.clickCount++;
-            System.out.println("PlayerGui: mouseInput:" + pos.getStr());
-
-            if(PlayerGui.clickCount == 1){
-                this.turn = new Turn(Player.getTurn());
-
-                this.turn.origin = new Position(pos);
-            }
-
-            if(PlayerGui.clickCount == 2){
-                this.turn.destination = new Position(pos);
-
-                Input.inputTurn(this.turn);
-
-                PlayerGui.clickCount = 0;
-
-                this.clearAura();
-            }
-        }
-    }
-    */
-
-    /*
-    public static void setClickCount(int count){
-        PlayerGui.clickCount = count;
-        System.out.println("PlayerGui: setClickCount:" + count);
-    }
-    */
 
     /**
      * Vykresli stav desky
@@ -930,33 +727,6 @@ public class PlayerGui extends JFrame
     }
 
 
-    /*
-     * Fce prida to textarea dalsi tah v notaci
-     * @param wturn    tah bileho
-     * @param wtake    indikator jestli bily bral
-     * @param bturn    tah cerneho
-     * @param btake    indikator jestli cerny bral
-     * @param tah      poradove cislo tahu
-     *
-    public void NotationNewLine(Turn wturn, boolean wtake, Turn bturn, boolean btake, int tah)
-    {
-        String predchozi_obsah=TAVypisNotace.getText();
-
-        String p0=wturn.origin.getStrLowerCase();
-        String p1=wturn.destination.getStrLowerCase();
-        String w;
-        if (wtake) w="x";
-        else w="-";
-
-        String p2=bturn.origin.getStrLowerCase();
-        String p3=bturn.destination.getStrLowerCase();
-        String b;
-        if (btake) b="x";
-        else b="-";
-
-        TAVypisNotace.setText(predchozi_obsah + tah + ". " + p0 + w + p1 + " " + p2 + b + p3 + "\n");
-    }*/
-
     /**
      * Fce prida to textarea tah bileho v notaci
      * pouziti: bily vyhraje a cerny uz netahne
@@ -1005,19 +775,8 @@ public class PlayerGui extends JFrame
         this.lblInfo.setText(text);
     }
 
-    /**
-     * Vycisti hraci desku od zeleneho oznaceni
-     */
-    public void clearAura(){
-        this.lblAura.setIcon(null);
-    }
-
     public void setMenu(boolean value){
         this.menu.setEnabled(value);
-    }
-
-    public void setSubmitButton(boolean value){
-        this.BSubmitCommand.setEnabled(value);
     }
 
     public void setWantturn(String text){
@@ -1031,19 +790,4 @@ public class PlayerGui extends JFrame
         this.btnStepforward.setEnabled(value);
         this.btnOkspeed.setEnabled(value);
     }
-
-    /*
-     * Pomocna funkce na zisk zvolenych radio buttonu
-     * @param group skupina radio buttonu
-     * @return zvoleny radio button
-     *
-    public static JRadioButton getSelection(ButtonGroup group) {
-        for (Enumeration<AbstractButton> e = group.getElements(); e.hasMoreElements();) {
-          JRadioButton b = (JRadioButton) e.nextElement();
-          if (b.getModel() == group.getSelection()) {
-            return b;
-          }
-        }
-        return null;
-    }*/
 }
