@@ -1,5 +1,8 @@
 package dama.state;
 
+import java.net.ServerSocket;
+import java.net.Socket;
+
 
 /**
  * Instance této třidy udržuje nastavení probíhající hry (síťová, proti AI, barvy hráčů, apod.)
@@ -23,6 +26,10 @@ public class Settings {
     public String ClientCestaKSouboru=null;
 
     protected String xml;
+
+    public ServerSocket server=null;
+    public Socket connectionToTheClient=null;
+    public Socket connectionToTheServer=null;
 
     /**
      * Konstruktor
@@ -48,7 +55,13 @@ public class Settings {
 
         this.ClientCestaKSouboru=cesta;
 
+        this.server=null;
+        this.connectionToTheClient=null;
+        this.connectionToTheServer=null;
+
     }
+
+    //public void SetNet
 
     /**
      * Vraci retezec s nastavenim hry
