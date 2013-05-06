@@ -391,6 +391,8 @@ public class Dama extends Thread{
 
     /**
      * Spusti nove vlakno hry
+     * @param x souradnice indent
+     * @param y souradnice indent
      */
     public static void startingGameThread(int x,  int y){
 

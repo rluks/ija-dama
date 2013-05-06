@@ -13,7 +13,7 @@ public class Roman {
 
         System.out.println("ROMAN");
 
-        //Dama.startingGameThread();
+        //Dama.startingGameThread(50,50);
         Player.startingPlayerThread();
 
     }
