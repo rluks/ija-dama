@@ -77,7 +77,7 @@ public class Output {
 
          turn += "\t\t</turn>\n";
          */
-         turn = Output.getTurnString(tmp);
+         turn = Output.getTurnXmlString(tmp);
 
          xml += turn;
      }
@@ -92,7 +92,7 @@ public class Output {
      * @param turn
      * @return
      */
-    public static String getTurnString(Turn t){
+    public static String getTurnXmlString(Turn t){
         String turnStr = new String();
 
         turnStr = "";

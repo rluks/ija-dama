@@ -152,7 +152,7 @@ public class Gui extends JFrame
 
         //Nastaveni okna
         //int inset = 50;
-        setBounds(insetx, insety, 800, 600);
+        setBounds(insetx+30, insety+30, 800, 600);
 
         //GUI
         desktop = new JDesktopPane();
