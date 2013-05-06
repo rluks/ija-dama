@@ -6,6 +6,7 @@ import gui.Gui;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
@@ -19,14 +20,26 @@ import java.util.Vector;
 
 import dama.Dama;
 
+/**
+ * Trida ktera obsahuje staticke metody pro sitovou hru.
+ * @author Pavel Hála
+ * @author  Roman Lukš
+ */
 public class NetworkSetup
 {
+    /**
+     * Fce pro zahajeni sitove hry. Vezme nastaveni z internal frame a podle nej ceka na pripojeni nebo se pripoji k nekomu.
+     * Obe strany si vymeni zakladni informace jako kdo ma jakou barvu a pripadne si predaji informace o nactene hre
+     * a uvedou desku do stavu jako je v ulozene hre.
+     * @param gui odkaz na graficke rozhrani ze ktereho se ziska nastaveni a na kterem se taky hra vykonava
+     */
     public static void startP2Pgame(Gui gui)
     {
+        gui.settings = gui.inFrNewP2PGameSett.getSettings();    //ziska setting z internal framu, ktere si zkolil uzivatel
+        char typ;        //typ spouboru ve kterem je ulozena hra (txt nebo xml)
+        String cesta;    //sesta k souboru (dulezita je jen koncovka)
 
-        gui.settings = gui.inFrNewP2PGameSett.getSettings();
-
-        if(gui.settings != null)
+        if(gui.settings != null)    //pokud je co nastavit (hrac zadal validni settings)
         {
             System.out.println("GUI:Starting the game...");
             gui.lblInfo.setText(gui.settings.getSettingsString());
@@ -34,17 +47,17 @@ public class NetworkSetup
             //gui.inFrNewP2PGameSett.padding.setForeground(Color.GREEN);
             //gui.inFrNewP2PGameSett.padding.setText("Waititing for connection!");
 
-            gui.inFrNewP2PGameSett.setVisible(false);
+            gui.inFrNewP2PGameSett.setVisible(false);    //odstani se internal frame s nastavenim settingu
             gui.inFrNewP2PGameSett.dispose();
         }
-        else
+        else    //hrac zadal spatne settingy, je mu to sdeleno
         {
             System.out.println("Configure settings!");
             gui.lblInfo.setText("Configure settings!");
             return;
         }
 
-        if (!((gui.settings.remotePort>0) && gui.settings.remotePort<=65535))
+        if (!((gui.settings.remotePort>0) && gui.settings.remotePort<=65535))    //spatne zadany port
         {
             System.out.println("Port out of range (1 - 65535)");
             gui.lblInfo.setText("Port out of range (1 - 65535)");
@@ -55,49 +68,48 @@ public class NetworkSetup
         /// S E R V E R
         if ((gui.settings.local==null) && (gui.settings.remoteIP==null))
         {
-
             gui.lblInfo.setText("Waiting for connection...");
             try
             {
-                Vector<Turn> lt=new Vector<Turn>();
+                Vector<Turn> lt=new Vector<Turn>();    //vektor s tahy, tady se nuluje
                 Dama.setLoadedTurns(lt);
 
                 System.out.println("Server");
                 gui.lblInfo.setText("Waiting for connection...");
 
-
-                gui.server = new ServerSocket(gui.settings.remotePort);
+                gui.server = new ServerSocket(gui.settings.remotePort);    //hostuje se hra, ceka se na pripojeni hrace max 60sec
                 gui.server.setSoTimeout(60000);
-                gui.connectionToTheClient = gui.server.accept();
+
+                gui.connectionToTheClient = gui.server.accept();    //tady se nekdo konecne pripoji
 
                 gui.lblInfo.setText("Server - Connection established!");
                 System.out.println("Server po accept - connection established!");
 
                 //server ceka, ze klient mu posle svoji barvu
-                InputStream in = gui.connectionToTheClient.getInputStream();
+                InputStream in = gui.connectionToTheClient.getInputStream();        //nastavi se input stream
                 BufferedReader br = new BufferedReader(new InputStreamReader(in));
-                String line = br.readLine();
+
+                String line = br.readLine();        //prijde string s barvou klienta
                 if (line.equals("White")) gui.settings.local="Black";
                 else gui.settings.local="White";
                 System.out.println("Server - Barva klienta: \"" + line + "\"; server: \"" + gui.settings.local + "\"");
 
                 //soubor
-                line = br.readLine();
-                if (line.equals("no file"))
+                cesta = br.readLine();
+                if (cesta.equals("no file"))    //nebude se nacitat ulozena hry
                 {
                     System.out.println("Server - nebude se nic nacitat");
                 }
-                else
+                else    //bude se nacitat ulozena hra
                 {
-                    char typ;
-                    if (line.endsWith(".txt")) typ='t';
-                    else typ='x';
-                    System.out.println("Server - soubor: \"" + line + "\"" + "; typ= \'" + typ + "\'");
+                    if (cesta.endsWith(".txt")) typ='t';    //jedna se o soubor se zakladni notaci
+                    else typ='x';                            //nebo je to xml
+                    System.out.println("Server - soubor: \"" + cesta + "\"" + "; typ= \'" + typ + "\'");
 
                     String obsahSouboru="";
 
                     //System.out.println("Server - pred nactenim souboru");
-                    while((line=br.readLine()) != null)
+                    while((line=br.readLine()) != null)        //cely obsah souboru klient posl serveru, tady si to server nacte do stringu
                     {
                         obsahSouboru+=line;
                         if (obsahSouboru.endsWith("KONEC"))
@@ -114,41 +126,34 @@ public class NetworkSetup
                     System.out.println("Server ================");
                     */
 
-                    boolean pom=false;
+                    boolean pom=false;    //podle toho jaky typ souboru dosel se provede nacteni tahu do pameti
                     if (typ=='t') pom=Input.NotToVector(null, true, obsahSouboru);
                     else pom=Input.XmlToVector(null, true, obsahSouboru);
                     System.out.println("Server - vysledek nacteni hry ze souboru: " + pom);
 
-                    if (pom==false)
+                    if (pom==false)    //soubor byl nevalidni
                     {
                         gui.lblInfo.setText("Server - error on loading saved game!");
                         return;
                     }
-
                 }
-
-                Dama.startGame();
-                Dama.wakeUpGameThread();
-                //gui.menuItemSave.setEnabled(true);
-                //gui.BSubmitCommand.setEnabled(true);
-
-
-
-
-
-
             }
-            catch ( java.io.InterruptedIOException e )
+            catch ( java.io.InterruptedIOException e )    //timeout
             {
                 gui.lblInfo.setText("Connection timeout (60sec)!");
                 System.out.println("Server - Timed Out (60 sec)!");
+                return;
             }
             catch (Exception e)
             {
+                gui.lblInfo.setText("Network error!");
                 System.out.println("Server - Sitova chyba");
+                return;
             }
 
-        }
+        } ///end of server
+
+
         /// -------------------------------------------------------------------------------------------------------------
         /// C L I E N T
         else
@@ -156,74 +161,93 @@ public class NetworkSetup
             try
             {
                 System.out.println("Klient");
-
                 gui.lblInfo.setText("Klient - Connecting...");
 
-                gui.connectionToTheServer = new Socket(gui.settings.remoteIP, gui.settings.remotePort);
+                gui.connectionToTheServer = new Socket(gui.settings.remoteIP, gui.settings.remotePort);    //pripoji se na zadanou adresu a port
 
                 gui.lblInfo.setText("Klient - Connection established!");
                 System.out.println("Klient se pripojil - connection established!");
 
-                //klient posle svoji barvu
+                //klient posle svoji barvu a nastavi si ji
                 OutputStream out = gui.connectionToTheServer.getOutputStream();
                 PrintStream ps = new PrintStream(out, true); // Second param: auto-flush on write = true
                 ps.println(gui.settings.local);
 
 
-                //pokud se ma navist pozice ze souboru, posle se obsah souboru
-                String cesta=gui.settings.ClientCestaKSouboru;
-                if ((cesta==null)||(cesta.equals("")))
+                //pokud se ma nacist hra ze souboru, posle se obsah souboru
+                cesta=gui.settings.ClientCestaKSouboru;
+                if ((cesta==null)||(cesta.equals("")))    //tady se nebude nacitat hra
                 {
                     System.out.println("Klient - Nebyl zadan soubor - NP");
                     ps.println("no file");
                 }
-                else
+                else        //tady se hra ulozena hra posle serveru
                 {
                     System.out.println("Klient - Nacist soubor: \"" + cesta + "\"");
                     ps.println(cesta);
 
-                    FileInputStream  stream = new FileInputStream(new File(cesta));
+                    FileInputStream  stream = new FileInputStream(new File(cesta));    //soubor se prevede na string
                     FileChannel fc = stream.getChannel();
                     MappedByteBuffer bb = fc.map(FileChannel.MapMode.READ_ONLY, 0, fc.size());
                     /* Instead of using default, pass in a decoder. */
                     String obsahSouboru = Charset.defaultCharset().decode(bb).toString();
                     stream.close();
 
-                    ps.println(obsahSouboru+"KONEC");
+                    ps.println(obsahSouboru+"KONEC");    //cely string se posle serveru
                     /*
                     System.out.println("Klient ================");
                     System.out.println(obsahSouboru);
                     System.out.println("Klient ================");
                     */
 
-                    char typ;
-                    if (cesta.endsWith(".txt")) typ='t';
+                    if (cesta.endsWith(".txt")) typ='t';    //nastavi se typ souboru
                     else typ='x';
 
                     obsahSouboru=obsahSouboru.replace("KONEC", "\n");
                     boolean pom=false;
-                    if (typ=='t') pom=Input.NotToVector(null, true, obsahSouboru);
+                    if (typ=='t') pom=Input.NotToVector(null, true, obsahSouboru);    //podle toho jestli to je notace nebo xml se hra nacte
                     else pom=Input.XmlToVector(null, true, obsahSouboru);
                     System.out.println("Klient - vysledek nacteni hry ze souboru: " + pom);
 
-                    if (pom==false)
+                    if (pom==false)    //soubor byl nevalidni
                     {
                         gui.lblInfo.setText("Klient - error on loading saved game!");
                         return;
                     }
                 }
-
-                Dama.startGame();
-                Dama.wakeUpGameThread();
-                //gui.menuItemSave.setEnabled(true);
-                //gui.BSubmitCommand.setEnabled(true);
-
-
             }
             catch (Exception e)
             {
                 System.out.println("Klient - Sitova chyba");
             }
+        } ///end of client
+
+        Dama.startGame();
+        Dama.wakeUpGameThread();
+        //gui.menuItemSave.setEnabled(true);
+        //gui.BSubmitCommand.setEnabled(true);
+
+    }
+
+
+    /**
+     * Fce co ukonci vsechna spojeni
+     * @param gui odkaz na gui, kde jsou ulozeny sitove promenne
+     */
+    public static void killTheSockets(Gui gui)
+    {
+        try
+        {
+            if (gui.server!=null) gui.server.close();
+            if (gui.connectionToTheClient!=null) gui.connectionToTheClient.close();
+            if (gui.connectionToTheServer!=null) gui.connectionToTheServer.close();
+
+        }
+        catch (IOException e)
+        {
+            // TODO Auto-generated catch block
+            System.out.println("Nepodarilo se zavrit sockety");
+            e.printStackTrace();
         }
 
     }

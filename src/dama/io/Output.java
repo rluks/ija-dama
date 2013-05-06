@@ -14,6 +14,12 @@ import dama.state.Settings;
  */
 public class Output {
 
+    /**
+     * Ulozi string do souboru.
+     * @param string    obsah souboru
+     * @param filepath    cesta k souboru
+     * @throws Exception    muze hazet vyjimky pokud se mu nepodari soubor ulozit/zavrit
+     */
     public static void printStringToFile(String string, String filepath) throws Exception{
 
          PrintWriter pw = new PrintWriter(new FileWriter(filepath));
@@ -21,7 +27,14 @@ public class Output {
          pw.close();
     }
 
-    public static String getXmlFromSettingsAndTurnVector(Settings settings, Vector<Turn> turnVector){
+    /**
+     * Vytvori kompletni xml se settings a tahy
+     * @param settings        instance tridy setting, ktera se ma ulozit do xml
+     * @param turnVector      vektor tahu, ktery se ma ulozit do xml
+     * @return                xml obsahujici nastaveni a tahy
+     */
+    public static String getXmlFromSettingsAndTurnVector(Settings settings, Vector<Turn> turnVector)
+    {
 
         String xml = new String();
 
@@ -32,6 +45,11 @@ public class Output {
         return xml;
     }
 
+    /**
+     * Vytvori string s tahy ulozenymi v xml
+     * @param turnVector    vektor tahu podle ktereho se tvori xml
+     * @return    vrati string s vytvorenym xml
+     */
     public static String getTurnVectorString(Vector<Turn> turnVector){
 
      Turn tmp;
@@ -66,7 +84,13 @@ public class Output {
      return xml;
     }
 
-    public static String getPlayerColorString(char playerColor){
+    /**
+     * Podle charu s barvou vrati string s barvou hrace
+     * @param playerColor    char s barvou ('B' nebo 'W')
+     * @return                vrati string s barvou
+     */
+    public static String getPlayerColorString(char playerColor)
+    {
         return (playerColor == 'W') ? "white" : "black";
     }
 

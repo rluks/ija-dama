@@ -30,6 +30,9 @@ public class NewGameSettings extends JInternalFrame {
 
     private JTextField txtAiWait;
 
+    /**
+     * Konstruktor.
+     */
     public NewGameSettings() {
         super("New Game Settings",
               true, //resizable

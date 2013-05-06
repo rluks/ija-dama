@@ -30,9 +30,12 @@ import dama.state.Settings;
  */
 public class Input
 {
-    /**    Fce pro prevod XML souboru na interni reprezentaci tahu
-     * @param cesta     string s cestou k souboru
-     * @return             vraci true pokud je xml validni a podarilo se jej konvertovat na vektor tahu a ulozit
+    /**
+     * Nacte ulozenou hru v XML a prevede nastaveni a tahy ulozoene v souboru na interni reprezentaci.
+     * @param cesta            cesta k souboru ktery se ma nacist
+     * @param setSettings    boolean urcujici jestli ma fce nastavit settings
+     * @param obsahSouboru    obsah souboru ulozeny ve stringu (v pripade ze se nanacita soubor z disku)
+     * @return                pokud vse probehlo v poradku (soubor byl validni), vraci se true, jinak false
      */
     public static boolean XmlToVector (String cesta, boolean setSettings, String obsahSouboru)
     {
@@ -198,15 +201,22 @@ public class Input
         return true;
     }
 
+    /**
+     * Fce ktera nacte hru ulozenou v zakladni notaci a uvede desku hry do stavu ve kterem byl v notaci ulozen
+     * @param cesta            cesta k souboru ze ktereho se ma cist
+     * @param setSettings    boolean jestli ma fce nastavovat settings
+     * @param obsahSouboru    pripadny obsah souboru (v tom pripade se nenacita z disku pomoci cesty)
+     * @return                vraci true pokud se vsechno v poradku provedlo (validni soubor, nastaveni tahu, settingu,...)
+     */
     public static boolean NotToVector(String cesta, boolean setSettings, String obsahSouboru)
     {
-        Vector<Turn> TurnVector=new Vector<Turn>();
+        Vector<Turn> TurnVector=new Vector<Turn>();        //sem se ukladaji nactene tahy
         //File fXmlFile = new File(cesta);
         String string="";
         FileInputStream stream;
 
-        if (obsahSouboru!=null) string=obsahSouboru;
-        else
+        if (obsahSouboru!=null) string=obsahSouboru;    //necte se z disku, notace byla predana ve stringu jako parametr
+        else        //nacita se notace ze souboru ulozenem na disku
         {
             try
             {
@@ -224,37 +234,28 @@ public class Input
                 return false;
             }
         }
-        /*
-        System.out.println("===============================");
-        System.out.println("Obsah souboru:\n" + string);
-        */
-        //System.out.println("===============================");
 
         int pozice=0;
         int predchozi_pozice=0;
 
         int pocitadlo_tahu=1;
-        while(pozice!=-1)
+        while(pozice!=-1)        //soubor se cte po radcich
         {
             predchozi_pozice=pozice;
             pozice=string.indexOf("\n", pozice);
 
-            //System.out.println("Pozice: " + predchozi_pozice+ "->" + pozice);
-
-
-            if (pozice!=-1)
+            if (pozice!=-1)        //radek s dvema (pul)tahy (bily, cerny)
             {
                 String radek=string.substring(predchozi_pozice, pozice);
-                //System.out.println("Pozice: " + predchozi_pozice+ "->" + pozice + " : " + radek);
                 pozice=pozice+"\n".length();
 
                 int tecka=radek.indexOf(".");
                 if (tecka==-1) return false;
                 else tecka=tecka+2;
 
-                String numero=radek.substring(0, tecka-2);
+                String numero=radek.substring(0, tecka-2);    //ziska se poradove cislo tahu
                 //System.out.println("#" + numero);
-                if (pocitadlo_tahu!=Integer.parseInt(numero))return false;
+                if (pocitadlo_tahu!=Integer.parseInt(numero))return false;    //kontrola, jestli jdou poradova cisla spravne za sebou
                 else pocitadlo_tahu++;
 
                 radek=radek.substring(tecka);
@@ -264,38 +265,22 @@ public class Input
                 if (mezera==-1) return false;
                 else mezera=mezera+1;
 
-                String t1=radek.substring(0, mezera-1);
-                String t2=radek.substring(mezera);
-                //if ( (t1.length()!=5)||(t2.length()!=5) ) return false;
+                String t1=radek.substring(0, mezera-1);    //ziska se prvni (pul)tah (bily)
+                String t2=radek.substring(mezera);        //a druhy (cerny)
 
                 char natahu='W';
-
                 for (int i=0; i<2; i++)
                 {
                     String tah;
                     if (i==0) tah=t1;
                     else tah=t2;
-                    /*
-                    char c=tah.charAt(2);
-                    if (!((c=='-') ||(c=='x'))) return false;
-                    String p1s=tah.substring(0,2);
-                    String p2s=tah.substring(3,5);
-                    //System.out.println(p1s + "->" + p2s);
-                    Position p1=Position.positionStrToPositionLowerCase(p1s);
-                    Position p2=Position.positionStrToPositionLowerCase(p2s);
-                    if ( (p1==null)||(p2==null) ) return false;
-
-                    Turn turn=new Turn(natahu, p1, p2);
-                    */
-                    Turn turn=Turn.NotStringToTurn(tah, natahu);
-                    TurnVector.add(turn);
-
+                    Turn turn=Turn.NotStringToTurn(tah, natahu);    //oba tahy se prevedou ze stringu na tridu Turn
+                    TurnVector.add(turn);                        //a ulozi se do zasobniku
                     natahu='B';
                 }
-
             }
-            else if (string.substring(predchozi_pozice).equals("")) break;
-            else
+            else if (string.substring(predchozi_pozice).equals("")) break;    //posledni prazdny radek
+            else    //posledni radek s jednim (pul)tahem (jen bily)
             {
                 String radek=string.substring(predchozi_pozice);
 
@@ -303,44 +288,26 @@ public class Input
                 if (tecka==-1) return false;
                 else tecka=tecka+2;
 
-                String numero=radek.substring(0, tecka-2);
-                //System.out.println("#" + numero);
+                String numero=radek.substring(0, tecka-2);    //ziska se poradove cislo tahu a zkontrolije se jestli je dobre
                 if (pocitadlo_tahu!=Integer.parseInt(numero))return false;
 
-                radek=radek.substring(tecka);
-                /*
-                if (radek.length()!=5) return false;
-                char c=radek.charAt(2);
-                if (!((c=='-') ||(c=='x'))) return false;
-                String p1s=radek.substring(0,2);
-                String p2s=radek.substring(3,5);
-                //System.out.println(p1s + "->" + p2s);
-                Position p1=Position.positionStrToPositionLowerCase(p1s);
-                Position p2=Position.positionStrToPositionLowerCase(p2s);
-                if ( (p1==null)||(p2==null) ) return false;
-
-                Turn turn=new Turn('W', p1, p2);
-                */
+                radek=radek.substring(tecka);    //string tahu se prevede na Turn a ulozi se na zasobnik
                 Turn turn=Turn.NotStringToTurn(radek, 'W');
                 TurnVector.add(turn);
-
             }
-            //System.out.println("-----------------------");
         }
-        //System.out.println("=============K=================");
-
 
         Settings set=new Settings("human", "human", null, null, 0, 0, null);//pri nacteni z notace se pouzije implicitni nastaveni
-        if (setSettings) if (!Dama.setSettings(set)) return false;
-        if (!Dama.setLoadedTurns(TurnVector))return false;
+        if (setSettings) if (!Dama.setSettings(set)) return false;    //nastavi se settings
+        if (!Dama.setLoadedTurns(TurnVector))return false;    //dame se preda vektor tahu
         return true;
     }
 
     /**
-     * Vraci obsah notace jako Vector<Turn>
-     * @param cesta
-     * @param obsahSouboru
-     * @return
+     * Vraci obsah notace jako Vector<Turn>. Castecna copypasta XmlToVector.
+     * @param cesta            cesta k souboru
+     * @param obsahSouboru    pripadne obsah souboru ve stringu
+     * @return                v pripade ze je soubor validni, tak vraci vektor tahu, v pripade chyby vraci null
      */
     public static Vector<Turn> notToVector(String cesta, String obsahSouboru)
     {
@@ -438,10 +405,10 @@ public class Input
 
 
     /**
-     * Vraci z xml instanci Settings
-     * @param cesta
-     * @param obsahSouboru
-     * @return
+     * Vraci z xml instanci Settings. Castecna copypasta NotToVector.
+     * @param cesta            cesta k souboru
+     * @param obsahSouboru    pripadne obsah souboru ulozeny ve stringu
+     * @return                vraci instanci settings pokud je soubor validni, jinak vraci null
      */
     public static Settings xmlToSettings (String cesta, String obsahSouboru)
     {
@@ -535,10 +502,10 @@ public class Input
     }
 
     /**
-     * Vraci z xml Vector<Turn>
-     * @param cesta
-     * @param obsahSouboru
-     * @return
+     * Vraci ze xml souboru vektor tahu Vector<Turn>. Castecna copypasta XmlToVector
+     * @param cesta            cesta k souboru
+     * @param obsahSouboru    pripadny obsah souboru
+     * @return                vrati vektor tahu
      */
     public static Vector<Turn> xmlToVector (String cesta, String obsahSouboru)
     {
@@ -640,8 +607,10 @@ public class Input
     }
 
     /**
-    * Jednotny vstup tahu pro vlakno hry
-    */
+     * V pripade ze fce dostane validni tah, vzbudi tridu dama a preda ji validni tah.
+     * Pokud je tah nevalidni, nikoho nebudi.
+     * @param turn    tah ktery se ma validovat a pripadne predat dame
+     */
     public static void inputTurn(Turn turn)
     {
 

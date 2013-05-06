@@ -10,6 +10,11 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+/**
+ * Trida ktera ma na starost internal frame s nabidkou pro otevreni/ulozeni souboru.
+ * @author Pavel Hála
+ * @author Roman Lukš
+ */
 public class LoadGame extends JInternalFrame
 {
     private static final long serialVersionUID = -8299862914609921412L;
@@ -18,51 +23,47 @@ public class LoadGame extends JInternalFrame
     private JButton BtBrowse;
     //private JButton BtOk;
 
+    /**
+     * Konstruktor. Vytvori novy internal frame
+     * @param nazevOkna    jak se ma okno jmenovat (pouzivame "Save game" a "Load game")
+     */
     public LoadGame(String nazevOkna)
     {
-
-
             super("" ,
-                  true, //resizable
+                  false, //resizable
                   true, //closable
                   false, //maximizable
                   false);//iconifiable
 
-            System.out.println("\t\tKonstruktor LG");
+        //System.out.println("\t\tKonstruktor LG");
 
-           this.setSize(450,120);
-           this.title=nazevOkna;
+       this.setSize(450,120);        //velikost okna
+       this.title=nazevOkna;        //nazev
 
-        getContentPane().setLayout(null);
+       getContentPane().setLayout(null);    //zadny layout ->absolutni pozicovani
 
-        this.TFCesta = new JTextField();
-        this.TFCesta.setBounds(54, 11, 231, 20);
-        //this.TFCesta.setText(".\\examples");
-        getContentPane().add(this.TFCesta);
-        //this.cesta.setColumns(10);
+       this.TFCesta = new JTextField();            //textfiled s cestou
+       this.TFCesta.setBounds(54, 11, 231, 20);
+       getContentPane().add(this.TFCesta);
 
-        this.BtBrowse = new JButton("Browse");
-        this.BtBrowse.setBounds(294, 11, 140, 20);
-        this.BtBrowse.addActionListener(new OpenL());
-        getContentPane().add(this.BtBrowse);
+       this.BtBrowse = new JButton("Browse");        //tlacitko "bowse", otevre dialog s vyberem souboru
+       this.BtBrowse.setBounds(294, 11, 140, 20);
+       this.BtBrowse.addActionListener(new OpenL());
+       getContentPane().add(this.BtBrowse);
 
-        JLabel popisek = new JLabel("File:");
-        popisek.setBounds(26, 15, 34, 14);
-        getContentPane().add(popisek);
+       JLabel popisek = new JLabel("File:");    //jen popisek
+       popisek.setBounds(26, 15, 34, 14);
+       getContentPane().add(popisek);
 
-        /*
-        this.BtOk = new JButton("OK");
-        this.BtOk.setBounds(272, 39, 89, 23);
-        getContentPane().add(this.BtOk);
-         */
-
-        System.out.println("\t\t/Konstruktor LG");
+       //System.out.println("\t\t/Konstruktor LG");
     }
 
-
-
-
-      class OpenL implements ActionListener
+     /**
+     * Trida ktera ma na starost otevreni nabidky pro vyber souboru
+     * @author Pavel Hála
+     * @author Roman Lukš
+     */
+    class OpenL implements ActionListener
       {
             public void actionPerformed(ActionEvent e)
             {
@@ -83,7 +84,11 @@ public class LoadGame extends JInternalFrame
       }
 
 
-      public String GetPath()
+     /**
+     * Vrati obsah textfieldu s cestou k souboru
+     * @return cesta k souboru
+     */
+    public String GetPath()
       {
           return this.TFCesta.getText();
       }

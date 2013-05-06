@@ -21,7 +21,6 @@ import java.awt.Color;
  * Trida vytvarejici vnitrni ramec s nastavenim nove P2P hry
  * @author Roman Lukš
  * @author Pavel Hála
- *
  */
 public class NewP2PGameSettings extends JInternalFrame {
 
@@ -109,6 +108,11 @@ public class NewP2PGameSettings extends JInternalFrame {
 
     }
 
+    /**
+     * Zajisti to, ze kdyz se klikne na tlacitko browse, otevre se okno s vyberem souboru
+     * @author Pavel Hála
+     * @author Roman Lukš
+     */
     class OpenL implements ActionListener
     {
           public void actionPerformed(ActionEvent e)

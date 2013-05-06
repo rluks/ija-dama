@@ -133,9 +133,9 @@ public class Gui extends JFrame
     protected ImageIcon imIcSeal;    //lachtan
 
     //nejak sitove veci
-    public ServerSocket server;
-    public Socket connectionToTheClient;
-    public Socket connectionToTheServer;
+    public ServerSocket server=null;
+    public Socket connectionToTheClient=null;
+    public Socket connectionToTheServer=null;
 
 
     public Gui() {
