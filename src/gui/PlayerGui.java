@@ -143,21 +143,34 @@ public class PlayerGui extends JFrame
         setJMenuBar(createMenuBar());
 
         //obrazky
-        //this.imIcAura = new ImageIcon(PlayerGui.class.getResource("/gui/images/aura.png"));
-        this.imIcSachovnice = new ImageIcon(PlayerGui.class.getResource("/gui/images/sachovnice_420px_yellow.png"));
-        this.imIcBilyPesak = new ImageIcon(PlayerGui.class.getResource("/gui/images/figurky/bily_pesak.png"));
-        this.imIcBilaDama = new ImageIcon(PlayerGui.class.getResource("/gui/images/figurky/bila_dama.png"));
-        this.imIcCernyPesak = new ImageIcon(PlayerGui.class.getResource("/gui/images/figurky/cerny_pesak.png"));
-        this.imIcCernaDama = new ImageIcon(PlayerGui.class.getResource("/gui/images/figurky/cerna_dama.png"));
-        this.imIcRuna = new ImageIcon(PlayerGui.class.getResource("/gui/images/runa.png"));
-        this.imIcWhiteBox = new ImageIcon(PlayerGui.class.getResource("/gui/images/whitebox.png"));
-        this.imIcBlackBox = new ImageIcon(PlayerGui.class.getResource("/gui/images/blackbox.png"));
-        this.imIcSeal = new ImageIcon(PlayerGui.class.getResource("/gui/images/seal.png"));
+        java.net.URL imageURL = PlayerGui.class.getResource("images/sachovnice_420px_yellow.png");
+        if (imageURL != null) {this.imIcSachovnice = new ImageIcon(imageURL);}
+        imageURL = PlayerGui.class.getResource("images/bily_pesak.png");
+        if (imageURL != null) {this.imIcBilyPesak = new ImageIcon(imageURL);}
+        imageURL = PlayerGui.class.getResource("images/bila_dama.png");
+        if (imageURL != null) {this.imIcBilaDama = new ImageIcon(imageURL);}
+        imageURL = PlayerGui.class.getResource("images/cerny_pesak.png");
+        if (imageURL != null) {this.imIcCernyPesak = new ImageIcon(imageURL);}
+        imageURL = PlayerGui.class.getResource("images/cerna_dama.png");
+        if (imageURL != null) {this.imIcCernaDama = new ImageIcon(imageURL);}
 
-        this.imIcPlay = new ImageIcon(Gui.class.getResource("/gui/images/play.png"));
-        this.imIcStop = new ImageIcon(Gui.class.getResource("/gui/images/stop.png"));
-        this.imIcBack = new ImageIcon(Gui.class.getResource("/gui/images/back.png"));
-        this.imIcForward = new ImageIcon(Gui.class.getResource("/gui/images/forward.png"));
+        imageURL = PlayerGui.class.getResource("images/runa.png");
+        if (imageURL != null) {this.imIcRuna = new ImageIcon(imageURL);}
+        imageURL = PlayerGui.class.getResource("images/whitebox.png");
+        if (imageURL != null) {this.imIcWhiteBox = new ImageIcon(imageURL);}
+        imageURL = PlayerGui.class.getResource("images/blackbox.png");
+        if (imageURL != null) {this.imIcBlackBox = new ImageIcon(imageURL);}
+        imageURL = PlayerGui.class.getResource("images/seal.png");
+        if (imageURL != null) {this.imIcSeal = new ImageIcon(imageURL);}
+
+        imageURL = PlayerGui.class.getResource("images/play.png");
+        if (imageURL != null) {this.imIcPlay = new ImageIcon(imageURL);}
+        imageURL = PlayerGui.class.getResource("images/stop.png");
+        if (imageURL != null) {this.imIcStop = new ImageIcon(imageURL);}
+        imageURL = PlayerGui.class.getResource("images/back.png");
+        if (imageURL != null) {this.imIcBack = new ImageIcon(imageURL);}
+        imageURL = PlayerGui.class.getResource("images/forward.png");
+        if (imageURL != null) {this.imIcForward = new ImageIcon(imageURL);}
 
         //texty s informacemi
         lblInfo = new JLabel("Not playing.");
