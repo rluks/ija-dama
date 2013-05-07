@@ -454,7 +454,7 @@ public class Gui extends JFrame
         {
             SaveGameButtonXml();
         }else if("victoryOK".equals(e.getActionCommand())){
-            NetworkSetup.killTheSockets(this.settings, false);
+            NetworkSetup.killTheSockets(this.settings, true);
             this.setVisible(false);
             Dama.wakeUpGameThread();
             int x=this.getBounds().x;
@@ -725,16 +725,18 @@ public class Gui extends JFrame
      * Ziska settings z vnitrniho ramce inFrNewGameSett
      * vlozi nastaveni do vlakna hry a probudi ho
      */
-    protected void startgame(){
+    protected void startgame()
+    {
+        NetworkSetup.killTheSockets(this.settings, false);
 
         this.settings = this.inFrNewGameSett.getSettings();
+
 
         if(this.settings != null)
         {
             //System.out.println("GUI:Starting the game...");
             this.lblInfo.setText(this.settings.getSettingsString());
 
-            NetworkSetup.killTheSockets(this.settings, false);
 
             if(Dama.isGameSetAndRunning())
             {
@@ -1158,8 +1160,10 @@ public class Gui extends JFrame
      * @param group skupina radio buttonu
      * @return zvoleny radio button
      */
-    public static JRadioButton getSelection(ButtonGroup group) {
-        for (Enumeration<AbstractButton> e = group.getElements(); e.hasMoreElements();) {
+    public static JRadioButton getSelection(ButtonGroup group)
+    {
+        for (Enumeration<AbstractButton> e = group.getElements(); e.hasMoreElements();)
+        {
           JRadioButton b = (JRadioButton) e.nextElement();
           if (b.getModel() == group.getSelection()) {
             return b;

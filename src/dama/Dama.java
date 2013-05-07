@@ -2,6 +2,7 @@ package dama;
 
 import gui.Gui;
 
+import java.awt.Color;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.BufferedReader;
@@ -10,6 +11,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.PrintStream;
+import java.net.SocketException;
 import java.util.Vector;
 
 import dama.io.NetworkSetup;
@@ -481,6 +483,11 @@ public class Dama extends Thread{
                     if(!this.settings.p2penabled || Output.getPlayerColorString(this.playerColor).equals(this.settings.local)){
 
                         //System.out.println("Hra: P2p tento hrac je na tahu");
+                        if (this.settings.p2penabled)
+                        {
+                            gui.lblInfo.setForeground(Color.GREEN);
+                            gui.lblInfo.setText("Its your turn");
+                        }
 
                         this.turn = (this.playerColor == 'W') ? Turn.TurnWhite(pEmpty, pEmpty) : Turn.TurnBlack(pEmpty, pEmpty);
 
@@ -507,7 +514,8 @@ public class Dama extends Thread{
                             if(validTurn){
                                 if(this.settings.p2penabled){
                                     //System.out.println("HraP2P: tah je validni, posilam ho souperi.");
-                                    if (this.sendTurnToOpponent()==false) return;
+                                    gui.lblInfo.setForeground(Color.BLACK);
+                                    this.sendTurnToOpponent();
                                 }
                             }else{
                                 System.out.println("Hra: tah NENI validni");
@@ -524,7 +532,12 @@ public class Dama extends Thread{
                         gui.setSubmitButton(false);
                         gui.setHelpButton(false);
 
+                        gui.lblInfo.setForeground(Color.RED);
+                        gui.lblInfo.setText("Waiting for oponent's turn.");
+
                         if (this.waitForOpponentTurn()==false) return;
+
+                        gui.lblInfo.setForeground(Color.BLACK);
                     }
                 }
 
@@ -597,6 +610,15 @@ public class Dama extends Thread{
                         e1.printStackTrace();
                         gui.createFail("Failed to save file!");
                     }
+                    char h;
+                    if (gui.settings.local.equals("White")) h='W';
+                    else h='B';
+                    if (Check.victoryOf(desk, h)==false)
+                    {
+                        gui.createFail("You have lost.");
+                        return;
+                    }
+
                     gui.setInfoText("!!! Victory !!!");
                     gui.createVictory();
                     gui.setMenu(false);
@@ -616,7 +638,7 @@ public class Dama extends Thread{
     }
 
 
-    private boolean sendTurnToOpponent()
+    private void sendTurnToOpponent()
     {
         String p0=this.turn.origin.getStrLowerCase();
         String p1=this.turn.destination.getStrLowerCase();
@@ -624,22 +646,21 @@ public class Dama extends Thread{
         OutputStream out = null;
         try
         {
-            if (this.settings.connectionToTheClient == null)
+            if (this.settings.connectionToTheClient == null){
                 out = this.settings.connectionToTheServer.getOutputStream();
-            else
+            }else{
                 out = this.settings.connectionToTheClient.getOutputStream();
+            }
             PrintStream ps = new PrintStream(out, true); // Second param: auto-flush on write = true
             ps.println(turnStr);
-            ps.close();
         }
         catch (IOException e)
         {
             e.printStackTrace();
-            this.gui.createFail("Network error. \nUnable to send your turn to oponent.");
-            return false;
+            System.out.println("Chyba pri posilani tahu oponentovi");
+            this.gui.createFail("Error while sending your turn.");
         }
 
-        return true;
     }
 
     /**
@@ -706,6 +727,12 @@ public class Dama extends Thread{
 
             BufferedReader br = new BufferedReader(new InputStreamReader(in));
             line = br.readLine();
+        }
+        catch (SocketException e)
+        {
+            this.gui.setInfoText("Other player ended the game! (socket exception)");
+            this.gui.createFail("Network error. Other side probably disconnected.");
+            return false;
         }
         catch (IOException e)
         {
