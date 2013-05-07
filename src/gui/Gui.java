@@ -152,26 +152,33 @@ public class Gui extends JFrame
         desktop.setBackground(Color.LIGHT_GRAY);
         setContentPane(desktop);
 
-        //Make dragging a little faster but perhaps uglier.
-        //desktop.setDragMode(JDesktopPane.OUTLINE_DRAG_MODE);
-
-        //makes drag a little less ugly but perhaps slower
         desktop.setDragMode(JDesktopPane.LIVE_DRAG_MODE);
 
         this.setMouse(false);
         addMouseListener(this);
 
         //obrazky
-        this.imIcAura = new ImageIcon(Gui.class.getResource("/gui/images/aura.png"));
-        this.imIcSachovnice = new ImageIcon(Gui.class.getResource("/gui/images/sachovnice_420px_yellow.png"));
-        this.imIcBilyPesak = new ImageIcon(Gui.class.getResource("/gui/images/figurky/bily_pesak.png"));
-        this.imIcBilaDama = new ImageIcon(Gui.class.getResource("/gui/images/figurky/bila_dama.png"));
-        this.imIcCernyPesak = new ImageIcon(Gui.class.getResource("/gui/images/figurky/cerny_pesak.png"));
-        this.imIcCernaDama = new ImageIcon(Gui.class.getResource("/gui/images/figurky/cerna_dama.png"));
-        this.imIcRuna = new ImageIcon(Gui.class.getResource("/gui/images/runa.png"));
-        this.imIcWhiteBox = new ImageIcon(Gui.class.getResource("/gui/images/whitebox.png"));
-        this.imIcBlackBox = new ImageIcon(Gui.class.getResource("/gui/images/blackbox.png"));
-        this.imIcSeal = new ImageIcon(Gui.class.getResource("/gui/images/seal.png"));
+        java.net.URL imageURL = PlayerGui.class.getResource("images/sachovnice_420px_yellow.png");
+        if (imageURL != null) {this.imIcSachovnice = new ImageIcon(imageURL);}
+        imageURL = PlayerGui.class.getResource("images/bily_pesak.png");
+        if (imageURL != null) {this.imIcBilyPesak = new ImageIcon(imageURL);}
+        imageURL = PlayerGui.class.getResource("images/bila_dama.png");
+        if (imageURL != null) {this.imIcBilaDama = new ImageIcon(imageURL);}
+        imageURL = PlayerGui.class.getResource("images/cerny_pesak.png");
+        if (imageURL != null) {this.imIcCernyPesak = new ImageIcon(imageURL);}
+        imageURL = PlayerGui.class.getResource("images/cerna_dama.png");
+        if (imageURL != null) {this.imIcCernaDama = new ImageIcon(imageURL);}
+
+        imageURL = PlayerGui.class.getResource("images/runa.png");
+        if (imageURL != null) {this.imIcRuna = new ImageIcon(imageURL);}
+        imageURL = PlayerGui.class.getResource("images/whitebox.png");
+        if (imageURL != null) {this.imIcWhiteBox = new ImageIcon(imageURL);}
+        imageURL = PlayerGui.class.getResource("images/blackbox.png");
+        if (imageURL != null) {this.imIcBlackBox = new ImageIcon(imageURL);}
+        imageURL = PlayerGui.class.getResource("images/seal.png");
+        if (imageURL != null) {this.imIcSeal = new ImageIcon(imageURL);}
+        imageURL = PlayerGui.class.getResource("images/aura.png");
+        if (imageURL != null) {this.imIcAura = new ImageIcon(imageURL);}
 
         //menu
         setJMenuBar(createMenuBar());
