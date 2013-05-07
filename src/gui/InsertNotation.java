@@ -12,9 +12,6 @@ import javax.swing.JTextArea;
  */
 public class InsertNotation extends JInternalFrame {
 
-    /**
-    *
-    */
     private static final long serialVersionUID = -5780383886523331250L;
     static int openFrameCount = 0;
     static final int xOffset = 30, yOffset = 30;
