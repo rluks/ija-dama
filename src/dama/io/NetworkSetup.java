@@ -312,7 +312,6 @@ public class NetworkSetup
         if (sett==null) return;
         try
         {
-
             if (sett.connectionToTheClient!=null)
             {
                 if (!victory)

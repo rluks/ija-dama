@@ -1,9 +1,5 @@
 package dama;
 
-import dama.io.Output;
-import dama.io.Turn;
-import dama.state.Position;
-
 /**
  * Romanova main na prototypovani
  * @author Roman Lukš
