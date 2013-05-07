@@ -13,7 +13,8 @@ import dama.operations.Moves;
  * @author Pavel Hála
  *
  */
-public final class Check {
+public final class Check 
+{
 
     /**
      * Privatni konstruktor (zabranuje vytvoreni instance teto tridy)

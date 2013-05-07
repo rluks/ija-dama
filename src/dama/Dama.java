@@ -10,8 +10,10 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.PrintStream;
+import java.net.SocketException;
 import java.util.Vector;
 
+import dama.io.NetworkSetup;
 import dama.io.Output;
 import dama.io.Turn;
 import dama.operations.AI;
@@ -325,6 +327,7 @@ public class Dama extends Thread{
             @Override
             public void windowClosing(WindowEvent we) {
                 System.out.println("Okno zavreno, ukoncuji...");
+                NetworkSetup.killTheSockets(Dama.getSettings(), false);
                 //Dama.wakeUpGameThread();
                 //Dama.stopGameThread();
                 System.exit(0);
@@ -614,32 +617,29 @@ public class Dama extends Thread{
     }
 
 
-    private void sendTurnToOpponent() {
-
+    private void sendTurnToOpponent()
+    {
         String p0=this.turn.origin.getStrLowerCase();
         String p1=this.turn.destination.getStrLowerCase();
         String turnStr = p0 + "-" + p1;
-
         OutputStream out = null;
 
-        if (this.settings.connectionToTheClient == null){
-            try {
+        try
+        {
+            if (this.settings.connectionToTheClient == null){
                 out = this.settings.connectionToTheServer.getOutputStream();
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-        }else{
-            try {
+            }else{
                 out = this.settings.connectionToTheClient.getOutputStream();
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
             }
+            PrintStream ps = new PrintStream(out, true); // Second param: auto-flush on write = true
+            ps.println(turnStr);
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+            System.out.println("Chyba pri posilani tahu oponentovi");
         }
 
-        PrintStream ps = new PrintStream(out, true); // Second param: auto-flush on write = true
-        ps.println(turnStr);
     }
 
     /**
@@ -702,6 +702,12 @@ public class Dama extends Thread{
 
             BufferedReader br = new BufferedReader(new InputStreamReader(in));
             line = br.readLine();
+        }
+        catch (SocketException e)
+        {
+            this.gui.setInfoText("Other player ended the game! (socket exception)");
+            this.gui.createFail("Network error. Other side probably disconnected.");
+            return false;
         }
         catch (IOException e)
         {

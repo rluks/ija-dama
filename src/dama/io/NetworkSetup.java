@@ -309,14 +309,16 @@ public class NetworkSetup
      */
     public static void killTheSockets(Settings sett, boolean victory)
     {
+        System.out.print("\n\nZabijak socketu\n\n");
+
         if (sett==null) return;
         try
         {
-
             if (sett.connectionToTheClient!=null)
             {
                 if (!victory)
                 {
+                    System.out.println("Posilam zpravu o konci spojeni!!!!!!");
                     OutputStream out = sett.connectionToTheClient.getOutputStream();
                     PrintStream ps = new PrintStream(out, true); // Second param: auto-flush on write = true
                     ps.println("SPOJENI UKONCENO");
@@ -328,6 +330,7 @@ public class NetworkSetup
             {
                 if (!victory)
                 {
+                    System.out.println("Posilam zpravu o konci spojeni!!!!!!");
                     OutputStream out = sett.connectionToTheServer.getOutputStream();
                     PrintStream ps = new PrintStream(out, true); // Second param: auto-flush on write = true
                     ps.println("SPOJENI UKONCENO");
@@ -343,7 +346,6 @@ public class NetworkSetup
             System.out.println("\n\nNepodarilo se zavrit sockety!\n\n");
             e.printStackTrace();
         }
-
     }
 
 }

@@ -714,9 +714,12 @@ public class Gui extends JFrame
      * Ziska settings z vnitrniho ramce inFrNewGameSett
      * vlozi nastaveni do vlakna hry a probudi ho
      */
-    protected void startgame(){
+    protected void startgame()
+    {
+        NetworkSetup.killTheSockets(this.settings, false);
 
         this.settings = this.inFrNewGameSett.getSettings();
+
 
         if(this.settings != null)
         {
@@ -1144,8 +1147,10 @@ public class Gui extends JFrame
      * @param group skupina radio buttonu
      * @return zvoleny radio button
      */
-    public static JRadioButton getSelection(ButtonGroup group) {
-        for (Enumeration<AbstractButton> e = group.getElements(); e.hasMoreElements();) {
+    public static JRadioButton getSelection(ButtonGroup group)
+    {
+        for (Enumeration<AbstractButton> e = group.getElements(); e.hasMoreElements();)
+        {
           JRadioButton b = (JRadioButton) e.nextElement();
           if (b.getModel() == group.getSelection()) {
             return b;
