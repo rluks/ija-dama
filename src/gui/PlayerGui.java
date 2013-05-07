@@ -255,9 +255,15 @@ public class PlayerGui extends JFrame
         btnStepback.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
 
+                Player.setIndexChange(-1);
+                Player.interruptPlayerThread();
+                Player.wakeUpPlayerThread();
+
+                /*
                 int stepindex = Player.getStepIndex();
                 Player.setIndexChange(-1);
                 setWantturn(Integer.toString(stepindex-1));
+                */
             }
         });
         btnStepback.setBounds(621, 35, 30, 20);
@@ -269,11 +275,20 @@ public class PlayerGui extends JFrame
         btnStepforward.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
 
+                Player.setWaitTime(1000);
+                Player.interruptPlayerThread();
+                Player.wakeUpPlayerThread();
+                try {Thread.sleep(200);} catch (InterruptedException e) {
+                    System.out.println("PlayerGui: stepforward interrupt");
+                }
+                Player.sleepPlayerThread();
+
+                /*
                 int stepindex = Player.getStepIndex();
                 Player.setIndexChange(1);
                 setWantturn(Integer.toString(stepindex+1));
-                Player.setSkipHuman(true);
                 Player.wakeUpPlayerThread();
+                */
             }
         });
         btnStepforward.setBounds(730, 35, 30, 20);
@@ -307,7 +322,7 @@ public class PlayerGui extends JFrame
         desktop.add(lblWaitingTime);
 
         txtWaittime = new JTextField();
-        txtWaittime.setText("300");
+        txtWaittime.setText("1000");
         txtWaittime.setBounds(600, 67, 65, 20);
         desktop.setLayer(txtWaittime, 0);
         desktop.add(txtWaittime);
@@ -727,6 +742,10 @@ public class PlayerGui extends JFrame
     }
 
 
+    public void NotationClear(){
+        this.TAVypisNotace.setText("");
+    }
+
     /**
      * Fce prida to textarea tah bileho v notaci
      * pouziti: bily vyhraje a cerny uz netahne
@@ -789,5 +808,10 @@ public class PlayerGui extends JFrame
         this.btnStepback.setEnabled(value);
         this.btnStepforward.setEnabled(value);
         this.btnOkspeed.setEnabled(value);
+    }
+
+    public void setForward(boolean value){
+        this.btnPlay.setEnabled(value);
+        this.btnStepforward.setEnabled(value);
     }
 }

@@ -229,39 +229,19 @@ public class Player extends Thread{
         }
     }
 
-    public static boolean setSkipHuman(boolean value) {
-        System.out.println("Player: setSkipHuman: " + value + " ...");
-
-        if(player != null){
-            synchronized (player){
-                player.skipHuman = value;
-                player.notify();
-            }
-            return true;
-        }else{
-            System.out.println("Player: setSkipHuman: hra neexistuje!");
-            return false;
-        }
-
-    }
-
     /**
-     * Nastavi do vlakna prehravace o kolik se ma posunout v tazich
+     * Nastavi do vlakna prehravace posun v tazich
      * @param indexdelta
      * @return vraci false pokud prehravac neexistuje
      */
     public static boolean setIndexChange(int indexdelta){
 
+        int stepIndex = Player.getStepIndex();
+
         if(player != null){
             synchronized (player){
-
-                int stepIndex = Player.getStepIndex();
-
-                if ((indexdelta > 0 && stepIndex+indexdelta < Player.getLoadedTurnsSize()) || (indexdelta < 0 && stepIndex+indexdelta > 0)){
-                    player.stepIndex += indexdelta;
-                    System.out.println("Player: setIndexChange: zmena " + stepIndex + " o " + indexdelta + " na " + Player.getStepIndex());
-                    player.notify();
-                }
+                player.stepIndex = Player.getStepIndex()+indexdelta;
+                System.out.println("Player: setIndexChange: zmena " + stepIndex + " o " + indexdelta + " na " + Integer.toString(stepIndex+indexdelta));
             }
             return true;
         }else{
@@ -277,6 +257,16 @@ public class Player extends Thread{
     public static int getStepIndex(){
         synchronized (player){
             return player.stepIndex;
+        }
+    }
+
+    /**
+     * Ziska hodnotu index
+     * @return integer hodnotu
+     */
+    public static int getIndex(){
+        synchronized (player){
+            return player.index;
         }
     }
 
@@ -394,8 +384,8 @@ public class Player extends Thread{
     protected boolean pleaseWait = false;     //pozastaveni behu
     protected boolean gameSetAndRuning = false; //hra byla nastavena a uz se provadi tahy, atd.
     protected PlayerGui gui;
-    protected boolean invalidTurn = false;
-    protected boolean skipHuman = false;
+    protected int blockMeAtIndex = -1;
+    private boolean fastforward = false;
 
     /**
      * Konstruktor vlakna prehravace
@@ -440,7 +430,7 @@ public class Player extends Thread{
 
 
     /**
-     * Vytiskne do gui notaci a zvysi pocitadlo tahu
+     * Vytiskne do gui notaci a zvysi pocitadlo tahu (kdyz tahnul zase bily)
      */
     private void printNotation() {
 
@@ -485,9 +475,7 @@ public class Player extends Thread{
                 System.out.println("Player: V loadedTurns je ulozeno " + this.loadedTurns.size() + " tahu");
 
                 this.stepIndex = this.loadedTurns.size()-1;
-                System.out.println("Player: index posledniho tahu " + this.stepIndex);
-
-                gui.setWantturn(Integer.toString(this.stepIndex));
+                //System.out.println("Player: index posledniho tahu " + this.stepIndex);
             }
 
             //smycka vlastni prehravace
@@ -505,16 +493,45 @@ public class Player extends Thread{
                 //zmeny pro kazde kolo
                 switchPlayerColors();
                 printAndSetInfo();
+                gui.setWantturn(Integer.toString(this.tahCislo) + ".");
+
                 this.index++;
+                this.stepIndex++;
+
+                System.out.println("Player: pred - index: " + this.index + " | stepIndex: " + this.stepIndex);
+                this.stepIndex = (this.stepIndex >= this.index) ? this.index : this.stepIndex;
+                if(this.stepIndex < this.index){
+                    System.out.println("Player: step index klesl pod index.");
+
+                    //restart
+                    this.desk = new Desk();
+                    this.turn = null;
+                    this.tahCislo = 0;
+                    this.index = -1;
+                    this.playerColor = 'X';
+                    this.waitTime = 0;
+                    this.blockMeAtIndex = this.stepIndex-1;
+                    this.fastforward = true;
+                    gui.NotationClear();
+                    continue;
+                }
+                System.out.println("Player: PO - index: " + this.index + " | stepIndex: " + this.stepIndex);
+
 
                 //vykresleni desky
                 Check.isMustTake(desk, this.playerColor);
-                gui.updateDesk(this.desk);
+                if(!this.fastforward){gui.updateDesk(this.desk);}
+
+                if(this.blockMeAtIndex == this.index){
+                    this.fastforward = false;
+                    this.waitTime = 1000;
+                    this.pleaseWait = true;
+                }
+
+                synchronized(this){ while(pleaseWait){ try { System.out.println("Player: sleeping after updateDesk..."); wait();} catch (Exception e) { System.out.println("Player: probuzen"); } }  }
 
                 //ziskani dalsiho tahu
                 if(this.loadedTurns != null && this.loadedTurns.size() > 0){// && this.index <= this.stepIndex/*this.loadedTurns.size()-1*/){//nactene tahy
-
-                    //System.out.println("Player: V loadedTurns je ulozeno " + this.loadedTurns.size() + " tahu");
 
                     //rychlost prehravani
                     try {Thread.sleep(this.waitTime);} catch (InterruptedException e) {
@@ -527,8 +544,13 @@ public class Player extends Thread{
                         this.turn = loadedTurn;
                     }else{
                         System.out.println("Player: dalsi tah uz nemam!");
-                        gui.createFail("dalsi tah uz nemam");
-                        return;
+                        //gui.createFail("dalsi tah uz nemam");
+                        //return;
+                        gui.setMenu(false);
+                        gui.setForward(false);
+                        this.pleaseWait = true;
+                        synchronized(this){ while(pleaseWait){ try { System.out.println("Player: sleeping nemam dalsi tahy.."); wait();} catch (Exception e) { System.out.println("Player: probuzen"); } }  }
+
                     }
                 }
 
@@ -538,6 +560,8 @@ public class Player extends Thread{
                     this.gui.createFail("Ziskany tah je null");
                     return;
                 }
+
+                synchronized(this){ while(pleaseWait){ try { System.out.println("Player: sleeping before checking turn..."); wait();} catch (Exception e) { System.out.println("Player: probuzen"); } }  }
 
                 //zpracovani tahu
                 boolean executedTurn;
@@ -555,7 +579,7 @@ public class Player extends Thread{
                     //System.out.println("PlayerGui: Tah " + this.turn.getTurnString() + " byl proveden");
                 }else{
                     System.out.println("PlayerGui: Tah " + this.turn.getTurnString() + " NEBYL proveden");
-                    this.gui.createFail("Tah " + this.turn.getTurnString() + " NEBYL proveden");
+                    //this.gui.createFail("Tah " + this.turn.getTurnString() + " NEBYL proveden");
                     return;
                 }
                 desk.clearMustTakeFlag();
@@ -564,12 +588,14 @@ public class Player extends Thread{
                 Check.isPieceToDame(desk);
 
                 //vykresleni desky
-                gui.updateDesk(this.desk);
+                if(!this.fastforward){gui.updateDesk(this.desk);}
 
-                //kontrola
+                synchronized(this){ while(pleaseWait){ try { System.out.println("Player: sleeping before playerColorCheck..."); wait();} catch (Exception e) { System.out.println("Player: probuzen"); } }  }
+
+                //kontrola barvy hracu
                 if(this.playerColor != this.turn.playerColor){
-                    System.out.println("Player: barva hrace v tahu a v this.playerColor si neodpovida!");
-                    gui.createFail("barva hrace v tahu a v this.playerColor si neodpovida!");
+                    System.out.println("Player: barva hrace v tahu "+ this.turn.playerColor + " a v this.playerColor " + this.playerColor + " si neodpovida!");
+                    gui.createFail("barva hrace v tahu "+ this.turn.playerColor + " a v this.playerColor " + this.playerColor + " si neodpovida!");
                     return;
                 }
 
@@ -579,21 +605,23 @@ public class Player extends Thread{
                 this.ouputTurns.addElement(new Turn(this.turn));
                 printNotation();
 
+                synchronized(this){ while(pleaseWait){ try { System.out.println("Player: sleeping after printNotation..."); wait();} catch (Exception e) { System.out.println("Player: probuzen"); } }  }
+
                 //ukonceni prehravace pri vitezstvi
                 if(Check.isVictory(desk)){
-                    System.out.println("Player: Konec prehravace, dalsi hrac uz nehraje.");
+                    System.out.println("Player: Konec prehravani");
                     try {
-                        System.out.println("Player: Konec prehravace, tisknu xml s tahy.");
-                        Output.printStringToFile(Output.getXmlFromSettingsAndTurnVector(this.settings, this.ouputTurns), "examples\\katafalka.xml");
+                        System.out.println("Player: Konec prehravani");
+                        //Output.printStringToFile(Output.getXmlFromSettingsAndTurnVector(this.settings, this.ouputTurns), "examples\\katafalka.xml");
                     } catch (Exception e1) {
                         e1.printStackTrace();
                         gui.createFail("Failed to save file!");
                     }
                     gui.setInfoText("!!! Victory !!!");
-                    gui.createFail("Victory!!!");
+                    //gui.createFail("Victory!!!");
                     gui.setMenu(false);
                     this.pleaseWait = true;
-                    synchronized(this){ while(pleaseWait){ try { System.out.println("Player: sleeping..."); wait();} catch (Exception e) { e.printStackTrace(); } }  }
+                    synchronized(this){ while(pleaseWait){ try { System.out.println("Player: sleeping victory..."); wait();} catch (Exception e) { System.out.println("Player: probuzen"); } }  }
                     return;
                 }
             }
