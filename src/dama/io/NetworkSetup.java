@@ -36,7 +36,7 @@ public class NetworkSetup
      */
     public static void startP2Pgame(Gui gui)
     {
-        killTheSockets(gui.settings);    //zrusi vsechna predchozi spojeni
+        killTheSockets(gui.settings, false);    //zrusi vsechna predchozi spojeni
 
         Vector<Turn> lt = new Vector<Turn>();
         Settings sett=gui.inFrNewP2PGameSett.getSettings();
@@ -295,7 +295,7 @@ public class NetworkSetup
      * Fce co ukonci vsechna spojeni
      * @param gui odkaz na gui, kde jsou ulozeny sitove promenne
      */
-    public static void killTheSockets(Settings sett)
+    public static void killTheSockets(Settings sett, boolean victory)
     {
         if (sett==null) return;
         try
@@ -303,18 +303,24 @@ public class NetworkSetup
 
             if (sett.connectionToTheClient!=null)
             {
-                OutputStream out = sett.connectionToTheClient.getOutputStream();
-                PrintStream ps = new PrintStream(out, true); // Second param: auto-flush on write = true
-                ps.println("SPOJENI UKONCENO");
-                ps.close();
+                if (!victory)
+                {
+                    OutputStream out = sett.connectionToTheClient.getOutputStream();
+                    PrintStream ps = new PrintStream(out, true); // Second param: auto-flush on write = true
+                    ps.println("SPOJENI UKONCENO");
+                    ps.close();
+                }
                 sett.connectionToTheClient.close();
             }
             if (sett.connectionToTheServer!=null)
             {
-                OutputStream out = sett.connectionToTheServer.getOutputStream();
-                PrintStream ps = new PrintStream(out, true); // Second param: auto-flush on write = true
-                ps.println("SPOJENI UKONCENO");
-                ps.close();
+                if (!victory)
+                {
+                    OutputStream out = sett.connectionToTheServer.getOutputStream();
+                    PrintStream ps = new PrintStream(out, true); // Second param: auto-flush on write = true
+                    ps.println("SPOJENI UKONCENO");
+                    ps.close();
+                }
                 sett.connectionToTheServer.close();
             }
             if (sett.server!=null) sett.server.close();

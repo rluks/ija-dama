@@ -33,13 +33,267 @@ public class Dama extends Thread{
     public static Dama dama;
     protected static Turn turnInput;
 
+    /**
+     * Z vlakna hry ziska desku
+     * @return desk instance tridy Desk obsahujici stav hry na sachovnici
+     */
+    public static Desk getDesk(){
+        synchronized (dama){
+            return dama.desk;
+        }
+    }
+    /**
+     * Z vlakna hry ziska vektor tahu
+     * @return
+     */
+    public static Vector<Turn> getOutputTurns(){
+        synchronized (dama){
+            return dama.ouputTurns;
+        }
+    }
+
+    /**
+     * Z vlakna hry ziska barvu hrace na tahu
+     * @return char barva hrace 'W' nebo 'B', pripadne '\0'
+     */
+    public static char getPlayerColor(){
+        synchronized (dama){
+            return dama.playerColor;
+        }
+    }
+    /**
+     * Z vlakna hry ziska settings
+     * @return
+     */
+    public static Settings getSettings(){
+        synchronized (dama){
+            return dama.settings;
+        }
+    }
+
+    /**
+     * Z vlakna hry ziska turn
+     * @return turn instance tridy Turn obsahujici jeden pultah
+     */
+    public static Turn getTurn(){
+        synchronized (dama){
+            return dama.turn;
+        }
+    }
+    /**
+     * Ziskani hodnoty vstupniho Turn z vlakna hry
+     * @return
+     */
+    public static Turn getTurnInput() {
+        return Dama.turnInput;
+    }
+    public static boolean interruptGameThread(){
+
+        if(dama != null){
+            if(dama.isAlive()){
+                dama.interrupt();
+                return true;
+            }else{
+                return false;
+            }
+        }else{
+            return false;
+        }
+    }
+    /**
+     * Kontrola jestli uz se hraje (zda bylo vse nastaveno a probiha smycka hry)
+     * @return
+     */
+    public static boolean isGameSetAndRunning(){
+
+        if(Dama.isGameThreadRunning()){
+            synchronized (dama){
+                if(dama.gameSetAndRuning){
+                    return true;
+                }else{
+                    return false;
+                }
+            }
+        }else{
+            return false;
+        }
+    }
+    /**
+     * Kontrola jestli bezi vlakno hry
+     * @return
+     */
+    public static boolean isGameThreadRunning(){
+        if(dama != null){
+            if(dama.isAlive()){
+                return true;
+            }else{
+                return false;
+            }
+        }else{
+            return false;
+        }
+    }
+    //staticke metody
+    public static void main(String[] args) throws InterruptedException {
+
+        // projekt:
+        // TODO javadoc
+        // TODO k try-catch blokum dat do catch osetreni,zotaveni z chyb
+
+        Dama.startingGameThread(100,100);
+
+    }
+    public static boolean setLoadedTurns(Vector<Turn> loadedTurns){
+
+        System.out.println("setTurn: ukladam nactene tahy do vlakna hry...");
+
+        if(dama != null){
+            synchronized (dama){
+                dama.loadedTurns = loadedTurns;
+                dama.notify();
+            }
+            return true;
+        }else{
+            System.out.println("setLoadedTurns: hra neexistuje!");
+            return false;
+        }
+    }
+    /**
+     * Uklada nastaveni do vlakna hry
+     * @param settings instance tridy Settings s nastavenim hry
+     * @return vraci false pokud hra neexistuje
+     */
+    public static boolean setSettings(Settings settings){
+        System.out.println("setSettings: ukladam nastaveni...");
+
+        if(dama != null){
+            synchronized (dama){
+                dama.settings = settings;
+                dama.notify();
+            }
+            return true;
+        }else{
+            System.out.println("setSettings: hra neexistuje!");
+            return false;
+        }
+    }
+    /**
+     * Uklada tah do vlakna hry
+     * @param turn instance tridy
+     * @return vraci false pokud hra neexistuje
+     */
+    public static boolean setTurn(Turn turn){
+
+        System.out.println("setTurn: ukladam tah...");
+
+        if(dama != null){
+            synchronized (dama){
+                dama.turn = turn;
+                dama.notify();
+            }
+            return true;
+        }else{
+            System.out.println("setTurn: hra neexistuje!");
+            return false;
+        }
+
+    }
+    /**
+     * Nastavi do vlakna hry vstupni Turn
+     * @param turn
+     */
+    public static void setTurnInput(Turn turn) {
+        Dama.turnInput = turn;
+    }
+
+    /**
+     * Uspi vlakno hry
+     * @return vraci false pokud hra neexistuje
+     */
+    public static boolean sleepGameThread(){
+        System.out.println("sleepGameThread: pokousim se uspat hru...");
+
+        if(dama != null){
+            synchronized (dama){
+                dama.pleaseWait = true;
+            }
+            return true;
+        }else{
+            System.out.println("sleepGameThread: hra neexistuje!");
+            return false;
+        }
+    }
+    /**
+     * Do vlakna hry zapise ze bylo ulozeno settings a pripadne loadedTurns
+     * a muze se tim padem zacit hrat
+     * @return vraci false pokud hra neexistuje
+     */
+    public static boolean startGame(){
+        System.out.println("startGame: povoluji beh smycky vlastni hry...");
+
+        if(dama != null){
+            if(dama.isAlive()){
+                dama.startGame = true;
+            }
+            return true;
+        }else{
+            System.out.println("startGame: hra neexistuje!");
+            return false;
+        }
+    }
+    /**
+     * Spusti nove vlakno hry
+     * @param x souradnice indent
+     * @param y souradnice indent
+     */
+    public static void startingGameThread(int x,  int y){
+
+        System.out.println("startingGameThread...");
+        dama = new Dama("DamaVlakno", x, y);
+        dama.start();
+    }
+
+
+    /**
+     * Zastavi vlakno hry
+     * @return vraci false pokud hra neexistuje
+     */
+    public static boolean stopGameThread(){
+        System.out.println("stopGameThread: zastavuji vlakno hry...");
+
+        if(dama != null){
+            if(dama.isAlive()){
+                dama.allDone = true;
+            }
+            return true;
+        }else{
+            System.out.println("stopGameThread: hra neexistuje!");
+            return false;
+        }
+    }
+    /**
+     * Probudi vlakno hry
+    * @return vraci false pokud hra neexistuje
+     */
+    public static boolean wakeUpGameThread(){
+        System.out.println("wakeUpGameThread: probouzim hru...");
+
+        if(dama != null){
+            synchronized (dama){
+                dama.pleaseWait = false;
+                dama.notify();
+            }
+            return true;
+        }else{
+            System.out.println("wakeUpGameThread: hra neexistuje!");
+            return false;
+        }
+    }
     //vlakno hry
     protected Settings settings;
     protected String currentPlayerAIHumanSettings;
-
     protected Vector<Turn> ouputTurns;        //sem hra uklada provedene tahy - pouzije se v pripade ulozeni hry
     protected Vector<Turn> loadedTurns;        //zde jsou ulozeny tahy v pripade nacteni hry
-
     protected Turn turn;
     protected Desk desk;
     protected char playerColor;
@@ -49,13 +303,11 @@ public class Dama extends Thread{
     protected boolean wbtake;
     protected Turn wturn;
     protected Turn bturn;
-    protected int aiStochasticity = 5;         //nahodnost AI tahu
 
+    protected int aiStochasticity = 5;         //nahodnost AI tahu
     protected boolean startGame = false;    //po vlozeni settings, a pripadne loadedTurns tohle povolit
     protected boolean allDone = false;         //ukonceni behu
     protected boolean pleaseWait = false;     //pozastaveni behu
-
-
     protected boolean gameSetAndRuning = false; //hra byla nastavena a uz se provadi tahy, atd.
     protected Gui gui;
     protected boolean invalidTurn = false;
@@ -79,6 +331,60 @@ public class Dama extends Thread{
             }
         } );
 
+    }
+
+    private String getAIorHumanSettingsForCurrentPlayerColor(char playerColor){
+        if(playerColor == 'W'){
+            return this.settings.white;
+        }else if(playerColor == 'B'){
+            return this.settings.black;
+        }else{
+            return "";
+        }
+    }
+
+
+
+    /**
+     * Kontrola jestli se GUI zavrelo
+     * @param gui instance Gui
+     */
+    private void checkGUIShutdown(Gui gui){
+
+        if(!gui.isVisible()){
+            System.out.println("Hra: GUI zavreno - nastavuji allDone na true.");
+            this.allDone = true;
+            //gui.pullThePlug();
+            //System.exit(0);
+        }
+    }
+
+
+
+    /**
+     * Tisk informaci o tom kdo je na tahu do konzole a do gui
+     */
+    private void printAndSetInfo() {
+        System.out.println("Hra: "+ Output.getPlayerColorString(this.playerColor)+ " will play!");
+        String infoText = (currentPlayerAIHumanSettings == "AI")? "Hra: it's "+ Output.getPlayerColorString(this.playerColor)+ " AI turn!" : "Hra: it's "+ Output.getPlayerColorString(this.playerColor)+ "players turn!";
+        gui.setInfoText(infoText);
+    }
+
+
+
+    /**
+     * Vytiskne do gui notaci a zvysi pocitadlo tahu
+     */
+    private void printNotation() {
+
+        if(this.playerColor == 'B'){
+            //System.out.println("Hra: oba hraci hrali");
+            gui.NotationNewLineLastBlack(bturn, btake);
+        }else if(this.playerColor == 'W'){
+            tahCislo++;
+            //System.out.println("Hra: hral bily");
+            gui.NotationNewLineLastWhite(wturn, wtake, this.tahCislo);
+        }
     }
 
     public void run(){
@@ -335,54 +641,6 @@ public class Dama extends Thread{
         ps.println(turnStr);
     }
 
-    private void waitForOpponentTurn() {
-
-        InputStream in = null;
-
-        if (this.settings.connectionToTheClient == null){
-            try {
-                in = this.settings.connectionToTheServer.getInputStream();
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-        }else{
-            try {
-                in = this.settings.connectionToTheClient.getInputStream();
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-        }
-
-        BufferedReader br = new BufferedReader(new InputStreamReader(in));
-        String line = new String();
-        try {
-            line = br.readLine();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-
-        this.turn = Turn.NotStringToTurn(line, this.playerColor);
-
-    }
-
-    /**
-     * Vytiskne do gui notaci a zvysi pocitadlo tahu
-     */
-    private void printNotation() {
-
-        if(this.playerColor == 'B'){
-            //System.out.println("Hra: oba hraci hrali");
-            gui.NotationNewLineLastBlack(bturn, btake);
-        }else if(this.playerColor == 'W'){
-            tahCislo++;
-            //System.out.println("Hra: hral bily");
-            gui.NotationNewLineLastWhite(wturn, wtake, this.tahCislo);
-        }
-    }
-
     /**
      * Metoda ulozi flag o tom jestli se bralo do wtake nebo btake
      * dle barvy hrace na tahu
@@ -414,15 +672,6 @@ public class Dama extends Thread{
     }
 
     /**
-     * Tisk informaci o tom kdo je na tahu do konzole a do gui
-     */
-    private void printAndSetInfo() {
-        System.out.println("Hra: "+ Output.getPlayerColorString(this.playerColor)+ " will play!");
-        String infoText = (currentPlayerAIHumanSettings == "AI")? "Hra: it's "+ Output.getPlayerColorString(this.playerColor)+ " AI turn!" : "Hra: it's "+ Output.getPlayerColorString(this.playerColor)+ "players turn!";
-        gui.setInfoText(infoText);
-    }
-
-    /**
      * Prohazuje barvy hracu
      */
     private void switchPlayerColors() {
@@ -438,313 +687,36 @@ public class Dama extends Thread{
         }
     }
 
-    /**
-     * Kontrola jestli se GUI zavrelo
-     * @param gui instance Gui
-     */
-    private void checkGUIShutdown(Gui gui){
+    private void waitForOpponentTurn() {
 
-        if(!gui.isVisible()){
-            System.out.println("Hra: GUI zavreno - nastavuji allDone na true.");
-            this.allDone = true;
-            //gui.pullThePlug();
-            //System.exit(0);
-        }
-    }
+        InputStream in = null;
 
-    private String getAIorHumanSettingsForCurrentPlayerColor(char playerColor){
-        if(playerColor == 'W'){
-            return this.settings.white;
-        }else if(playerColor == 'B'){
-            return this.settings.black;
-        }else{
-            return "";
-        }
-    }
-
-    //staticke metody
-    public static void main(String[] args) throws InterruptedException {
-
-        // projekt:
-        // TODO javadoc
-        // TODO k try-catch blokum dat do catch osetreni,zotaveni z chyb
-
-        Dama.startingGameThread(100,100);
-
-    }
-
-
-    /**
-     * Spusti nove vlakno hry
-     * @param x souradnice indent
-     * @param y souradnice indent
-     */
-    public static void startingGameThread(int x,  int y){
-
-        System.out.println("startingGameThread...");
-        dama = new Dama("DamaVlakno", x, y);
-        dama.start();
-    }
-
-
-
-    /**
-     * Uspi vlakno hry
-     * @return vraci false pokud hra neexistuje
-     */
-    public static boolean sleepGameThread(){
-        System.out.println("sleepGameThread: pokousim se uspat hru...");
-
-        if(dama != null){
-            synchronized (dama){
-                dama.pleaseWait = true;
-            }
-            return true;
-        }else{
-            System.out.println("sleepGameThread: hra neexistuje!");
-            return false;
-        }
-    }
-
-
-
-    /**
-     * Probudi vlakno hry
-    * @return vraci false pokud hra neexistuje
-     */
-    public static boolean wakeUpGameThread(){
-        System.out.println("wakeUpGameThread: probouzim hru...");
-
-        if(dama != null){
-            synchronized (dama){
-                dama.pleaseWait = false;
-                dama.notify();
-            }
-            return true;
-        }else{
-            System.out.println("wakeUpGameThread: hra neexistuje!");
-            return false;
-        }
-    }
-
-
-
-    /**
-     * Zastavi vlakno hry
-     * @return vraci false pokud hra neexistuje
-     */
-    public static boolean stopGameThread(){
-        System.out.println("stopGameThread: zastavuji vlakno hry...");
-
-        if(dama != null){
-            if(dama.isAlive()){
-                dama.allDone = true;
-            }
-            return true;
-        }else{
-            System.out.println("stopGameThread: hra neexistuje!");
-            return false;
-        }
-    }
-
-    /**
-     * Do vlakna hry zapise ze bylo ulozeno settings a pripadne loadedTurns
-     * a muze se tim padem zacit hrat
-     * @return vraci false pokud hra neexistuje
-     */
-    public static boolean startGame(){
-        System.out.println("startGame: povoluji beh smycky vlastni hry...");
-
-        if(dama != null){
-            if(dama.isAlive()){
-                dama.startGame = true;
-            }
-            return true;
-        }else{
-            System.out.println("startGame: hra neexistuje!");
-            return false;
-        }
-    }
-
-
-
-    /**
-     * Kontrola jestli bezi vlakno hry
-     * @return
-     */
-    public static boolean isGameThreadRunning(){
-        if(dama != null){
-            if(dama.isAlive()){
-                return true;
-            }else{
-                return false;
+        if (this.settings.connectionToTheClient == null){
+            try {
+                in = this.settings.connectionToTheServer.getInputStream();
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
             }
         }else{
-            return false;
-        }
-    }
-
-    /**
-     * Kontrola jestli uz se hraje (zda bylo vse nastaveno a probiha smycka hry)
-     * @return
-     */
-    public static boolean isGameSetAndRunning(){
-
-        if(Dama.isGameThreadRunning()){
-            synchronized (dama){
-                if(dama.gameSetAndRuning){
-                    return true;
-                }else{
-                    return false;
-                }
+            try {
+                in = this.settings.connectionToTheClient.getInputStream();
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
             }
-        }else{
-            return false;
-        }
-    }
-
-    public static boolean interruptGameThread(){
-
-        if(dama != null){
-            if(dama.isAlive()){
-                dama.interrupt();
-                return true;
-            }else{
-                return false;
-            }
-        }else{
-            return false;
-        }
-    }
-
-    /**
-     * Uklada nastaveni do vlakna hry
-     * @param settings instance tridy Settings s nastavenim hry
-     * @return vraci false pokud hra neexistuje
-     */
-    public static boolean setSettings(Settings settings){
-        System.out.println("setSettings: ukladam nastaveni...");
-
-        if(dama != null){
-            synchronized (dama){
-                dama.settings = settings;
-                dama.notify();
-            }
-            return true;
-        }else{
-            System.out.println("setSettings: hra neexistuje!");
-            return false;
-        }
-    }
-
-
-
-    /**
-     * Uklada tah do vlakna hry
-     * @param turn instance tridy
-     * @return vraci false pokud hra neexistuje
-     */
-    public static boolean setTurn(Turn turn){
-
-        System.out.println("setTurn: ukladam tah...");
-
-        if(dama != null){
-            synchronized (dama){
-                dama.turn = turn;
-                dama.notify();
-            }
-            return true;
-        }else{
-            System.out.println("setTurn: hra neexistuje!");
-            return false;
         }
 
-    }
-
-
-
-    public static boolean setLoadedTurns(Vector<Turn> loadedTurns){
-
-        System.out.println("setTurn: ukladam nactene tahy do vlakna hry...");
-
-        if(dama != null){
-            synchronized (dama){
-                dama.loadedTurns = loadedTurns;
-                dama.notify();
-            }
-            return true;
-        }else{
-            System.out.println("setLoadedTurns: hra neexistuje!");
-            return false;
+        BufferedReader br = new BufferedReader(new InputStreamReader(in));
+        String line = new String();
+        try {
+            line = br.readLine();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         }
-    }
 
+        this.turn = Turn.NotStringToTurn(line, this.playerColor);
 
-
-    /**
-     * Z vlakna hry ziska desku
-     * @return desk instance tridy Desk obsahujici stav hry na sachovnici
-     */
-    public static Desk getDesk(){
-        synchronized (dama){
-            return dama.desk;
-        }
-    }
-
-    /**
-     * Z vlakna hry ziska turn
-     * @return turn instance tridy Turn obsahujici jeden pultah
-     */
-    public static Turn getTurn(){
-        synchronized (dama){
-            return dama.turn;
-        }
-    }
-
-
-    /**
-     * Z vlakna hry ziska barvu hrace na tahu
-     * @return char barva hrace 'W' nebo 'B', pripadne '\0'
-     */
-    public static char getPlayerColor(){
-        synchronized (dama){
-            return dama.playerColor;
-        }
-    }
-
-    /**
-     * Z vlakna hry ziska settings
-     * @return
-     */
-    public static Settings getSettings(){
-        synchronized (dama){
-            return dama.settings;
-        }
-    }
-
-    /**
-     * Z vlakna hry ziska vektor tahu
-     * @return
-     */
-    public static Vector<Turn> getOutputTurns(){
-        synchronized (dama){
-            return dama.ouputTurns;
-        }
-    }
-
-    /**
-     * Nastavi do vlakna hry vstupni Turn
-     * @param turn
-     */
-    public static void setTurnInput(Turn turn) {
-        Dama.turnInput = turn;
-    }
-
-    /**
-     * Ziskani hodnoty vstupniho Turn z vlakna hry
-     * @return
-     */
-    public static Turn getTurnInput() {
-        return Dama.turnInput;
     }
 }
