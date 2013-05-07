@@ -22,8 +22,6 @@ import dama.state.Settings;
 public class Player extends Thread{
 
     //staticke
-    //protected static Player[] listOfThreads;
-    //public static Player player;
     protected static Turn turnInput;
     protected static int playerCount = 0;
 
@@ -318,16 +316,11 @@ public class Player extends Thread{
 
         System.out.println("Player: startingPlayerThread...");
 
-        Player thread = new Player("PlayerVlakno" + Player.playerCount);
+        Player thread = new Player("" + Player.playerCount);
         thread.start();
         System.out.println(thread.getName());
 
         Player.playerCount++;
-
-        /*
-        player = new Player("PlayerVlakno");
-        player.start();
-        */
     }
 
 
@@ -574,8 +567,6 @@ public class Player extends Thread{
                         this.turn = loadedTurn;
                     }else{
                         System.out.println("Player: dalsi tah uz nemam!");
-                        //gui.createFail("dalsi tah uz nemam");
-                        //return;
                         gui.setMenu(false);
                         gui.setForward(false);
                         this.pleaseWait = true;
@@ -642,13 +633,11 @@ public class Player extends Thread{
                     System.out.println("Player: Konec prehravani");
                     try {
                         System.out.println("Player: Konec prehravani");
-                        //Output.printStringToFile(Output.getXmlFromSettingsAndTurnVector(this.settings, this.ouputTurns), "examples\\katafalka.xml");
                     } catch (Exception e1) {
                         e1.printStackTrace();
                         gui.createFail("Failed to save file!");
                     }
                     gui.setInfoText("!!! Victory !!!");
-                    //gui.createFail("Victory!!!");
                     gui.setMenu(false);
                     this.pleaseWait = true;
                     synchronized(this){ while(pleaseWait){ try { System.out.println("Player: sleeping victory..."); wait();} catch (Exception e) { System.out.println("Player: probuzen"); } }  }

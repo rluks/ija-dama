@@ -125,13 +125,12 @@ public class PlayerGui extends JFrame
     protected Player thread;
 
     public PlayerGui(final Player thread) {
-        super("PlayerGui" + thread.getName());
+        super("Player: " + thread.getName());
 
         this.thread = thread;
 
         //Nastaveni okna
-        int inset = 50;
-        setBounds(inset, inset, 800, 600);
+        setBounds(100, 100, 800, 600);
 
         //GUI
         desktop = new JDesktopPane();
