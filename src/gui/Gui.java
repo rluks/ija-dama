@@ -448,7 +448,7 @@ public class Gui extends JFrame
         {
             SaveGameButtonXml();
         }else if("victoryOK".equals(e.getActionCommand())){
-            NetworkSetup.killTheSockets(this.settings, false);
+            NetworkSetup.killTheSockets(this.settings, true);
             this.setVisible(false);
             Dama.wakeUpGameThread();
             int x=this.getBounds().x;

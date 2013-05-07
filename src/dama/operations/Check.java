@@ -43,20 +43,28 @@ public final class Check
         else return false;
     }
 
+    /**
+     * Fce ktera rekne o hraci jestli vyhral
+     * @param desk    deska nad kterou se kontrola provede
+     * @param hrac    o kterem hraci se chce vedet jestli vyhral ('B' nebo 'W')
+     * @return        vraci true jestli danny hrac vyhral
+     */
     public static boolean victoryOf(Desk desk, char hrac)
     {
         Figure[][] this_board=desk.getState();
         int hrac_count=0;
+        int oponent_count=0;
         int col,row;
         for (row=0; row<Desk.BOARD_SIZE; row++)
             for (col=0; col<Desk.BOARD_SIZE; col++)
                 if (this_board[row][col]!=null)
                 {
                     if  (this_board[row][col].color==hrac) hrac_count++;
+                    else oponent_count++;
 
                 }
-        if (hrac_count==0) return false;
-        else return true;
+        if ((hrac_count>0) && (oponent_count==0)) return true;
+        else return false;
     }
 
     /**
