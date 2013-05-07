@@ -17,12 +17,12 @@ public class Roman {
 
         System.out.println("ROMAN");
 
-        Position o = new Position(0, 0);
-        Position d = new Position(4, 5);
-        Turn t = new Turn('W', o, d);
-        System.out.println(Output.getTurnXmlString(t));
+        //Position o = new Position(0, 0);
+        //Position d = new Position(4, 5);
+        //Turn t = new Turn('W', o, d);
+        //System.out.println(Output.getTurnXmlString(t));
         //Dama.startingGameThread(50,50);
-        //Player.startingPlayerThread();
+        Player.startingPlayerThread();
 
     }
 }

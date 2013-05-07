@@ -73,16 +73,6 @@ public class Player extends Thread{
         }
     }
 
-    /*
-     * Z vlakna prehravace ziska jestli hraje clovek
-     * @return true hraje clovek, false hraji se ulozene tahy
-     *
-    public static boolean isHumanPlaying(){
-        synchronized (player){
-            return player.human;
-        }
-    }*/
-
     /**
      * Z vlakna prehravace ziska velikost vektoru nactenych tahu
      */
@@ -389,8 +379,6 @@ public class Player extends Thread{
     protected char playerColor;
     protected int tahCislo = 0;
 
-    //protected boolean human;//indikace ze se ceka na vstup od cloveka, pouziti pro zamceni play tlacitka
-
     protected int waitTime = 1000;
     protected int index = -1;//index pro pohyb ve vektoru tahu
     protected int stepIndex; //posune se v tazich o pocet kliknuti na tlacitka forward, back
@@ -440,19 +428,6 @@ public class Player extends Thread{
             this.allDone = true;
         }
     }
-
-
-    /*
-    private String getAIorHumanSettingsForCurrentPlayerColor(char playerColor){
-        if(playerColor == 'W'){
-            return this.settings.white;
-        }else if(playerColor == 'B'){
-            return this.settings.black;
-        }else{
-            return "";
-        }
-    }
-    */
 
     /**
      * Tisk informaci o tom kdo je na tahu do konzole a do gui
