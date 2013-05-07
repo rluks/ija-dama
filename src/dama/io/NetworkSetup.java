@@ -2,7 +2,7 @@ package dama.io;
 
 import gui.Gui;
 
-//import java.awt.Color;
+import java.awt.Color;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -36,8 +36,6 @@ public class NetworkSetup
      */
     public static void startP2Pgame(Gui gui)
     {
-        killTheSockets(gui.settings, false);    //zrusi vsechna predchozi spojeni
-
         Vector<Turn> lt = new Vector<Turn>();
         Settings sett=gui.inFrNewP2PGameSett.getSettings();
 
@@ -50,9 +48,8 @@ public class NetworkSetup
         {
             System.out.println("GUI:Starting the game...");
             gui.lblInfo.setText(gui.settings.getSettingsString());
-            //Dama.startingGameThread(gui.settings);
-            //gui.inFrNewP2PGameSett.padding.setForeground(Color.GREEN);
-            //gui.inFrNewP2PGameSett.padding.setText("Waititing for connection!");
+            gui.inFrNewP2PGameSett.padding.setForeground(Color.GREEN);
+            gui.inFrNewP2PGameSett.padding.setText("Waititing for connection!");
 
             //gui.inFrNewP2PGameSett.setVisible(false);    //odstani se internal frame s nastavenim settingu
             //gui.inFrNewP2PGameSett.dispose();
@@ -70,6 +67,8 @@ public class NetworkSetup
             gui.lblInfo.setText("Port out of range (1 - 65535)");
             return;
         }
+
+        killTheSockets(gui.settings, false);    //zrusi vsechna predchozi spojeni
 
         /// -------------------------------------------------------------------------------------------------------------
         /// S E R V E R
@@ -99,19 +98,19 @@ public class NetworkSetup
                 String line = br.readLine();        //prijde string s barvou klienta
                 if (line.equals("White")) gui.settings.local="Black";
                 else gui.settings.local="White";
-                System.out.println("Server - Barva klienta: \"" + line + "\"; server: \"" + gui.settings.local + "\"");
+                //System.out.println("Server - Barva klienta: \"" + line + "\"; server: \"" + gui.settings.local + "\"");
 
                 //soubor
                 cesta = br.readLine();
                 if (cesta.equals("no file"))    //nebude se nacitat ulozena hry
                 {
-                    System.out.println("Server - nebude se nic nacitat");
+                    //System.out.println("Server - nebude se nic nacitat");
                 }
                 else    //bude se nacitat ulozena hra
                 {
                     if (cesta.endsWith(".txt")) typ='t';    //jedna se o soubor se zakladni notaci
                     else typ='x';                            //nebo je to xml
-                    System.out.println("Server - soubor: \"" + cesta + "\"" + "; typ= \'" + typ + "\'");
+                    //System.out.println("Server - soubor: \"" + cesta + "\"" + "; typ= \'" + typ + "\'");
 
                     String obsahSouboru="";
 
@@ -161,6 +160,7 @@ public class NetworkSetup
                 e.printStackTrace();
                 gui.lblInfo.setText("Connection timeout (60sec)!");
                 System.out.println("Server - Timed Out (60 sec)!");
+                gui.createFail("Server - Timed Out (60 sec)!");
                 return;
             }
             catch (IOException e)
@@ -168,6 +168,7 @@ public class NetworkSetup
                 e.printStackTrace();
                 gui.lblInfo.setText("Server network IOException! (port is probably allready binded)");
                 System.out.println("Server - Sitova chyba");
+                gui.createFail("Network error!\n(port is probably allready binded)");
                 return;
             }
             catch (Exception e)
@@ -175,6 +176,7 @@ public class NetworkSetup
                 e.printStackTrace();
                 gui.lblInfo.setText("Server network error!");
                 System.out.println("Server - Sitova chyba");
+                gui.createFail("Network error!");
                 return;
             }
 
@@ -254,10 +256,20 @@ public class NetworkSetup
                     }
                 }
             }
+            catch (IOException e)
+            {
+                e.printStackTrace();
+                gui.lblInfo.setText("Client network IOException! (no game is probably hosted on this port)");
+                System.out.println("Server - Sitova chyba");
+                gui.createFail("Unable to connect.\n(no game is probably hosted on this \nport or/and adress)");
+                return;
+            }
             catch (Exception e)
             {
                 e.printStackTrace();
                 System.out.println("Klient - Sitova chyba");
+                gui.createFail("Network error!");
+                return;
             }
         } ///end of client
 
@@ -328,7 +340,7 @@ public class NetworkSetup
         }
         catch (IOException e)
         {
-            System.out.println("Nepodarilo se zavrit sockety!");
+            System.out.println("\n\nNepodarilo se zavrit sockety!\n\n");
             e.printStackTrace();
         }
 
