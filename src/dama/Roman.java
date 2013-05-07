@@ -9,8 +9,6 @@ public class Roman {
 
     public static void main(String[] args) {
 
-        //TODO presun obrazku do slozky lib
-
         System.out.println("ROMAN");
 
         //Position o = new Position(0, 0);

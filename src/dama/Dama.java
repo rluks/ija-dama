@@ -548,7 +548,7 @@ public class Dama extends Thread{
                 //kontrola
                 if(this.turn == null){
                     System.out.println("Ziskany tah je null");
-                    this.gui.createFail("Ziskany tah je null");//TODO jo asi to byl pat, takze to nejak udelej
+                    this.gui.createFail("Stalemate!");//TODO jo asi to byl pat, takze to nejak udelej
                     return;
                 }
 
@@ -571,7 +571,7 @@ public class Dama extends Thread{
                     System.out.println("Tah " + this.turn.getTurnString() + " byl proveden");
                 }else{
                     System.out.println("Tah " + this.turn.getTurnString() + " NEBYL proveden");
-                    this.gui.createFail("Tah " + this.turn.getTurnString() + " NEBYL proveden");
+                    this.gui.createFail("Move " + this.turn.getTurnString() + " was NOT executed!");
                     return;
                 }
                 desk.clearMustTakeFlag();
