@@ -152,6 +152,7 @@ public class Gui extends JFrame
 
         //Nastaveni okna
         setBounds(insetx, insety, 800, 600);
+        this.setResizable(false);
 
         //GUI
         desktop = new JDesktopPane();

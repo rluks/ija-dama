@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.Color;
+
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.Label;
@@ -131,6 +132,7 @@ public class PlayerGui extends JFrame
 
         //Nastaveni okna
         setBounds(100, 100, 800, 600);
+        this.setResizable(false);
 
         //GUI
         desktop = new JDesktopPane();
