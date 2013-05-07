@@ -8,10 +8,16 @@ package dama.state;
  * @author Pavel Hála
  *
  */
-public class Position {
+public class Position
+{
     public int row;
     public int col;
 
+    /**
+     * Konstruktor.
+     * @param row    radek
+     * @param col    sloupec
+     */
     public Position(int row, int col)
     {
         this.row = row;

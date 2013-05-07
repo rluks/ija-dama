@@ -13,10 +13,8 @@ import javax.swing.SwingConstants;
  * @author Pavel Hála
  *
  */
-public class Victory extends JInternalFrame {
-    /**
-     *
-     */
+public class Victory extends JInternalFrame
+{
     private static final long serialVersionUID = -1301563713986945975L;
 
     static int openFrameCount = 0;
@@ -24,6 +22,9 @@ public class Victory extends JInternalFrame {
 
     private JLabel lblText;
 
+    /**
+     * Konstruktor.
+     */
     public Victory() {
         super("Victory",
               false, //resizable

@@ -37,6 +37,9 @@ public class NewP2PGameSettings extends JInternalFrame {
     private JButton    btnCesta;
     public JLabel        padding;
 
+    /**
+     * Konstruktor. 
+     */
     public NewP2PGameSettings() {
         super("New P2P Game Settings",
               true, //resizable
@@ -190,14 +193,12 @@ public class NewP2PGameSettings extends JInternalFrame {
             {
                 if (!((cesta.endsWith(".txt") || cesta.endsWith(".xml"))))
                 {
-                    //System.out.println("Soubor neni .txt nebo .xml");
                     padding.setText("Choose \".txt\", \".xml\" or no file at all!");
                     return null;
                 }
                 File f = new File(cesta);
                 if(!f.exists())
                 {
-                    //System.out.println("Soubor neexistuje");
                     padding.setText("Unable to open file(probably doesnt exist)!");
                     return null;
                 }

@@ -39,6 +39,7 @@ public class Settings {
      * @param remoteIP String s IP adresou vzdaleneho klienta, nesitova hra? null
      * @param remotePort int s cislem portu vzdaleneho klienta, nesitova hra? 0
      * @param aiWait pocet milisekund jak dlouho bude AI cekat pred svym tahem, nesitova hra? 0
+     * @param cesta k souboru s ulozenou hrou (pokud se nepouziva, doporucuje se dat null)
      */
     public Settings(String white, String black, String local, String remoteIP, int remotePort, int aiWait, String cesta){
 

@@ -68,8 +68,8 @@ public class Fail extends JInternalFrame {
             getContentPane().add(textArea, gbc_textArea);
             textArea.setText(text);
 
-        } catch (MalformedURLException e1) {
-            // TODO Auto-generated catch block
+        } catch (MalformedURLException e1)
+        {
             e1.printStackTrace();
         }
 

@@ -17,9 +17,7 @@ import dama.state.Settings;
  *
  */
 public class NewGameSettings extends JInternalFrame {
-    /**
-     *
-     */
+
     private static final long serialVersionUID = -4326238455841218297L;
 
     static int openFrameCount = 0;

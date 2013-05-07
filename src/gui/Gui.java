@@ -131,12 +131,6 @@ public class Gui extends JFrame
 
     protected ImageIcon imIcSeal;    //lachtan
 
-    /*
-    //nejak sitove veci
-    public ServerSocket server=null;
-    public Socket connectionToTheClient=null;
-    public Socket connectionToTheServer=null;
-    */
 
 ///==============================================================================================================
 ///==============================================================================================================
@@ -151,7 +145,6 @@ public class Gui extends JFrame
         super("Gui");
 
         //Nastaveni okna
-        //int inset = 50;
         setBounds(insetx, insety, 800, 600);
 
         //GUI
