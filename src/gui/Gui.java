@@ -731,7 +731,6 @@ public class Gui extends JFrame
             //System.out.println("GUI:Starting the game...");
             this.lblInfo.setText(this.settings.getSettingsString());
 
-            NetworkSetup.killTheSockets(this.settings, false);
 
             if(Dama.isGameSetAndRunning())
             {

@@ -508,7 +508,7 @@ public class Dama extends Thread{
                             if(validTurn){
                                 if(this.settings.p2penabled){
                                     //System.out.println("HraP2P: tah je validni, posilam ho souperi.");
-                                    if (this.sendTurnToOpponent()==false) return;
+                                    this.sendTurnToOpponent();
                                 }
                             }else{
                                 System.out.println("Hra: tah NENI validni");
@@ -624,17 +624,11 @@ public class Dama extends Thread{
         String turnStr = p0 + "-" + p1;
         OutputStream out = null;
         try
-        try
         {
             if (this.settings.connectionToTheClient == null){
                 out = this.settings.connectionToTheServer.getOutputStream();
             }else{
                 out = this.settings.connectionToTheClient.getOutputStream();
-        catch (IOException e)
-        {
-            e.printStackTrace();
-            this.gui.createFail("Network error. \nUnable to send your turn to oponent.");
-            return false;
             }
             PrintStream ps = new PrintStream(out, true); // Second param: auto-flush on write = true
             ps.println(turnStr);
