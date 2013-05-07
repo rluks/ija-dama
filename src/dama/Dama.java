@@ -2,6 +2,7 @@ package dama;
 
 import gui.Gui;
 
+import java.awt.Color;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.BufferedReader;
@@ -482,6 +483,11 @@ public class Dama extends Thread{
                     if(!this.settings.p2penabled || Output.getPlayerColorString(this.playerColor).equals(this.settings.local)){
 
                         //System.out.println("Hra: P2p tento hrac je na tahu");
+                        if (this.settings.p2penabled)
+                        {
+                            gui.lblInfo.setForeground(Color.GREEN);
+                            gui.lblInfo.setText("Its your turn");
+                        }
 
                         this.turn = (this.playerColor == 'W') ? Turn.TurnWhite(pEmpty, pEmpty) : Turn.TurnBlack(pEmpty, pEmpty);
 
@@ -508,6 +514,7 @@ public class Dama extends Thread{
                             if(validTurn){
                                 if(this.settings.p2penabled){
                                     //System.out.println("HraP2P: tah je validni, posilam ho souperi.");
+                                    gui.lblInfo.setForeground(Color.BLACK);
                                     this.sendTurnToOpponent();
                                 }
                             }else{
@@ -525,7 +532,12 @@ public class Dama extends Thread{
                         gui.setSubmitButton(false);
                         gui.setHelpButton(false);
 
+                        gui.lblInfo.setForeground(Color.RED);
+                        gui.lblInfo.setText("Waiting for oponent's turn.");
+
                         if (this.waitForOpponentTurn()==false) return;
+
+                        gui.lblInfo.setForeground(Color.BLACK);
                     }
                 }
 
@@ -603,7 +615,7 @@ public class Dama extends Thread{
                     else h='B';
                     if (Check.victoryOf(desk, h)==false)
                     {
-                        gui.createFail("You have lost");
+                        gui.createFail("You have lost.");
                         return;
                     }
 
@@ -646,6 +658,7 @@ public class Dama extends Thread{
         {
             e.printStackTrace();
             System.out.println("Chyba pri posilani tahu oponentovi");
+            this.gui.createFail("Error while sending your turn.");
         }
 
     }
