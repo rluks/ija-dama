@@ -21,7 +21,7 @@ public class LoadGame extends JInternalFrame
 
     private JTextField TFCesta;
     private JButton BtBrowse;
-    
+
     /**
      * Konstruktor. Vytvori novy internal frame
      * @param nazevOkna    jak se ma okno jmenovat (pouzivame "Save game" a "Load game")
@@ -33,7 +33,7 @@ public class LoadGame extends JInternalFrame
                   true, //closable
                   false, //maximizable
                   false);//iconifiable
-       
+
        this.setSize(450,120);        //velikost okna
        this.title=nazevOkna;        //nazev
 
@@ -43,7 +43,7 @@ public class LoadGame extends JInternalFrame
        this.TFCesta.setBounds(54, 11, 231, 20);
        getContentPane().add(this.TFCesta);
 
-       this.BtBrowse = new JButton("Browse");        //tlacitko "bowse", otevre dialog s vyberem souboru
+       this.BtBrowse = new JButton("Browse");        //tlacitko "browse", otevre dialog s vyberem souboru
        this.BtBrowse.setBounds(294, 11, 140, 20);
        this.BtBrowse.addActionListener(new OpenL());
        getContentPane().add(this.BtBrowse);

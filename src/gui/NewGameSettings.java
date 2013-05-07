@@ -75,7 +75,7 @@ public class NewGameSettings extends JInternalFrame {
         getContentPane().add(lblAiWait);
 
         txtAiWait = new JTextField();
-        txtAiWait.setText("300");//49152 – 65535: Dynamic and/or Private Ports
+        txtAiWait.setText("300");//ms
         getContentPane().add(txtAiWait);
         txtAiWait.setColumns(10);
 

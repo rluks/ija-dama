@@ -59,8 +59,7 @@ public class PlayerGui extends JFrame
 
     JDesktopPane desktop;
 
-    //vnitrni ramec
-    //protected Victory victory;
+    //vnitrni ramce
     protected Fail fail;
     protected LoadGame inFrLoadGame;
     protected Selection inFrSelection;
@@ -69,8 +68,14 @@ public class PlayerGui extends JFrame
     //menu
     protected JMenu menu;
 
-    //hrac
+    //tahy
     protected Turn turn;
+
+    //nastaveni
+    protected Settings settings;
+
+    //vlakno prehravace ktere vytvorilo instanci tohoto gui
+    protected Player thread;
 
     //texty s informacemi
     protected JLabel lblInfo;
@@ -90,7 +95,6 @@ public class PlayerGui extends JFrame
     protected TextArea TAVypisNotace;
 
     //obrazky
-    //protected ImageIcon imIcAura;
     protected ImageIcon imIcSachovnice;
 
     protected ImageIcon imIcBilyPesak;
@@ -103,15 +107,12 @@ public class PlayerGui extends JFrame
     protected ImageIcon imIcWhiteBox;
     protected ImageIcon imIcBlackBox;
 
-
     protected ImageIcon imIcPlay;
     protected ImageIcon imIcStop;
     protected ImageIcon imIcBack;
     protected ImageIcon imIcForward;
 
     protected ImageIcon imIcSeal;    //lachtan
-
-    protected Settings settings;
 
     //ovladani
     protected JTextField txtWaittime;
@@ -122,8 +123,6 @@ public class PlayerGui extends JFrame
     protected JButton btnStepback;
     protected JButton btnStepforward;
     protected JButton btnOkspeed;
-
-    protected Player thread;
 
     public PlayerGui(final Player thread) {
         super("Player: " + thread.getName());
@@ -223,10 +222,6 @@ public class PlayerGui extends JFrame
         TPYosaPrava.setBounds(465, 95, 17, 402);
         desktop.add(TPYosaPrava);
 
-        //aura
-        this.lblAura = new JLabel("");
-        desktop.add(this.lblAura);
-
         this.lblRuna = new JLabel("");
         desktop.setLayer(this.lblRuna, 3);
         desktop.add(this.lblRuna);
@@ -290,13 +285,6 @@ public class PlayerGui extends JFrame
                     System.out.println("PlayerGui: stepforward interrupt");
                 }
                 Player.sleepPlayerThread(thread);
-
-                /*
-                int stepindex = Player.getStepIndex();
-                Player.setIndexChange(1);
-                setWantturn(Integer.toString(stepindex+1));
-                Player.wakeUpPlayerThread();
-                */
             }
         });
         btnStepforward.setBounds(730, 35, 30, 20);
@@ -324,6 +312,7 @@ public class PlayerGui extends JFrame
         btnOkspeed.setBounds(695, 67, 65, 20);
         desktop.add(btnOkspeed);
 
+        //rychlost prehravani
         JLabel lblWaitingTime = new JLabel("Wait time (ms)");
         lblWaitingTime.setFont(new Font("Tahoma", Font.PLAIN, 11));
         lblWaitingTime.setBounds(515, 67, 80, 20);
@@ -721,6 +710,10 @@ public class PlayerGui extends JFrame
 
     }
 
+    /**
+     * Zobrazi na desce hry napovedu. Pokud dany hrac nemusi brat, vsechny figurky co se muzou pohnout jsou modre oznaceny.
+     * Pokud musi dany hrac brat, cervene se mu oznaci vsechny figurky co mohou brat.
+     */
     public void ZobrazNapovedu()
     {
         Desk desk = Player.getDesk(this.thread);
@@ -742,6 +735,9 @@ public class PlayerGui extends JFrame
                 }
     }
 
+    /**
+     * Na desce smaze vizualni napovedu (modre a cervene oznaceni figurek).
+     */
     public void SmazNapovedu()
     {
         for(int row=0; row<8; row++)
@@ -750,13 +746,15 @@ public class PlayerGui extends JFrame
     }
 
 
+    /**
+     * Vycisti pole s vypisem notaci
+     */
     public void NotationClear(){
         this.TAVypisNotace.setText("");
     }
 
     /**
      * Fce prida to textarea tah bileho v notaci
-     * pouziti: bily vyhraje a cerny uz netahne
      * @param wturn    tah bileho
      * @param wtake    indikator jestli bily bral
      * @param tah      poradove cislo tahu
@@ -793,23 +791,42 @@ public class PlayerGui extends JFrame
         TAVypisNotace.setText(predchozi_obsah + " " + p0 + w + p1 + "\n");
     }
 
+    /**
+     * Funkce na testovani zavreni okna
+     */
     public void pullThePlug() {
         WindowEvent wev = new WindowEvent(this, WindowEvent.WINDOW_CLOSING);
         Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(wev);
     }
 
+    /**
+     * Nastavi informativni text na text dany parametrem
+     * @param text
+     */
     public void setInfoText(String text){
         this.lblInfo.setText(text);
     }
 
+    /**
+     * Povoluje/zakazuje menu
+     * @param value
+     */
     public void setMenu(boolean value){
         this.menu.setEnabled(value);
     }
 
+    /**
+     * Nastavuje label s poctem tahu
+     * @param text
+     */
     public void setWantturn(String text){
         this.lblWantturn.setText(text);
     }
 
+    /**
+     * Povoluje/zakazuje tlacitka prehravani
+     * @param value
+     */
     public void setPlayerButtons(boolean value){
         this.btnPlay.setEnabled(value);
         this.btnStop.setEnabled(value);
@@ -818,6 +835,10 @@ public class PlayerGui extends JFrame
         this.btnOkspeed.setEnabled(value);
     }
 
+    /**
+     * Povoluje/zakazuje tlacitka pro pohyb vpred
+     * @param value
+     */
     public void setForward(boolean value){
         this.btnPlay.setEnabled(value);
         this.btnStepforward.setEnabled(value);

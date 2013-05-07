@@ -62,8 +62,6 @@ public class Settings {
 
     }
 
-    //public void SetNet
-
     /**
      * Vraci retezec s nastavenim hry
      * @return String obsahujici polozky nastaveni

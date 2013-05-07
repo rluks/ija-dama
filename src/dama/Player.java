@@ -27,6 +27,7 @@ public class Player extends Thread{
 
     /**
      * Z vlakna prehravace ziska desku
+     * @param thread reference na dane vlakno prehravace
      * @return desk instance tridy Desk obsahujici stav na sachovnici
      */
     public static Desk getDesk(Player thread){
@@ -35,7 +36,8 @@ public class Player extends Thread{
         }
     }
     /**
-     * Ziska hodnotu index
+     * Ziska hodnotu index (do Vektoru tahu) z vlakna prehravace
+     * @param thread reference na dane vlakno prehravace
      * @return integer hodnotu
      */
     public static int getIndex(Player thread){
@@ -46,6 +48,7 @@ public class Player extends Thread{
 
     /**
      * Z vlakna prehravace ziska velikost vektoru nactenych tahu
+     * @param thread reference na dane vlakno prehravace
      */
     public static int getLoadedTurnsSize(Player thread){
         synchronized (thread){
@@ -54,6 +57,7 @@ public class Player extends Thread{
     }
     /**
      * Z vlakna prehravace ziska vektor tahu
+     * @param thread reference na dane vlakno prehravace
      * @return
      */
     public static Vector<Turn> getOutputTurns(Player thread){
@@ -64,6 +68,7 @@ public class Player extends Thread{
 
     /**
      * Z vlakna prehravace ziska barvu hrace na tahu
+     * @param thread reference na dane vlakno prehravace
      * @return char barva hrace 'W' nebo 'B', pripadne '\0'
      */
     public static char getPlayerColor(Player thread){
@@ -74,7 +79,8 @@ public class Player extends Thread{
 
     /**
      * Z vlakna prehravace ziska settings
-     * @return
+     * @param thread reference na dane vlakno prehravace
+     * @return settings instance Settings
      */
     public static Settings getSettings(Player thread){
         synchronized (thread){
@@ -84,7 +90,8 @@ public class Player extends Thread{
 
 
     /**
-     * Ziska hodnotu stepIndex z vlakna prehravace
+     * Ziska hodnotu stepIndex(index pri krokovani) z vlakna prehravace
+     * @param thread reference na dane vlakno prehravace
      * @return integer hodnotu
      */
     public static int getStepIndex(Player thread){
@@ -94,9 +101,9 @@ public class Player extends Thread{
     }
 
 
-
     /**
      * Z vlakna prehravace ziska turn
+     * @param thread reference na dane vlakno prehravace
      * @return turn instance tridy Turn obsahujici jeden pultah
      */
     public static Turn getTurn(Player thread){
@@ -117,6 +124,8 @@ public class Player extends Thread{
 
     /**
     * Jednotny vstup tahu pro vlakno prehravace
+    * @param thread reference na dane vlakno prehravace
+    * @param turn jeden pultah
     */
     public static void inputTurn(Player thread, Turn turn)
     {
@@ -134,6 +143,11 @@ public class Player extends Thread{
     }
 
 
+    /**
+     * Probudi vlakna prehravace ze spanku (Sleep)
+     * @param thread reference na dane vlakno prehravace
+     * @return false pokud vlakno neexistuje
+     */
     public static boolean interruptPlayerThread(Player thread){
 
         if(thread != null){
@@ -149,6 +163,7 @@ public class Player extends Thread{
     }
     /**
      * Kontrola jestli uz se hraje (zda bylo vse nastaveno a probiha smycka prehravace)
+     * @param thread reference na dane vlakno prehravace
      */
     public static boolean isGameSetAndRunning(Player thread){
 
@@ -166,6 +181,7 @@ public class Player extends Thread{
     }
     /**
      * Kontrola jestli bezi vlakno prehravace
+     * @param thread reference na dane vlakno prehravace
      * @return vraci false pokud prehravac neexistuje
      */
     public static boolean isGameThreadRunning(Player thread){
@@ -182,7 +198,8 @@ public class Player extends Thread{
 
     /**
      * Nastavi do vlakna prehravace posun v tazich
-     * @param indexdelta
+     * @param thread reference na dane vlakno prehravace
+     * @param indexdelta posun stepIndexu
      * @return vraci false pokud prehravac neexistuje
      */
     public static boolean setIndexChange(Player thread, int indexdelta){
@@ -201,6 +218,12 @@ public class Player extends Thread{
         }
     }
 
+    /**
+     * Do vlakna prehravace nastavi nactene tahy
+     * @param thread reference na dane vlakno prehravace
+     * @param loadedTurns vektor nactenych tahu
+     * @return
+     */
     public static boolean setLoadedTurns(Player thread, Vector<Turn> loadedTurns){
 
         System.out.println("Player: setTurn: ukladam nactene tahy do vlakna prehravace...");
@@ -219,6 +242,7 @@ public class Player extends Thread{
 
     /**
      * Uklada nastaveni do vlakna prehravace
+     * @param thread reference na dane vlakno prehravace
      * @param settings instance tridy Settings s nastavenim prehravace
      * @return vraci false pokud prehravac neexistuje
      */
@@ -239,6 +263,7 @@ public class Player extends Thread{
 
     /**
      * Uklada tah do vlakna prehravace
+     * @param thread reference na dane vlakno prehravace
      * @param turn instance tridy
      * @return vraci false pokud prehravac neexistuje
      */
@@ -261,6 +286,7 @@ public class Player extends Thread{
 
     /**
      * Nastavi do staticke promenne turnInput hodnotu turn
+     * @param thread reference na dane vlakno prehravace
      * @param turn
      */
     public static void setTurnInput(Player thread, Turn turn) {
@@ -270,6 +296,7 @@ public class Player extends Thread{
 
     /**
      * Nastavi do vlakna prehravace dobu cekani pri prehravani
+     * @param thread reference na dane vlakno prehravace
      * @param waittime
      * @return vraci false pokud prehravac neexistuje
      */
@@ -292,6 +319,7 @@ public class Player extends Thread{
 
     /**
      * Uspi vlakno prehravace
+     * @param thread reference na dane vlakno prehravace
      * @return vraci false pokud prehravac neexistuje
      */
     public static boolean sleepPlayerThread(Player thread){
@@ -310,7 +338,7 @@ public class Player extends Thread{
 
 
     /**
-     * Spusti vlakno prehravace
+     * Spusti nove vlakno prehravace
      */
     public static void startingPlayerThread(){
 
@@ -327,6 +355,7 @@ public class Player extends Thread{
     /**
      * Do vlakna prehravace zapise ze bylo ulozeno settings a pripadne loadedTurns
      * a muze se tim padem zacit hrat
+     * @param thread reference na dane vlakno prehravace
      * @return vraci false pokud prehravac neexistuje
      */
     public static boolean startPlayer(Player thread){
@@ -346,6 +375,7 @@ public class Player extends Thread{
 
     /**
      * Zastavi vlakno prehravace
+     * @param thread reference na dane vlakno prehravace
      * @return vraci false pokud prehravac neexistuje
      */
     public static boolean stopThread(Player player){
@@ -364,6 +394,7 @@ public class Player extends Thread{
 
     /**
      * Probudi vlakno prehravace
+     * @param thread reference na dane vlakno prehravace
     * @return vraci false pokud prehravac neexistuje
      */
     public static boolean wakeUpPlayerThread(Player player){
@@ -380,6 +411,8 @@ public class Player extends Thread{
             return false;
         }
     }
+
+
     //vlakno prehravace
     public Settings settings;
     protected String currentPlayerAIHumanSettings;
@@ -524,7 +557,7 @@ public class Player extends Thread{
                 System.out.println("Player: pred - index: " + this.index + " | stepIndex: " + this.stepIndex);
                 this.stepIndex = (this.stepIndex >= this.index) ? this.index : this.stepIndex;
                 if(this.stepIndex < this.index){
-                    System.out.println("Player: step index klesl pod index.");
+                    System.out.println("Player: step index klesl pod index.");//bylo zmacknuto tlacitko pro krok zpet
 
                     //restart
                     this.desk = new Desk();
@@ -628,7 +661,7 @@ public class Player extends Thread{
 
                 synchronized(this){ while(pleaseWait){ try { System.out.println("Player: sleeping after printNotation..."); wait();} catch (Exception e) { System.out.println("Player: probuzen"); } }  }
 
-                //ukonceni prehravace pri vitezstvi
+                //ukonceni prehravace pri vitezstvi TODO aby se neskoncilo ale slo zase krokovat
                 if(Check.isVictory(desk)){
                     System.out.println("Player: Konec prehravani");
                     try {
@@ -646,6 +679,7 @@ public class Player extends Thread{
             }
         }
     }
+
 
     /**
      * Metoda ulozi flag o tom jestli se bralo do wtake nebo btake

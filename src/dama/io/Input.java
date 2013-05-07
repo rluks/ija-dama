@@ -71,8 +71,11 @@ public class Input
             String b="";
             int    ai=0;
             String p2pEn="";
+            @SuppressWarnings("unused")
             String p2pLoc="";
+            @SuppressWarnings("unused")
             String p2pRemIp="";
+            @SuppressWarnings("unused")
             int    p2pRemP=0;
 
 
@@ -287,7 +290,7 @@ public class Input
     }
 
     /**
-     * Vraci obsah notace jako Vector<Turn>. Castecna copypasta XmlToVector.
+     * Vraci obsah notace jako Vector<Turn>. Castecna copypasta NotToVector.
      * @param cesta            cesta k souboru
      * @param obsahSouboru    pripadne obsah souboru ve stringu
      * @return                v pripade ze je soubor validni, tak vraci vektor tahu, v pripade chyby vraci null
@@ -386,7 +389,7 @@ public class Input
 
 
     /**
-     * Vraci z xml instanci Settings. Castecna copypasta NotToVector.
+     * Vraci z xml instanci Settings. Castecna copypasta XmlToVector.
      * @param cesta            cesta k souboru
      * @param obsahSouboru    pripadne obsah souboru ulozeny ve stringu
      * @return                vraci instanci settings pokud je soubor validni, jinak vraci null
@@ -424,8 +427,11 @@ public class Input
             String b="";
             int    ai=0;
             String p2pEn="";
+            @SuppressWarnings("unused")
             String p2pLoc="";
+            @SuppressWarnings("unused")
             String p2pRemIp="";
+            @SuppressWarnings("unused")
             int    p2pRemP=0;
 
 
@@ -580,6 +586,7 @@ public class Input
 
         return TurnVector;
     }
+
 
     /**
      * Posle tah a vzbudi vlakno hry

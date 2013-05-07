@@ -72,22 +72,20 @@ public class Gui extends JFrame
     protected static int clickCount = 0; //po dvou klicich posilame tah hre
 
     //nastaveni hry
-    protected NewGameSettings inFrNewGameSett;
-    public NewP2PGameSettings inFrNewP2PGameSett;
     public Settings settings;
 
     //menu
     protected JMenu menu;
     protected JMenuItem menuItemSave;
 
-    //vnitrni ramec
+    //vnitrni ramce
     protected Victory victory;
     protected Fail fail;
-
-    //loadGame
     protected LoadGame inFrLoadGame;
+    protected NewGameSettings inFrNewGameSett;
+    public NewP2PGameSettings inFrNewP2PGameSett;
 
-    //hrac
+    //pultahy
     protected Turn turn;
 
     //texty s informacemi
@@ -426,11 +424,9 @@ public class Gui extends JFrame
             createNewGameSettingsFrame();
         }else if ("newP2P".equals(e.getActionCommand())){
             createNewP2PGameSettingsFrame();
-        }else if ("loadgame".equals(e.getActionCommand()))
-        {
+        }else if ("loadgame".equals(e.getActionCommand())){
             createLoadGameFrame("Load game");
-        }else if ("save".equals(e.getActionCommand()))
-        {
+        }else if ("save".equals(e.getActionCommand())){
             createLoadGameFrame("Save game");
         }else if ("player".equals(e.getActionCommand())){
             Player.startingPlayerThread();
@@ -442,11 +438,9 @@ public class Gui extends JFrame
             startgame();
         }else if ("startP2Pgame".equals(e.getActionCommand())){
             NetworkSetup.startP2Pgame(this);
-        }
-        else if ("loadgamebutton".equals(e.getActionCommand())){
+        }else if ("loadgamebutton".equals(e.getActionCommand())){
             LoadGameButton();
-        }else if ("savegamebuttonXml".equals(e.getActionCommand()))
-        {
+        }else if ("savegamebuttonXml".equals(e.getActionCommand())){
             SaveGameButtonXml();
         }else if("victoryOK".equals(e.getActionCommand())){
             NetworkSetup.killTheSockets(this.settings, true);
@@ -464,8 +458,7 @@ public class Gui extends JFrame
             int y=this.getBounds().y;
             Dama.startingGameThread(x,y);
             this.dispose();
-        }
-        else if ("savegamebuttonNot".equals(e.getActionCommand())){
+        }else if ("savegamebuttonNot".equals(e.getActionCommand())){
             SaveGameButtonNot();
         }else{
             System.out.println("Neznama akce: " + e.getActionCommand());
@@ -542,7 +535,7 @@ public class Gui extends JFrame
 ///===============================================================================================================
 
     /**
-     * Reakce na tlacitko v inFrLoadGame
+     * Reakce na tlacitko XML v inFrLoadGame
      */
     public void SaveGameButtonXml()
     {
@@ -565,7 +558,7 @@ public class Gui extends JFrame
 ///===============================================================================================================
 
     /**
-     * Reakce na tlacitko v inFrLoadGame
+     * Reakce na tlacitko Notace v inFrLoadGame
      */
     public void SaveGameButtonNot()
     {
@@ -689,7 +682,7 @@ public class Gui extends JFrame
 
     /**
      * Zobrazi internal frame, ktere sdeluje ze doslo k chybe
-     * @param string    nazev fail okna
+     * @param string text pro textarea
      */
     public void createFail(String string)
     {
@@ -718,7 +711,7 @@ public class Gui extends JFrame
 
     /**
      * Ziska settings z vnitrniho ramce inFrNewGameSett
-     * vlozi nastaveni do vlakna hry a probudi ho
+     * vlozi nastaveni do vlakna hry a probudi ho a spusti hru
      */
     protected void startgame()
     {
@@ -735,7 +728,6 @@ public class Gui extends JFrame
 
             if(Dama.isGameSetAndRunning())
             {
-                //System.out.println("hra BEZELA spoustim...");
                 Dama.interruptGameThread();
                 Dama.stopGameThread();
                 int x=this.getBounds().x;
@@ -787,19 +779,18 @@ public class Gui extends JFrame
 
 ///===============================================================================================================
 
+
     /**
-     * Create the GUI and show it.  For thread safety,
-     * this method should be invoked from the
-     * event-dispatching thread.
+     * Stara funkce pro vytvoreni gui
      */
     public static void createAndShowGUI()
     {
-        //Make sure we have nice window decorations.
+
         JFrame.setDefaultLookAndFeelDecorated(true);
-        //Create and set up the window.
+
         Gui frame = new Gui(50, 50);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        //Display the window.
+
         frame.setVisible(true);
     }
 
@@ -1041,7 +1032,6 @@ public class Gui extends JFrame
 
     /**
      * Fce prida to textarea tah bileho v notaci
-     * pouziti: bily vyhraje a cerny uz netahne
      * @param wturn    tah bileho
      * @param wtake    indikator jestli bily bral
      * @param tah      poradove cislo tahu
@@ -1083,7 +1073,7 @@ public class Gui extends JFrame
 ///===============================================================================================================
 
     /**
-     * Toto by melo kompletne zabit aplikaci.
+     * Toto by melo kompletne zabit okno aplikace.
      */
     public void pullThePlug()
     {
@@ -1103,7 +1093,7 @@ public class Gui extends JFrame
 
 ///===============================================================================================================
     /**
-     * Vycisti hraci desku od zeleneho oznaceni
+     * Vycisti hraci desku od zeleneho oznaceni kliknuti
      */
     public void clearAura(){
         this.lblAura.setIcon(null);

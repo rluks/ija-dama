@@ -26,7 +26,7 @@ public class Fail extends JInternalFrame {
 
     /**
      * Konstriktor fail okna.
-     * @param text na tuto hodnotu se nastavi nazev okna
+     * @param text ktery bude v TextArea
      */
     public Fail(String text) {
         super("Fail !",

@@ -62,21 +62,7 @@ public class Output {
      {
          tmp = new Turn(turnVector.get(i));
 
-         //System.out.println(tmp.getTurnString());
-
          turn = "";
-         /*
-
-         turn += "\t\t<turn player_color=\"";turn += tmp.playerColor;turn += "\">\n";
-
-         turn += "\t\t\t<origin_row>";turn += tmp.origin.row;turn += "</origin_row>\n";
-         turn += "\t\t\t<origin_col>";turn += tmp.origin.col;turn += "</origin_col>\n";
-
-         turn += "\t\t\t<destination_row>";turn += tmp.destination.row;;turn += "</destination_row>\n";
-         turn += "\t\t\t<destination_col>";turn += tmp.destination.col;turn += "</destination_col>\n";
-
-         turn += "\t\t</turn>\n";
-         */
          turn = Output.getTurnXmlString(tmp);
 
          xml += turn;
