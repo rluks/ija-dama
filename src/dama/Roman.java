@@ -1,9 +1,5 @@
 package dama;
 
-import dama.io.Output;
-import dama.io.Turn;
-import dama.state.Position;
-
 /**
  * Romanova main na prototypovani
  * @author Roman Lukš
@@ -21,8 +17,8 @@ public class Roman {
         //Position d = new Position(4, 5);
         //Turn t = new Turn('W', o, d);
         //System.out.println(Output.getTurnXmlString(t));
-        //Dama.startingGameThread(50,50);
-        Player.startingPlayerThread();
+        Dama.startingGameThread(50,50);
+        //Player.startingPlayerThread();
 
     }
 }

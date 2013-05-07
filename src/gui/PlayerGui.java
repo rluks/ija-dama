@@ -58,10 +58,6 @@ public class PlayerGui extends JFrame
 
     JDesktopPane desktop;
 
-    //mys
-    protected boolean mouseEnabled = true;
-    protected static int clickCount = 0; //po dvou klicich posilame tah hre
-
     //vnitrni ramec
     //protected Victory victory;
     protected Fail fail;
@@ -126,13 +122,15 @@ public class PlayerGui extends JFrame
     protected JButton btnStepforward;
     protected JButton btnOkspeed;
 
+    protected Player thread;
 
-    public PlayerGui() {
-        super("PlayerGui");
+    public PlayerGui(final Player thread) {
+        super("Player: " + thread.getName());
+
+        this.thread = thread;
 
         //Nastaveni okna
-        int inset = 50;
-        setBounds(inset, inset, 800, 600);
+        setBounds(100, 100, 800, 600);
 
         //GUI
         desktop = new JDesktopPane();
@@ -230,8 +228,8 @@ public class PlayerGui extends JFrame
         btnPlay.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
 
-                Player.interruptPlayerThread();
-                Player.wakeUpPlayerThread();
+                Player.interruptPlayerThread(thread);
+                Player.wakeUpPlayerThread(thread);
             }
         });
         btnPlay.setBounds(515, 35, 30, 20);
@@ -243,7 +241,7 @@ public class PlayerGui extends JFrame
         btnStop.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
 
-                Player.sleepPlayerThread();
+                Player.sleepPlayerThread(thread);
             }
         });
         btnStop.setBounds(555, 35, 30, 20);
@@ -255,15 +253,10 @@ public class PlayerGui extends JFrame
         btnStepback.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
 
-                Player.setIndexChange(-1);
-                Player.interruptPlayerThread();
-                Player.wakeUpPlayerThread();
+                Player.setIndexChange(thread, -1);
+                Player.interruptPlayerThread(thread);
+                Player.wakeUpPlayerThread(thread);
 
-                /*
-                int stepindex = Player.getStepIndex();
-                Player.setIndexChange(-1);
-                setWantturn(Integer.toString(stepindex-1));
-                */
             }
         });
         btnStepback.setBounds(621, 35, 30, 20);
@@ -275,13 +268,13 @@ public class PlayerGui extends JFrame
         btnStepforward.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
 
-                Player.setWaitTime(1000);
-                Player.interruptPlayerThread();
-                Player.wakeUpPlayerThread();
+                Player.setWaitTime(thread, 1000);
+                Player.interruptPlayerThread(thread);
+                Player.wakeUpPlayerThread(thread);
                 try {Thread.sleep(200);} catch (InterruptedException e) {
                     System.out.println("PlayerGui: stepforward interrupt");
                 }
-                Player.sleepPlayerThread();
+                Player.sleepPlayerThread(thread);
 
                 /*
                 int stepindex = Player.getStepIndex();
@@ -310,7 +303,7 @@ public class PlayerGui extends JFrame
                 }
 
                 int waittime = Integer.parseInt(waittimeStr);
-                Player.setWaitTime(waittime);
+                Player.setWaitTime(thread, waittime);
             }
         });
         btnOkspeed.setBounds(695, 67, 65, 20);
@@ -390,12 +383,12 @@ public class PlayerGui extends JFrame
             LoadGameNotation();
         }else if("victoryOK".equals(e.getActionCommand())){
             this.setVisible(false);
-            Player.wakeUpPlayerThread();
+            Player.wakeUpPlayerThread(this.thread);
             Player.startingPlayerThread();
             this.dispose();
         }else if("failOK".equals(e.getActionCommand())){
             this.setVisible(false);
-            Player.wakeUpPlayerThread();
+            Player.wakeUpPlayerThread(this.thread);
             Player.startingPlayerThread();
             this.dispose();
         }
@@ -554,31 +547,31 @@ public class PlayerGui extends JFrame
 
         this.inFrInsertNot.dispose();
 
-        if(Player.isGameSetAndRunning()){
+        if(Player.isGameSetAndRunning(this.thread)){
 
-            Player.stopThread();
-            Player.interruptPlayerThread();
+            Player.stopThread(this.thread);
+            Player.interruptPlayerThread(this.thread);
 
             this.dispose();
 
             Player.startingPlayerThread();
             try {Thread.sleep(50);} catch (InterruptedException e) {e.printStackTrace();}
 
-            Player.setLoadedTurns(loadedTurns);
-            Player.setSettings(this.settings);
+            Player.setLoadedTurns(this.thread, loadedTurns);
+            Player.setSettings(this.thread, this.settings);
 
             try {Thread.sleep(50);} catch (InterruptedException e) {e.printStackTrace();}
-            Player.startPlayer();
-            Player.wakeUpPlayerThread();
+            Player.startPlayer(this.thread);
+            Player.wakeUpPlayerThread(this.thread);
 
         }else{
 
-            Player.setLoadedTurns(loadedTurns);
-            Player.setSettings(this.settings);
+            Player.setLoadedTurns(this.thread, loadedTurns);
+            Player.setSettings(this.thread, this.settings);
 
             try {Thread.sleep(50);} catch (InterruptedException e) {e.printStackTrace();}
-            Player.startPlayer();
-            Player.wakeUpPlayerThread();
+            Player.startPlayer(this.thread);
+            Player.wakeUpPlayerThread(this.thread);
         }
     }
 
@@ -616,38 +609,38 @@ public class PlayerGui extends JFrame
             return;
         }
 
-        if(Player.isGameSetAndRunning()){
+        if(Player.isGameSetAndRunning(this.thread)){
 
-            Player.stopThread();
-            Player.interruptPlayerThread();
+            Player.stopThread(this.thread);
+            Player.interruptPlayerThread(this.thread);
 
             this.dispose();
 
             Player.startingPlayerThread();
             try {Thread.sleep(50);} catch (InterruptedException e) {e.printStackTrace();}
 
-            Player.setLoadedTurns(loadedTurns);
-            Player.setSettings(this.settings);
+            Player.setLoadedTurns(this.thread, loadedTurns);
+            Player.setSettings(this.thread, this.settings);
 
             try {Thread.sleep(50);} catch (InterruptedException e) {e.printStackTrace();}
-            Player.startPlayer();
-            Player.wakeUpPlayerThread();
+            Player.startPlayer(this.thread);
+            Player.wakeUpPlayerThread(this.thread);
 
         }else{
 
-            Player.setLoadedTurns(loadedTurns);
-            Player.setSettings(this.settings);
+            Player.setLoadedTurns(this.thread, loadedTurns);
+            Player.setSettings(this.thread, this.settings);
 
             try {Thread.sleep(50);} catch (InterruptedException e) {e.printStackTrace();}
-            Player.startPlayer();
-            Player.wakeUpPlayerThread();
+            Player.startPlayer(this.thread);
+            Player.wakeUpPlayerThread(this.thread);
 
         }
     }
 
-    /**
+    /*
      * Vytvori GUI a zobrazi ho
-     */
+     *
     public static void createAndShowGUI() {
 
         JFrame.setDefaultLookAndFeelDecorated(true);
@@ -656,7 +649,7 @@ public class PlayerGui extends JFrame
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         frame.setVisible(true);
-    }
+    }*/
 
     /**
      * Vykresli stav desky
@@ -665,7 +658,7 @@ public class PlayerGui extends JFrame
     public void updateDesk(Desk desk)
     {
         this.lblInfo.setText("Refreshing playboard, please wait...");
-        if (!Check.isMustTake(desk, Player.getPlayerColor())) this.lblRuna.setIcon(null);
+        if (!Check.isMustTake(desk, Player.getPlayerColor(this.thread))) this.lblRuna.setIcon(null);
         SmazNapovedu();
 
         Figure[][] this_board=desk.getState();
@@ -704,7 +697,7 @@ public class PlayerGui extends JFrame
 
         desk.clearMustTakeFlag();
         String barva;
-        char playerColor = Player.getPlayerColor();
+        char playerColor = Player.getPlayerColor(this.thread);
         if (playerColor=='W') barva="WHITE's";
         else barva="BLACK's";
         this.lblInfo.setText("Playboard is ready for " + barva + " turn.");
@@ -715,8 +708,8 @@ public class PlayerGui extends JFrame
 
     public void ZobrazNapovedu()
     {
-        Desk desk = Player.getDesk();
-        char natahu=Player.getPlayerColor();
+        Desk desk = Player.getDesk(this.thread);
+        char natahu=Player.getPlayerColor(this.thread);
         Figure[][] this_board=desk.getState();
         boolean brani=Check.isMustTake(desk, natahu);
         desk.clearMustTakeFlag();

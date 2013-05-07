@@ -448,6 +448,7 @@ public class Gui extends JFrame
         {
             SaveGameButtonXml();
         }else if("victoryOK".equals(e.getActionCommand())){
+            NetworkSetup.killTheSockets(this.settings, false);
             this.setVisible(false);
             Dama.wakeUpGameThread();
             int x=this.getBounds().x;
@@ -455,6 +456,7 @@ public class Gui extends JFrame
             Dama.startingGameThread(x,y);
             this.dispose();
         }else if("failOK".equals(e.getActionCommand())){
+            NetworkSetup.killTheSockets(this.settings, false);
             this.setVisible(false);
             Dama.wakeUpGameThread();
             int x=this.getBounds().x;
@@ -588,6 +590,8 @@ public class Gui extends JFrame
      */
     public void LoadGameButton()
     {
+        NetworkSetup.killTheSockets(this.settings, false);
+
         if(Dama.isGameSetAndRunning())
         {
             String cesta=inFrLoadGame.GetPath();
@@ -686,7 +690,8 @@ public class Gui extends JFrame
      * Zobrazi internal frame, ktere sdeluje ze doslo k chybe
      * @param string    nazev fail okna
      */
-    public void createFail(String string) {
+    public void createFail(String string)
+    {
 
            this.fail = new Fail(string);
            desktop.setLayer(this.fail, 5);
@@ -725,6 +730,8 @@ public class Gui extends JFrame
         {
             //System.out.println("GUI:Starting the game...");
             this.lblInfo.setText(this.settings.getSettingsString());
+
+            NetworkSetup.killTheSockets(this.settings, false);
 
             if(Dama.isGameSetAndRunning())
             {
@@ -773,6 +780,7 @@ public class Gui extends JFrame
      */
     protected void quit()
     {
+        NetworkSetup.killTheSockets(this.settings, false);
         System.out.println("Quit v menu, ukoncuji...");
         System.exit(0);
     }

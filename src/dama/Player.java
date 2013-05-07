@@ -22,25 +22,43 @@ import dama.state.Settings;
 public class Player extends Thread{
 
     //staticke
-    public static Player player;
     protected static Turn turnInput;
+    protected static int playerCount = 0;
 
     /**
      * Z vlakna prehravace ziska desku
      * @return desk instance tridy Desk obsahujici stav na sachovnici
      */
-    public static Desk getDesk(){
-        synchronized (player){
-            return player.desk;
+    public static Desk getDesk(Player thread){
+        synchronized (thread){
+            return thread.desk;
+        }
+    }
+    /**
+     * Ziska hodnotu index
+     * @return integer hodnotu
+     */
+    public static int getIndex(Player thread){
+        synchronized (thread){
+            return thread.index;
+        }
+    }
+
+    /**
+     * Z vlakna prehravace ziska velikost vektoru nactenych tahu
+     */
+    public static int getLoadedTurnsSize(Player thread){
+        synchronized (thread){
+            return thread.loadedTurns.size();
         }
     }
     /**
      * Z vlakna prehravace ziska vektor tahu
      * @return
      */
-    public static Vector<Turn> getOutputTurns(){
-        synchronized (player){
-            return player.ouputTurns;
+    public static Vector<Turn> getOutputTurns(Player thread){
+        synchronized (thread){
+            return thread.ouputTurns;
         }
     }
 
@@ -48,37 +66,42 @@ public class Player extends Thread{
      * Z vlakna prehravace ziska barvu hrace na tahu
      * @return char barva hrace 'W' nebo 'B', pripadne '\0'
      */
-    public static char getPlayerColor(){
-        synchronized (player){
-            return player.playerColor;
+    public static char getPlayerColor(Player thread){
+        synchronized (thread){
+            return thread.playerColor;
         }
     }
+
     /**
      * Z vlakna prehravace ziska settings
      * @return
      */
-    public static Settings getSettings(){
-        synchronized (player){
-            return player.settings;
+    public static Settings getSettings(Player thread){
+        synchronized (thread){
+            return thread.settings;
         }
     }
+
+
+    /**
+     * Ziska hodnotu stepIndex z vlakna prehravace
+     * @return integer hodnotu
+     */
+    public static int getStepIndex(Player thread){
+        synchronized (thread){
+            return thread.stepIndex;
+        }
+    }
+
+
 
     /**
      * Z vlakna prehravace ziska turn
      * @return turn instance tridy Turn obsahujici jeden pultah
      */
-    public static Turn getTurn(){
-        synchronized (player){
-            return player.turn;
-        }
-    }
-
-    /**
-     * Z vlakna prehravace ziska velikost vektoru nactenych tahu
-     */
-    public static int getLoadedTurnsSize(){
-        synchronized (player){
-            return player.loadedTurns.size();
+    public static Turn getTurn(Player thread){
+        synchronized (thread){
+            return thread.turn;
         }
     }
 
@@ -88,16 +111,34 @@ public class Player extends Thread{
      * @return
      */
     public static Turn getTurnInput() {
-        return Player.turnInput;
+        return turnInput;//staticka!
     }
 
 
+    /**
+    * Jednotny vstup tahu pro vlakno prehravace
+    */
+    public static void inputTurn(Player thread, Turn turn)
+    {
 
-    public static boolean interruptPlayerThread(){
+        if(Moves.isTurnValid(turn, Player.getDesk(thread)))
+        {
+            System.out.println("Player.inputTurn: vkladam tah");
+            Player.setTurn(thread, turn);
+        }
+        else
+        {
+            System.out.println("Player.inputTurn: nevalidni tah, prehravac MUSI nastavit napovedu");
+            Player.setTurn(thread, turn);
+        }
+    }
 
-        if(player != null){
-            if(player.isAlive()){
-                player.interrupt();
+
+    public static boolean interruptPlayerThread(Player thread){
+
+        if(thread != null){
+            if(thread.isAlive()){
+                thread.interrupt();
                 return true;
             }else{
                 return false;
@@ -106,16 +147,14 @@ public class Player extends Thread{
             return false;
         }
     }
-
-
     /**
      * Kontrola jestli uz se hraje (zda bylo vse nastaveno a probiha smycka prehravace)
      */
-    public static boolean isGameSetAndRunning(){
+    public static boolean isGameSetAndRunning(Player thread){
 
-        if(Player.isGameThreadRunning()){
-            synchronized (player){
-                if(player.gameSetAndRuning){
+        if(Player.isGameThreadRunning(thread)){
+            synchronized (thread){
+                if(thread.gameSetAndRuning){
                     return true;
                 }else{
                     return false;
@@ -125,15 +164,13 @@ public class Player extends Thread{
             return false;
         }
     }
-
-
     /**
      * Kontrola jestli bezi vlakno prehravace
      * @return vraci false pokud prehravac neexistuje
      */
-    public static boolean isGameThreadRunning(){
-        if(player != null){
-            if(player.isAlive()){
+    public static boolean isGameThreadRunning(Player thread){
+        if(thread != null){
+            if(thread.isAlive()){
                 return true;
             }else{
                 return false;
@@ -143,15 +180,35 @@ public class Player extends Thread{
         }
     }
 
+    /**
+     * Nastavi do vlakna prehravace posun v tazich
+     * @param indexdelta
+     * @return vraci false pokud prehravac neexistuje
+     */
+    public static boolean setIndexChange(Player thread, int indexdelta){
 
-    public static boolean setLoadedTurns(Vector<Turn> loadedTurns){
+        int stepIndex = Player.getStepIndex(thread);
+
+        if(thread != null){
+            synchronized (thread){
+                thread.stepIndex = stepIndex+indexdelta;
+                System.out.println("Player: setIndexChange: zmena " + stepIndex + " o " + indexdelta + " na " + Integer.toString(stepIndex+indexdelta));
+            }
+            return true;
+        }else{
+            System.out.println("Player: setIndexChange: hra neexistuje!");
+            return false;
+        }
+    }
+
+    public static boolean setLoadedTurns(Player thread, Vector<Turn> loadedTurns){
 
         System.out.println("Player: setTurn: ukladam nactene tahy do vlakna prehravace...");
 
-        if(player != null){
-            synchronized (player){
-                player.loadedTurns = loadedTurns;
-                player.notify();
+        if(thread != null){
+            synchronized (thread){
+                thread.loadedTurns = loadedTurns;
+                thread.notify();
             }
             return true;
         }else{
@@ -159,18 +216,19 @@ public class Player extends Thread{
             return false;
         }
     }
+
     /**
      * Uklada nastaveni do vlakna prehravace
      * @param settings instance tridy Settings s nastavenim prehravace
      * @return vraci false pokud prehravac neexistuje
      */
-    public static boolean setSettings(Settings settings){
+    public static boolean setSettings(Player thread, Settings settings){
         System.out.println("Player: setSettings: ukladam nastaveni...");
 
-        if(player != null){
-            synchronized (player){
-                player.settings = settings;
-                player.notify();
+        if(thread != null){
+            synchronized (thread){
+                thread.settings = settings;
+                thread.notify();
             }
             return true;
         }else{
@@ -178,19 +236,20 @@ public class Player extends Thread{
             return false;
         }
     }
+
     /**
      * Uklada tah do vlakna prehravace
      * @param turn instance tridy
      * @return vraci false pokud prehravac neexistuje
      */
-    public static boolean setTurn(Turn turn){
+    public static boolean setTurn(Player thread, Turn turn){
 
         System.out.println("Player: setTurn: ukladam tah...");
 
-        if(player != null){
-            synchronized (player){
-                player.turn = turn;
-                player.notify();
+        if(thread != null){
+            synchronized (thread){
+                thread.turn = turn;
+                thread.notify();
             }
             return true;
         }else{
@@ -204,23 +263,24 @@ public class Player extends Thread{
      * Nastavi do staticke promenne turnInput hodnotu turn
      * @param turn
      */
-    public static void setTurnInput(Turn turn) {
+    public static void setTurnInput(Player thread, Turn turn) {
         Player.turnInput = turn;
     }
+
 
     /**
      * Nastavi do vlakna prehravace dobu cekani pri prehravani
      * @param waittime
      * @return vraci false pokud prehravac neexistuje
      */
-    public static boolean setWaitTime(int waittime){
+    public static boolean setWaitTime(Player thread, int waittime){
 
         System.out.println("Player: setWaitTime: ukladam dobu cekani " + (double)waittime/1000.0 + "s ...");
 
-        if(player != null){
-            synchronized (player){
-                player.waitTime = waittime;
-                player.notify();
+        if(thread != null){
+            synchronized (thread){
+                thread.waitTime = waittime;
+                thread.notify();
             }
             return true;
         }else{
@@ -229,82 +289,21 @@ public class Player extends Thread{
         }
     }
 
-    /**
-     * Nastavi do vlakna prehravace posun v tazich
-     * @param indexdelta
-     * @return vraci false pokud prehravac neexistuje
-     */
-    public static boolean setIndexChange(int indexdelta){
-
-        int stepIndex = Player.getStepIndex();
-
-        if(player != null){
-            synchronized (player){
-                player.stepIndex = Player.getStepIndex()+indexdelta;
-                System.out.println("Player: setIndexChange: zmena " + stepIndex + " o " + indexdelta + " na " + Integer.toString(stepIndex+indexdelta));
-            }
-            return true;
-        }else{
-            System.out.println("Player: setIndexChange: hra neexistuje!");
-            return false;
-        }
-    }
-
-    /**
-     * Ziska hodnotu stepIndex z vlakna prehravace
-     * @return integer hodnotu
-     */
-    public static int getStepIndex(){
-        synchronized (player){
-            return player.stepIndex;
-        }
-    }
-
-    /**
-     * Ziska hodnotu index
-     * @return integer hodnotu
-     */
-    public static int getIndex(){
-        synchronized (player){
-            return player.index;
-        }
-    }
-
 
     /**
      * Uspi vlakno prehravace
      * @return vraci false pokud prehravac neexistuje
      */
-    public static boolean sleepPlayerThread(){
+    public static boolean sleepPlayerThread(Player thread){
         System.out.println("Player: sleepGameThread: pokousim se uspat hru...");
 
-        if(player != null){
-            synchronized (player){
-                player.pleaseWait = true;
+        if(thread != null){
+            synchronized (thread){
+                thread.pleaseWait = true;
             }
             return true;
         }else{
             System.out.println("Player: sleepGameThread: hra neexistuje!");
-            return false;
-        }
-    }
-
-
-    /**
-     * Do vlakna prehravace zapise ze bylo ulozeno settings a pripadne loadedTurns
-     * a muze se tim padem zacit hrat
-     * @return vraci false pokud prehravac neexistuje
-     */
-    public static boolean startPlayer(){
-        System.out.println("Player: startGame: povoluji beh smycky prehravace...");
-
-        if(player != null){
-            if(player.isAlive()){
-                player.startGame = true;
-            }
-            return true;
-        }else{
-            System.out.println("Player: startGame: hra neexistuje!");
             return false;
         }
     }
@@ -316,8 +315,32 @@ public class Player extends Thread{
     public static void startingPlayerThread(){
 
         System.out.println("Player: startingPlayerThread...");
-        player = new Player("PlayerVlakno");
-        player.start();
+
+        Player thread = new Player("" + Player.playerCount);
+        thread.start();
+        System.out.println(thread.getName());
+
+        Player.playerCount++;
+    }
+
+
+    /**
+     * Do vlakna prehravace zapise ze bylo ulozeno settings a pripadne loadedTurns
+     * a muze se tim padem zacit hrat
+     * @return vraci false pokud prehravac neexistuje
+     */
+    public static boolean startPlayer(Player thread){
+        System.out.println("Player: startGame: povoluji beh smycky prehravace...");
+
+        if(thread != null){
+            if(thread.isAlive()){
+                thread.startGame = true;
+            }
+            return true;
+        }else{
+            System.out.println("Player: startGame: hra neexistuje!");
+            return false;
+        }
     }
 
 
@@ -325,7 +348,7 @@ public class Player extends Thread{
      * Zastavi vlakno prehravace
      * @return vraci false pokud prehravac neexistuje
      */
-    public static boolean stopThread(){
+    public static boolean stopThread(Player player){
         System.out.println("Player: stopGameThread: zastavuji vlakno prehravace...");
 
         if(player != null){
@@ -339,13 +362,12 @@ public class Player extends Thread{
         }
     }
 
-
     /**
      * Probudi vlakno prehravace
     * @return vraci false pokud prehravac neexistuje
      */
-    public static boolean wakeUpPlayerThread(){
-        System.out.println("Player: wakeUpGameThread: probouzim hru...");
+    public static boolean wakeUpPlayerThread(Player player){
+        System.out.println("Player: wakeUpPlayerThread: probouzim prehravac...");
 
         if(player != null){
             synchronized (player){
@@ -354,38 +376,39 @@ public class Player extends Thread{
             }
             return true;
         }else{
-            System.out.println("Player: wakeUpGameThread: hra neexistuje!");
+            System.out.println("Player: wakeUpPlayerThread: prehravac neexistuje!");
             return false;
         }
     }
-
     //vlakno prehravace
-    protected Settings settings;
+    public Settings settings;
     protected String currentPlayerAIHumanSettings;
     protected Vector<Turn> ouputTurns;        //sem hra uklada provedene tahy - pouzije se v pripade ulozeni prehravace
     protected Vector<Turn> loadedTurns;        //zde jsou ulozeny tahy v pripade nacteni prehravace
     protected Turn turn;
     protected Desk desk;
     protected char playerColor;
-    protected int tahCislo = 0;
 
+    protected int tahCislo = 0;
     protected int waitTime = 1000;
     protected int index = -1;//index pro pohyb ve vektoru tahu
-    protected int stepIndex; //posune se v tazich o pocet kliknuti na tlacitka forward, back
 
+    protected int stepIndex; //posune se v tazich o pocet kliknuti na tlacitka forward, back
     protected boolean wtake;
     protected boolean btake;
     protected boolean wbtake;
     protected Turn wturn;
-    protected Turn bturn;
 
+    protected Turn bturn;
     protected boolean startGame = false;    //po vlozeni settings, a pripadne loadedTurns tohle povolit
     protected boolean allDone = false;         //ukonceni behu
     protected boolean pleaseWait = false;     //pozastaveni behu
     protected boolean gameSetAndRuning = false; //hra byla nastavena a uz se provadi tahy, atd.
     protected PlayerGui gui;
     protected int blockMeAtIndex = -1;
+
     private boolean fastforward = false;
+
 
     /**
      * Konstruktor vlakna prehravace
@@ -394,7 +417,8 @@ public class Player extends Thread{
     Player(String name){
         super(name);
 
-        gui = new PlayerGui();
+        this.getId();
+        gui = new PlayerGui(this);
         gui.setVisible(true);
         gui.addWindowListener( new WindowAdapter() {
             @Override
@@ -405,7 +429,6 @@ public class Player extends Thread{
             }
         } );
     }
-
 
     /**
      * Kontrola jestli se GUI zavrelo
@@ -419,6 +442,7 @@ public class Player extends Thread{
         }
     }
 
+
     /**
      * Tisk informaci o tom kdo je na tahu do konzole a do gui
      */
@@ -427,7 +451,6 @@ public class Player extends Thread{
         String infoText = "Player: it's "+ Output.getPlayerColorString(this.playerColor)+ "players turn!";
         gui.setInfoText(infoText);
     }
-
 
     /**
      * Vytiskne do gui notaci a zvysi pocitadlo tahu (kdyz tahnul zase bily)
@@ -544,8 +567,6 @@ public class Player extends Thread{
                         this.turn = loadedTurn;
                     }else{
                         System.out.println("Player: dalsi tah uz nemam!");
-                        //gui.createFail("dalsi tah uz nemam");
-                        //return;
                         gui.setMenu(false);
                         gui.setForward(false);
                         this.pleaseWait = true;
@@ -612,13 +633,11 @@ public class Player extends Thread{
                     System.out.println("Player: Konec prehravani");
                     try {
                         System.out.println("Player: Konec prehravani");
-                        //Output.printStringToFile(Output.getXmlFromSettingsAndTurnVector(this.settings, this.ouputTurns), "examples\\katafalka.xml");
                     } catch (Exception e1) {
                         e1.printStackTrace();
                         gui.createFail("Failed to save file!");
                     }
                     gui.setInfoText("!!! Victory !!!");
-                    //gui.createFail("Victory!!!");
                     gui.setMenu(false);
                     this.pleaseWait = true;
                     synchronized(this){ while(pleaseWait){ try { System.out.println("Player: sleeping victory..."); wait();} catch (Exception e) { System.out.println("Player: probuzen"); } }  }
@@ -658,6 +677,7 @@ public class Player extends Thread{
         }
     }
 
+
     /**
      * Prohazuje barvy hracu
      */
@@ -671,27 +691,6 @@ public class Player extends Thread{
             this.playerColor = 'W';
         }else{
             System.out.println("Player: neco je spatne s barvami hracu!");
-        }
-    }
-
-
-    /**
-    * Jednotny vstup tahu pro vlakno prehravace
-    */
-    public static void inputTurn(Turn turn)
-    {
-
-        if(Moves.isTurnValid(turn, Player.getDesk()))
-        {
-            System.out.println("Player.inputTurn: vkladam tah");
-            Player.setTurn(turn);
-            //Player.wakeUpPlayerThread();
-        }
-        else
-        {
-            System.out.println("Player.inputTurn: nevalidni tah, prehravac MUSI nastavit napovedu");
-            Player.setTurn(turn);
-            //Player.wakeUpPlayerThread();
         }
     }
 }

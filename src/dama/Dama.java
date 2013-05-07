@@ -326,6 +326,7 @@ public class Dama extends Thread{
         gui.addWindowListener( new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent we) {
+
                 System.out.println("Okno zavreno, ukoncuji...");
                 NetworkSetup.killTheSockets(Dama.getSettings(), false);
                 //Dama.wakeUpGameThread();
@@ -376,7 +377,7 @@ public class Dama extends Thread{
 
 
     /**
-     * Vytiskne do gui notaci a zvysi pocitadlo tahu
+     * Vytiskne do gui notaci a zvysi pocitadlo tahu (kdyz hral zase bily)
      */
     private void printNotation() {
 
@@ -507,7 +508,7 @@ public class Dama extends Thread{
                             if(validTurn){
                                 if(this.settings.p2penabled){
                                     //System.out.println("HraP2P: tah je validni, posilam ho souperi.");
-                                    this.sendTurnToOpponent();
+                                    if (this.sendTurnToOpponent()==false) return;
                                 }
                             }else{
                                 System.out.println("Hra: tah NENI validni");
@@ -524,8 +525,7 @@ public class Dama extends Thread{
                         gui.setSubmitButton(false);
                         gui.setHelpButton(false);
 
-                        boolean pom=this.waitForOpponentTurn();
-                        if (pom==false) return;
+                        if (this.waitForOpponentTurn()==false) return;
                     }
                 }
 
@@ -623,13 +623,18 @@ public class Dama extends Thread{
         String p1=this.turn.destination.getStrLowerCase();
         String turnStr = p0 + "-" + p1;
         OutputStream out = null;
-
+        try
         try
         {
             if (this.settings.connectionToTheClient == null){
                 out = this.settings.connectionToTheServer.getOutputStream();
             }else{
                 out = this.settings.connectionToTheClient.getOutputStream();
+        catch (IOException e)
+        {
+            e.printStackTrace();
+            this.gui.createFail("Network error. \nUnable to send your turn to oponent.");
+            return false;
             }
             PrintStream ps = new PrintStream(out, true); // Second param: auto-flush on write = true
             ps.println(turnStr);
@@ -688,6 +693,10 @@ public class Dama extends Thread{
         }
     }
 
+    /**
+     * Fce, ktera zajistuje primani tahu protihrace po siti.
+     * @return    vraci true pokud dosel nejaky tah, jinak vraci false (chyba site nebo se druha strana odpojila)
+     */
     private boolean waitForOpponentTurn()
     {
         InputStream in = null;
@@ -726,6 +735,5 @@ public class Dama extends Thread{
 
         this.turn = Turn.NotStringToTurn(line, this.playerColor);
         return true;
-
     }
 }
