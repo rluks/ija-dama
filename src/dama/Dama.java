@@ -470,14 +470,14 @@ public class Dama extends Thread{
 
                 }else{//Human
 
-                    System.out.println("Local: \"" + this.settings.local + "\"");//White Black
-                    System.out.println("plcolor: \"" + Output.getPlayerColorString(this.playerColor) + "\"");
-                    System.out.println("p2p: " + this.settings.p2penabled);
+                    //System.out.println("Local: \"" + this.settings.local + "\"");//White Black
+                    //System.out.println("plcolor: \"" + Output.getPlayerColorString(this.playerColor) + "\"");
+                    //System.out.println("p2p: " + this.settings.p2penabled);
 
                     //pri P2P je na tahu hrac na tomto pocitaci
                     if(!this.settings.p2penabled || Output.getPlayerColorString(this.playerColor).equals(this.settings.local)){
 
-                        System.out.println("Hra: P2p tento hrac je na tahu");
+                        //System.out.println("Hra: P2p tento hrac je na tahu");
 
                         this.turn = (this.playerColor == 'W') ? Turn.TurnWhite(pEmpty, pEmpty) : Turn.TurnBlack(pEmpty, pEmpty);
 
@@ -491,19 +491,19 @@ public class Dama extends Thread{
                             gui.clearAura();
                             this.pleaseWait = true;
                             synchronized(this){ while(pleaseWait){ try { System.out.println("Hra: sleeping, waiting for human..."); wait();} catch (Exception e) {
-                                System.out.println("Hra: prerusen spanek pri tahu cloveka.");
+                                //System.out.println("Hra: prerusen spanek pri tahu cloveka.");
                                 //e.printStackTrace();
                                 } } }
 
 
                             //vypinaci cast
                             checkGUIShutdown(gui);
-                            if(allDone){System.out.println("Hra: Dama terminated, allDone!!");return;}
+                            if(allDone){/*System.out.println("Hra: Dama terminated, allDone!!");*/return;}
 
                             validTurn = Moves.isTurnValid(this.turn, this.desk);
                             if(validTurn){
                                 if(this.settings.p2penabled){
-                                    System.out.println("HraP2P: tah je validni, posilam ho souperi.");
+                                    //System.out.println("HraP2P: tah je validni, posilam ho souperi.");
                                     this.sendTurnToOpponent();
                                 }
                             }else{
@@ -521,7 +521,8 @@ public class Dama extends Thread{
                         gui.setSubmitButton(false);
                         gui.setHelpButton(false);
 
-                        this.waitForOpponentTurn();
+                        boolean pom=this.waitForOpponentTurn();
+                        if (pom==false) return;
                     }
                 }
 
@@ -687,36 +688,38 @@ public class Dama extends Thread{
         }
     }
 
-    private void waitForOpponentTurn() {
-
+    private boolean waitForOpponentTurn()
+    {
         InputStream in = null;
+        String line = "";
 
-        if (this.settings.connectionToTheClient == null){
-            try {
+        try
+        {    //nastavi se na kterem socketu se bude poslouchat (slo by to nahradit jednim, ale co uz...)
+            if (this.settings.connectionToTheClient == null)
                 in = this.settings.connectionToTheServer.getInputStream();
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-        }else{
-            try {
+            else
                 in = this.settings.connectionToTheClient.getInputStream();
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
+
+            BufferedReader br = new BufferedReader(new InputStreamReader(in));
+            line = br.readLine();
+        }
+        catch (IOException e)
+        {
+            this.gui.setInfoText("Error on readline!");
+            e.printStackTrace();
+            this.gui.createFail("Network error. Other side probably disconnected.");
+            return false;
         }
 
-        BufferedReader br = new BufferedReader(new InputStreamReader(in));
-        String line = new String();
-        try {
-            line = br.readLine();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+        if (line.equals("SPOJENI UKONCENO"))
+        {
+            this.gui.setInfoText("Other player ended the game!");
+            gui.createVictory();
+            return false;
         }
 
         this.turn = Turn.NotStringToTurn(line, this.playerColor);
+        return true;
 
     }
 }
