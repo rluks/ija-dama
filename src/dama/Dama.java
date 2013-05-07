@@ -376,7 +376,7 @@ public class Dama extends Thread{
 
 
     /**
-     * Vytiskne do gui notaci a zvysi pocitadlo tahu
+     * Vytiskne do gui notaci a zvysi pocitadlo tahu (kdyz hral zase bily)
      */
     private void printNotation() {
 
