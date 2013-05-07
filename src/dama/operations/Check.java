@@ -13,7 +13,7 @@ import dama.operations.Moves;
  * @author Pavel Hála
  *
  */
-public final class Check 
+public final class Check
 {
 
     /**
@@ -41,6 +41,22 @@ public final class Check
                 }
         if ((white_count==0)  || (black_count==0) ) return true;
         else return false;
+    }
+
+    public static boolean victoryOf(Desk desk, char hrac)
+    {
+        Figure[][] this_board=desk.getState();
+        int hrac_count=0;
+        int col,row;
+        for (row=0; row<Desk.BOARD_SIZE; row++)
+            for (col=0; col<Desk.BOARD_SIZE; col++)
+                if (this_board[row][col]!=null)
+                {
+                    if  (this_board[row][col].color==hrac) hrac_count++;
+
+                }
+        if (hrac_count==0) return false;
+        else return true;
     }
 
     /**

@@ -598,6 +598,15 @@ public class Dama extends Thread{
                         e1.printStackTrace();
                         gui.createFail("Failed to save file!");
                     }
+                    char h;
+                    if (gui.settings.local.equals("White")) h='W';
+                    else h='B';
+                    if (Check.victoryOf(desk, h)==false)
+                    {
+                        gui.createFail("You have lost");
+                        return;
+                    }
+
                     gui.setInfoText("!!! Victory !!!");
                     gui.createVictory();
                     gui.setMenu(false);
