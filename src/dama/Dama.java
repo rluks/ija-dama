@@ -644,7 +644,7 @@ public class Dama extends Thread{
                         gui.createFail("Failed to save file!");
                     }
                     char h;
-                    if (gui.settings.local.equals("White")) h='W';
+                    if (gui.settings.local.equals("White")) h='W';//TODO tady ai ai null
                     else h='B';
                     if (Check.victoryOf(desk, h)==false)
                     {

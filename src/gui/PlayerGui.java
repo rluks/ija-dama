@@ -84,7 +84,6 @@ public class PlayerGui extends JFrame
     //pole labelu na obrazky  figurek
     protected JLabel[][] pole_figurek;
     protected JLabel[][] pole_napovedy;
-    protected JLabel lblAura;    //oznaceni mysi
     protected JLabel lblRuna;    //figurky s mustTakeFlag = true
 
     //deska
