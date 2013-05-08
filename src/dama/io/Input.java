@@ -183,7 +183,7 @@ public class Input
         catch (Exception e)
         {
             System.out.println("!!!!!!!!!!!Exception!!!!!!!!!!!!!!!!!");
-            e.printStackTrace();
+            //e.printStackTrace();
             return false;
         }
 
@@ -218,7 +218,7 @@ public class Input
             }
             catch (Exception e)
             {
-                e.printStackTrace();
+                //e.printStackTrace();
                 return false;
             }
         }
@@ -314,7 +314,7 @@ public class Input
             }
             catch (Exception e)
             {
-                e.printStackTrace();
+                //e.printStackTrace();
                 return null;
             }
         }
@@ -482,8 +482,8 @@ public class Input
         }
         catch (Exception e)
         {
-                System.out.println("!!!!!!!!!!!Exception!!!!!!!!!!!!!!!!!");
-                e.printStackTrace();
+                //System.out.println("!!!!!!!!!!!Exception!!!!!!!!!!!!!!!!!");
+                //e.printStackTrace();
                 return null;
         }
     }
@@ -579,8 +579,8 @@ public class Input
         }
         catch (Exception e)
         {
-            System.out.println("!!!!!!!!!!!Exception!!!!!!!!!!!!!!!!!");
-            e.printStackTrace();
+            //System.out.println("!!!!!!!!!!!Exception!!!!!!!!!!!!!!!!!");
+            //e.printStackTrace();
             return null;
         }
 
