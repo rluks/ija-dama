@@ -393,8 +393,8 @@ public class Player extends Thread{
 
     /**
      * Probudi vlakno prehravace
-     * @param thread reference na dane vlakno prehravace
-    * @return vraci false pokud prehravac neexistuje
+     * @param player reference na dane vlakno prehravace
+     * @return vraci false pokud prehravac neexistuje
      */
     public static boolean wakeUpPlayerThread(Player player){
         System.out.println("Player: wakeUpPlayerThread: probouzim prehravac...");

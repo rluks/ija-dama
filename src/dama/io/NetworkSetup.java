@@ -304,8 +304,9 @@ public class NetworkSetup
 
 
     /**
-     * Fce co ukonci vsechna spojeni
-     * @param gui odkaz na gui, kde jsou ulozeny sitove promenne
+     * Funkce co ukonci vsechna spojeni
+     * @param sett instance nastaveni Settings
+     * @param victory boolean zda skoncila hra vitezstvim
      */
     public static void killTheSockets(Settings sett, boolean victory)
     {

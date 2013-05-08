@@ -18,7 +18,7 @@ public class Moves
     /**
      * Kontroluje, jestli je pohyb figurkou mozny.
      * @param desk    nad jakou deskou se ma kontrola provest
-     * @param turn    tak ktery se ma zkontrolovat
+     * @param turn_p    tak ktery se ma zkontrolovat
      * @return        vraci true pokud je tah validni, jinak vraci false
      */
     public static boolean isMoveValid(Desk desk, Turn turn_p)
@@ -90,7 +90,7 @@ public class Moves
     /**
      * Provede tah s figurkou (pohyb ne brani)
      * @param desk    nad kterou deskou se ma pohyb vykonat
-     * @param turn    jaky pohyb se ma vykonat
+     * @param turn_p    jaky pohyb se ma vykonat
      * @return    vraci true, pokud byl tah uspesne proveden, jinak vraci false
      */
     public static boolean Move(Desk desk, Turn turn_p)
@@ -120,7 +120,7 @@ public class Moves
     /**
      * Kontroluje, jestli je brani figurkou mozne !!!POZOR PREPISUJE PARAMETR TURN !!!
      * @param desk     deska nad kterou se ma kontrola provest
-     * @param turn     jaky tah se ma zkontrolovat
+     * @param turn_p     jaky tah se ma zkontrolovat
      * @return         vraci pozici vyhazovane figurky, pokud je brani mozne, jinak vraci null
      */
     public static Position isTakeValid(Desk desk, Turn turn_p)
@@ -257,7 +257,7 @@ public class Moves
     /**
      * Provede tah brani
      * @param desk    nad kterou deskou se ma brani provest
-     * @param turn    s jakou figurkou a kam se ma tahnout
+     * @param turn_p    s jakou figurkou a kam se ma tahnout
      * @return        vraci true, pokud bylo brani uspesne provedeno, jinak vraci false
      */
     public static boolean Take(Desk desk, Turn turn_p)
@@ -286,7 +286,7 @@ public class Moves
 
     /**
      * Kontroluje jestli je tah proveditelny
-     * @param turn    jaky tah se ma zkontrolovat
+     * @param turn_p    jaky tah se ma zkontrolovat
      * @param desk    nad jakou deskou se ma kontrola provest
      * @return        vraci true, pokud je tah validni, jinak vraci false
      */
@@ -318,7 +318,7 @@ public class Moves
 
     /**
      * Provede test, zdali muze figurka na dane pozici nekoho brat
-     * @param position    pozice testovane figurky
+     * @param pos0_p    pozice testovane figurky
      * @param desk        deska nad kterou se ma test provest
      * @return            vraci true, pokud ma dana figurka koho brat, jinak vraci false
      */
@@ -361,7 +361,7 @@ public class Moves
 
     /**
      * Provede test, jestli se figurka na dane pozici muze pohnout bez vyhazovani
-     * @param position    pozice na ktere je dana figurka
+     * @param pos0_p    pozice na ktere je dana figurka
      * @param desk        deska nad kterou se ma kontrola provest
      * @return            vraci true, pokud se muze figurka pohnout, jinak false
      */

@@ -75,8 +75,8 @@ public class Output {
 
     /**
      * Z turn vytvori retezec v xml
-     * @param turn
-     * @return
+     * @param turn instance Turn
+     * @return retezec tahu v xml
      */
     public static String getTurnXmlString(Turn t){
         String turnStr = new String();

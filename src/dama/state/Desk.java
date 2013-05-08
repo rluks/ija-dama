@@ -89,7 +89,7 @@ public class Desk {
 
     /**
      * Vraci pole figurek sachovnice
-     * @return
+     * @return pole figurek
      */
     public Figure[][] getState()
     {

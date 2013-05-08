@@ -25,7 +25,7 @@ import dama.state.Position;
 import dama.state.Settings;
 
 /**
- * Hra Dáma v Javě
+ * Hra Dama v Jave
  * @author Roman Luks
  * @author Pavel Hala
  *

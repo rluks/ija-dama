@@ -7,14 +7,37 @@
     <property name="dest" location="./dest" />
     <property name="doc" location="./doc" />
 
-    <property name="sourcefiles" value="./src/dama/Dama.java, ./src/dama/Player.java, ./src/dama/Roman.java, ./src/dama/TestDama.java"/>
-
-    <property name="packages" value="*"/>
+    <property name="sourcefiles" value="./src/dama/Dama.java,
+        ./src/dama/Player.java,
+        ./src/dama/Roman.java,
+        ./src/dama/TestDama.java,
+        ./src/dama/io/Input.java,
+        ./src/dama/io/NetworkSetup.java,
+        ./src/dama/io/Output.java,
+        ./src/dama/io/Turn.java,
+        ./src/dama/operations/AI.java,
+        ./src/dama/operations/Check.java,
+        ./src/dama/operations/Moves.java,
+        ./src/dama/state/Desk.java,
+        ./src/dama/state/Figure.java,
+        ./src/dama/state/Position.java,
+        ./src/dama/state/Settings.java,
+        ./src/gui/Fail.java,
+        ./src/gui/Gui.java,
+        ./src/gui/InsertNotation.java,
+        ./src/gui/LoadGame.java,
+        ./src/gui/NewGameSettings.java,
+        ./src/gui/NewP2PGameSettings.java,
+        ./src/gui/PlayerGui.java,
+        ./src/gui/Selection.java,
+        ./src/gui/Victory.java
+        "/>
 
 
     <target name="clean">
         <delete dir="${build}"/>
         <delete dir="${dest}"/>
+        <delete dir="${doc}"/>
     </target>
 
     <target name="compile" depends="clean">
@@ -27,7 +50,7 @@
             classpath="${lib}/junit-4.10.jar:${src}" />
     </target>
 
-    <target name="run" depends="clean, compile">
+    <target name="runtests" depends="clean, compile">
         <junit fork="yes" printsummary="on" showoutput="true" enableTestListenerEvents="true">
             <jvmarg value="-ea"/>
             <classpath>
@@ -40,6 +63,7 @@
     </target>
 
     <target name="javadoc">
+        <mkdir dir="${doc}"/>
         <javadoc
             sourcepath="${src}"
             sourcefiles="${sourcefiles}"
