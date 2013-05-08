@@ -38,7 +38,7 @@
         <delete dir="${doc}"/>
     </target>
 
-    <target name="compile" depends="clean">
+    <target name="compile" depends="clean, javadoc, jar">
         <echo>Kompiluji...</echo>
         <mkdir dir="${build}"/>
         <javac includeantruntime="false" destdir="${build}" encoding="UTF-8" classpath="${lib}/Image.jar:${src}">
@@ -47,7 +47,7 @@
         </javac>
     </target>
 
-    <target name="jar" depends="clean,compile">
+    <target name="jar">
         <echo>Tvorim jar soubor</echo>
             <mkdir dir="${dest}"/>
             <jar destfile="${dest}/ija2013.jar" basedir="${build}">
@@ -61,8 +61,8 @@
     </target>
 
 
-    <target name="run" depends="jar">
-        <java jar="${build}/ija2013.jar" dir="${dest}" fork="true"/>
+    <target name="run" depends="compile">
+        <java jar="${dest}/ija2013.jar" dir="${dest}" fork="true"/>
     </target>
 
     <target name="javadoc">
@@ -77,9 +77,6 @@
             author="true"
             windowtitle="Dama 2013"
         />
-    </target>
-
-    <target name="all" depends="clean,jar,javadoc,run">
     </target>
 
 </project>
