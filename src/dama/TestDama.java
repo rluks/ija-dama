@@ -15,8 +15,8 @@ import dama.io.Turn;
 
 /**
  * Testovaci trida JUnit
- * @author Roman Lukš
- * @author Pavel Hála
+ * @author Roman Luks
+ * @author Pavel Hala
  *
  */
 public class TestDama {

@@ -26,8 +26,8 @@ import dama.state.Settings;
 
 /**
  * Hra Dáma v Javě
- * @author Roman Lukš
- * @author Pavel Hála
+ * @author Roman Luks
+ * @author Pavel Hala
  *
  */
 public class Dama extends Thread{

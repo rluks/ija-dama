@@ -9,8 +9,8 @@ import dama.operations.Moves;
 /**
  * Třída Třída obsahuje statické metody ke kontrole stavu hry po každém tahu (vítězství, nutnost
  * braní soupeřova kamene a změnu pěšce na dámu).
- * @author Roman Lukš
- * @author Pavel Hála
+ * @author Roman Luks
+ * @author Pavel Hala
  *
  */
 public final class Check

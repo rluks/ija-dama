@@ -4,8 +4,8 @@ import dama.state.Figure;
 
 /**
  * Třída Desk uchovává stav hry na šachovnici
- * @author Roman Lukš
- * @author Pavel Hála
+ * @author Roman Luks
+ * @author Pavel Hala
  *
  */
 public class Desk {

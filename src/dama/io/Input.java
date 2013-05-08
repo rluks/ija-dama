@@ -24,8 +24,8 @@ import dama.state.Settings;
 
 /**
  * Tato třída zastřešuje příjem informací od hráče/soupeře.
- * @author Roman Lukš
- * @author Pavel Hála
+ * @author Roman Luks
+ * @author Pavel Hala
  *
  */
 public class Input

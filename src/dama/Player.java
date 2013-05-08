@@ -15,8 +15,8 @@ import dama.state.Settings;
 
 /**
  * Prehravac ulozenych her
- * @author Roman Lukš
- * @author Pavel Hála
+ * @author Roman Luks
+ * @author Pavel Hala
  *
  */
 public class Player extends Thread{

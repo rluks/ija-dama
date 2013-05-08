@@ -12,8 +12,8 @@ import java.awt.TextArea;
 
 /**
  * Trida vytvarejici vnitrni ramec chyby
- * @author Roman Lukš
- * @author Pavel Hála
+ * @author Roman Luks
+ * @author Pavel Hala
  *
  */
 public class Fail extends JInternalFrame {

@@ -12,8 +12,8 @@ import dama.state.Settings;
 
 /**
  * Trida vytvarejici vnitrni ramec s nastavenim nove hry
- * @author Roman Lukš
- * @author Pavel Hála
+ * @author Roman Luks
+ * @author Pavel Hala
  *
  */
 public class NewGameSettings extends JInternalFrame {

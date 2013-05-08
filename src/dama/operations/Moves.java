@@ -8,8 +8,8 @@ import dama.io.Turn;
 /**
  * Třída Moves se stará o všechny operace související s pohybem figurek. Jedná se především o
  * validitu tahů, kontroly zda daná figurka může provést nějaký tah a vlastní provádění tahů.
- * @author Roman Lukš
- * @author Pavel Hála
+ * @author Roman Luks
+ * @author Pavel Hala
  *
  */
 public class Moves

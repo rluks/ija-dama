@@ -23,8 +23,8 @@ import dama.state.Settings;
 
 /**
  * Trida ktera obsahuje staticke metody pro sitovou hru.
- * @author Pavel Hála
- * @author  Roman Lukš
+ * @author Pavel Hala
+ * @author  Roman Luks
  */
 public class NetworkSetup
 {

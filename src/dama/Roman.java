@@ -2,7 +2,7 @@ package dama;
 
 /**
  * Romanova main na prototypovani
- * @author Roman Lukš
+ * @author Roman Luks
  *
  */
 public class Roman {

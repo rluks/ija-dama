@@ -8,8 +8,8 @@ import java.util.Random;
 
 /**
  * Trida ma jen jednu statickou metodu a tou je jed tah AI
- * @author Pavel Hála
- * @author Roman Lukš
+ * @author Pavel Hala
+ * @author Roman Luks
  */
 public class AI
 {

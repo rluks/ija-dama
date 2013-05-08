@@ -5,6 +5,11 @@
     <property name="build" location="./build" />
     <property name="lib" location="./lib" />
     <property name="dest" location="./dest" />
+    <property name="doc" location="./doc" />
+
+    <property name="sourcefiles" value="./src/dama/Dama.java, ./src/dama/Player.java, ./src/dama/Roman.java, ./src/dama/TestDama.java"/>
+
+    <property name="packages" value="*"/>
 
 
     <target name="clean">
@@ -34,19 +39,37 @@
         </junit>
     </target>
 
-    <!--
+    <target name="javadoc">
+        <javadoc
+            sourcepath="${src}"
+            sourcefiles="${sourcefiles}"
+            destdir="${doc}"
+            classpath="${src}"
+            encoding="UTF-8"
+            author="true"
+            windowtitle="Dama 2013"
+        />
+    </target>
+
+    <target name="all" depends="clean,jar,javadoc">
+    </target>
+
+
     <target name="jar" depends="clean,compile">
+        <echo>Tvorim jar soubor</echo>
             <mkdir dir="${dest}"/>
             <jar destfile="${dest}/ija2013.jar" basedir="${build}">
                 <manifest>
                     <attribute name="Main-Class" value="dama.Dama"/>
                     <attribute name="Class-Path" value="lib/junit-4.10.jar"/>
+                    <attribute name="Class-Path" value="lib/Image.jar"/>
                 </manifest>
             </jar>
             <mkdir dir="${dest}/lib"/>
             <copy file="${lib}/junit-4.10.jar" todir="${dest}/lib"/>
     </target>
 
+    <!--
     <target name="test" depends="jar">
         <java jar="${dest}/ija2013.jar" dir="${dest}" fork="true"/>
     </target>

@@ -8,8 +8,8 @@ import dama.state.Settings;
 
 /**
  * Třída, která vypisuje informace hráči a odesílá informace protihráči.
- * @author Roman Lukš
- * @author Pavel Hála
+ * @author Roman Luks
+ * @author Pavel Hala
  *
  */
 public class Output {

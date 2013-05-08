@@ -9,8 +9,8 @@ import javax.swing.SwingConstants;
 
 /**
  * Trida vytvarejici vnitrni ramec vitezstvi
- * @author Roman Lukš
- * @author Pavel Hála
+ * @author Roman Luks
+ * @author Pavel Hala
  *
  */
 public class Victory extends JInternalFrame

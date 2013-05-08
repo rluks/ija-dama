@@ -54,8 +54,8 @@ import dama.state.Settings;
 
 /**
  * Uzivatelske rozhrani pro hru Dama
- * @author Roman Lukš
- * @author Pavel Hála
+ * @author Roman Luks
+ * @author Pavel Hala
  *
  */
 public class Gui extends JFrame

@@ -12,8 +12,8 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  * Trida ktera ma na starost internal frame s nabidkou pro otevreni/ulozeni souboru.
- * @author Pavel Hála
- * @author Roman Lukš
+ * @author Pavel Hala
+ * @author Roman Luks
  */
 public class LoadGame extends JInternalFrame
 {
@@ -55,8 +55,8 @@ public class LoadGame extends JInternalFrame
 
      /**
      * Trida ktera ma na starost otevreni nabidky pro vyber souboru
-     * @author Pavel Hála
-     * @author Roman Lukš
+     * @author Pavel Hala
+     * @author Roman Luks
      */
     class OpenL implements ActionListener
       {

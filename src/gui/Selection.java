@@ -6,8 +6,8 @@ import javax.swing.JInternalFrame;
 
 /**
  * Trida vytvarejici vnitrni ramec vybreme nacteni ulozene hry nebo zadani v notaci
- * @author Roman Lukš
- * @author Pavel Hála
+ * @author Roman Luks
+ * @author Pavel Hala
  *
  */
 public class Selection extends JInternalFrame
