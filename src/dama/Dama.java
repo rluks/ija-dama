@@ -136,7 +136,7 @@ public class Dama extends Thread{
 
     /**
      * Kontrola jestli bezi vlakno hry
-     * @return
+     * @return true pokud bezi vlakno hry
      */
     public static boolean isGameThreadRunning(){
         if(dama != null){
@@ -162,7 +162,7 @@ public class Dama extends Thread{
     /**
      * Do vlakna hry ulozi vektor tahu
      * @param loadedTurns
-     * @return
+     * @return vraci false pokud hra neexistuje
      */
     public static boolean setLoadedTurns(Vector<Turn> loadedTurns){
 
@@ -377,7 +377,7 @@ public class Dama extends Thread{
     /**
      * Vraci nastaveni AI nebo Human pro danou barvu hrace
      * @param playerColor
-     * @return
+     * @return retezec "AI" nebo "Human" dle nastaveni v settings
      */
     private String getAIorHumanSettingsForCurrentPlayerColor(char playerColor){
         if(playerColor == 'W'){
