@@ -664,12 +664,7 @@ public class Player extends Thread{
                 //ukonceni prehravace pri vitezstvi TODO aby se neskoncilo ale slo zase krokovat
                 if(Check.isVictory(desk)){
                     System.out.println("Player: Konec prehravani");
-                    try {
-                        System.out.println("Player: Konec prehravani");
-                    } catch (Exception e1) {
-                        e1.printStackTrace();
-                        gui.createFail("Failed to save file!");
-                    }
+
                     gui.setInfoText("!!! Victory !!!");
                     gui.setMenu(false);
                     this.pleaseWait = true;

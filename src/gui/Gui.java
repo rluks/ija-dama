@@ -525,11 +525,9 @@ public class Gui extends JFrame
         btnLoadgame.addActionListener(this);
 
         desktop.add(inFrLoadGame);
-        try
-        {
+        try{
             inFrLoadGame.setSelected(true);
-        }
-        catch (java.beans.PropertyVetoException e) {}
+        }catch (java.beans.PropertyVetoException e) {}
     }
 
 ///===============================================================================================================
@@ -601,10 +599,19 @@ public class Gui extends JFrame
             try {Thread.sleep(50);} catch (InterruptedException e) {e.printStackTrace();}
 
             if (cesta.endsWith(".xml")){
-                if (!Input.XmlToVector(cesta, true, null)) return;
+                if (!Input.XmlToVector(cesta, true, null)){
+                    this.createFail("Nevalidni settings nebo tahy \nve vstupnim souboru XML nebo notaci");
+                    return;
+                }
             }else if (cesta.endsWith(".txt")){
-                if (!Input.NotToVector(cesta, true, null)) return;
-            }else return;
+                if (!Input.NotToVector(cesta, true, null)){
+                    this.createFail("Nevalidni settings nebo tahy \nve vstupnim souboru XML nebo notaci");
+                    return;
+                }
+            }else{
+                this.createFail("Nevalidni settings nebo tahy \nve vstupnim souboru XML nebo notaci");
+                return;
+            }
 
             try {Thread.sleep(50);} catch (InterruptedException e) {e.printStackTrace();}
             Dama.startGame();
@@ -615,10 +622,19 @@ public class Gui extends JFrame
             String cesta=inFrLoadGame.GetPath();
             inFrLoadGame.dispose();
             if (cesta.endsWith(".xml")){
-                if (!Input.XmlToVector(cesta, true, null)) return;
+                if (!Input.XmlToVector(cesta, true, null)){
+                    this.createFail("Nevalidni settings nebo tahy \nve vstupnim souboru XML nebo notaci");
+                    return;
+                }
             }else if (cesta.endsWith(".txt")){
-                if (!Input.NotToVector(cesta, true, null)) return;
-            }else return;
+                if (!Input.NotToVector(cesta, true, null)){
+                    this.createFail("Nevalidni settings nebo tahy \nve vstupnim souboru XML nebo notaci");
+                    return;
+                }
+            }else{
+                this.createFail("Nevalidni settings nebo tahy \nve vstupnim souboru XML nebo notaci");
+                return;
+            }
             Dama.startGame();
             Dama.wakeUpGameThread();
             this.menuItemSave.setEnabled(true);

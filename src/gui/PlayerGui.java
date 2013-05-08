@@ -84,7 +84,6 @@ public class PlayerGui extends JFrame
     //pole labelu na obrazky  figurek
     protected JLabel[][] pole_figurek;
     protected JLabel[][] pole_napovedy;
-    protected JLabel lblAura;    //oznaceni mysi
     protected JLabel lblRuna;    //figurky s mustTakeFlag = true
 
     //deska
@@ -605,11 +604,12 @@ public class PlayerGui extends JFrame
         }
         else
         {
-            System.out.println("PlayerGui: Da fjuk is dis sith?! (extention not txt of xml)");
+            System.out.println("PlayerGui: extension not txt or xml");
             return;
         }
 
         if(this.settings == null || loadedTurns == null){
+            this.createFail("Nevalidni settings nebo tahy \nve vstupnim souboru XML nebo notaci");
             return;
         }
 

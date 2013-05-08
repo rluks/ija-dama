@@ -154,10 +154,6 @@ public class Dama extends Thread{
     //staticke metody
     public static void main(String[] args) throws InterruptedException {
 
-        // projekt:
-        // TODO javadoc
-        // TODO k try-catch blokum dat do catch osetreni,zotaveni z chyb
-
         Dama.startingGameThread(100,100);
 
     }
@@ -636,20 +632,16 @@ public class Dama extends Thread{
                 //ukonceni hry pri vitezstvi
                 if(Check.isVictory(desk)){
                     System.out.println("Hra: Konec hry, dalsi hrac uz nehraje.");
-                    try {
-                        //System.out.println("Hra: Konec hry, tisknu xml s tahy.");
-                        //Output.printStringToFile(Output.getXmlFromSettingsAndTurnVector(this.settings, this.ouputTurns), "examples\\katafalka.xml");
-                    } catch (Exception e1) {
-                        e1.printStackTrace();
-                        gui.createFail("Failed to save file!");
-                    }
-                    char h;
-                    if (gui.settings.local.equals("White")) h='W';
-                    else h='B';
-                    if (Check.victoryOf(desk, h)==false)
-                    {
-                        gui.createFail("You have lost.");
-                        return;
+
+                    if(this.settings.p2penabled){
+                        char h;
+                        if (gui.settings.local.equals("White")) h='W';
+                        else h='B';
+                        if (Check.victoryOf(desk, h)==false)
+                        {
+                            gui.createFail("You have lost.");
+                            return;
+                        }
                     }
 
                     gui.setInfoText("!!! Victory !!!");
