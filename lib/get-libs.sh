@@ -1,0 +1,1 @@
+wget https://dl.dropboxusercontent.com/u/51966419/NEMAZAT/Image.jar
