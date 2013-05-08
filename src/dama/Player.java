@@ -58,7 +58,7 @@ public class Player extends Thread{
     /**
      * Z vlakna prehravace ziska vektor tahu
      * @param thread reference na dane vlakno prehravace
-     * @return
+     * @return vektor tahu
      */
     public static Vector<Turn> getOutputTurns(Player thread){
         synchronized (thread){
@@ -115,7 +115,7 @@ public class Player extends Thread{
 
     /**
      * Ziskani hodnoty vstupniho Turn ze staticke promenne turnInput
-     * @return
+     * @return statickou promennou turnInput
      */
     public static Turn getTurnInput() {
         return turnInput;//staticka!
@@ -222,7 +222,7 @@ public class Player extends Thread{
      * Do vlakna prehravace nastavi nactene tahy
      * @param thread reference na dane vlakno prehravace
      * @param loadedTurns vektor nactenych tahu
-     * @return
+     * @return vraci false pokud prehravac neexistuje
      */
     public static boolean setLoadedTurns(Player thread, Vector<Turn> loadedTurns){
 
@@ -372,10 +372,9 @@ public class Player extends Thread{
         }
     }
 
-
     /**
      * Zastavi vlakno prehravace
-     * @param thread reference na dane vlakno prehravace
+     * @param player reference na dane vlakno prehravace
      * @return vraci false pokud prehravac neexistuje
      */
     public static boolean stopThread(Player player){
