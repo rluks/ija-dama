@@ -15,8 +15,8 @@ public class Roman {
         //Position d = new Position(4, 5);
         //Turn t = new Turn('W', o, d);
         //System.out.println(Output.getTurnXmlString(t));
-        Dama.startingGameThread(50,50);
-        //Player.startingPlayerThread();
+        //Dama.startingGameThread(50,50);
+        Player.startingPlayerThread();
 
     }
 }
