@@ -9,8 +9,6 @@
 
     <property name="sourcefiles" value="./src/dama/Dama.java,
         ./src/dama/Player.java,
-        ./src/dama/Roman.java,
-        ./src/dama/TestDama.java,
         ./src/dama/io/Input.java,
         ./src/dama/io/NetworkSetup.java,
         ./src/dama/io/Output.java,
@@ -41,6 +39,7 @@
     </target>
 
     <target name="compile" depends="clean">
+        <echo>Kompiluji...</echo>
         <mkdir dir="${build}"/>
         <javac
             includeantruntime="false"
@@ -50,16 +49,22 @@
             classpath="${lib}/junit-4.10.jar:${src}" />
     </target>
 
-    <target name="runtests" depends="clean, compile">
-        <junit fork="yes" printsummary="on" showoutput="true" enableTestListenerEvents="true">
-            <jvmarg value="-ea"/>
-            <classpath>
-                <pathelement path="${build}"/>
-                <pathelement location="lib/junit-4.10.jar"/>
-            </classpath>
-            <!--<formatter type="plain"/>-->
-            <test name="dama.TestDama"/> <!--outfile="testout"-->
-        </junit>
+    <target name="jar" depends="clean,compile">
+        <echo>Tvorim jar soubor</echo>
+            <mkdir dir="${dest}"/>
+            <jar destfile="${dest}/ija2013.jar" basedir="${build}">
+                <manifest>
+                    <attribute name="Main-Class" value="dama.Dama"/>
+                    <attribute name="Class-Path" value="lib/Image.jar"/>
+                </manifest>
+            </jar>
+            <mkdir dir="${dest}/lib"/>
+        <copy file="${lib}/Image.jar" todir="${dest}/lib"/>
+    </target>
+
+
+    <target name="run" depends="jar">
+        <java jar="${build}/ija2013.jar" dir="${dest}" fork="true"/>
     </target>
 
     <target name="javadoc">
@@ -77,30 +82,8 @@
         />
     </target>
 
-    <target name="all" depends="clean,jar,javadoc">
+    <target name="all" depends="clean,jar,javadoc,run">
     </target>
-
-
-    <target name="jar" depends="clean,compile">
-        <echo>Tvorim jar soubor</echo>
-            <mkdir dir="${dest}"/>
-            <jar destfile="${dest}/ija2013.jar" basedir="${build}">
-                <manifest>
-                    <attribute name="Main-Class" value="dama.Dama"/>
-                    <attribute name="Class-Path" value="lib/junit-4.10.jar"/>
-                    <attribute name="Class-Path" value="lib/Image.jar"/>
-                </manifest>
-            </jar>
-            <mkdir dir="${dest}/lib"/>
-            <copy file="${lib}/junit-4.10.jar" todir="${dest}/lib"/>
-    </target>
-
-    <!--
-    <target name="test" depends="jar">
-        <java jar="${dest}/ija2013.jar" dir="${dest}" fork="true"/>
-    </target>
-    -->
-
 
 </project>
 
