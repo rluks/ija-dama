@@ -3,7 +3,7 @@ package dama.state;
 import dama.state.Figure;
 
 /**
- * Třída Desk uchovává stav hry na šachovnici
+ * Trida Desk uchovava stav hry na sachovnici
  * @author Roman Luks
  * @author Pavel Hala
  *

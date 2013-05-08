@@ -63,6 +63,7 @@
     </target>
 
     <target name="javadoc">
+        <echo>Tvorim dokumentaci</echo>
         <mkdir dir="${doc}"/>
         <javadoc
             sourcepath="${src}"
@@ -70,6 +71,7 @@
             destdir="${doc}"
             classpath="${src}"
             encoding="UTF-8"
+            charset="UTF-8"
             author="true"
             windowtitle="Dama 2013"
         />

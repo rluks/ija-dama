@@ -23,7 +23,7 @@ import dama.state.Position;
 import dama.state.Settings;
 
 /**
- * Tato třída zastřešuje příjem informací od hráče/soupeře.
+ * Tato trida zastresuje prijem informaci
  * @author Roman Luks
  * @author Pavel Hala
  *

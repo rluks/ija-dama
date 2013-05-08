@@ -7,7 +7,7 @@ import java.util.Vector;
 import dama.state.Settings;
 
 /**
- * Třída, která vypisuje informace hráči a odesílá informace protihráči.
+ * Trida, ktera vypisuje informace
  * @author Roman Luks
  * @author Pavel Hala
  *
@@ -75,7 +75,7 @@ public class Output {
 
     /**
      * Z turn vytvori retezec v xml
-     * @param turn instance Turn
+     * @param t instance Turn
      * @return retezec tahu v xml
      */
     public static String getTurnXmlString(Turn t){

@@ -3,8 +3,8 @@ package dama.io;
 import dama.state.Position;
 
 /**
- * Instance této třídy pro nás představují jednotný prostředek pro předávání informací o tazích
- * v rámci naší aplikace.
+ * Instance teto tridy pro nas predstavuji jednotny prostredek pro predavani informaci o pul-tazich
+ * v ramci nasi aplikace
  * @author Roman Luks
  * @author Pavel Hala
  *

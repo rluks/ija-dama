@@ -6,8 +6,8 @@ import dama.state.Position;
 import dama.io.Turn;
 
 /**
- * Třída Moves se stará o všechny operace související s pohybem figurek. Jedná se především o
- * validitu tahů, kontroly zda daná figurka může provést nějaký tah a vlastní provádění tahů.
+ * Trida Moves se stara o vsechny operace souvisejici s pohybem figurek. Jedna se predevsim o
+ * validitu tahu, kontroly zda dana figurka muze provest nejaky tah a vlastni provadeni tahu.
  * @author Roman Luks
  * @author Pavel Hala
  *

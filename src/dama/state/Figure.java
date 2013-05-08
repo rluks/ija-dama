@@ -1,8 +1,8 @@
 package dama.state;
 
 /**
- * Instance třídy Figure je abstrakcí fyzické figurky na šachovnici. Známe tedy barvu a typ.
- * V našem projektu jsme také každé figurce přiřadili jméno.
+ * Instance tridy Figure je abstrakci fyzicke figurky na sachovnici. Zname tedy barvu a typ.
+ * V nasem projektu jsme take kazde figurce priradili prezdivku.
  * @author Roman Luks
  * @author Pavel Hala
  *

@@ -7,8 +7,8 @@ import dama.io.Turn;
 import dama.operations.Moves;
 
 /**
- * Třída Třída obsahuje statické metody ke kontrole stavu hry po každém tahu (vítězství, nutnost
- * braní soupeřova kamene a změnu pěšce na dámu).
+ * Trida obsahuje staticke metody ke kontrole stavu hry po kazdem pul-tahu (vitezstvi, nutnost
+ * brani souperova kamene a zmenu pesce na damu).
  * @author Roman Luks
  * @author Pavel Hala
  *

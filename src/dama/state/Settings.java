@@ -5,7 +5,7 @@ import java.net.Socket;
 
 
 /**
- * Instance této třidy udržuje nastavení probíhající hry (síťová, proti AI, barvy hráčů, apod.)
+ * Instance teto tridy udrzuje nastaveni probihajici hry (sitova, proti AI, barvy hracu, apod.)
  * @author Roman Luks
  * @author Pavel Hala
  *
