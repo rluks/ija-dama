@@ -531,13 +531,15 @@ public class Player extends Thread{
                 System.out.println("Player: V loadedTurns je ulozeno " + this.loadedTurns.size() + " tahu");
 
                 this.stepIndex = this.loadedTurns.size()-1;
-                //System.out.println("Player: index posledniho tahu " + this.stepIndex);
+                System.out.println("Player: index posledniho tahu " + this.stepIndex);
             }
 
             //smycka vlastni prehravace
             while(true){
                 gameSetAndRuning = true;
                 System.out.println("Player: tah cislo: " + tahCislo + ", bezi s timto nastavenim: " + this.settings.getSettingsString());
+
+                //gui.setMenu(true);
 
                 synchronized(this){ while(pleaseWait){ try { System.out.println("Player: sleeping at beginning of playing..."); wait();}
                 catch (Exception e) { System.out.println("Player: probuzen"); } }  }
@@ -600,10 +602,11 @@ public class Player extends Thread{
                         this.turn = loadedTurn;
                     }else{
                         System.out.println("Player: dalsi tah uz nemam!");
-                        gui.setMenu(false);
+                        //gui.setMenu(false);
                         gui.setForward(false);
                         this.pleaseWait = true;
                         synchronized(this){ while(pleaseWait){ try { System.out.println("Player: sleeping nemam dalsi tahy.."); wait();} catch (Exception e) { System.out.println("Player: probuzen"); } }  }
+                        continue;
 
                     }
                 }
@@ -662,16 +665,16 @@ public class Player extends Thread{
                 synchronized(this){ while(pleaseWait){ try { System.out.println("Player: sleeping after printNotation..."); wait();} catch (Exception e) { System.out.println("Player: probuzen"); } }  }
 
                 //ukonceni prehravace pri vitezstvi TODO aby se neskoncilo ale slo zase krokovat
+
                 if(Check.isVictory(desk)){
                     System.out.println("Player: Konec prehravani");
-
                     gui.setInfoText("!!! Victory !!!");
                     gui.setMenu(false);
                     this.pleaseWait = true;
-                    synchronized(this){ while(pleaseWait){ try { System.out.println("Player: sleeping victory..."); wait();} catch (Exception e) { System.out.println("Player: probuzen"); } }  }
-                    return;
+                    //synchronized(this){ while(pleaseWait){ try { System.out.println("Player: sleeping victory..."); wait();} catch (Exception e) { System.out.println("Player: probuzen"); } }  }
+                    //return;
                 }
-            }
+            }//smycka vlastni prehravace
         }
     }
 
