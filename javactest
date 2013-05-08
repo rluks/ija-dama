@@ -1,1 +1,0 @@
-javac -cp lib/junit-4.10.jar -sourcepath src -d build/classes -encoding UTF-8 src/dama/TestDama.java src/dama/io/Turn.java src/dama/operations/Check.java src/dama/operations/Moves.java src/dama/state/Desk.java src/dama/state/Figure.java src/dama/state/Position.java
