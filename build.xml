@@ -41,12 +41,10 @@
     <target name="compile" depends="clean">
         <echo>Kompiluji...</echo>
         <mkdir dir="${build}"/>
-        <javac
-            includeantruntime="false"
-            srcdir="${src}"
-            destdir="${build}"
-            encoding="UTF-8"
-            classpath="${lib}/junit-4.10.jar:${src}" />
+        <javac includeantruntime="false" destdir="${build}" encoding="UTF-8" classpath="${lib}/Image.jar:${src}">
+            <src path="${src}"/>
+            <src path="./src/gui"/>
+        </javac>
     </target>
 
     <target name="jar" depends="clean,compile">
@@ -71,7 +69,6 @@
         <echo>Tvorim dokumentaci</echo>
         <mkdir dir="${doc}"/>
         <javadoc
-            sourcepath="${src}"
             sourcefiles="${sourcefiles}"
             destdir="${doc}"
             classpath="${src}"
