@@ -83,6 +83,7 @@ public class Gui extends JFrame
     protected Fail fail;
     protected LoadGame inFrLoadGame;
     protected NewGameSettings inFrNewGameSett;
+    protected About about;
     public NewP2PGameSettings inFrNewP2PGameSett;
 
     //pultahy
@@ -430,8 +431,8 @@ public class Gui extends JFrame
             createLoadGameFrame("Save game");
         }else if ("player".equals(e.getActionCommand())){
             Player.startingPlayerThread();
-        }else if ("About".equals(e.getActionCommand())){
-            System.out.println("Neimplementovano");
+        }else if ("about".equals(e.getActionCommand())){
+        	createAboutFrame();
         }else if ("quit".equals(e.getActionCommand())){
             quit();
         }else if ("startgame".equals(e.getActionCommand())){        //tlacitka ve vnitrnich ramcich
@@ -490,6 +491,28 @@ public class Gui extends JFrame
 
 ///===============================================================================================================
 
+    /**
+     * Vytvori vnitrni ramec nastaveni lokalni hry
+     */
+    protected void createAboutFrame() {
+
+        this.about = new About();
+        desktop.setLayer(about, 5);
+        about.setLocation(110, 50);
+        about.setVisible(true);
+
+        //JButton btnStartgame = new JButton("StartGame");
+        //inFrNewGameSett.getContentPane().add(btnStartgame);
+        //btnStartgame.setActionCommand("startgame");
+        //btnStartgame.addActionListener(this);
+
+        desktop.add(about);
+        try {
+        	about.setSelected(true);
+        } catch (java.beans.PropertyVetoException e) {}
+    }
+
+///==
     /**
      * Vytvori vnitrni ramec pro nacitani drive ulozene hry
      * @param nazevOkna
